@@ -1,0 +1,18 @@
+.adminPage {
+    width: 95%;
+    max-width: 1210px;
+    margin: auto;
+}
+
+.AdminHeader {
+    padding: 25px 0;
+    border-bottom: 1px solid #00000012;
+}
+
+.AdminHeader h2 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.45px;
+    color: #111;
+}

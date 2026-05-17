@@ -4,6 +4,8 @@ import Admin from './components/Admin/Admin';
 
 import MainPage from './components/Main/Pages/MainPage/MainPage';
 import ProtectedRoute from './components/Admin/Login/ProtectedRoute';
+import AdminDashboard from './components/Admin/AdminPages/AdminDashboard/AdminDashboard';
+import AdminPlatforms from './components/Admin/AdminPages/AdminPlatforms/AdminPlatforms';
 import './App.css';
 
 function App() {
@@ -21,8 +23,8 @@ function App() {
                         </ProtectedRoute>
                     }
                 >
-                    <Route index element={<div>Main</div>} />
-                    <Route path="platforms" element={<div>Platforms</div>} />
+                    <Route index element={<AdminDashboard />} />
+                    <Route path="platforms" element={<AdminPlatforms />} />
                     <Route path="projects" element={<div>Projects</div>} />
                     <Route path="partners" element={<div>Partners</div>} />
                     <Route path="news" element={<div>News & Articles</div>} />
