@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+body {
+    font-family: 'Figtree';
+}
+
+.wrapper {
+    width: 85%;
+    max-width: 1200px;
+    margin: auto;
+}

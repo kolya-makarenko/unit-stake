@@ -1,0 +1,83 @@
+.adminMenu {
+    height: 100dvh;
+    background-color: #f9f9f9;
+    border-right: 1px solid #d343292e;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.adminMenuHeader {
+    padding: 16px 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #00000012;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.adminMenuHeader h2 {
+    font-weight: 400;
+    font-size: 9.5px;
+    line-height: 14.25px;
+    letter-spacing: 1.34px;
+    text-transform: uppercase;
+    color: #888;
+}
+
+.adminNavigation {
+    padding: 12px 12px 0 12px;
+}
+
+.adminNavigation ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.adminNavigationItem {
+    width: 100%;
+    padding: 7px 12px;
+    border-radius: 7px;
+    display: flex;
+    box-sizing: border-box;
+    border-left: 2px solid #d3422900;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    color: #6e6e6e;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.adminNavigationItem.active {
+    background-color: #d3432914;
+    border-left: 2px solid #d34229;
+    color: #d34329;
+}
+
+.adminNavigationItem:hover {
+    background-color: #d3432914;
+    border-left: 2px solid #d34229;
+    color: #d34329;
+}
+
+.LogoutBtn {
+    padding: 16px;
+    box-sizing: border-box;
+    border: none;
+    border-top: 1px solid #00000012;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    color: #333;
+    transition: 0.3s ease-in-out;
+}
+
+.LogoutBtn:hover {
+    background-color: #d34229;
+    color: #fff;
+}
