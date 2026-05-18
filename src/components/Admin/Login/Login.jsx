@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { account } from '../../../lib/appwrite';
 import classes from './Login.module.css';
 
+import logo from '../../../assets/images/logo.svg';
+
 function Login({ onLoginSuccess }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -21,6 +23,7 @@ function Login({ onLoginSuccess }) {
     return (
         <div className={classes.loginPage}>
             <div className={classes.login}>
+                <img src={logo} alt="logo" />
                 <h2 className={classes.loginHeader}>
                     Please enter your user information.
                 </h2>

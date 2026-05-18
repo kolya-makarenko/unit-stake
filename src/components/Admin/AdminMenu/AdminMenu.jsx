@@ -2,6 +2,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { account } from '../../../lib/appwrite';
 import classes from './AdminMenu.module.css';
 
+import logo from '../../../assets/images/logo.svg';
+
 const NAV_ITEMS = [
     { to: '/admin', label: 'Dashboard', end: true },
     { to: '/admin/platforms', label: 'Platforms' },
@@ -37,7 +39,7 @@ const AdminMenu = () => {
             <div className={classes.adminNavigationContainer}>
                 <div className={classes.adminMenuHeader}>
                     <NavLink to="/" className={classes.adminMenuLogo}>
-                        UNIT STAKE
+                        <img src={logo} alt="logo" />
                     </NavLink>
                     <h2>Admin Panel</h2>
                 </div>

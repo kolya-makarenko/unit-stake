@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { account } from '../../../lib/appwrite';
 import Login from './Login';
+import classes from './ProtectedRoute.module.css';
+
+import favicon from '../../../assets/images/favicon.svg';
 
 function ProtectedRoute({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -19,15 +22,17 @@ function ProtectedRoute({ children }) {
     }, []);
 
     if (isAuthenticated === null) {
-        return <div>Loading...</div>;
+        return (
+            <div className={classes.loader}>
+                <img src={favicon} alt="loader" />
+            </div>
+        );
     }
 
-    // Якщо не авторизований — показуємо сторінку входу
     if (!isAuthenticated) {
         return <Login onLoginSuccess={checkUser} />;
     }
 
-    // Якщо все добре — рендеримо дочірній компонент (Admin)
     return children;
 }
 
