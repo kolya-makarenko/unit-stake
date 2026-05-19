@@ -6,6 +6,9 @@ import {
     COLLECTION_ID,
 } from '../../../../lib/appwrite';
 
+import editIcon from '../../../../assets/images/icons/edit.svg';
+import deleteIcon from '../../../../assets/images/icons/delete.svg';
+
 const AdminPlatforms = () => {
     const [platforms, setPlatforms] = useState([]);
 
@@ -26,6 +29,11 @@ const AdminPlatforms = () => {
         fetchPlatforms();
     }, []);
 
+    const dateFormatter = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    };
+
     return (
         <div className={classes.adminPage}>
             <div className={classes.AdminHeader}>
@@ -43,16 +51,42 @@ const AdminPlatforms = () => {
                 <tbody>
                     {platforms.map((platform, index) => (
                         <tr key={index}>
-                            <td>{platform.name}</td>
-                            <td>{platform.category}</td>
+                            <td className={classes.platformListName}>
+                                {platform.name}
+                            </td>
+                            <td className={classes.platformListCategory}>
+                                {platform.category}
+                            </td>
                             <td>
                                 {platform.is_verified ? (
-                                    <div>Verified</div>
+                                    <div
+                                        className={
+                                            classes.platformListVerificationOn
+                                        }
+                                    >
+                                        Verified
+                                    </div>
                                 ) : (
-                                    <div>Not Verified</div>
+                                    <div
+                                        className={
+                                            classes.platformListVerificationOff
+                                        }
+                                    >
+                                        Not Verified
+                                    </div>
                                 )}
                             </td>
-                            <td>{platform.$createdAt}</td>
+                            <td className={classes.platformListDate}>
+                                {dateFormatter(platform.$createdAt)}
+                            </td>
+                            <td className={classes.platformsListActions}>
+                                <button className={classes.platformsListEdit}>
+                                    <img src={editIcon} alt="edit" />
+                                </button>
+                                <button className={classes.platformsListDelete}>
+                                    <img src={deleteIcon} alt="delete" />
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
