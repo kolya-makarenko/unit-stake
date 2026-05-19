@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './AdminPlatforms.module.css';
 import {
-    databases,
+    tablesDB,
     DATABASE_ID,
-    COLLECTION_ID,
+    TABLE_ID_PLATFORMS,
 } from '../../../../lib/appwrite';
 
 import editIcon from '../../../../assets/images/icons/edit.svg';
@@ -17,12 +17,13 @@ const AdminPlatforms = () => {
 
     const fetchPlatforms = async () => {
         try {
-            const response = await databases.listDocuments(
-                DATABASE_ID,
-                COLLECTION_ID,
-            );
-            setPlatforms(response.documents);
-            console.log(response.documents);
+            const response = await tablesDB.listRows({
+                databaseId: DATABASE_ID,
+                tableId: TABLE_ID_PLATFORMS,
+            });
+
+            setPlatforms(response.rows);
+            console.log(response.rows);
         } catch (error) {
             console.error('Error loading platforms:', error.message);
         }
@@ -53,11 +54,12 @@ const AdminPlatforms = () => {
                         <th>Category</th>
                         <th>Verification</th>
                         <th>Date</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {platforms.map((platform, index) => (
-                        <tr key={index}>
+                        <tr key={platform.$id || index}>
                             <td className={classes.platformListName}>
                                 {platform.name}
                             </td>
