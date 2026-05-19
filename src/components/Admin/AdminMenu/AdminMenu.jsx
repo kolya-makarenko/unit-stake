@@ -8,6 +8,7 @@ const NAV_ITEMS = [
     { to: '/admin', label: 'Dashboard', end: true },
     { to: '/admin/platforms', label: 'Platforms' },
     { to: '/admin/projects', label: 'Projects' },
+    { to: '/admin/categories', label: 'Categories' },
     { to: '/admin/partners', label: 'Partners' },
     { to: '/admin/news', label: 'News & Articles' },
     { to: '/admin/academy', label: 'Academy' },

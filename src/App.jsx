@@ -11,6 +11,7 @@ import AdminPartners from './components/Admin/AdminPages/AdminPartners/AdminPart
 import AdminNews from './components/Admin/AdminPages/AdminNews/AdminNews';
 import AdminAcademy from './components/Admin/AdminPages/AdminAcademy/AdminAcademy';
 import AdminFAQ from './components/Admin/AdminPages/AdminFAQ/AdminFAQ';
+import AdminCategories from './components/Admin/AdminPages/AdminCategories/AdminCategories';
 import './App.css';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
                     <Route index element={<AdminDashboard />} />
                     <Route path="platforms" element={<AdminPlatforms />} />
                     <Route path="projects" element={<AdminProjects />} />
+                    <Route path="categories" element={<AdminCategories />} />
                     <Route path="partners" element={<AdminPartners />} />
                     <Route path="news" element={<AdminNews />} />
                     <Route path="academy" element={<AdminAcademy />} />
