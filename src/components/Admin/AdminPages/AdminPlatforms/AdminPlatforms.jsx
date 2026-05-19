@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classes from './AdminPlatforms.module.css';
 import {
     databases,
@@ -8,9 +9,11 @@ import {
 
 import editIcon from '../../../../assets/images/icons/edit.svg';
 import deleteIcon from '../../../../assets/images/icons/delete.svg';
+import plusIcon from '../../../../assets/images/icons/plus.svg';
 
 const AdminPlatforms = () => {
     const [platforms, setPlatforms] = useState([]);
+    const navigate = useNavigate();
 
     const fetchPlatforms = async () => {
         try {
@@ -38,6 +41,10 @@ const AdminPlatforms = () => {
         <div className={classes.adminPage}>
             <div className={classes.AdminHeader}>
                 <h2>Platforms</h2>
+                <button onClick={() => navigate('/admin/platforms/add')}>
+                    <img src={plusIcon} alt="plus" />
+                    Add Platform
+                </button>
             </div>
             <table className={classes.platformsList}>
                 <thead>
