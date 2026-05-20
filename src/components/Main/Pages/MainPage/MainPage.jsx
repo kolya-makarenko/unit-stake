@@ -1,8 +1,11 @@
+import HeroSection from './HeroSection/HeroSection';
+import classes from './MainPage.module.css';
+
 const MainPage = () => {
     return (
-        <>
-            <h2>Main Page</h2>
-        </>
+        <main className={classes.mainPage}>
+            <HeroSection />
+        </main>
     );
 };
 

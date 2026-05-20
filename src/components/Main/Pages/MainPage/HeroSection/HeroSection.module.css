@@ -1,0 +1,9 @@
+.heroSection {
+    background-image: url(/src/assets/images/mainPageImages/heroSectionBg.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.heroSectionContainer {
+    padding: 170px 0 90px 0;
+}

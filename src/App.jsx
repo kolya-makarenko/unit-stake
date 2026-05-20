@@ -22,6 +22,20 @@ function App() {
             <Routes>
                 <Route path="/" element={<Main />}>
                     <Route index element={<MainPage />} />
+                    <Route path="projects" element={<div>PROJECTS</div>} />
+                    <Route path="platforms" element={<div>PLATFORMS</div>} />
+                    <Route
+                        path="for-assets-owners"
+                        element={<div>For Assets Owners</div>}
+                    />
+                    <Route path="insights" element={<div>Insights</div>} />
+                    <Route path="academy" element={<div>Academy</div>} />
+                    <Route path="about-us" element={<div>About us</div>} />
+                    <Route
+                        path="verifeid"
+                        element={<div>Verifeid By UnitStake</div>}
+                    />
+                    <Route path="contact-us" element={<div>Contact us</div>} />
                 </Route>
                 <Route
                     path="/admin"

@@ -5,9 +5,9 @@ const Main = () => {
     return (
         <>
             <Header />
-            <main>
+            <>
                 <Outlet />
-            </main>
+            </>
         </>
     );
 };
