@@ -29,6 +29,32 @@ const AdminPlatforms = () => {
         }
     };
 
+    const editPlatform = (platformId) => {
+        navigate(`/admin/platforms/edit/${platformId}`);
+    };
+
+    const deletePlatform = async (platformId) => {
+        const confirmDelete = window.confirm(
+            'Are you sure you want to delete this platform?',
+        );
+        if (!confirmDelete) return;
+
+        try {
+            await tablesDB.deleteRow({
+                databaseId: DATABASE_ID,
+                tableId: TABLE_ID_PLATFORMS,
+                rowId: platformId,
+            });
+            setPlatforms((prevPlatforms) =>
+                prevPlatforms.filter((platform) => platform.$id !== platformId),
+            );
+            alert('Platform deleted successfully.');
+        } catch (error) {
+            console.error('Error deleting platform:', error.message);
+            alert('Failed to delete platform. Please try again.');
+        }
+    };
+
     useEffect(() => {
         fetchPlatforms();
     }, []);
@@ -59,7 +85,7 @@ const AdminPlatforms = () => {
                 </thead>
                 <tbody>
                     {platforms.map((platform, index) => (
-                        <tr key={platform.$id || index}>
+                        <tr key={index}>
                             <td className={classes.platformListName}>
                                 {platform.name}
                             </td>
@@ -89,10 +115,16 @@ const AdminPlatforms = () => {
                                 {dateFormatter(platform.$createdAt)}
                             </td>
                             <td className={classes.platformsListActions}>
-                                <button className={classes.platformsListEdit}>
+                                <button
+                                    className={classes.platformsListEdit}
+                                    onClick={() => editPlatform(platform.$id)}
+                                >
                                     <img src={editIcon} alt="edit" />
                                 </button>
-                                <button className={classes.platformsListDelete}>
+                                <button
+                                    className={classes.platformsListDelete}
+                                    onClick={() => deletePlatform(platform.$id)}
+                                >
                                     <img src={deleteIcon} alt="delete" />
                                 </button>
                             </td>

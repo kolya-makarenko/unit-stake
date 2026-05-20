@@ -13,6 +13,7 @@ import AdminAcademy from './components/Admin/AdminPages/AdminAcademy/AdminAcadem
 import AdminFAQ from './components/Admin/AdminPages/AdminFAQ/AdminFAQ';
 import AdminCategories from './components/Admin/AdminPages/AdminCategories/AdminCategories';
 import AdminPlatformAdd from './components/Admin/AdminPages/AdminPlatforms/AdminPlatformAdd/AdminPlatformAdd';
+import AdminPlatformEdit from './components/Admin/AdminPages/AdminPlatforms/AdminPlatformEdit/AdminPlatformEdit';
 import './App.css';
 
 function App() {
@@ -41,6 +42,10 @@ function App() {
                     <Route
                         path="platforms/add"
                         element={<AdminPlatformAdd />}
+                    />
+                    <Route
+                        path="platforms/edit/:id"
+                        element={<AdminPlatformEdit />}
                     />
                 </Route>
             </Routes>
