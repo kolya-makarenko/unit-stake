@@ -13,16 +13,16 @@ const svgArrow = (
         <path
             d="M1 15.2758L15 1"
             stroke="white"
-            stroke-width="2"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
+            strokeWidth="2"
+            strokeMiterlimit="10"
+            strokeLinecap="round"
         />
         <path
             d="M15 12.0761V1.1C15 1.04477 14.9553 1 14.9 1H4.0752"
             stroke="white"
-            stroke-width="2"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
+            strokeWidth="2"
+            strokeMiterlimit="10"
+            strokeLinecap="round"
         />
     </svg>
 );
