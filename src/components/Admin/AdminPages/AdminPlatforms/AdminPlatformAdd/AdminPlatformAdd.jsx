@@ -469,10 +469,40 @@ const AdminPlatformAdd = () => {
                                     {block.type === 'image' && (
                                         <div
                                             className={
-                                                classes.imageBlockContainer
+                                                classes.addPlatformFormIdentityFieldImage
                                             }
                                         >
+                                            <label htmlFor="imageBlockAdd">
+                                                {block.file ? (
+                                                    <div
+                                                        className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
+                                                    >
+                                                        <img
+                                                            src={imageIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            {block.file.name}
+                                                        </span>
+                                                    </div>
+                                                ) : (
+                                                    <div
+                                                        className={
+                                                            classes.addPlatformFormIdentityFieldImagePlaceholder
+                                                        }
+                                                    >
+                                                        <img
+                                                            src={upLoadIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            Select an image
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </label>
                                             <input
+                                                id="imageBlockAdd"
                                                 type="file"
                                                 accept="image/*"
                                                 onChange={(e) =>
@@ -482,15 +512,6 @@ const AdminPlatformAdd = () => {
                                                     )
                                                 }
                                             />
-                                            {block.file && (
-                                                <p
-                                                    className={
-                                                        classes.fileSelectedName
-                                                    }
-                                                >
-                                                    {block.file.name}
-                                                </p>
-                                            )}
                                         </div>
                                     )}
                                 </div>
@@ -501,25 +522,25 @@ const AdminPlatformAdd = () => {
                                 type="button"
                                 onClick={() => addTextBlock('h4')}
                             >
-                                + Add Heading (H4)
+                                + Add Title
                             </button>
                             <button
                                 type="button"
                                 onClick={() => addTextBlock('p')}
                             >
-                                + Add Paragraph (P)
+                                + Add Body Text
                             </button>
                             <button
                                 type="button"
                                 onClick={() => addTextBlock('ul')}
                             >
-                                + Add List (UL)
+                                + Add List
                             </button>
                             <button
                                 type="button"
                                 onClick={() => addTextBlock('image')}
                             >
-                                + Add Image (IMG)
+                                + Add Image
                             </button>
                         </div>
                     </div>
