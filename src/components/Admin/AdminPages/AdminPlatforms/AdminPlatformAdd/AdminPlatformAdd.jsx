@@ -12,6 +12,8 @@ import classes from './AdminPlatformAdd.module.css';
 
 import upLoadIcon from '../../../../../assets/images/icons/upload.svg';
 import imageIcon from '../../../../../assets/images/icons/imageIcon.svg';
+import deleteIcon from '../../../../../assets/images/icons/delete.svg';
+import removeIcon from '../../../../../assets/images/icons/remove.svg';
 
 const AdminPlatformAdd = () => {
     const navigate = useNavigate();
@@ -193,6 +195,23 @@ const AdminPlatformAdd = () => {
         }
     };
 
+    const renderBlockContent = (block) => {
+        switch (block.type) {
+            case 'h4':
+                return <h6>Section Title</h6>;
+                break;
+            case 'p':
+                return <h6>Body Text</h6>;
+                break;
+            case 'ul':
+                return <h6>List block</h6>;
+                break;
+            case 'image':
+                return <h6>Image</h6>;
+                break;
+        }
+    };
+
     return (
         <div className={classes.adminPage}>
             <div className={classes.AdminHeader}>
@@ -317,153 +336,192 @@ const AdminPlatformAdd = () => {
                     <h3 className={classes.addPlatformFormHeader}>
                         Content Blocks
                     </h3>
-
-                    <div className={classes.blockButtons}>
-                        <button
-                            type="button"
-                            onClick={() => addTextBlock('h4')}
-                        >
-                            + Add Heading (H4)
-                        </button>
-                        <button type="button" onClick={() => addTextBlock('p')}>
-                            + Add Paragraph (P)
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => addTextBlock('ul')}
-                        >
-                            + Add List (UL)
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => addTextBlock('image')}
-                        >
-                            + Add Image (IMG)
-                        </button>
-                    </div>
-
-                    <div className={classes.blocksList}>
-                        {textBlocks.map((block, index) => (
-                            <div
-                                key={block.id}
-                                className={`${classes.blockItem} ${classes[block.type]}`}
-                            >
-                                <div className={classes.blockHeader}>
-                                    <span>
-                                        #{index + 1} Блок:{' '}
-                                        <strong>
-                                            {block.type.toUpperCase()}
-                                        </strong>
-                                    </span>
-                                    <button
-                                        type="button"
-                                        className={classes.deleteBlockBtn}
-                                        onClick={() => removeBlock(block.id)}
+                    <div className={classes.addPlatformFormContentBlocks}>
+                        <div className={classes.addPlatformFormBlocksList}>
+                            {textBlocks.map((block, index) => (
+                                <div
+                                    key={block.id}
+                                    className={`${classes.addPlatformFormBlocksListItem} ${classes[block.type]}`}
+                                >
+                                    <div
+                                        className={
+                                            classes.addPlatformFormBlocksListItemHeader
+                                        }
                                     >
-                                        Видалити блок
-                                    </button>
-                                </div>
-
-                                {block.type === 'h4' && (
-                                    <input
-                                        type="text"
-                                        placeholder="Введіть заголовок..."
-                                        value={block.value}
-                                        onChange={(e) =>
-                                            handleBlockTextChange(
-                                                block.id,
-                                                e.target.value,
-                                            )
-                                        }
-                                    />
-                                )}
-
-                                {block.type === 'p' && (
-                                    <textarea
-                                        placeholder="Введіть текст абзацу..."
-                                        value={block.value}
-                                        onChange={(e) =>
-                                            handleBlockTextChange(
-                                                block.id,
-                                                e.target.value,
-                                            )
-                                        }
-                                        rows={3}
-                                    />
-                                )}
-
-                                {block.type === 'ul' && (
-                                    <div className={classes.listBlockContainer}>
-                                        {block.value.map((item, itemIdx) => (
-                                            <div
-                                                key={itemIdx}
-                                                className={classes.listItemRow}
-                                            >
-                                                <input
-                                                    type="text"
-                                                    placeholder={`Пункт списку №${itemIdx + 1}`}
-                                                    value={item}
-                                                    onChange={(e) =>
-                                                        handleListItemChange(
-                                                            block.id,
-                                                            itemIdx,
-                                                            e.target.value,
-                                                        )
-                                                    }
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() =>
-                                                        removeListItem(
-                                                            block.id,
-                                                            itemIdx,
-                                                        )
-                                                    }
-                                                >
-                                                    ✕
-                                                </button>
-                                            </div>
-                                        ))}
+                                        <span>
+                                            Block {index + 1}
+                                            <strong>
+                                                {renderBlockContent(block)}
+                                            </strong>
+                                        </span>
                                         <button
                                             type="button"
-                                            className={classes.addListItemBtn}
+                                            className={classes.deleteBlockBtn}
                                             onClick={() =>
-                                                addListItem(block.id)
+                                                removeBlock(block.id)
                                             }
                                         >
-                                            + Додати пункт списку
+                                            <img
+                                                src={deleteIcon}
+                                                alt="Delete"
+                                            />
                                         </button>
                                     </div>
-                                )}
 
-                                {block.type === 'image' && (
-                                    <div
-                                        className={classes.imageBlockContainer}
-                                    >
+                                    {block.type === 'h4' && (
                                         <input
-                                            type="file"
-                                            accept="image/*"
+                                            type="text"
+                                            placeholder="Text title"
+                                            className={
+                                                classes.addPlatformFormBlocksListItemInputTitle
+                                            }
+                                            value={block.value}
                                             onChange={(e) =>
-                                                handleBlockFileChange(
+                                                handleBlockTextChange(
                                                     block.id,
-                                                    e,
+                                                    e.target.value,
                                                 )
                                             }
                                         />
-                                        {block.file && (
-                                            <p
+                                    )}
+
+                                    {block.type === 'p' && (
+                                        <textarea
+                                            placeholder="Write the section content here..."
+                                            className={
+                                                classes.addPlatformFormBlocksListItemInputTitle
+                                            }
+                                            value={block.value}
+                                            onChange={(e) =>
+                                                handleBlockTextChange(
+                                                    block.id,
+                                                    e.target.value,
+                                                )
+                                            }
+                                            rows={6}
+                                        />
+                                    )}
+
+                                    {block.type === 'ul' && (
+                                        <div
+                                            className={
+                                                classes.addPlatformFormBlocksListItemLists
+                                            }
+                                        >
+                                            {block.value.map(
+                                                (item, itemIdx) => (
+                                                    <div
+                                                        key={itemIdx}
+                                                        className={
+                                                            classes.addPlatformFormBlocksListItemListsRow
+                                                        }
+                                                    >
+                                                        <input
+                                                            type="text"
+                                                            placeholder={`List item ${itemIdx + 1}`}
+                                                            className={
+                                                                classes.addPlatformFormBlocksListItemInputTitle
+                                                            }
+                                                            value={item}
+                                                            onChange={(e) =>
+                                                                handleListItemChange(
+                                                                    block.id,
+                                                                    itemIdx,
+                                                                    e.target
+                                                                        .value,
+                                                                )
+                                                            }
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            className={
+                                                                classes.deleteBlockBtn
+                                                            }
+                                                            onClick={() =>
+                                                                removeListItem(
+                                                                    block.id,
+                                                                    itemIdx,
+                                                                )
+                                                            }
+                                                        >
+                                                            <img
+                                                                src={removeIcon}
+                                                                alt="Delete"
+                                                            />
+                                                        </button>
+                                                    </div>
+                                                ),
+                                            )}
+                                            <button
+                                                type="button"
                                                 className={
-                                                    classes.fileSelectedName
+                                                    classes.addListItemBtn
+                                                }
+                                                onClick={() =>
+                                                    addListItem(block.id)
                                                 }
                                             >
-                                                ✓ Вибрано файл:{' '}
-                                                {block.file.name}
-                                            </p>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
+                                                + Add List Item
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {block.type === 'image' && (
+                                        <div
+                                            className={
+                                                classes.imageBlockContainer
+                                            }
+                                        >
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) =>
+                                                    handleBlockFileChange(
+                                                        block.id,
+                                                        e,
+                                                    )
+                                                }
+                                            />
+                                            {block.file && (
+                                                <p
+                                                    className={
+                                                        classes.fileSelectedName
+                                                    }
+                                                >
+                                                    {block.file.name}
+                                                </p>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                        <div className={classes.addPlatformFormBlockButtons}>
+                            <button
+                                type="button"
+                                onClick={() => addTextBlock('h4')}
+                            >
+                                + Add Heading (H4)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addTextBlock('p')}
+                            >
+                                + Add Paragraph (P)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addTextBlock('ul')}
+                            >
+                                + Add List (UL)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addTextBlock('image')}
+                            >
+                                + Add Image (IMG)
+                            </button>
+                        </div>
                     </div>
                 </div>
 
