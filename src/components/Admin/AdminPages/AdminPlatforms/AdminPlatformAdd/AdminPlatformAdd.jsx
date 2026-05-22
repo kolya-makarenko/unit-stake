@@ -19,6 +19,7 @@ const AdminPlatformAdd = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [verification, setVerification] = useState(false);
+    const [isPublished, setIsPublished] = useState(false);
     const [category, setCategory] = useState('');
     const [assets, setAssets] = useState('');
     const [platformAge, setPlatformAge] = useState('');
@@ -168,6 +169,7 @@ const AdminPlatformAdd = () => {
             const data = {
                 name: name,
                 is_verified: verification,
+                is_published: isPublished,
                 category: category ? [category] : [],
                 image_url: imageUrl,
                 text_blocks: serializedBlocks,
@@ -545,23 +547,58 @@ const AdminPlatformAdd = () => {
                         </div>
                     </div>
                 </div>
-
-                <label htmlFor="verification" className={classes.checkboxLabel}>
-                    <input
-                        type="checkbox"
-                        id="verification"
-                        checked={verification}
-                        onChange={(e) => setVerification(e.target.checked)}
-                    />
-                    Verified
-                </label>
-
+                <h3
+                    className={`${classes.addPlatformFormHeader} ${classes.marginTop20}`}
+                >
+                    Visibility & Verified
+                </h3>
+                <div className={classes.addPlatformFormSwitches}>
+                    <div className={classes.addPlatformFormSwitchesContainer}>
+                        <div className={classes.addPlatformFormSwitchesBox}>
+                            <div>
+                                <h6>Published</h6>
+                                <p>Show the platform on the platforms page</p>
+                            </div>
+                            <label htmlFor="isPublished">
+                                <input
+                                    type="checkbox"
+                                    id="isPublished"
+                                    checked={isPublished}
+                                    onChange={(e) =>
+                                        setIsPublished(e.target.checked)
+                                    }
+                                />
+                                <span></span>
+                            </label>
+                        </div>
+                        <div className={classes.addPlatformFormSwitchesBox}>
+                            <div>
+                                <h6>Verified</h6>
+                                <p>The platform is verified</p>
+                            </div>
+                            <label
+                                htmlFor="verification"
+                                className={classes.checkboxLabel}
+                            >
+                                <input
+                                    type="checkbox"
+                                    id="verification"
+                                    checked={verification}
+                                    onChange={(e) =>
+                                        setVerification(e.target.checked)
+                                    }
+                                />
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
                 <button
                     type="submit"
                     className={classes.submitBtn}
                     disabled={isSubmitting}
                 >
-                    {isSubmitting ? 'Adding...' : 'Add platform'}
+                    {isSubmitting ? 'Creating...' : 'Create Platform'}
                 </button>
             </form>
         </div>
