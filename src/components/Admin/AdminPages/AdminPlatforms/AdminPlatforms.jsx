@@ -78,6 +78,7 @@ const AdminPlatforms = () => {
                     <tr>
                         <th>Platform</th>
                         <th>Category</th>
+                        <th>Published</th>
                         <th>Verification</th>
                         <th>Date</th>
                         <th>Actions</th>
@@ -91,6 +92,25 @@ const AdminPlatforms = () => {
                             </td>
                             <td className={classes.platformListCategory}>
                                 {platform.category}
+                            </td>
+                            <td>
+                                {platform.is_published ? (
+                                    <div
+                                        className={
+                                            classes.platformListVerificationOn
+                                        }
+                                    >
+                                        Published
+                                    </div>
+                                ) : (
+                                    <div
+                                        className={
+                                            classes.platformListVerificationOff
+                                        }
+                                    >
+                                        Not Published
+                                    </div>
+                                )}
                             </td>
                             <td>
                                 {platform.is_verified ? (
