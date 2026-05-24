@@ -43,7 +43,7 @@ const AdminPlatformEdit = () => {
                     rowId: platformId,
                 });
 
-                const data = response.data || response;
+                const data = response;
 
                 setName(data.name || '');
                 setVerification(data.is_verified || false);

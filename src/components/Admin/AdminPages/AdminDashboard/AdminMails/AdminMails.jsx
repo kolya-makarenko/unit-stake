@@ -11,36 +11,55 @@ import {
 
 import classes from './AdminMails.module.css';
 
+const ITEMS_PER_PAGE = 25;
+
 const AdminMails = () => {
     const [messages, setMessages] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalCount, setTotalCount] = useState(0);
     const navigate = useNavigate();
 
-    const fetchMessages = async () => {
+    const fetchMessages = async (page) => {
         try {
+            const offset = (page - 1) * ITEMS_PER_PAGE;
+
             const response = await tablesDB.listRows({
                 databaseId: DATABASE_ID,
                 tableId: TABLE_ID_FORM_MESSAGES,
-                queries: [Query.orderDesc('$createdAt')],
+                queries: [
+                    Query.orderDesc('$createdAt'),
+                    Query.limit(ITEMS_PER_PAGE),
+                    Query.offset(offset),
+                ],
             });
-
             setMessages(response.rows);
-            console.log(response.rows);
+            setTotalCount(response.total);
         } catch (error) {
             console.error('Error loading messages:', error.message);
+            alert('Failed to load mails data.');
         }
     };
 
     useEffect(() => {
-        fetchMessages();
-    }, []);
+        fetchMessages(currentPage);
+    }, [currentPage]);
 
     const viewMessage = (mailId) => {
         navigate(`/admin/mail/${mailId}`);
     };
 
+    const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) setCurrentPage((prev) => prev - 1);
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+    };
+
     const formatLocalDate = (isoString) => {
         const date = new Date(isoString);
-
         return new Intl.DateTimeFormat('uk-UA', {
             day: '2-digit',
             month: '2-digit',
@@ -65,7 +84,8 @@ const AdminMails = () => {
                 </div>
                 {messages.map((message, index) => (
                     <div
-                        key={index}
+                        key={index || message.$id}
+                        onClick={() => viewMessage(message.$id)}
                         className={
                             message.is_read
                                 ? classes.adminMailsTableRow
@@ -87,6 +107,74 @@ const AdminMails = () => {
                     </div>
                 ))}
             </div>
+
+            {totalPages > 1 && (
+                <div className={classes.adminMailsPagination}>
+                    <h4 className={classes.adminMailsPaginationInfo}>
+                        Showing {currentPage} of {totalPages} mails
+                    </h4>
+                    <div className={classes.adminMailsPaginationBtns}>
+                        <button
+                            onClick={handlePrevPage}
+                            disabled={currentPage === 1}
+                            className={classes.adminMailsPaginationBtnPrev}
+                        >
+                            <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M5.25 10.5L8.75 7L5.25 3.5"
+                                    stroke="#808080"
+                                    strokeWidth="1.16667"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                        </button>
+                        {Array.from({ length: totalPages }, (_, index) => {
+                            const pageNumber = index + 1;
+                            return (
+                                <button
+                                    key={pageNumber}
+                                    onClick={() => setCurrentPage(pageNumber)}
+                                    className={`${classes.adminMailsPaginationBtnNumber} ${
+                                        currentPage === pageNumber
+                                            ? classes.active
+                                            : ''
+                                    }`}
+                                >
+                                    {pageNumber}
+                                </button>
+                            );
+                        })}
+                        <button
+                            onClick={handleNextPage}
+                            disabled={currentPage === totalPages}
+                            className={classes.adminMailsPaginationBtnNext}
+                        >
+                            <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M5.25 10.5L8.75 7L5.25 3.5"
+                                    stroke="#808080"
+                                    strokeWidth="1.16667"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

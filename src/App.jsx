@@ -14,6 +14,7 @@ import AdminFAQ from './components/Admin/AdminPages/AdminFAQ/AdminFAQ';
 import AdminCategories from './components/Admin/AdminPages/AdminCategories/AdminCategories';
 import AdminPlatformAdd from './components/Admin/AdminPages/AdminPlatforms/AdminPlatformAdd/AdminPlatformAdd';
 import AdminPlatformEdit from './components/Admin/AdminPages/AdminPlatforms/AdminPlatformEdit/AdminPlatformEdit';
+import AdminMail from './components/Admin/AdminPages/AdminDashboard/AdminMails/AdminMail/AdminMail';
 import './App.css';
 
 function App() {
@@ -61,7 +62,7 @@ function App() {
                         path="platforms/edit/:id"
                         element={<AdminPlatformEdit />}
                     />
-                    <Route path="mail/:id" element={<div>Mail reading</div>} />
+                    <Route path="mail/:id" element={<AdminMail />} />
                 </Route>
             </Routes>
         </Router>
