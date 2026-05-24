@@ -23,7 +23,6 @@ const AdminPlatforms = () => {
             });
 
             setPlatforms(response.rows);
-            console.log(response.rows);
         } catch (error) {
             console.error('Error loading platforms:', error.message);
         }

@@ -61,6 +61,7 @@ function App() {
                         path="platforms/edit/:id"
                         element={<AdminPlatformEdit />}
                     />
+                    <Route path="mail/:id" element={<div>Mail reading</div>} />
                 </Route>
             </Routes>
         </Router>

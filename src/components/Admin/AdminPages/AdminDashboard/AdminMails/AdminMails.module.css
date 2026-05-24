@@ -1,0 +1,108 @@
+.adminMails {
+    margin-top: 20px;
+}
+
+.adminMails h4 {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.adminMailsTable {
+    margin-top: 20px;
+    border: 1px solid #00000012;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.adminMailsTableHeader {
+    padding: 15px 0;
+    background-color: #f6f6f6;
+    border-bottom: 1px solid #00000012;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+.adminMailsTableHeader span {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #6e6e6e;
+}
+
+.adminMailsTableHeader span:first-child {
+    padding-left: 20px;
+}
+
+.adminMailsTableRow {
+    padding: 15px 0;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 16px;
+    border-bottom: 1px solid #00000012;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.adminMailsTableRow:hover {
+    background-color: #f59e0b25;
+}
+
+.adminMailsTableRow:last-child {
+    border: none;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.adminMailsTableRow.new {
+    background-color: #10b9811a;
+}
+
+.adminMailsTableRow.new:hover {
+    background-color: #10b98133;
+}
+
+.adminMailsTableRow span:first-child {
+    padding-left: 20px;
+}
+
+.adminMailsTableRowMail {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.06px;
+    color: #6e6e6e;
+}
+
+.adminMailsTableRowName {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    color: #333;
+}
+
+.adminMailsTableRowPhone {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    color: #333;
+}
+
+.adminMailsTableRowDate {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.06px;
+    color: #6e6e6e;
+}
