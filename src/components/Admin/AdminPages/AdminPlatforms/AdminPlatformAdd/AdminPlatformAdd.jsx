@@ -18,7 +18,6 @@ import removeIcon from '../../../../../assets/images/icons/remove.svg';
 const AdminPlatformAdd = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
-    const [verification, setVerification] = useState(false);
     const [isPublished, setIsPublished] = useState(false);
     const [category, setCategory] = useState('');
     const [assets, setAssets] = useState('');
@@ -168,7 +167,6 @@ const AdminPlatformAdd = () => {
 
             const data = {
                 name: name,
-                is_verified: verification,
                 is_published: isPublished,
                 category: category ? [category] : [],
                 image_url: imageUrl,
@@ -550,7 +548,7 @@ const AdminPlatformAdd = () => {
                 <h3
                     className={`${classes.addPlatformFormHeader} ${classes.marginTop20}`}
                 >
-                    Visibility & Verified
+                    Visibility
                 </h3>
                 <div className={classes.addPlatformFormSwitches}>
                     <div className={classes.addPlatformFormSwitchesContainer}>
@@ -566,26 +564,6 @@ const AdminPlatformAdd = () => {
                                     checked={isPublished}
                                     onChange={(e) =>
                                         setIsPublished(e.target.checked)
-                                    }
-                                />
-                                <span></span>
-                            </label>
-                        </div>
-                        <div className={classes.addPlatformFormSwitchesBox}>
-                            <div>
-                                <h6>Verified</h6>
-                                <p>The platform is verified</p>
-                            </div>
-                            <label
-                                htmlFor="verification"
-                                className={classes.checkboxLabel}
-                            >
-                                <input
-                                    type="checkbox"
-                                    id="verification"
-                                    checked={verification}
-                                    onChange={(e) =>
-                                        setVerification(e.target.checked)
                                     }
                                 />
                                 <span></span>

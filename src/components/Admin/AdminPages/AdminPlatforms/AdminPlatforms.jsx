@@ -77,8 +77,8 @@ const AdminPlatforms = () => {
                     <tr>
                         <th>Platform</th>
                         <th>Category</th>
+                        <th>Assets</th>
                         <th>Published</th>
-                        <th>Verification</th>
                         <th>Date</th>
                         <th>Actions</th>
                     </tr>
@@ -91,6 +91,9 @@ const AdminPlatforms = () => {
                             </td>
                             <td className={classes.platformListCategory}>
                                 {platform.category}
+                            </td>
+                            <td className={classes.platformListCategory}>
+                                ${platform.assets}
                             </td>
                             <td>
                                 {platform.is_published ? (
@@ -108,25 +111,6 @@ const AdminPlatforms = () => {
                                         }
                                     >
                                         Not Published
-                                    </div>
-                                )}
-                            </td>
-                            <td>
-                                {platform.is_verified ? (
-                                    <div
-                                        className={
-                                            classes.platformListVerificationOn
-                                        }
-                                    >
-                                        Verified
-                                    </div>
-                                ) : (
-                                    <div
-                                        className={
-                                            classes.platformListVerificationOff
-                                        }
-                                    >
-                                        Not Verified
                                     </div>
                                 )}
                             </td>
