@@ -1,0 +1,115 @@
+.adminPage {
+    width: 95%;
+    max-width: 1210px;
+    margin: auto;
+}
+
+.AdminHeader {
+    padding: 25px 0;
+    border-bottom: 1px solid #00000012;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.AdminHeader h2 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.45px;
+    color: #111;
+}
+
+.AdminHeader button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #d34329;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    text-align: center;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.AdminHeader button:hover {
+    background-color: #b83820;
+}
+
+.adminMail {
+    margin-top: 20px;
+    padding: 16px;
+    border: 1px solid #00000012;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminMailBody {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.adminMailBody h3 {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.adminMailBody p {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #6b6b6b;
+}
+
+.adminMailBody p a,
+.adminMailBody p span {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+    text-transform: none;
+    text-decoration: none;
+}
+
+.adminMailBody p a {
+    transition: 0.3s ease-in-out;
+}
+
+.adminMailBody p a:hover {
+    text-decoration: underline;
+    color: #d34329;
+}
+
+.adminMailDelete {
+    height: fit-content;
+    padding: 2px 5px;
+    flex-shrink: 0;
+    background-color: transparent;
+    transition: 0.3s ease-in-out;
+    border: 1px solid #ef4444;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.adminMailDelete:hover {
+    background-color: #ef444410;
+}
+
+.adminMailDelete img {
+    height: 15px;
+}

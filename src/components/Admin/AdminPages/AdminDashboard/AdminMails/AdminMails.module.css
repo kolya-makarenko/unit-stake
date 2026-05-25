@@ -2,13 +2,52 @@
     margin-top: 20px;
 }
 
-.adminMails h4 {
+.adminMailsHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminMailsHeader h4 {
     font-weight: 600;
     font-size: 11px;
     line-height: 16.5px;
     letter-spacing: 0.86px;
     text-transform: uppercase;
     color: #aaa;
+}
+
+.adminMailsTotal {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.adminMailsTotalMails {
+    padding: 4px 8px;
+    border: 1px solid #00000017;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #f6f6f6;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: 0.12px;
+    text-transform: capitalize;
+    color: #555;
+}
+
+.adminMailsTotalUnreadMails {
+    padding: 4px 8px;
+    border: 1px solid #10b98133;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #10b98114;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: 0.12px;
+    text-transform: capitalize;
+    color: #10b981;
 }
 
 .adminMailsTable {

@@ -15,6 +15,7 @@ const ITEMS_PER_PAGE = 25;
 
 const AdminMails = () => {
     const [messages, setMessages] = useState([]);
+    const [totalUnreadMails, setTotalUnreadMails] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
     const navigate = useNavigate();
@@ -34,6 +35,13 @@ const AdminMails = () => {
             });
             setMessages(response.rows);
             setTotalCount(response.total);
+
+            const responseUnreadMails = await tablesDB.listRows({
+                databaseId: DATABASE_ID,
+                tableId: TABLE_ID_FORM_MESSAGES,
+                queries: [Query.equal('is_read', false)],
+            });
+            setTotalUnreadMails(responseUnreadMails.rows.length);
         } catch (error) {
             console.error('Error loading messages:', error.message);
             alert('Failed to load mails data.');
@@ -74,7 +82,17 @@ const AdminMails = () => {
 
     return (
         <div className={classes.adminMails}>
-            <h4>Mails</h4>
+            <div className={classes.adminMailsHeader}>
+                <h4>Mails</h4>
+                <div className={classes.adminMailsTotal}>
+                    <div className={classes.adminMailsTotalMails}>
+                        <span>Total mails: {messages.length}</span>
+                    </div>
+                    <div className={classes.adminMailsTotalUnreadMails}>
+                        <span>New mails: {totalUnreadMails}</span>
+                    </div>
+                </div>
+            </div>
             <div className={classes.adminMailsTable}>
                 <div className={classes.adminMailsTableHeader}>
                     <span>E-mail</span>
