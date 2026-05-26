@@ -20,28 +20,32 @@ const AdminPlatforms = () => {
     const [totalCount, setTotalCount] = useState(0);
     const navigate = useNavigate();
 
-    const fetchPlatforms = async () => {
-        try {
-            const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+    useEffect(() => {
+        const fetchPlatforms = async () => {
+            try {
+                const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
-            const response = await tablesDB.listRows({
-                databaseId: DATABASE_ID,
-                tableId: TABLE_ID_PLATFORMS,
-                queries: [
-                    Query.orderDesc('$createdAt'),
-                    Query.limit(ITEMS_PER_PAGE),
-                    Query.offset(offset),
-                ],
-            });
+                const response = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_PLATFORMS,
+                    queries: [
+                        Query.orderDesc('$createdAt'),
+                        Query.limit(ITEMS_PER_PAGE),
+                        Query.offset(offset),
+                    ],
+                });
 
-            setPlatforms(response.rows);
-            setTotalCount(response.total);
-        } catch (error) {
-            console.error('Error loading platforms:', error.message);
-            alert('Failed to load platforms data.');
-            navigate('/admin');
-        }
-    };
+                setPlatforms(response.rows);
+                setTotalCount(response.total);
+            } catch (error) {
+                console.error('Error loading platforms:', error.message);
+                alert('Failed to load platforms data.');
+                navigate('/admin');
+            }
+        };
+
+        fetchPlatforms();
+    }, [currentPage]);
 
     const editPlatform = (platformId) => {
         navigate(`/admin/platforms/edit/${platformId}`);
@@ -69,10 +73,6 @@ const AdminPlatforms = () => {
             alert('Failed to delete platform. Please try again.');
         }
     };
-
-    useEffect(() => {
-        fetchPlatforms();
-    }, [currentPage]);
 
     const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
 

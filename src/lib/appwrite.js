@@ -8,6 +8,8 @@ export const TABLE_ID_FORM_MESSAGES = import.meta.env
     .VITE_APPWRITE_TABLE_ID_FORM_MESSAGES;
 export const TABLE_ID_CATEGORIES = import.meta.env
     .VITE_APPWRITE_TABLE_ID_CATEGORIES;
+export const TABLE_ID_PROJECTS = import.meta.env
+    .VITE_APPWRITE_TABLE_ID_PROJECTS;
 export const BUCKET_ID = import.meta.env.VITE_APPWRITE_BUCKET_ID;
 
 export const client = new Client();
