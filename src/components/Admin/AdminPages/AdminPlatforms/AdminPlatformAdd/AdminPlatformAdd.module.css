@@ -81,7 +81,8 @@
     color: #6b6b6b;
 }
 
-.addPlatformFormIdentityField input {
+.addPlatformFormIdentityField input,
+.addPlatformFormIdentityField select {
     width: 100%;
     padding: 12px;
     box-sizing: border-box;

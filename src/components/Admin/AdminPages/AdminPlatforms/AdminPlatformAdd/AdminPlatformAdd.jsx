@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     tablesDB,
     DATABASE_ID,
     TABLE_ID_PLATFORMS,
+    TABLE_ID_CATEGORIES,
     ID,
     storage,
     BUCKET_ID,
@@ -28,6 +29,23 @@ const AdminPlatformAdd = () => {
     const [imageFile, setImageFile] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [textBlocks, setTextBlocks] = useState([]);
+    const [categoriesList, setCategoriesList] = useState([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const respomse = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_CATEGORIES,
+                });
+                setCategoriesList(respomse.rows[0].platform_categories);
+            } catch (error) {
+                console.error('Error loading categories:', error.message);
+                alert('Failed to load categories data.');
+            }
+        };
+        fetchCategories();
+    }, []);
 
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -241,12 +259,19 @@ const AdminPlatformAdd = () => {
                     </div>
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="category">Primary Category</label>
-                        <input
-                            type="text"
+                        <select
                             id="category"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
-                        />
+                            className={classes.selectInput}
+                        >
+                            <option value="">Select a category</option>
+                            {categoriesList.map((cat) => (
+                                <option key={cat} value={cat}>
+                                    {cat}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="assets">

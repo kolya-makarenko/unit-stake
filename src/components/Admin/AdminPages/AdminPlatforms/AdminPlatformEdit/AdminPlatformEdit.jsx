@@ -4,6 +4,7 @@ import {
     tablesDB,
     DATABASE_ID,
     TABLE_ID_PLATFORMS,
+    TABLE_ID_CATEGORIES,
     ID,
     storage,
     BUCKET_ID,
@@ -32,6 +33,7 @@ const AdminPlatformEdit = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [textBlocks, setTextBlocks] = useState([]);
+    const [categoriesList, setCategoriesList] = useState([]);
 
     useEffect(() => {
         const fetchPlatformData = async () => {
@@ -81,6 +83,19 @@ const AdminPlatformEdit = () => {
             }
         };
 
+        const fetchCategories = async () => {
+            try {
+                const respomse = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_CATEGORIES,
+                });
+                setCategoriesList(respomse.rows[0].platform_categories);
+            } catch (error) {
+                console.error('Error loading categories:', error.message);
+                alert('Failed to load categories data.');
+            }
+        };
+        fetchCategories();
         fetchPlatformData();
     }, [platformId, navigate]);
 
@@ -306,12 +321,18 @@ const AdminPlatformEdit = () => {
                     </div>
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="category">Primary Category</label>
-                        <input
-                            type="text"
+                        <select
                             id="category"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
-                        />
+                            className={classes.selectInput}
+                        >
+                            {categoriesList.map((cat) => (
+                                <option key={cat} value={cat}>
+                                    {cat}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="assets">

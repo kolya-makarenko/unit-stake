@@ -13,6 +13,7 @@ const NAV_ITEMS = [
     { to: '/admin/news', label: 'News & Articles' },
     { to: '/admin/academy', label: 'Academy' },
     { to: '/admin/faq', label: 'FAQ' },
+    { to: '/admin/teams', label: 'Teams' },
 ];
 
 const AdminMenu = () => {

@@ -15,6 +15,7 @@ import AdminCategories from './components/Admin/AdminPages/AdminCategories/Admin
 import AdminPlatformAdd from './components/Admin/AdminPages/AdminPlatforms/AdminPlatformAdd/AdminPlatformAdd';
 import AdminPlatformEdit from './components/Admin/AdminPages/AdminPlatforms/AdminPlatformEdit/AdminPlatformEdit';
 import AdminMail from './components/Admin/AdminPages/AdminDashboard/AdminMails/AdminMail/AdminMail';
+import AdminTeams from './components/Admin/AdminPages/AdminTeams/AdminTeams';
 import './App.css';
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
                     <Route path="news" element={<AdminNews />} />
                     <Route path="academy" element={<AdminAcademy />} />
                     <Route path="faq" element={<AdminFAQ />} />
+                    <Route path="teams" element={<AdminTeams />} />
                     <Route
                         path="platforms/add"
                         element={<AdminPlatformAdd />}
