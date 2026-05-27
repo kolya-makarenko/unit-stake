@@ -47,6 +47,33 @@ const AdminProjects = () => {
         fetchProjects();
     }, [currentPage]);
 
+    const editProject = (projectId) => {
+        navigate(`/admin/projects/edit/${projectId}`);
+    };
+
+    const deleteProject = async (projectId) => {
+        const confirmDelete = window.confirm(
+            'Are you sure you want to delete this Project?',
+        );
+        if (!confirmDelete) return;
+
+        try {
+            await tablesDB.deleteRow({
+                databaseId: DATABASE_ID,
+                tableId: TABLE_ID_PROJECTS,
+                rowId: projectId,
+            });
+            setProjects((prevProjects) =>
+                prevProjects.filter((project) => project.$id !== projectId),
+            );
+            setTotalCount((prev) => Math.max(0, prev - 1));
+            alert('Project deleted successfully.');
+        } catch (error) {
+            console.error('Error deleting project:', error.message);
+            alert('Failed to delete project. Please try again.');
+        }
+    };
+
     const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
 
     const handlePrevPage = () => {
@@ -68,7 +95,7 @@ const AdminProjects = () => {
                 <h2>Projects</h2>
                 <button onClick={() => navigate('/admin/projects/add')}>
                     <img src={plusIcon} alt="plus" />
-                    Add Platform
+                    Add Projects
                 </button>
             </div>
             <table className={classes.platformsList}>
@@ -133,10 +160,16 @@ const AdminProjects = () => {
                                 {dateFormatter(project.$createdAt)}
                             </td>
                             <td className={classes.platformsListActions}>
-                                <button className={classes.platformsListEdit}>
+                                <button
+                                    className={classes.platformsListEdit}
+                                    onClick={() => editProject(project.$id)}
+                                >
                                     <img src={editIcon} alt="edit" />
                                 </button>
-                                <button className={classes.platformsListDelete}>
+                                <button
+                                    className={classes.platformsListDelete}
+                                    onClick={() => deleteProject(project.$id)}
+                                >
                                     <img src={deleteIcon} alt="delete" />
                                 </button>
                             </td>

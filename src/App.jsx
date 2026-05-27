@@ -16,6 +16,8 @@ import AdminPlatformAdd from './components/Admin/AdminPages/AdminPlatforms/Admin
 import AdminPlatformEdit from './components/Admin/AdminPages/AdminPlatforms/AdminPlatformEdit/AdminPlatformEdit';
 import AdminMail from './components/Admin/AdminPages/AdminDashboard/AdminMails/AdminMail/AdminMail';
 import AdminTeams from './components/Admin/AdminPages/AdminTeams/AdminTeams';
+import AdminProjectAdd from './components/Admin/AdminPages/AdminProjects/AdminProjectAdd/AdminProjectAdd';
+import AdminProjectEdit from './components/Admin/AdminPages/AdminProjects/AdminProjectEdit/AdminProjectEdit';
 import './App.css';
 
 function App() {
@@ -56,6 +58,7 @@ function App() {
                     <Route path="academy" element={<AdminAcademy />} />
                     <Route path="faq" element={<AdminFAQ />} />
                     <Route path="teams" element={<AdminTeams />} />
+                    <Route path="mail/:id" element={<AdminMail />} />
                     <Route
                         path="platforms/add"
                         element={<AdminPlatformAdd />}
@@ -64,7 +67,11 @@ function App() {
                         path="platforms/edit/:id"
                         element={<AdminPlatformEdit />}
                     />
-                    <Route path="mail/:id" element={<AdminMail />} />
+                    <Route path="projects/add" element={<AdminProjectAdd />} />
+                    <Route
+                        path="projects/edit/:id"
+                        element={<AdminProjectEdit />}
+                    />
                 </Route>
             </Routes>
         </Router>
