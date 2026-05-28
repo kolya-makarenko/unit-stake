@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
     tablesDB,
     DATABASE_ID,
-    // Припустимо, що у вас є ці константи для проектів у вашому файлі конфігурації:
-    // TABLE_ID_PROJECTS,
+    TABLE_ID_PROJECTS,
     TABLE_ID_CATEGORIES,
     ID,
     storage,
@@ -21,8 +20,6 @@ import removeIcon from '../../../../../assets/images/icons/remove.svg';
 
 const AdminProjectAdd = () => {
     const navigate = useNavigate();
-
-    // Основні поля форми
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [minInvestment, setMinInvestment] = useState('');
@@ -31,16 +28,13 @@ const AdminProjectAdd = () => {
     const [currentInvestments, setCurrentInvestments] = useState('');
     const [numberInvestors, setNumberInvestors] = useState('');
     const [deadline, setDeadline] = useState('');
-
-    // Списки для категорій та збереження стану завантаження
     const [categoriesList, setCategoriesList] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    // Динамічні блоки
     const [tokenBlocks, setTokenBlocks] = useState([]);
     const [contentBlocks, setContentBlocks] = useState([]);
+    const [isPublished, setIsPublished] = useState(false);
+    const [isVerified, setIsVerified] = useState(false);
 
-    // Отримання поточного дня для мінімальної дати дедлайну
     const getTodayDate = () => {
         const today = new Date();
         const yyyy = today.getFullYear();
@@ -49,7 +43,6 @@ const AdminProjectAdd = () => {
         return `${yyyy}-${mm}-${dd}`;
     };
 
-    // Завантаження категорій при монтуванні
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -57,7 +50,7 @@ const AdminProjectAdd = () => {
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_CATEGORIES,
                 });
-                setCategoriesList(response.rows[0]?.platform_categories || []);
+                setCategoriesList(response.rows[0]?.project_categories || []);
             } catch (error) {
                 console.error('Error loading categories:', error.message);
             }
@@ -65,9 +58,6 @@ const AdminProjectAdd = () => {
         fetchCategories();
     }, []);
 
-    // ==========================================
-    // ЛОГІКА ДЛЯ БЛОКІВ TOKEN ADDRESSES
-    // ==========================================
     const addTokenBlock = () => {
         const newBlock = {
             id: ID.unique(),
@@ -91,9 +81,6 @@ const AdminProjectAdd = () => {
         setTokenBlocks(tokenBlocks.filter((block) => block.id !== id));
     };
 
-    // ==========================================
-    // ЛОГІКА ДЛЯ CONTENT BLOCKS (h4, p, ul, img, doc)
-    // ==========================================
     const addContentBlock = (type) => {
         const newBlock = {
             id: ID.unique(),
@@ -173,13 +160,13 @@ const AdminProjectAdd = () => {
     const renderBlockContentLabel = (type) => {
         switch (type) {
             case 'h4':
-                return 'Section Title (H4)';
+                return 'Section Title';
             case 'p':
-                return 'Body Text (P)';
+                return 'Body Text';
             case 'ul':
-                return 'List Block (UL)';
+                return 'List Block';
             case 'image':
-                return 'Image (IMG)';
+                return 'Image';
             case 'document':
                 return 'Document (PDF)';
             default:
@@ -187,9 +174,6 @@ const AdminProjectAdd = () => {
         }
     };
 
-    // ==========================================
-    // ВІДПРАВКА ФОРМИ ТА ЗАВАНТАЖЕННЯ В APPWRITE
-    // ==========================================
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!name) return;
@@ -197,7 +181,6 @@ const AdminProjectAdd = () => {
         setIsSubmitting(true);
 
         try {
-            // 1. Серіалізація та завантаження файлів для Content Blocks
             const serializedContentBlocks = [];
 
             for (const block of contentBlocks) {
@@ -222,7 +205,6 @@ const AdminProjectAdd = () => {
                         );
                     }
                 } else {
-                    // Для текстів та списків
                     serializedContentBlocks.push(
                         JSON.stringify({
                             type: block.type,
@@ -232,7 +214,6 @@ const AdminProjectAdd = () => {
                 }
             }
 
-            // 2. Серіалізація Token Blocks у формат рядків JSON
             const serializedTokenBlocks = tokenBlocks.map((block) =>
                 JSON.stringify({
                     name: block.name,
@@ -242,7 +223,6 @@ const AdminProjectAdd = () => {
                 }),
             );
 
-            // 3. Збір усіх даних проекту
             const projectData = {
                 name,
                 category: category ? [category] : [],
@@ -252,15 +232,15 @@ const AdminProjectAdd = () => {
                 current_investments: Number(currentInvestments),
                 number_investors: Number(numberInvestors),
                 deadline,
-                token_addresses: serializedTokenBlocks, // Переконайся, що в Appwrite це масив рядків (string array)
-                content_blocks: serializedContentBlocks, // Переконайся, що в Appwrite це масив рядків (string array)
+                token_addresses: serializedTokenBlocks,
+                content_blocks: serializedContentBlocks,
+                is_published: isPublished,
+                is_verified: isVerified,
             };
 
-            // 4. Відправка в базу даних Appwrite
-            // УВАГА: Заміни 'TABLE_ID_PROJECTS' на реальну константу ID вашої таблиці проектів
             await tablesDB.createRow({
                 databaseId: DATABASE_ID,
-                tableId: 'YOUR_TABLE_ID_PROJECTS', // Твій TABLE_ID_PROJECTS
+                tableId: TABLE_ID_PROJECTS,
                 rowId: ID.unique(),
                 data: projectData,
             });
@@ -287,12 +267,10 @@ const AdminProjectAdd = () => {
                     Back to Projects
                 </button>
             </div>
-
             <form onSubmit={handleSubmit} className={classes.addPlatformForm}>
                 <h3 className={classes.addPlatformFormHeader}>
                     Project Identity
                 </h3>
-
                 <div className={classes.addPlatformFormIdentity}>
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="projectName">Project Name</label>
@@ -392,10 +370,6 @@ const AdminProjectAdd = () => {
                         />
                     </div>
                 </div>
-
-                {/* ========================================== */}
-                {/* БЛОК РЕДАГУВАННЯ TOKEN ADDRESSES           */}
-                {/* ========================================== */}
                 <div className={classes.addPlatformFormContent}>
                     <h3 className={classes.addPlatformFormHeader}>
                         Token addresses
@@ -506,10 +480,6 @@ const AdminProjectAdd = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* ========================================== */}
-                {/* БЛОК РЕДАГУВАННЯ CONTENT BLOCKS            */}
-                {/* ========================================== */}
                 <div className={classes.addPlatformFormContent}>
                     <h3 className={classes.addPlatformFormHeader}>
                         Content Blocks
@@ -547,8 +517,6 @@ const AdminProjectAdd = () => {
                                             />
                                         </button>
                                     </div>
-
-                                    {/* Поле для заголовка h4 */}
                                     {block.type === 'h4' && (
                                         <input
                                             type="text"
@@ -565,8 +533,6 @@ const AdminProjectAdd = () => {
                                             }
                                         />
                                     )}
-
-                                    {/* Поле для параграфа p */}
                                     {block.type === 'p' && (
                                         <textarea
                                             placeholder="Write the section content here..."
@@ -583,8 +549,6 @@ const AdminProjectAdd = () => {
                                             rows={6}
                                         />
                                     )}
-
-                                    {/* Поле для списку ul */}
                                     {block.type === 'ul' && (
                                         <div
                                             className={
@@ -648,8 +612,6 @@ const AdminProjectAdd = () => {
                                             </button>
                                         </div>
                                     )}
-
-                                    {/* Поле завантаження Image (Accepts image/*) */}
                                     {block.type === 'image' && (
                                         <div
                                             className={
@@ -698,8 +660,6 @@ const AdminProjectAdd = () => {
                                             />
                                         </div>
                                     )}
-
-                                    {/* Поле завантаження Document (Accepts .pdf) */}
                                     {block.type === 'document' && (
                                         <div
                                             className={
@@ -752,7 +712,6 @@ const AdminProjectAdd = () => {
                                 </div>
                             ))}
                         </div>
-
                         <div className={classes.addPlatformFormBlockButtons}>
                             <button
                                 type="button"
@@ -797,20 +756,34 @@ const AdminProjectAdd = () => {
                         <div className={classes.addPlatformFormSwitchesBox}>
                             <div>
                                 <h6>Verified</h6>
-                                <p>Show the platform on the platforms page</p>
+                                <p>Mark the project as verified</p>
                             </div>
                             <label htmlFor="isVerified">
-                                <input type="checkbox" id="isVerified" />
+                                <input
+                                    type="checkbox"
+                                    id="isVerified"
+                                    checked={isVerified}
+                                    onChange={(e) =>
+                                        setIsVerified(e.target.checked)
+                                    }
+                                />
                                 <span></span>
                             </label>
                         </div>
                         <div className={classes.addPlatformFormSwitchesBox}>
                             <div>
                                 <h6>Published</h6>
-                                <p>Show the platform on the platforms page</p>
+                                <p>Show the project on the projects page</p>
                             </div>
                             <label htmlFor="isPublished">
-                                <input type="checkbox" id="isPublished" />
+                                <input
+                                    type="checkbox"
+                                    id="isPublished"
+                                    checked={isPublished}
+                                    onChange={(e) =>
+                                        setIsPublished(e.target.checked)
+                                    }
+                                />
                                 <span></span>
                             </label>
                         </div>
