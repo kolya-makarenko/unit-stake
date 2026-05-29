@@ -7,6 +7,9 @@
 .AdminHeader {
     padding: 25px 0;
     border-bottom: 1px solid #00000012;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .AdminHeader h2 {
@@ -15,4 +18,283 @@
     line-height: 30px;
     letter-spacing: -0.45px;
     color: #111;
+}
+
+p.addPlatformFormHeader {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.45px;
+    color: #111;
+}
+
+.AdminHeader button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #d34329;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    text-align: center;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.AdminHeader button:hover {
+    background-color: #b83820;
+}
+
+.addPlatformForm {
+    margin: 25px 0;
+    padding: 25px;
+    border: 1px solid #00000012;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.addPlatformFormHeader {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.addPlatformFormIdentity {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.addPlatformFormIdentityField {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.addPlatformFormIdentityField label {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.76px;
+    text-transform: uppercase;
+    color: #6b6b6b;
+}
+
+.addPlatformFormIdentityField input,
+.addPlatformFormIdentityField select {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #00000017;
+    border-radius: 8px;
+    background-color: #fafafa;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: -0.08px;
+    color: #6b6b6b;
+}
+
+.addPlatformFormIdentityField input::placeholder {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: -0.08px;
+    color: #aaa;
+}
+
+.addPlatformFormIdentityFieldImage {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.addPlatformFormIdentityFieldImage p {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.76px;
+    text-transform: uppercase;
+    color: #6b6b6b;
+}
+
+.addPlatformFormIdentityFieldImage input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.addPlatformFormIdentityFieldImage label {
+    width: 100%;
+    padding: 13.5px 12px;
+    box-sizing: border-box;
+    border: 1px solid #00000017;
+    border-radius: 8px;
+    background-color: #fafafa;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: -0.08px;
+    color: #6b6b6b;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.addPlatformFormIdentityFieldImage label:hover {
+    border: 1px solid #f59e0b;
+}
+
+.addPlatformFormIdentityFieldImagePlaceholder {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.addPlatformFormIdentityFieldImage label img {
+    height: 13px;
+}
+
+.addPlatformFormIdentityFieldImagePlaceholder span {
+    display: inline-block;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.addPlatformFormIdentityFieldImagePlaceholder.active span {
+    color: #f59e0b;
+}
+
+.submitBtn {
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: #d34329;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.submitBtn:hover {
+    background-color: #b83820;
+}
+
+.adminPartners {
+    margin-top: 20px;
+}
+
+.adminPartners h3 {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.adminPartnersContaner {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.adminPartnersListItem {
+    padding: 16px;
+    border: 1px solid #00000012;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminPartnersListItemName {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.adminPartnersListItemName h4 {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.08px;
+    color: #333;
+}
+
+.adminPartnersListItemName a {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.08px;
+    color: #333;
+    transition: 0.3s ease-in-out;
+}
+
+.adminPartnersListItemName a:hover {
+    color: #d34329;
+}
+
+.adminPartnersListItemActions {
+    display: flex;
+    gap: 8px;
+}
+
+.adminPartnersListItemEdit {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #10b981;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.adminPartnersListItemEdit:hover {
+    background-color: #10b98114;
+}
+
+.adminPartnersListItemDelete {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #d34329;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.adminPartnersListItemDelete:hover {
+    background-color: #d3432912;
+}
+
+.adminPartnersListItemEdit img,
+.adminPartnersListItemDelete img {
+    height: 15px;
 }

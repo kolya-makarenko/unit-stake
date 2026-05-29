@@ -10,6 +10,8 @@ export const TABLE_ID_CATEGORIES = import.meta.env
     .VITE_APPWRITE_TABLE_ID_CATEGORIES;
 export const TABLE_ID_PROJECTS = import.meta.env
     .VITE_APPWRITE_TABLE_ID_PROJECTS;
+export const TABLE_ID_PARTNERS = import.meta.env
+    .VITE_APPWRITE_TABLE_ID_PARTNERS;
 export const BUCKET_ID = import.meta.env.VITE_APPWRITE_BUCKET_ID;
 
 export const client = new Client();
