@@ -21,14 +21,11 @@ const AdminPartners = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [partnerUrl, setPartnerUrl] = useState('');
     const [imageFile, setImageFile] = useState(null);
-
-    // Керування станами вікон та завантажень
     const [isFormOpen, setIsFormOpen] = useState(false);
-    const [editingPartnerId, setEditingPartnerId] = useState(null); // null = додавання, id = редагування
+    const [editingPartnerId, setEditingPartnerId] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Функція завантаження списку партнерів
     const fetchPartners = async () => {
         try {
             setIsLoading(true);
@@ -39,7 +36,7 @@ const AdminPartners = () => {
             setPartners(response.rows || []);
         } catch (error) {
             console.error('Error loading partners:', error.message);
-            alert('Не вдалося завантажити дані партнерів.');
+            alert('Unable to load partner data.');
         } finally {
             setIsLoading(false);
         }
@@ -49,14 +46,12 @@ const AdminPartners = () => {
         fetchPartners();
     }, []);
 
-    // Обробник вибору файлу логотипа
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             setImageFile(e.target.files[0]);
         }
     };
 
-    // Відкриття форми для додавання нового партнера
     const handleAddClick = () => {
         setName('');
         setImageUrl('');
@@ -66,7 +61,6 @@ const AdminPartners = () => {
         setIsFormOpen(true);
     };
 
-    // Відкриття форми для редагування наявного партнера
     const handleEditClick = (partner) => {
         setName(partner.name || '');
         setImageUrl(partner.image_url || '');
@@ -76,9 +70,8 @@ const AdminPartners = () => {
         setIsFormOpen(true);
     };
 
-    // Видалення партнера
     const handleDeleteClick = async (partnerId) => {
-        if (!window.confirm('Ви впевнені, що хочете видалити цього партнера?'))
+        if (!window.confirm('Are you sure you want to remove this partner?'))
             return;
 
         try {
@@ -87,21 +80,19 @@ const AdminPartners = () => {
                 tableId: TABLE_ID_PARTNERS,
                 rowId: partnerId,
             });
-            alert('Партнера успішно видалено!');
+            alert('The partner has been successfully removed!');
             fetchPartners();
         } catch (error) {
             console.error('Error deleting partner:', error);
-            alert('Помилка при видаленні партнера.');
+            alert('Error deleting partner.');
         }
     };
 
-    // Закриття форми
     const handleCancel = () => {
         setIsFormOpen(false);
         setEditingPartnerId(null);
     };
 
-    // Збереження форми (Створення або Оновлення)
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!name) return;
@@ -111,7 +102,6 @@ const AdminPartners = () => {
         try {
             let finalImageUrl = imageUrl;
 
-            // Якщо обрано новий файл — завантажуємо його в Appwrite Storage
             if (imageFile) {
                 const uploadedFile = await storage.createFile(
                     BUCKET_ID,
@@ -128,30 +118,28 @@ const AdminPartners = () => {
             };
 
             if (editingPartnerId) {
-                // Оновлення наявного запису
                 await tablesDB.updateRow({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PARTNERS,
                     rowId: editingPartnerId,
                     data: data,
                 });
-                alert('Партнера успішно оновлено!');
+                alert('The partner has been successfully updated!');
             } else {
-                // Створення нового запису
                 await tablesDB.createRow({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PARTNERS,
                     rowId: ID.unique(),
                     data: data,
                 });
-                alert('Партнера успішно додано!');
+                alert('Partner successfully added!');
             }
 
             setIsFormOpen(false);
             fetchPartners();
         } catch (error) {
             console.error('Error saving partner:', error);
-            alert(`Помилка при збереженні: ${error.message}`);
+            alert(`Error saving partner: ${error.message}`);
         } finally {
             setIsSubmitting(false);
         }
@@ -160,7 +148,7 @@ const AdminPartners = () => {
     if (isLoading) {
         return (
             <div className={classes.adminPage}>
-                <h2>Завантаження даних...</h2>
+                <h2>Loading data...</h2>
             </div>
         );
     }
@@ -220,7 +208,6 @@ const AdminPartners = () => {
                             />
                         </div>
 
-                        {/* Блок завантаження логотипа */}
                         <div
                             className={
                                 classes.addPlatformFormIdentityFieldImage
@@ -228,7 +215,6 @@ const AdminPartners = () => {
                         >
                             <p>Logo</p>
                             <label htmlFor="partnerImage">
-                                {/* ВИПРАВЛЕНО: тут тепер використовується правильний стейт imageUrl замість finalImageUrl */}
                                 {imageFile || imageUrl ? (
                                     <div
                                         className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
@@ -260,7 +246,6 @@ const AdminPartners = () => {
                         </div>
                     </div>
 
-                    {/* Кнопки управління формою */}
                     <div>
                         <button
                             type="submit"
@@ -273,7 +258,6 @@ const AdminPartners = () => {
                 </form>
             )}
 
-            {/* Список партнерів */}
             {!isFormOpen && (
                 <div className={classes.adminPartners}>
                     <h3>Partners List</h3>
