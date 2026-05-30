@@ -415,3 +415,23 @@ p.addPlatformFormHeader {
     border: 1px solid #f59e0b25;
     color: #f59e0b;
 }
+
+.submitBtn {
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: #d34329;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.submitBtn:hover {
+    background-color: #b83820;
+}
