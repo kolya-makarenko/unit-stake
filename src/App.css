@@ -9,3 +9,7 @@ body {
     max-width: 1200px;
     margin: auto;
 }
+
+.sectionMarginTop {
+    margin-top: 120px;
+}
