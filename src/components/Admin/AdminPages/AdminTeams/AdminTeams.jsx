@@ -190,10 +190,7 @@ const AdminTeams = () => {
             {isFormOpen ? (
                 <div className={classes.AdminHeader}>
                     <h2>{editingTeamId ? 'Edit Member' : 'Add Member'}</h2>
-                    <button onClick={handleCancel}>
-                        <img src={plusIcon} alt="plus" />
-                        Back to Teams
-                    </button>
+                    <button onClick={handleCancel}>Back to Teams</button>
                 </div>
             ) : (
                 <div className={classes.AdminHeader}>

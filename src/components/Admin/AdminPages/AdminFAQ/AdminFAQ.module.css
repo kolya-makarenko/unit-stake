@@ -7,6 +7,9 @@
 .AdminHeader {
     padding: 25px 0;
     border-bottom: 1px solid #00000012;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .AdminHeader h2 {
@@ -15,4 +18,400 @@
     line-height: 30px;
     letter-spacing: -0.45px;
     color: #111;
+}
+
+p.addPlatformFormHeader {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.45px;
+    color: #111;
+}
+
+.AdminHeader button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #d34329;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    text-align: center;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.AdminHeader button:hover {
+    background-color: #b83820;
+}
+
+.adminFaqHeader {
+    margin-top: 20px;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.adminFaqGrid {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+.adminFaqGridItem {
+    padding: 16px;
+    border: 1px solid #00000012;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.adminFaqGridItemName {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.adminFaqGridItemName h5 {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #6e6e6e;
+}
+
+.adminFaqGridItemName h4 {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    color: #333;
+}
+
+.adminPartnersListItemActions {
+    display: flex;
+    gap: 8px;
+}
+
+.adminPartnersListItemEdit {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #10b981;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.adminPartnersListItemEdit:hover {
+    background-color: #10b98114;
+}
+
+.adminPartnersListItemDelete {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #d34329;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.adminPartnersListItemDelete:hover {
+    background-color: #d3432912;
+}
+
+.adminPartnersListItemEdit img,
+.adminPartnersListItemDelete img {
+    height: 15px;
+}
+
+.adminFaqBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.adminFaqBlockItem {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.adminFaqBlockItem label {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.76px;
+    text-transform: uppercase;
+    color: #6b6b6b;
+}
+
+.addPlatformFormBlocksListItemInputTitle {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #00000017;
+    border-radius: 8px;
+    background-color: transparent;
+    font-family: 'Figtree';
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: -0.08px;
+    color: #333;
+}
+
+.addPlatformFormBlocksListItemInputTitle::placeholder {
+    color: #33333380;
+}
+
+.addPlatformForm {
+    margin: 25px 0;
+    padding: 25px;
+    border: 1px solid #00000012;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.addPlatformFormHeader {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.addPlatformFormIdentity {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.addPlatformFormIdentityField {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.addPlatformFormIdentityField label {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.76px;
+    text-transform: uppercase;
+    color: #6b6b6b;
+}
+
+.addPlatformFormIdentityField input,
+.addPlatformFormIdentityField select {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #00000017;
+    border-radius: 8px;
+    background-color: #fafafa;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: -0.08px;
+    color: #6b6b6b;
+}
+
+.addPlatformFormIdentityField input::placeholder {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: -0.08px;
+    color: #aaa;
+}
+
+.addPlatformFormIdentityFieldImage {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.addPlatformFormIdentityFieldImage p {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.76px;
+    text-transform: uppercase;
+    color: #6b6b6b;
+}
+
+.addPlatformFormIdentityFieldImage input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.addPlatformFormIdentityFieldImage label {
+    width: 100%;
+    padding: 13.5px 12px;
+    box-sizing: border-box;
+    border: 1px solid #00000017;
+    border-radius: 8px;
+    background-color: #fafafa;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: -0.08px;
+    color: #6b6b6b;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.addPlatformFormIdentityFieldImage label:hover {
+    border: 1px solid #f59e0b;
+}
+
+.addPlatformFormIdentityFieldImagePlaceholder {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.addPlatformFormIdentityFieldImage label img {
+    height: 13px;
+}
+
+.addPlatformFormIdentityFieldImagePlaceholder span {
+    display: inline-block;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.addPlatformFormIdentityFieldImagePlaceholder.active span {
+    color: #f59e0b;
+}
+
+.addPlatformFormContent {
+    margin-top: 20px;
+}
+
+.addPlatformFormContentBlocks {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 16px;
+}
+
+.addPlatformFormBlocksListItem {
+    padding: 16px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    background-color: #fafafa;
+    border: 1px solid #00000014;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.addPlatformFormBlocksListItem:last-child {
+    margin-bottom: 0;
+}
+
+.addPlatformFormBlocksListItemHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.addPlatformFormBlocksListItemHeader span {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.66px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.addPlatformFormBlocksListItemHeader span strong {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.76px;
+    text-transform: uppercase;
+    color: #6b6b6b;
+}
+
+.deleteBlockBtn {
+    height: fit-content;
+    padding: 2px 5px;
+    background-color: transparent;
+    border: 1px solid #ef4444;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.deleteBlockBtn:hover {
+    background-color: #ef444414;
+}
+
+.deleteBlockBtn img {
+    height: 15px;
+}
+
+.addPlatformFormBlockButtons {
+    height: fit-content;
+    padding: 16px;
+    border: 1px solid #00000012;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: sticky;
+    top: 20px;
+}
+
+.addPlatformFormBlockButtons button {
+    width: 100%;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    background-color: #a3a3a310;
+    border: 1px solid #a3a3a325;
+    border-radius: 7px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #a3a3a3;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.addPlatformFormBlockButtons button:hover {
+    background-color: #f59e0b10;
+    border: 1px solid #f59e0b25;
+    color: #f59e0b;
 }

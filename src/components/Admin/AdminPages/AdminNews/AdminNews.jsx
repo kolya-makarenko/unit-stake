@@ -239,10 +239,7 @@ const AdminNews = () => {
             {isFormOpen ? (
                 <div className={classes.AdminHeader}>
                     <h2>{editingNewsId ? 'Edit Article' : 'Add Article'}</h2>
-                    <button onClick={handleCancel}>
-                        <img src={plusIcon} alt="plus" />
-                        Back to News
-                    </button>
+                    <button onClick={handleCancel}>Back to News</button>
                 </div>
             ) : (
                 <div className={classes.AdminHeader}>

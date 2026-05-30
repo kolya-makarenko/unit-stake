@@ -160,10 +160,7 @@ const AdminPartners = () => {
                     <h2>
                         {editingPartnerId ? 'Edit Partner' : 'Add New Partner'}
                     </h2>
-                    <button onClick={handleCancel}>
-                        <img src={plusIcon} alt="plus" />
-                        Back to Partnes
-                    </button>
+                    <button onClick={handleCancel}>Back to Partnes</button>
                 </div>
             ) : (
                 <div className={classes.AdminHeader}>
