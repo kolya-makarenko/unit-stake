@@ -7,6 +7,9 @@
 .AdminHeader {
     padding: 25px 0;
     border-bottom: 1px solid #00000012;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .AdminHeader h2 {
@@ -15,4 +18,657 @@
     line-height: 30px;
     letter-spacing: -0.45px;
     color: #111;
+}
+
+p.addPlatformFormHeader {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.45px;
+    color: #111;
+}
+
+.AdminHeader button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #d34329;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    text-align: center;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.AdminHeader button:hover {
+    background-color: #b83820;
+}
+
+.addPlatformForm {
+    margin: 25px 0;
+    padding: 25px;
+    border: 1px solid #00000012;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.addPlatformFormHeader {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.addPlatformFormIdentity {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.addPlatformFormIdentityField {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.addPlatformFormIdentityField label {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.76px;
+    text-transform: uppercase;
+    color: #6b6b6b;
+}
+
+.addPlatformFormIdentityField input,
+.addPlatformFormIdentityField select {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #00000017;
+    border-radius: 8px;
+    background-color: #fafafa;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: -0.08px;
+    color: #6b6b6b;
+}
+
+.addPlatformFormBlocksListItemInputTitle {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #00000017;
+    border-radius: 8px;
+    background-color: transparent;
+    font-family: 'Figtree';
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: -0.08px;
+    color: #333;
+}
+
+.addPlatformFormBlocksListItemInputTitle::placeholder {
+    color: #33333380;
+}
+
+.addPlatformFormIdentityField input::placeholder {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: -0.08px;
+    color: #aaa;
+}
+
+.addPlatformFormIdentityFieldImage {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.addPlatformFormIdentityFieldImage p {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.76px;
+    text-transform: uppercase;
+    color: #6b6b6b;
+}
+
+.addPlatformFormIdentityFieldImage input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.addPlatformFormIdentityFieldImage label {
+    width: 100%;
+    padding: 13.5px 12px;
+    box-sizing: border-box;
+    border: 1px solid #00000017;
+    border-radius: 8px;
+    background-color: #fafafa;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: -0.08px;
+    color: #6b6b6b;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.addPlatformFormIdentityFieldImage label:hover {
+    border: 1px solid #f59e0b;
+}
+
+.addPlatformFormIdentityFieldImagePlaceholder {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.addPlatformFormIdentityFieldImage label img {
+    height: 13px;
+}
+
+.addPlatformFormIdentityFieldImagePlaceholder span {
+    display: inline-block;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.addPlatformFormIdentityFieldImagePlaceholder.active span {
+    color: #f59e0b;
+}
+
+.submitBtn {
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: #d34329;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.submitBtn:hover {
+    background-color: #b83820;
+}
+
+.adminPartners {
+    margin-top: 20px;
+}
+
+.adminPartners h3 {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.adminPartnersListItem {
+    padding: 16px;
+    border: 1px solid #00000012;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminPartnersListItemName {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.adminPartnersListItemName h4 {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.08px;
+    color: #333;
+}
+
+.adminPartnersListItemName a {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.08px;
+    color: #333;
+    transition: 0.3s ease-in-out;
+}
+
+.adminPartnersListItemName a:hover {
+    color: #d34329;
+}
+
+.adminPartnersListItemActions {
+    display: flex;
+    gap: 8px;
+}
+
+.adminPartnersListItemEdit {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #10b981;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.adminPartnersListItemEdit:hover {
+    background-color: #10b98114;
+}
+
+.adminPartnersListItemDelete {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #d34329;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.adminPartnersListItemDelete:hover {
+    background-color: #d3432912;
+}
+
+.adminPartnersListItemEdit img,
+.adminPartnersListItemDelete img {
+    height: 15px;
+}
+
+.adminNewsGrid {
+    display: flex;
+    flex-direction: column;
+}
+
+.adminNewsGrid {
+    margin-top: 20px;
+    border: 1px solid #00000012;
+    border: 10px;
+}
+
+.adminNewsGridHeader {
+    padding: 12px 20px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+    border-bottom: 1px solid #00000012;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-sizing: border-box;
+    background-color: #f6f6f6;
+}
+
+.adminNewsGridHeaderItem {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #6e6e6e;
+}
+
+.adminNewsGridItem {
+    padding: 12px 20px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    border-bottom: 1px solid #00000012;
+    box-sizing: border-box;
+}
+
+.adminNewsGridItem h4 {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    color: #333;
+}
+
+.adminNewsGridItem h5 {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0px;
+    color: #6b6b6b;
+}
+
+.adminNewsGridItemPublished {
+    width: fit-content;
+    padding: 3px 8px;
+    background: #10b9811a;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.06px;
+    color: #10b981;
+}
+
+.adminNewsGridItemNotPublished {
+    width: fit-content;
+    padding: 3px 8px;
+    background: #ef444414;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.06px;
+    color: #ef4444;
+}
+
+.addPlatformFormContentBlocks {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 16px;
+}
+
+.addPlatformFormContent {
+    margin-top: 20px;
+}
+
+.addPlatformFormBlocksListItem {
+    padding: 16px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    background-color: #fafafa;
+    border: 1px solid #00000014;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.addPlatformFormBlocksListItem:last-child {
+    margin-bottom: 0;
+}
+
+.addPlatformFormBlocksListItemHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.addPlatformFormBlocksListItemHeader span {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.66px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.addPlatformFormBlocksListItemHeader span strong {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.76px;
+    text-transform: uppercase;
+    color: #6b6b6b;
+}
+
+.deleteBlockBtn {
+    height: fit-content;
+    padding: 2px 5px;
+    background-color: transparent;
+    border: 1px solid #ef4444;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.deleteBlockBtn:hover {
+    background-color: #ef444414;
+}
+
+.deleteBlockBtn img {
+    height: 15px;
+}
+
+.addPlatformFormBlocksListItemInputTitle {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #00000017;
+    border-radius: 8px;
+    background-color: transparent;
+    font-family: 'Figtree';
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: -0.08px;
+    color: #333;
+}
+
+.addPlatformFormBlocksListItemInputTitle::placeholder {
+    color: #33333380;
+}
+
+.addPlatformFormBlockButtons {
+    height: fit-content;
+    padding: 16px;
+    border: 1px solid #00000012;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: sticky;
+    top: 20px;
+}
+
+.addPlatformFormBlockButtons button {
+    width: 100%;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    background-color: #a3a3a310;
+    border: 1px solid #a3a3a325;
+    border-radius: 7px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #a3a3a3;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.addPlatformFormBlockButtons button:hover {
+    background-color: #f59e0b10;
+    border: 1px solid #f59e0b25;
+    color: #f59e0b;
+}
+
+.addPlatformFormSwitches {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 16px;
+}
+
+.addPlatformFormSwitchesContainer {
+    padding: 16px;
+    border: 1px solid #00000012;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.addPlatformFormSwitchesBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.addPlatformFormSwitchesBox div {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.addPlatformFormSwitchesBox h6 {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    color: #333;
+}
+
+.addPlatformFormSwitchesBox p {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.06px;
+    color: #808080;
+}
+
+.addPlatformFormSwitchesBox label {
+    width: 40px;
+    height: 22px;
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.addPlatformFormSwitchesBox input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.addPlatformFormSwitchesBox span {
+    width: 100%;
+    height: 100%;
+    border-radius: 11px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #dedede;
+    transition: 0.3s ease-in-out;
+}
+
+.addPlatformFormSwitchesBox span:before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    background-color: #fff;
+    transition: 0.3s ease-in-out;
+}
+
+.marginTop20 {
+    margin-top: 20px;
+}
+
+.addPlatformFormSwitchesBox input:checked + span {
+    background-color: red;
+}
+
+.addPlatformFormSwitchesBox input:checked + span:before {
+    transform: translateX(18px);
+}
+
+.adminMailsPagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.adminMailsPagination h4.adminMailsPaginationInfo {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0px;
+    color: #6e6e6e;
+}
+
+.adminMailsPaginationBtns {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.adminMailsPaginationBtnPrev,
+.adminMailsPaginationBtnNext,
+.adminMailsPaginationBtnNumber {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 6px;
+    background-color: #0000000d;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #808080;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.adminMailsPaginationBtnPrev:disabled,
+.adminMailsPaginationBtnNext:disabled {
+    opacity: 0.3;
+}
+
+.adminMailsPaginationBtnPrev:hover,
+.adminMailsPaginationBtnNext:hover {
+    background-color: #d3432926;
+}
+
+.adminMailsPaginationBtnPrev:hover svg path,
+.adminMailsPaginationBtnNext:hover svg path {
+    stroke: #d34329;
+}
+
+.adminMailsPaginationBtnNumber:hover,
+.adminMailsPaginationBtnNumber.active {
+    background-color: #d3432926;
+    color: #d34329;
+}
+
+.adminMailsPaginationBtnPrev {
+    transform: rotate(180deg);
 }
