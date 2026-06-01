@@ -26,6 +26,9 @@ const AdminPartners = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const [email, setEmail] = useState('');
+    const [textBlocks, setTextBlocks] = useState([]);
+
     const fetchPartners = async () => {
         try {
             setIsLoading(true);
@@ -52,10 +55,62 @@ const AdminPartners = () => {
         }
     };
 
+    const addTextBlock = (type) => {
+        const newBlock = {
+            id: ID.unique(),
+            type: type,
+            value: type === 'case_link' ? { title: '', url: '' } : '',
+            file: null,
+        };
+        setTextBlocks([...textBlocks, newBlock]);
+    };
+
+    const handleBlockTextChange = (id, text) => {
+        setTextBlocks(
+            textBlocks.map((block) =>
+                block.id === id ? { ...block, value: text } : block,
+            ),
+        );
+    };
+
+    const handleCaseLinkChange = (id, field, text) => {
+        setTextBlocks(
+            textBlocks.map((block) =>
+                block.id === id
+                    ? { ...block, value: { ...block.value, [field]: text } }
+                    : block,
+            ),
+        );
+    };
+
+    const handleBlockFileChange = (id, e) => {
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            setTextBlocks(
+                textBlocks.map((block) =>
+                    block.id === id
+                        ? {
+                              ...block,
+                              file: file,
+                              value: file.name,
+                              existingUrl: null,
+                          }
+                        : block,
+                ),
+            );
+        }
+    };
+
+    const removeBlock = (id) => {
+        setTextBlocks(textBlocks.filter((block) => block.id !== id));
+    };
+
     const handleAddClick = () => {
         setName('');
         setImageUrl('');
         setPartnerUrl('');
+        setEmail('');
+        setTextBlocks([]);
         setImageFile(null);
         setEditingPartnerId(null);
         setIsFormOpen(true);
@@ -65,8 +120,26 @@ const AdminPartners = () => {
         setName(partner.name || '');
         setImageUrl(partner.image_url || '');
         setPartnerUrl(partner.partner_url || '');
+        setEmail(partner.email || '');
         setImageFile(null);
         setEditingPartnerId(partner.$id);
+
+        if (partner.content_blocks && partner.content_blocks.length) {
+            const parsedBlocks = partner.content_blocks.map((blockStr) => {
+                const block = JSON.parse(blockStr);
+                return {
+                    id: ID.unique(),
+                    type: block.type,
+                    value: block.value,
+                    file: null,
+                    existingUrl: block.type === 'image' ? block.value : null,
+                };
+            });
+            setTextBlocks(parsedBlocks);
+        } else {
+            setTextBlocks([]);
+        }
+
         setIsFormOpen(true);
     };
 
@@ -111,10 +184,47 @@ const AdminPartners = () => {
                 finalImageUrl = `${storage.client.config.endpoint}/storage/buckets/${BUCKET_ID}/files/${uploadedFile.$id}/view?project=${storage.client.config.project}`;
             }
 
+            const serializedBlocks = [];
+            for (const block of textBlocks) {
+                if (block.type === 'image') {
+                    if (block.file) {
+                        const uploadedBlockFile = await storage.createFile(
+                            BUCKET_ID,
+                            ID.unique(),
+                            block.file,
+                        );
+                        const fileUrl = `${storage.client.config.endpoint}/storage/buckets/${BUCKET_ID}/files/${uploadedBlockFile.$id}/view?project=${storage.client.config.project}`;
+
+                        serializedBlocks.push(
+                            JSON.stringify({
+                                type: block.type,
+                                value: fileUrl,
+                            }),
+                        );
+                    } else {
+                        serializedBlocks.push(
+                            JSON.stringify({
+                                type: block.type,
+                                value: block.existingUrl || '',
+                            }),
+                        );
+                    }
+                } else {
+                    serializedBlocks.push(
+                        JSON.stringify({
+                            type: block.type,
+                            value: block.value,
+                        }),
+                    );
+                }
+            }
+
             const data = {
                 name: name,
                 image_url: finalImageUrl,
                 partner_url: partnerUrl,
+                email: email,
+                content_blocks: serializedBlocks,
             };
 
             if (editingPartnerId) {
@@ -160,7 +270,7 @@ const AdminPartners = () => {
                     <h2>
                         {editingPartnerId ? 'Edit Partner' : 'Add New Partner'}
                     </h2>
-                    <button onClick={handleCancel}>Back to Partnes</button>
+                    <button onClick={handleCancel}>Back to Partners</button>
                 </div>
             ) : (
                 <div className={classes.AdminHeader}>
@@ -189,6 +299,17 @@ const AdminPartners = () => {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 required
+                            />
+                        </div>
+
+                        <div className={classes.addPlatformFormIdentityField}>
+                            <label htmlFor="partnerEmail">Partner Email</label>
+                            <input
+                                type="email"
+                                id="partnerEmail"
+                                placeholder="e.g. partner@binance.com"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
 
@@ -240,6 +361,218 @@ const AdminPartners = () => {
                                 accept="image/*"
                                 onChange={handleFileChange}
                             />
+                        </div>
+                    </div>
+
+                    <div className={classes.addPlatformFormContent}>
+                        <h3 className={classes.addPlatformFormHeader}>
+                            Content Blocks
+                        </h3>
+                        <div className={classes.addPlatformFormContentBlocks}>
+                            <div className={classes.addPlatformFormBlocksList}>
+                                {textBlocks.map((block, index) => (
+                                    <div
+                                        key={block.id}
+                                        className={`${classes.addPlatformFormBlocksListItem} ${classes[block.type]}`}
+                                    >
+                                        <div
+                                            className={
+                                                classes.addPlatformFormBlocksListItemHeader
+                                            }
+                                        >
+                                            <span>
+                                                Block {index + 1}:{' '}
+                                                <strong>
+                                                    {block.type === 'h4' &&
+                                                        'Title'}
+                                                    {block.type === 'p' &&
+                                                        'Body Text'}
+                                                    {block.type === 'image' &&
+                                                        'Image Block'}
+                                                    {block.type ===
+                                                        'case_link' &&
+                                                        'Link to Case'}
+                                                </strong>
+                                            </span>
+                                            <button
+                                                type="button"
+                                                className={
+                                                    classes.deleteBlockBtn
+                                                }
+                                                onClick={() =>
+                                                    removeBlock(block.id)
+                                                }
+                                            >
+                                                <img
+                                                    src={deleteIcon}
+                                                    alt="Delete"
+                                                />
+                                            </button>
+                                        </div>
+
+                                        {block.type === 'h4' && (
+                                            <input
+                                                type="text"
+                                                placeholder="Enter title text..."
+                                                className={
+                                                    classes.addPlatformFormBlocksListItemInputTitle
+                                                }
+                                                value={block.value}
+                                                onChange={(e) =>
+                                                    handleBlockTextChange(
+                                                        block.id,
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        )}
+
+                                        {block.type === 'p' && (
+                                            <textarea
+                                                placeholder="Enter main text content..."
+                                                className={
+                                                    classes.addPlatformFormBlocksListItemInputTitle
+                                                }
+                                                value={block.value}
+                                                onChange={(e) =>
+                                                    handleBlockTextChange(
+                                                        block.id,
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                rows={4}
+                                            />
+                                        )}
+
+                                        {block.type === 'case_link' && (
+                                            <div
+                                                className={
+                                                    classes.adminPartnersCaseLinksInputs
+                                                }
+                                            >
+                                                <input
+                                                    type="text"
+                                                    placeholder="Case Title / Label (e.g. DeFi Integration Case)"
+                                                    className={
+                                                        classes.addPlatformFormBlocksListItemInputTitle
+                                                    }
+                                                    value={
+                                                        block.value?.title || ''
+                                                    }
+                                                    onChange={(e) =>
+                                                        handleCaseLinkChange(
+                                                            block.id,
+                                                            'title',
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                />
+                                                <input
+                                                    type="text"
+                                                    placeholder="Case URL (https://...)"
+                                                    className={
+                                                        classes.addPlatformFormBlocksListItemInputTitle
+                                                    }
+                                                    value={
+                                                        block.value?.url || ''
+                                                    }
+                                                    onChange={(e) =>
+                                                        handleCaseLinkChange(
+                                                            block.id,
+                                                            'url',
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        )}
+
+                                        {block.type === 'image' && (
+                                            <div
+                                                className={
+                                                    classes.addPlatformFormIdentityFieldImage
+                                                }
+                                            >
+                                                <label
+                                                    htmlFor={`imageBlock-${block.id}`}
+                                                >
+                                                    {block.file ||
+                                                    block.existingUrl ? (
+                                                        <div
+                                                            className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
+                                                        >
+                                                            <img
+                                                                src={imageIcon}
+                                                                alt="upload"
+                                                            />
+                                                            <span>
+                                                                {block.file
+                                                                    ? block.file
+                                                                          .name
+                                                                    : 'Current Block Image'}
+                                                            </span>
+                                                        </div>
+                                                    ) : (
+                                                        <div
+                                                            className={
+                                                                classes.addPlatformFormIdentityFieldImagePlaceholder
+                                                            }
+                                                        >
+                                                            <img
+                                                                src={upLoadIcon}
+                                                                alt="upload"
+                                                            />
+                                                            <span>
+                                                                Select block
+                                                                image
+                                                            </span>
+                                                        </div>
+                                                    )}
+                                                </label>
+                                                <input
+                                                    id={`imageBlock-${block.id}`}
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) =>
+                                                        handleBlockFileChange(
+                                                            block.id,
+                                                            e,
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                            <div
+                                className={classes.addPlatformFormBlockButtons}
+                            >
+                                <button
+                                    type="button"
+                                    onClick={() => addTextBlock('h4')}
+                                >
+                                    + Add Title
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => addTextBlock('p')}
+                                >
+                                    + Add Body Text
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => addTextBlock('image')}
+                                >
+                                    + Add Image
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => addTextBlock('case_link')}
+                                >
+                                    + Add Case Link
+                                </button>
+                            </div>
                         </div>
                     </div>
 

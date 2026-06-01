@@ -5,6 +5,7 @@ import {
     DATABASE_ID,
     TABLE_ID_PROJECTS,
     TABLE_ID_CATEGORIES,
+    TABLE_ID_PLATFORMS,
     ID,
     storage,
     BUCKET_ID,
@@ -34,6 +35,21 @@ const AdminProjectAdd = () => {
     const [contentBlocks, setContentBlocks] = useState([]);
     const [isPublished, setIsPublished] = useState(false);
     const [isVerified, setIsVerified] = useState(false);
+    const [platformsList, setPlatformsList] = useState([]);
+    const [platformId, setPlatformId] = useState('');
+    const [filtersText, setFiltersText] = useState('');
+    const [legalName, setLegalName] = useState('');
+    const [employeesCount, setEmployeesCount] = useState('');
+    const [foundedDate, setFoundedDate] = useState('');
+    const [websiteUrl, setWebsiteUrl] = useState('');
+    const [country, setCountry] = useState('');
+
+    const [linkedinUrl, setLinkedinUrl] = useState('');
+    const [xUrl, setXUrl] = useState('');
+    const [instagramUrl, setInstagramUrl] = useState('');
+    const [facebookUrl, setFacebookUrl] = useState('');
+    const [youtubeUrl, setYoutubeUrl] = useState('');
+    const [googleMapsUrl, setGoogleMapsUrl] = useState('');
 
     const getTodayDate = () => {
         const today = new Date();
@@ -44,18 +60,29 @@ const AdminProjectAdd = () => {
     };
 
     useEffect(() => {
-        const fetchCategories = async () => {
+        const fetchInitialData = async () => {
             try {
-                const response = await tablesDB.listRows({
-                    databaseId: DATABASE_ID,
-                    tableId: TABLE_ID_CATEGORIES,
-                });
-                setCategoriesList(response.rows[0]?.project_categories || []);
+                const [categoriesResponse, platformsResponse] =
+                    await Promise.all([
+                        tablesDB.listRows({
+                            databaseId: DATABASE_ID,
+                            tableId: TABLE_ID_CATEGORIES,
+                        }),
+                        tablesDB.listRows({
+                            databaseId: DATABASE_ID,
+                            tableId: TABLE_ID_PLATFORMS,
+                        }),
+                    ]);
+
+                setCategoriesList(
+                    categoriesResponse.rows[0]?.project_categories || [],
+                );
+                setPlatformsList(platformsResponse.rows || []);
             } catch (error) {
-                console.error('Error loading categories:', error.message);
+                console.error('Error loading initial data:', error.message);
             }
         };
-        fetchCategories();
+        fetchInitialData();
     }, []);
 
     const addTokenBlock = () => {
@@ -223,6 +250,13 @@ const AdminProjectAdd = () => {
                 }),
             );
 
+            const filtersArray = filtersText
+                ? filtersText
+                      .split(',')
+                      .map((item) => item.trim())
+                      .filter((item) => item !== '')
+                : [];
+
             const projectData = {
                 name,
                 category: category ? [category] : [],
@@ -231,11 +265,24 @@ const AdminProjectAdd = () => {
                 funding_goal: Number(fundingGoal),
                 current_investments: Number(currentInvestments),
                 number_investors: Number(numberInvestors),
-                deadline,
+                deadline: deadline,
                 token_addresses: serializedTokenBlocks,
                 content_blocks: serializedContentBlocks,
                 is_published: isPublished,
                 is_verified: isVerified,
+                platform_id: platformId,
+                filters: filtersArray,
+                legal_name: legalName,
+                employees_count: employeesCount,
+                founded_date: foundedDate,
+                website_url: websiteUrl,
+                country: country,
+                linkedin_url: linkedinUrl,
+                x_url: xUrl,
+                instagram_url: instagramUrl,
+                facebook_url: facebookUrl,
+                youtube_url: youtubeUrl,
+                google_maps_url: googleMapsUrl,
             };
 
             await tablesDB.createRow({
@@ -283,6 +330,26 @@ const AdminProjectAdd = () => {
                             required
                         />
                     </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="relatedPlatform">
+                            Belongs to Platform
+                        </label>
+                        <select
+                            id="relatedPlatform"
+                            className={classes.selectInput}
+                            value={platformId}
+                            onChange={(e) => setPlatformId(e.target.value)}
+                        >
+                            <option value="">Select a platform</option>
+                            {platformsList.map((plat) => (
+                                <option key={plat.$id} value={plat.$id}>
+                                    {plat.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="category">Primary Category</label>
                         <select
@@ -299,6 +366,76 @@ const AdminProjectAdd = () => {
                             ))}
                         </select>
                     </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="filtersInput">
+                            Filters (comma separated)
+                        </label>
+                        <input
+                            type="text"
+                            id="filtersInput"
+                            placeholder="e.g. Real Estate, Ecology, DeFi"
+                            value={filtersText}
+                            onChange={(e) => setFiltersText(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="legalName">Legal Name</label>
+                        <input
+                            type="text"
+                            id="legalName"
+                            placeholder="e.g. NexusFi Solutions LLC"
+                            value={legalName}
+                            onChange={(e) => setLegalName(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="employeesCount">
+                            Number of Employees
+                        </label>
+                        <input
+                            type="text"
+                            id="employeesCount"
+                            placeholder="e.g. 10-50 or 120"
+                            value={employeesCount}
+                            onChange={(e) => setEmployeesCount(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="foundedDate">Founding Date</label>
+                        <input
+                            type="date"
+                            id="foundedDate"
+                            value={foundedDate}
+                            onChange={(e) => setFoundedDate(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="websiteUrl">Website URL</label>
+                        <input
+                            type="url"
+                            id="websiteUrl"
+                            placeholder="https://example.com"
+                            value={websiteUrl}
+                            onChange={(e) => setWebsiteUrl(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="country">Country of Origin</label>
+                        <input
+                            type="text"
+                            id="country"
+                            placeholder="e.g. United Kingdom"
+                            value={country}
+                            onChange={(e) => setCountry(e.target.value)}
+                        />
+                    </div>
+
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="minInvestment">
                             Minimum investment
@@ -369,7 +506,72 @@ const AdminProjectAdd = () => {
                             onChange={(e) => setDeadline(e.target.value)}
                         />
                     </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="linkedinUrl">LinkedIn Profile</label>
+                        <input
+                            type="text"
+                            id="linkedinUrl"
+                            placeholder="https://linkedin.com/company/..."
+                            value={linkedinUrl}
+                            onChange={(e) => setLinkedinUrl(e.target.value)}
+                        />
+                    </div>
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="xUrl">X.com (Twitter)</label>
+                        <input
+                            type="text"
+                            id="xUrl"
+                            placeholder="https://x.com/..."
+                            value={xUrl}
+                            onChange={(e) => setXUrl(e.target.value)}
+                        />
+                    </div>
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="instagramUrl">Instagram Profile</label>
+                        <input
+                            type="text"
+                            id="instagramUrl"
+                            placeholder="https://instagram.com/..."
+                            value={instagramUrl}
+                            onChange={(e) => setInstagramUrl(e.target.value)}
+                        />
+                    </div>
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="facebookUrl">Facebook Page</label>
+                        <input
+                            type="text"
+                            id="facebookUrl"
+                            placeholder="https://facebook.com/..."
+                            value={facebookUrl}
+                            onChange={(e) => setFacebookUrl(e.target.value)}
+                        />
+                    </div>
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="youtubeUrl">YouTube Channel</label>
+                        <input
+                            type="text"
+                            id="youtubeUrl"
+                            placeholder="https://youtube.com/c/..."
+                            value={youtubeUrl}
+                            onChange={(e) => setYoutubeUrl(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="googleMapsUrl">
+                            Google Maps Location Link
+                        </label>
+                        <input
+                            type="text"
+                            id="googleMapsUrl"
+                            placeholder="https://maps.google.com/..."
+                            value={googleMapsUrl}
+                            onChange={(e) => setGoogleMapsUrl(e.target.value)}
+                        />
+                    </div>
                 </div>
+
                 <div className={classes.addPlatformFormContent}>
                     <h3 className={classes.addPlatformFormHeader}>
                         Token addresses
@@ -480,6 +682,7 @@ const AdminProjectAdd = () => {
                         </div>
                     </div>
                 </div>
+
                 <div className={classes.addPlatformFormContent}>
                     <h3 className={classes.addPlatformFormHeader}>
                         Content Blocks
@@ -746,6 +949,7 @@ const AdminProjectAdd = () => {
                         </div>
                     </div>
                 </div>
+
                 <h3
                     className={`${classes.addPlatformFormHeader} ${classes.marginTop20}`}
                 >

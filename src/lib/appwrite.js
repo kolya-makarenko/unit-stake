@@ -16,6 +16,7 @@ export const TABLE_ID_TEAMS = import.meta.env.VITE_APPWRITE_TABLE_ID_TEAMS;
 export const TABLE_ID_NEWS = import.meta.env.VITE_APPWRITE_TABLE_ID_NEWS;
 export const TABLE_ID_FAQS_PAGE = import.meta.env
     .VITE_APPWRITE_TABLE_ID_FAQS_PAGE;
+export const TABLE_ID_ACADEMY = import.meta.env.VITE_APPWRITE_TABLE_ID_ACADEMY;
 export const BUCKET_ID = import.meta.env.VITE_APPWRITE_BUCKET_ID;
 
 export const client = new Client();
