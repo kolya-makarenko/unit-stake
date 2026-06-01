@@ -172,12 +172,15 @@ p.addPlatformFormHeader {
     border: 1px solid #00000017;
     border-radius: 8px;
     background-color: transparent;
-    font-family: 'Figtree';
     font-weight: 400;
     font-size: 13px;
     line-height: 100%;
     letter-spacing: -0.08px;
     color: #333;
+}
+
+textarea.addPlatformFormBlocksListItemInputTitle {
+    font-family: 'Figtree';
 }
 
 .addPlatformFormBlocksListItemInputTitle::placeholder {
