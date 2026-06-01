@@ -23,6 +23,7 @@ const AdminProjectEdit = () => {
     const navigate = useNavigate();
 
     const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [categoriesList, setCategoriesList] = useState([]);
     const [minInvestment, setMinInvestment] = useState('');
@@ -63,6 +64,7 @@ const AdminProjectEdit = () => {
                 const data = response;
 
                 setName(data.name || '');
+                setDescription(data.description || '');
                 setCategory(
                     data.category && data.category.length
                         ? data.category[0]
@@ -259,6 +261,8 @@ const AdminProjectEdit = () => {
                 return <h6>Image</h6>;
             case 'document':
                 return <h6>Document</h6>;
+            case 'youtube':
+                return <h6>YouTube Video</h6>;
             default:
                 return null;
         }
@@ -348,6 +352,7 @@ const AdminProjectEdit = () => {
 
             const data = {
                 name: name,
+                description: description,
                 category: category ? [category] : [],
                 min_investment: minInvestment ? Number(minInvestment) : null,
                 max_investment: maxInvestment ? Number(maxInvestment) : null,
@@ -437,6 +442,18 @@ const AdminProjectEdit = () => {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             required
+                        />
+                    </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="projectDescription">
+                            Short Description
+                        </label>
+                        <input
+                            id="projectDescription"
+                            placeholder="Write a short summary of the project..."
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
 
@@ -859,6 +876,23 @@ const AdminProjectEdit = () => {
                                         />
                                     )}
 
+                                    {block.type === 'youtube' && (
+                                        <input
+                                            type="text"
+                                            placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                            className={
+                                                classes.addPlatformFormBlocksListItemInputTitle
+                                            }
+                                            value={block.value}
+                                            onChange={(e) =>
+                                                handleBlockTextChange(
+                                                    block.id,
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    )}
+
                                     {block.type === 'ul' && (
                                         <div
                                             className={
@@ -1049,6 +1083,14 @@ const AdminProjectEdit = () => {
                             >
                                 + Add Body Text
                             </button>
+
+                            <button
+                                type="button"
+                                onClick={() => addTextBlock('youtube')}
+                            >
+                                + Add YouTube Video
+                            </button>
+
                             <button
                                 type="button"
                                 onClick={() => addTextBlock('ul')}

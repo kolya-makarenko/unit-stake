@@ -3,6 +3,7 @@ import {
     tablesDB,
     DATABASE_ID,
     TABLE_ID_PARTNERS,
+    TABLE_ID_CATEGORIES,
     BUCKET_ID,
     ID,
     storage,
@@ -29,6 +30,23 @@ const AdminPartners = () => {
     const [email, setEmail] = useState('');
     const [textBlocks, setTextBlocks] = useState([]);
 
+    const [category, setCategory] = useState('');
+    const [categoriesList, setCategoriesList] = useState([]);
+
+    const fetchCategories = async () => {
+        try {
+            const response = await tablesDB.listRows({
+                databaseId: DATABASE_ID,
+                tableId: TABLE_ID_CATEGORIES,
+            });
+            if (response.rows && response.rows.length > 0) {
+                setCategoriesList(response.rows[0].partner_categories || []);
+            }
+        } catch (error) {
+            console.error('Error loading partner categories:', error.message);
+        }
+    };
+
     const fetchPartners = async () => {
         try {
             setIsLoading(true);
@@ -47,6 +65,7 @@ const AdminPartners = () => {
 
     useEffect(() => {
         fetchPartners();
+        fetchCategories();
     }, []);
 
     const handleFileChange = (e) => {
@@ -110,6 +129,7 @@ const AdminPartners = () => {
         setImageUrl('');
         setPartnerUrl('');
         setEmail('');
+        setCategory('');
         setTextBlocks([]);
         setImageFile(null);
         setEditingPartnerId(null);
@@ -121,6 +141,7 @@ const AdminPartners = () => {
         setImageUrl(partner.image_url || '');
         setPartnerUrl(partner.partner_url || '');
         setEmail(partner.email || '');
+        setCategory(partner.category || '');
         setImageFile(null);
         setEditingPartnerId(partner.$id);
 
@@ -224,6 +245,7 @@ const AdminPartners = () => {
                 image_url: finalImageUrl,
                 partner_url: partnerUrl,
                 email: email,
+                category: category,
                 content_blocks: serializedBlocks,
             };
 
@@ -324,6 +346,24 @@ const AdminPartners = () => {
                                 value={partnerUrl}
                                 onChange={(e) => setPartnerUrl(e.target.value)}
                             />
+                        </div>
+
+                        <div className={classes.addPlatformFormIdentityField}>
+                            <label htmlFor="partnerCategory">
+                                Partner Category
+                            </label>
+                            <select
+                                id="partnerCategory"
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                            >
+                                <option value="">Select a category</option>
+                                {categoriesList.map((cat, index) => (
+                                    <option key={index} value={cat}>
+                                        {cat}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
                         <div
@@ -607,7 +647,14 @@ const AdminPartners = () => {
                                             classes.adminPartnersListItemName
                                         }
                                     >
-                                        <h4>{partner.name}</h4>
+                                        <h4>
+                                            {partner.name}{' '}
+                                            {partner.category && (
+                                                <span>
+                                                    ({partner.category})
+                                                </span>
+                                            )}
+                                        </h4>
                                         {partner.partner_url && (
                                             <a
                                                 href={partner.partner_url}

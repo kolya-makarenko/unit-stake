@@ -22,6 +22,7 @@ import removeIcon from '../../../../../assets/images/icons/remove.svg';
 const AdminProjectAdd = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [minInvestment, setMinInvestment] = useState('');
     const [maxInvestment, setMaxInvestment] = useState('');
@@ -196,6 +197,8 @@ const AdminProjectAdd = () => {
                 return 'Image';
             case 'document':
                 return 'Document (PDF)';
+            case 'youtube':
+                return 'YouTube Video';
             default:
                 return 'Block';
         }
@@ -259,6 +262,7 @@ const AdminProjectAdd = () => {
 
             const projectData = {
                 name,
+                description,
                 category: category ? [category] : [],
                 min_investment: Number(minInvestment),
                 max_investment: Number(maxInvestment),
@@ -328,6 +332,18 @@ const AdminProjectAdd = () => {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             required
+                        />
+                    </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="projectDescription">
+                            Short Description
+                        </label>
+                        <input
+                            id="projectDescription"
+                            placeholder="Write a short summary of the project..."
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
 
@@ -752,6 +768,24 @@ const AdminProjectAdd = () => {
                                             rows={6}
                                         />
                                     )}
+
+                                    {block.type === 'youtube' && (
+                                        <input
+                                            type="text"
+                                            placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                            className={
+                                                classes.addPlatformFormBlocksListItemInputTitle
+                                            }
+                                            value={block.value}
+                                            onChange={(e) =>
+                                                handleContentBlockTextChange(
+                                                    block.id,
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    )}
+
                                     {block.type === 'ul' && (
                                         <div
                                             className={
@@ -928,6 +962,14 @@ const AdminProjectAdd = () => {
                             >
                                 + Add Body Text
                             </button>
+
+                            <button
+                                type="button"
+                                onClick={() => addContentBlock('youtube')}
+                            >
+                                + Add YouTube Video
+                            </button>
+
                             <button
                                 type="button"
                                 onClick={() => addContentBlock('ul')}

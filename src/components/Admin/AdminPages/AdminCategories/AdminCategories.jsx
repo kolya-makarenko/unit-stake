@@ -15,11 +15,13 @@ const AdminCategories = () => {
     const [docId, setDocId] = useState(null);
     const [platformCategories, setPlatformCategories] = useState([]);
     const [projectCategories, setProjectCategories] = useState([]);
-    const [projectFilters, setProjectFilters] = useState([]); // Новий стейт для фільтрів
+    const [projectFilters, setProjectFilters] = useState([]);
+    const [partnerCategories, setPartnerCategories] = useState([]);
 
     const [newPlatform, setNewPlatform] = useState('');
     const [newProject, setNewProject] = useState('');
-    const [newFilter, setNewFilter] = useState(''); // Стейт для введення нового фільтра
+    const [newFilter, setNewFilter] = useState('');
+    const [newPartner, setNewPartner] = useState('');
 
     const [editPlatformIndex, setEditPlatformIndex] = useState(-1);
     const [editPlatformValue, setEditPlatformValue] = useState('');
@@ -27,8 +29,11 @@ const AdminCategories = () => {
     const [editProjectIndex, setEditProjectIndex] = useState(-1);
     const [editProjectValue, setEditProjectValue] = useState('');
 
-    const [editFilterIndex, setEditFilterIndex] = useState(-1); // Індекс фільтра, що редагується
-    const [editFilterValue, setEditFilterValue] = useState(''); // Значення фільтра, що редагується
+    const [editFilterIndex, setEditFilterIndex] = useState(-1);
+    const [editFilterValue, setEditFilterValue] = useState('');
+
+    const [editPartnerIndex, setEditPartnerIndex] = useState(-1);
+    const [editPartnerValue, setEditPartnerValue] = useState('');
 
     const fetchCategories = async () => {
         try {
@@ -42,7 +47,8 @@ const AdminCategories = () => {
                 setDocId(dataDoc.$id || dataDoc.id);
                 setPlatformCategories(dataDoc.platform_categories || []);
                 setProjectCategories(dataDoc.project_categories || []);
-                setProjectFilters(dataDoc.project_filters || []); // Завантаження фільтрів з БД
+                setProjectFilters(dataDoc.project_filters || []);
+                setPartnerCategories(dataDoc.partner_categories || []);
             }
         } catch (error) {
             console.error(
@@ -57,11 +63,11 @@ const AdminCategories = () => {
         fetchCategories();
     }, []);
 
-    // Оновлена функція, яка приймає і зберігає також масив фільтрів
     const updateDatabase = async (
         updatedPlatforms,
         updatedProjects,
         updatedFilters,
+        updatedPartners,
     ) => {
         if (!docId) {
             alert('Error: The document ID was not found in the database.');
@@ -76,7 +82,8 @@ const AdminCategories = () => {
                 data: {
                     platform_categories: updatedPlatforms,
                     project_categories: updatedProjects,
-                    project_filters: updatedFilters, // Запис фільтрів у БД
+                    project_filters: updatedFilters,
+                    partner_categories: updatedPartners,
                 },
             });
             return true;
@@ -87,7 +94,6 @@ const AdminCategories = () => {
         }
     };
 
-    // --- PLATFORMS HANDLERS ---
     const handleAddPlatform = async (e) => {
         e.preventDefault();
         if (!newPlatform.trim()) return;
@@ -97,6 +103,7 @@ const AdminCategories = () => {
             updated,
             projectCategories,
             projectFilters,
+            partnerCategories,
         );
         if (success) {
             setPlatformCategories(updated);
@@ -114,6 +121,7 @@ const AdminCategories = () => {
             updated,
             projectCategories,
             projectFilters,
+            partnerCategories,
         );
         if (success) {
             setPlatformCategories(updated);
@@ -136,6 +144,7 @@ const AdminCategories = () => {
             updated,
             projectCategories,
             projectFilters,
+            partnerCategories,
         );
         if (success) {
             setPlatformCategories(updated);
@@ -143,7 +152,6 @@ const AdminCategories = () => {
         }
     };
 
-    // --- PROJECTS HANDLERS ---
     const handleAddProject = async (e) => {
         e.preventDefault();
         if (!newProject.trim()) return;
@@ -153,6 +161,7 @@ const AdminCategories = () => {
             platformCategories,
             updated,
             projectFilters,
+            partnerCategories,
         );
         if (success) {
             setProjectCategories(updated);
@@ -170,6 +179,7 @@ const AdminCategories = () => {
             platformCategories,
             updated,
             projectFilters,
+            partnerCategories,
         );
         if (success) {
             setProjectCategories(updated);
@@ -192,6 +202,7 @@ const AdminCategories = () => {
             platformCategories,
             updated,
             projectFilters,
+            partnerCategories,
         );
         if (success) {
             setProjectCategories(updated);
@@ -199,7 +210,6 @@ const AdminCategories = () => {
         }
     };
 
-    // --- FILTERS HANDLERS ---
     const handleAddFilter = async (e) => {
         e.preventDefault();
         if (!newFilter.trim()) return;
@@ -209,6 +219,7 @@ const AdminCategories = () => {
             platformCategories,
             projectCategories,
             updated,
+            partnerCategories,
         );
         if (success) {
             setProjectFilters(updated);
@@ -226,6 +237,7 @@ const AdminCategories = () => {
             platformCategories,
             projectCategories,
             updated,
+            partnerCategories,
         );
         if (success) {
             setProjectFilters(updated);
@@ -248,10 +260,69 @@ const AdminCategories = () => {
             platformCategories,
             projectCategories,
             updated,
+            partnerCategories,
         );
         if (success) {
             setProjectFilters(updated);
             setEditFilterIndex(-1);
+        }
+    };
+
+    const handleAddPartner = async (e) => {
+        e.preventDefault();
+        if (!newPartner.trim()) return;
+
+        const updated = [...partnerCategories, newPartner.trim()];
+        const success = await updateDatabase(
+            platformCategories,
+            projectCategories,
+            projectFilters,
+            updated,
+        );
+        if (success) {
+            setPartnerCategories(updated);
+            setNewPartner('');
+        }
+    };
+
+    const handleDeletePartner = async (categoryToDelete) => {
+        if (!window.confirm(`Delete category "${categoryToDelete}"?`)) return;
+
+        const updated = partnerCategories.filter(
+            (cat) => cat !== categoryToDelete,
+        );
+        const success = await updateDatabase(
+            platformCategories,
+            projectCategories,
+            projectFilters,
+            updated,
+        );
+        if (success) {
+            setPartnerCategories(updated);
+            setEditPartnerIndex(-1);
+        }
+    };
+
+    const startEditPartner = (index, value) => {
+        setEditPartnerIndex(index);
+        setEditPartnerValue(value);
+    };
+
+    const handleSavePartnerEdit = async (index) => {
+        if (!editPartnerValue.trim()) return;
+
+        const updated = [...partnerCategories];
+        updated[index] = editPartnerValue.trim();
+
+        const success = await updateDatabase(
+            platformCategories,
+            projectCategories,
+            projectFilters,
+            updated,
+        );
+        if (success) {
+            setPartnerCategories(updated);
+            setEditPartnerIndex(-1);
         }
     };
 
@@ -261,7 +332,6 @@ const AdminCategories = () => {
                 <h2>Categories & Filters</h2>
             </div>
             <div className={classes.adminCategories}>
-                {/* Колонна: Platforms */}
                 <div className={classes.adminCategoriesContainer}>
                     <h3>Platforms</h3>
 
@@ -359,7 +429,6 @@ const AdminCategories = () => {
                     </ul>
                 </div>
 
-                {/* Колонна: Projects Categories */}
                 <div className={classes.adminCategoriesContainer}>
                     <h3>Projects</h3>
 
@@ -452,7 +521,6 @@ const AdminCategories = () => {
                     </ul>
                 </div>
 
-                {/* Колонна: Project Filters (Нова секція) */}
                 <div className={classes.adminCategoriesContainer}>
                     <h3>Project Filters</h3>
 
@@ -529,6 +597,98 @@ const AdminCategories = () => {
                                             <button
                                                 onClick={() =>
                                                     handleDeleteFilter(filt)
+                                                }
+                                                className={classes.deleteBtn}
+                                            >
+                                                <img
+                                                    src={deleteIcon}
+                                                    alt="delete"
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className={classes.adminCategoriesContainer}>
+                    <h3>Partners</h3>
+
+                    <form
+                        onSubmit={handleAddPartner}
+                        className={classes.addForm}
+                    >
+                        <input
+                            type="text"
+                            value={newPartner}
+                            onChange={(e) => setNewPartner(e.target.value)}
+                            placeholder="New category"
+                        />
+                        <button type="submit">+ Add category</button>
+                    </form>
+
+                    <ul className={classes.categoryList}>
+                        {partnerCategories.map((cat, index) => (
+                            <li key={index} className={classes.categoryItem}>
+                                {editPartnerIndex === index ? (
+                                    <div className={classes.editWrapper}>
+                                        <input
+                                            type="text"
+                                            value={editPartnerValue}
+                                            onChange={(e) =>
+                                                setEditPartnerValue(
+                                                    e.target.value,
+                                                )
+                                            }
+                                            className={classes.editInput}
+                                        />
+                                        <div className={classes.actions}>
+                                            <button
+                                                onClick={() =>
+                                                    handleSavePartnerEdit(index)
+                                                }
+                                                className={classes.saveBtn}
+                                            >
+                                                <img
+                                                    src={doneIcon}
+                                                    alt="done"
+                                                />
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    setEditPartnerIndex(-1)
+                                                }
+                                                className={classes.cancelBtn}
+                                            >
+                                                <img
+                                                    src={cancelIcon}
+                                                    alt="cancel"
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className={classes.categoryView}>
+                                        <span className={classes.categoryText}>
+                                            {cat}
+                                        </span>
+                                        <div className={classes.actions}>
+                                            <button
+                                                onClick={() =>
+                                                    startEditPartner(index, cat)
+                                                }
+                                                className={classes.editBtn}
+                                            >
+                                                <img
+                                                    src={editIcon}
+                                                    alt="edit"
+                                                />
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleDeletePartner(cat)
                                                 }
                                                 className={classes.deleteBtn}
                                             >
