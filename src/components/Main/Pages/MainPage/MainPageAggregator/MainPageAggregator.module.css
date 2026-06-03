@@ -213,6 +213,11 @@
     height: 176px;
     margin: 55px auto;
     position: relative;
+    background: transparent !important;
+}
+
+.aggregatorBoxImage img {
+    background: transparent !important;
 }
 
 .aggregatorBoxImage1 {
