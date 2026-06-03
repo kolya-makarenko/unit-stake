@@ -297,3 +297,125 @@
         left: -37px;
     }
 }
+
+.aggregatorBoxVerifeidList {
+    width: 280px;
+    margin: 20px auto;
+    padding: 7px;
+    box-sizing: border-box;
+    border: 1px solid rgba(105, 105, 105, 0.2);
+    border-radius: 15px;
+    background-color: #232325;
+}
+
+.aggregatorBoxVerifeidListContainer {
+    padding: 14px 0;
+    box-sizing: border-box;
+    border: 1px solid rgba(105, 105, 105, 0.5);
+    border-radius: 10px;
+    background-color: #1e1e20;
+}
+
+.aggregatorBoxVerifeidListContainer ul {
+    width: 180px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.aggregatorBoxVerifeidListContainer ul li {
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #b9b9b9;
+    box-sizing: border-box;
+}
+
+.aggregatorBoxVerifeidListContainer ul li:first-child {
+    padding-top: 0;
+}
+
+.aggregatorBoxVerifeidListContainer ul li:last-child {
+    padding-bottom: 0;
+    border: none;
+}
+
+.aggregatorBoxVerifeidListContainer ul li p {
+    margin: 0;
+    font-weight: 400;
+    font-size: 10.16px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #b9b9b9;
+}
+
+.aggregatorBoxVerifeidListCheck {
+    padding: 3px 2px;
+    border: 1px solid #00bc7d;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease-in-out;
+}
+
+.aggregatorBoxVerifeidListCheck img {
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+}
+
+.aggregatorBox:nth-child(3):hover .aggregatorBoxVerifeidListCheck {
+    background-color: rgba(0, 212, 146, 0.15);
+}
+
+.aggregatorBox:nth-child(3):hover .aggregatorBoxVerifeidListCheck img {
+    opacity: 1;
+}
+
+.aggregatorBoxVerifeidListContainer
+    ul
+    li:nth-child(2)
+    .aggregatorBoxVerifeidListCheck,
+.aggregatorBoxVerifeidListContainer
+    ul
+    li:nth-child(2)
+    .aggregatorBoxVerifeidListCheck
+    img {
+    transition-delay: 0.2s;
+}
+
+.aggregatorBoxVerifeidListContainer
+    ul
+    li:nth-child(3)
+    .aggregatorBoxVerifeidListCheck,
+.aggregatorBoxVerifeidListContainer
+    ul
+    li:nth-child(3)
+    .aggregatorBoxVerifeidListCheck
+    img {
+    transition-delay: 0.4s;
+}
+
+.aggregatorBoxVerifeidListContainer
+    ul
+    li:nth-child(4)
+    .aggregatorBoxVerifeidListCheck,
+.aggregatorBoxVerifeidListContainer
+    ul
+    li:nth-child(4)
+    .aggregatorBoxVerifeidListCheck
+    img {
+    transition-delay: 0.6s;
+}
+
+.aggregatorBoxVerifeidListContainer
+    ul
+    li:nth-child(5)
+    .aggregatorBoxVerifeidListCheck,
+.aggregatorBoxVerifeidListContainer
+    ul
+    li:nth-child(5)
+    .aggregatorBoxVerifeidListCheck
+    img {
+    transition-delay: 0.8s;
+}

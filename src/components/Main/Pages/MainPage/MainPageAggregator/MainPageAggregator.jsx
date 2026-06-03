@@ -6,6 +6,7 @@ import pazlIcon2 from '../../../../../assets/images/mainPageImages/pazl2.svg';
 import pazlIcon3 from '../../../../../assets/images/mainPageImages/pazl3.svg';
 import pazlIcon4 from '../../../../../assets/images/mainPageImages/pazl4.svg';
 import arrowIcon from '../../../../../assets/images/mainPageImages/arrow.svg';
+import checkmarkIcon from '../../../../../assets/images/icons/checkmark.svg';
 
 const MainPageAggregator = () => {
     return (
@@ -183,7 +184,81 @@ const MainPageAggregator = () => {
                                 structured — helping you identify stronger, more
                                 transparent opportunities.
                             </p>
-                            <div className={classes.aggregatorBoxImage}></div>
+                            <div className={classes.aggregatorBoxVerifeidList}>
+                                <div
+                                    className={
+                                        classes.aggregatorBoxVerifeidListContainer
+                                    }
+                                >
+                                    <ul>
+                                        <li>
+                                            <p>Legal</p>
+                                            <div
+                                                className={
+                                                    classes.aggregatorBoxVerifeidListCheck
+                                                }
+                                            >
+                                                <img
+                                                    src={checkmarkIcon}
+                                                    alt="checkmark"
+                                                />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <p>Financials</p>
+                                            <div
+                                                className={
+                                                    classes.aggregatorBoxVerifeidListCheck
+                                                }
+                                            >
+                                                <img
+                                                    src={checkmarkIcon}
+                                                    alt="checkmark"
+                                                />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <p>Team KYC</p>
+                                            <div
+                                                className={
+                                                    classes.aggregatorBoxVerifeidListCheck
+                                                }
+                                            >
+                                                <img
+                                                    src={checkmarkIcon}
+                                                    alt="checkmark"
+                                                />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <p>Reputation</p>
+                                            <div
+                                                className={
+                                                    classes.aggregatorBoxVerifeidListCheck
+                                                }
+                                            >
+                                                <img
+                                                    src={checkmarkIcon}
+                                                    alt="checkmark"
+                                                />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <p>Tech Verification</p>
+                                            <div
+                                                className={
+                                                    classes.aggregatorBoxVerifeidListCheck
+                                                }
+                                            >
+                                                <img
+                                                    src={checkmarkIcon}
+                                                    alt="checkmark"
+                                                />
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className={classes.aggregatorBox}>
