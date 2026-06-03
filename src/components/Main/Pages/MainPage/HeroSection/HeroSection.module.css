@@ -193,11 +193,3 @@
 .heroSectionLink:hover svg path {
     stroke: #d34329;
 }
-
-.heroSectionImg {
-    background: transparent !important;
-}
-
-.heroSectionImg img {
-    background: transparent !important;
-}

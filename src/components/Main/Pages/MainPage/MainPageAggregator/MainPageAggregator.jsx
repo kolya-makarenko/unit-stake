@@ -138,26 +138,26 @@ const MainPageAggregator = () => {
                                 make decisions without doubt
                             </p>
                             <div className={classes.aggregatorBoxImage}>
-                                <img
-                                    src={pazlIcon1}
-                                    alt="Pazl"
+                                <object
+                                    type="image/svg+xml"
+                                    data={pazlIcon1}
                                     className={classes.aggregatorBoxImage1}
-                                />
-                                <img
-                                    src={pazlIcon2}
-                                    alt="Pazl"
+                                ></object>
+                                <object
+                                    type="image/svg+xml"
+                                    data={pazlIcon2}
                                     className={classes.aggregatorBoxImage2}
-                                />
-                                <img
-                                    src={pazlIcon3}
-                                    alt="Pazl"
+                                ></object>
+                                <object
+                                    type="image/svg+xml"
+                                    data={pazlIcon3}
                                     className={classes.aggregatorBoxImage3}
-                                />
-                                <img
-                                    src={pazlIcon4}
-                                    alt="Pazl"
+                                ></object>
+                                <object
+                                    type="image/svg+xml"
+                                    data={pazlIcon4}
                                     className={classes.aggregatorBoxImage4}
-                                />
+                                ></object>
                                 <div
                                     className={classes.aggregatorBoxImageMouse1}
                                 >

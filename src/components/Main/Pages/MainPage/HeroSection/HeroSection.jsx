@@ -90,7 +90,8 @@ const HeroSection = () => {
                         </div>
                     </div>
                     <div className={classes.heroSectionImg}>
-                        <img src={graphics} alt="graphics" />
+                        {/* <img src={graphics} alt="graphics" /> */}
+                        <object type="image/svg+xml" data={graphics}></object>
                     </div>
                 </div>
             </div>
