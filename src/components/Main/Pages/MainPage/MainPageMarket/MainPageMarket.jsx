@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classes from './MainPageMarket.module.css';
 
 import tabPic1 from '../../../../../assets/images/mainPageImages/marketTab1.png';
@@ -36,6 +37,7 @@ const tbabsData = [
 
 const MainPageMarket = () => {
     const [activeTab, setActiveTab] = useState('tab1');
+    const navigate = useNavigate();
     return (
         <section className={`sectionMarginTop ${classes.market}`}>
             <div className="wrapper">
@@ -52,6 +54,42 @@ const MainPageMarket = () => {
                             </div>
                         ))}
                     </div>
+                    {tbabsData
+                        .filter((tab) => tab.id === activeTab)
+                        .map((tab) => (
+                            <div key={tab.id} className={classes.marketContent}>
+                                <div className={classes.marketContentText}>
+                                    <h3>{tab.header}</h3>
+                                    <p>{tab.paragraph}</p>
+                                    <div
+                                        className={
+                                            classes.marketContentFakeBtns
+                                        }
+                                    >
+                                        {tab.fackeBtns.map((btn) => (
+                                            <span
+                                                key={btn}
+                                                className={
+                                                    classes.marketContentFakeBtn
+                                                }
+                                            >
+                                                {btn}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <button
+                                        onClick={() => navigate('/projects')}
+                                    >
+                                        View projects
+                                    </button>
+                                </div>
+                                <div className={classes.marketContentImg}>
+                                    {tab.img && (
+                                        <img src={tab.img} alt={tab.label} />
+                                    )}
+                                </div>
+                            </div>
+                        ))}
                 </div>
             </div>
         </section>

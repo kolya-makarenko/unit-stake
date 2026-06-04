@@ -10,7 +10,7 @@ const MENU_ITEMS = [
     { to: '/insights', label: 'Insights' },
     { to: '/academy', label: 'Academy' },
     { to: '/about-us', label: 'About Us' },
-    { to: '/verifeid', label: 'Verifeid By UnitStake' },
+    { to: '/verified', label: 'Verified By UnitStake' },
 ];
 
 const Header = () => {

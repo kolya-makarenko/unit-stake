@@ -36,8 +36,8 @@ function App() {
                     <Route path="academy" element={<div>Academy</div>} />
                     <Route path="about-us" element={<div>About us</div>} />
                     <Route
-                        path="verifeid"
-                        element={<div>Verifeid By UnitStake</div>}
+                        path="verified"
+                        element={<div>Verified By UnitStake</div>}
                     />
                     <Route path="contact-us" element={<div>Contact us</div>} />
                 </Route>

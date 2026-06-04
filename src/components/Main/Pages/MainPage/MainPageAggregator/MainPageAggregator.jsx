@@ -178,7 +178,7 @@ const MainPageAggregator = () => {
                         <div className={classes.aggregatorBoxBorder}>
                             <div className="verifeidBox">
                                 <img src={verifeidIcon} alt="verifeid" />
-                                Verifeid By UnitStake
+                                Verified By UnitStake
                             </div>
                             <p>
                                 Certain projects are independently reviewed and
