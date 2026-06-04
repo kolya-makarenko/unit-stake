@@ -210,30 +210,34 @@
 
 .aggregatorBoxImage {
     width: 176px;
-    height: 176px;
+    height: 180px;
     margin: 55px auto;
     position: relative;
 }
 
 .aggregatorBoxImage1 {
+    height: 90px;
     position: absolute;
     top: 0;
     left: 0;
 }
 
 .aggregatorBoxImage2 {
+    width: 88px;
     position: absolute;
     bottom: 0;
     left: 0;
 }
 
 .aggregatorBoxImage3 {
+    height: 90px;
     position: absolute;
     bottom: 0;
     right: 0;
 }
 
 .aggregatorBoxImage4 {
+    width: 88px;
     position: absolute;
     top: -26px;
     right: -26px;
@@ -418,4 +422,102 @@
     .aggregatorBoxVerifeidListCheck
     img {
     transition-delay: 0.8s;
+}
+
+.aggregatorBoxTokenPrices {
+    width: 100%;
+    height: 275px;
+    background-image: url(/src/assets/images/mainPageImages/tokenPricesBg.png);
+    background-size: cover;
+    position: relative;
+}
+
+.aggregatorBoxTokenPriceContainer {
+    width: 280px;
+    height: 130px;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid rgba(105, 105, 105, 0.25);
+    border-radius: 15px;
+    background-color: #232325;
+}
+
+.aggregatorBoxTokenPriceContainer:nth-child(1) {
+    position: absolute;
+    top: 40px;
+    left: 20px;
+}
+
+.aggregatorBoxTokenPriceContainer:nth-child(2) {
+    position: absolute;
+    right: 20px;
+    bottom: 50px;
+    z-index: 1;
+}
+
+.aggregatorBoxTokenPrice1,
+.aggregatorBoxTokenPrice2 {
+    width: 100%;
+    height: 100%;
+    padding: 0 23px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: 1px solid rgba(105, 105, 105, 0.5);
+}
+
+.aggregatorBoxTokenPrice1 p,
+.aggregatorBoxTokenPrice2 p {
+    margin: 0;
+    font-weight: 500;
+    font-size: 11.36px;
+    line-height: 15.15px;
+    color: #b9b9b9;
+}
+
+.aggregatorBoxTokenPrice1 h6,
+.aggregatorBoxTokenPrice2 h6 {
+    margin-top: 7px;
+    font-weight: 400;
+    font-size: 18.94px;
+    line-height: 26.51px;
+    color: #fff;
+}
+
+.aggregatorBoxTokenPrices .aggregatorBoxListStrongGreen {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    font-size: 13.26px;
+    line-height: 22.73px;
+    color: #00d492;
+}
+
+.aggregatorBoxTokenPrice1 {
+    background: linear-gradient(
+        106.92deg,
+        rgba(35, 35, 37, 0.4) -8.88%,
+        rgba(20, 20, 23, 0.4) 48.04%,
+        rgba(35, 35, 37, 0.4) 101.51%
+    );
+}
+
+.aggregatorBoxTokenPrice2 {
+    background: linear-gradient(
+        116.23deg,
+        rgba(211, 67, 41, 0.1) 2.48%,
+        rgba(211, 67, 41, 0.28) 58.53%,
+        rgba(211, 67, 41, 0.08) 119.46%
+    );
+}
+
+.aggregatorBoxTable {
+    margin-top: 18px;
+}
+
+.aggregatorBoxTable img {
+    width: 100%;
 }

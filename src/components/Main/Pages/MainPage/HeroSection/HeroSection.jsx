@@ -1,6 +1,6 @@
 import { useNavigate, NavLink } from 'react-router-dom';
 import classes from './HeroSection.module.css';
-import graphics from '../../../../../assets/images/mainPageImages/heroSectionImg.svg';
+import graphics from '../../../../../assets/images/mainPageImages/heroSectionImg.png';
 
 const svgArrow = (
     <svg
@@ -90,8 +90,7 @@ const HeroSection = () => {
                         </div>
                     </div>
                     <div className={classes.heroSectionImg}>
-                        {/* <img src={graphics} alt="graphics" /> */}
-                        <object type="image/svg+xml" data={graphics}></object>
+                        <img src={graphics} alt="graphics" />
                     </div>
                 </div>
             </div>

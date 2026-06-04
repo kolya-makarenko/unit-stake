@@ -6,10 +6,10 @@
 
 .heroSectionContainer {
     padding: 170px 0 90px 0;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 5fr 3fr;
     align-items: center;
-    gap: 75px;
+    gap: 65px;
 }
 
 .fakeBtn {
@@ -192,4 +192,8 @@
 
 .heroSectionLink:hover svg path {
     stroke: #d34329;
+}
+
+.heroSectionImg img {
+    width: 100%;
 }

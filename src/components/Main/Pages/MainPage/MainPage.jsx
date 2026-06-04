@@ -1,7 +1,9 @@
 import HeroSection from './HeroSection/HeroSection';
 import MainPageAssets from './MainPageAssets/MainPageAssets';
-import classes from './MainPage.module.css';
 import MainPageAggregator from './MainPageAggregator/MainPageAggregator';
+import MainPageFragment from './MainPageFragment/MainPageFragment';
+import MainPageMarket from './MainPageMarket/MainPageMarket';
+import classes from './MainPage.module.css';
 
 const MainPage = () => {
     return (
@@ -9,6 +11,8 @@ const MainPage = () => {
             <HeroSection />
             <MainPageAssets />
             <MainPageAggregator />
+            <MainPageFragment />
+            <MainPageMarket />
         </main>
     );
 };

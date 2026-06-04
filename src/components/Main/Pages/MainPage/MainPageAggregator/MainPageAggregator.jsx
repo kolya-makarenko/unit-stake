@@ -1,12 +1,13 @@
 import classes from './MainPageAggregator.module.css';
 
 import verifeidIcon from '../../../../../assets/images/icons/verifeid.svg';
-import pazlIcon1 from '../../../../../assets/images/mainPageImages/pazl1.svg';
-import pazlIcon2 from '../../../../../assets/images/mainPageImages/pazl2.svg';
-import pazlIcon3 from '../../../../../assets/images/mainPageImages/pazl3.svg';
-import pazlIcon4 from '../../../../../assets/images/mainPageImages/pazl4.svg';
+import pazlIcon1 from '../../../../../assets/images/mainPageImages/pazl1.png';
+import pazlIcon2 from '../../../../../assets/images/mainPageImages/pazl2.png';
+import pazlIcon3 from '../../../../../assets/images/mainPageImages/pazl3.png';
+import pazlIcon4 from '../../../../../assets/images/mainPageImages/pazl4.png';
 import arrowIcon from '../../../../../assets/images/mainPageImages/arrow.svg';
 import checkmarkIcon from '../../../../../assets/images/icons/checkmark.svg';
+import aggregatorBoxTableImage from '../../../../../assets/images/mainPageImages/aggregatorBoxTable.png';
 
 const MainPageAggregator = () => {
     return (
@@ -138,26 +139,26 @@ const MainPageAggregator = () => {
                                 make decisions without doubt
                             </p>
                             <div className={classes.aggregatorBoxImage}>
-                                <object
-                                    type="image/svg+xml"
-                                    data={pazlIcon1}
+                                <img
+                                    src={pazlIcon1}
+                                    alt="pazl"
                                     className={classes.aggregatorBoxImage1}
-                                ></object>
-                                <object
-                                    type="image/svg+xml"
-                                    data={pazlIcon2}
+                                />
+                                <img
+                                    src={pazlIcon2}
+                                    alt="pazl"
                                     className={classes.aggregatorBoxImage2}
-                                ></object>
-                                <object
-                                    type="image/svg+xml"
-                                    data={pazlIcon3}
+                                />
+                                <img
+                                    src={pazlIcon3}
+                                    alt="pazl"
                                     className={classes.aggregatorBoxImage3}
-                                ></object>
-                                <object
-                                    type="image/svg+xml"
-                                    data={pazlIcon4}
+                                />
+                                <img
+                                    src={pazlIcon4}
+                                    alt="pazl"
                                     className={classes.aggregatorBoxImage4}
-                                ></object>
+                                />
                                 <div
                                     className={classes.aggregatorBoxImageMouse1}
                                 >
@@ -268,7 +269,80 @@ const MainPageAggregator = () => {
                                 Instead of chaos and scattered information, you
                                 get a clean and structured overview
                             </p>
-                            <div className={classes.aggregatorBoxImage}></div>
+                            <div className={classes.aggregatorBoxTokenPrices}>
+                                <div
+                                    className={
+                                        classes.aggregatorBoxTokenPriceContainer
+                                    }
+                                >
+                                    <div
+                                        className={
+                                            classes.aggregatorBoxTokenPrice1
+                                        }
+                                    >
+                                        <p>Token Price</p>
+                                        <h6>$0.159109</h6>
+                                        <strong
+                                            className={
+                                                classes.aggregatorBoxListStrongGreen
+                                            }
+                                        >
+                                            <svg
+                                                width="5"
+                                                height="3"
+                                                viewBox="0 0 5 3"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M4.50635 2.50327L2.50356 0.500488L0.500782 2.50327"
+                                                    stroke="#75EA2C"
+                                                    strokeWidth="1.00139"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
+                                            2.06%
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div
+                                    className={
+                                        classes.aggregatorBoxTokenPriceContainer
+                                    }
+                                >
+                                    <div
+                                        className={
+                                            classes.aggregatorBoxTokenPrice2
+                                        }
+                                    >
+                                        <p>Token Price</p>
+                                        <h6>$68.87</h6>
+                                        <strong
+                                            className={
+                                                classes.aggregatorBoxListStrongGreen
+                                            }
+                                        >
+                                            <svg
+                                                width="5"
+                                                height="3"
+                                                viewBox="0 0 5 3"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M4.50635 2.50327L2.50356 0.500488L0.500782 2.50327"
+                                                    stroke="#75EA2C"
+                                                    strokeWidth="1.00139"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
+                                            1.83%
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className={classes.aggregatorBox}>
@@ -279,7 +353,12 @@ const MainPageAggregator = () => {
                                 stands behind it, and what you’re actually
                                 looking at
                             </p>
-                            <div className={classes.aggregatorBoxImage}></div>
+                            <div className={classes.aggregatorBoxTable}>
+                                <img
+                                    src={aggregatorBoxTableImage}
+                                    alt="Aggregator Box Table"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

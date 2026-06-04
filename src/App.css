@@ -15,6 +15,7 @@ body {
 }
 
 .verifeidBox {
+    width: fit-content;
     padding: 5.25px 10px;
     border: 1.5px solid #00bc7d;
     border-radius: 100px;
