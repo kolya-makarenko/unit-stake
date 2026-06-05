@@ -29,6 +29,7 @@ function App() {
                     <Route path="projects" element={<div>PROJECTS</div>} />
                     <Route path="projects/:id" element={<div>PROJECT</div>} />
                     <Route path="platforms" element={<div>PLATFORMS</div>} />
+                    <Route path="platforms/:id" element={<div>PLATFORM</div>} />
                     <Route
                         path="for-assets-owners"
                         element={<div>For Assets Owners</div>}

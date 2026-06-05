@@ -84,6 +84,8 @@
 }
 
 .platformCardMainInfo {
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(61, 61, 61, 0.12);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -100,4 +102,135 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.platformCardInfoNumbers {
+    margin-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(61, 61, 61, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.platformCardInfoNumbersTotal {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.platformCardInfoNumbers h4 {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-transform: uppercase;
+    color: #57575c;
+}
+
+.platformCardInfoNumbersTotal h5 {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.platformCardInfoNumbersTotal p {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.platformCardInfoNumbersTotal a {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #d34329;
+}
+
+.projectsCardLocation {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.projectsCardLocation div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.projectsCardLocation h4 {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-transform: uppercase;
+    color: #57575c;
+}
+
+.projectsCardLocation h6 {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.projectsCardLink {
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(61, 61, 61, 0.12);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.projectsCardLinkBtn {
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.projectsCardLinkBtn p {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #d34329;
+    position: relative;
+    transition: 0.3s ease-in-out;
+}
+
+.projectsCardLinkBtn:hover p {
+    color: #19191c;
+}
+
+.projectsCardLinkBtn p:after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    background-color: #d34329;
+    transition: 0.3s ease-in-out;
+}
+
+.projectsCardLinkBtn:hover p:after {
+    background-color: #19191c;
+}
+
+.projectsCardLinkBtn svg path {
+    transition: 0.3s ease-in-out;
+}
+
+.projectsCardLinkBtn:hover svg path {
+    stroke: #19191c;
 }
