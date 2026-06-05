@@ -1,0 +1,260 @@
+.projects {
+    padding: 60px 0;
+    background-color: #ededf0;
+}
+
+.projects h2 {
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    text-align: center;
+    background: linear-gradient(
+        180deg,
+        #19191c 0%,
+        rgba(25, 25, 28, 0) 231.82%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.projectsSimpleText {
+    margin-top: 24px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-align: center;
+    color: #3d3d3d;
+}
+
+.projects h6 {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #d34329;
+}
+
+.projectsContainer {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+}
+
+.projectsCard {
+    border-radius: 24px;
+    background-color: #f4f4f6;
+    overflow: hidden;
+}
+
+.projectsCardImage {
+    height: 182px;
+    background-color: #d4d4d4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.projectsCardImage p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    color: #fff;
+}
+
+.projectsCardImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.projectsCardInfo {
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.projectsCardMainInfo {
+    padding-bottom: 24px;
+    box-sizing: border-box;
+}
+
+.projectsCardMainInfo h3 {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.projectsCardMainInfo p {
+    margin-top: 8px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.projectsCardProgressNumbers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.projectsCardProgressNumbers h4 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-transform: uppercase;
+    color: #57575c;
+}
+
+.projectsCardProgressNumbers p {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.projectsCardProgressBar {
+    margin-top: 16px;
+    width: 100%;
+    height: 8px;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #dcdcdc99;
+    position: relative;
+}
+
+.projectsCardProgressBarLine {
+    height: 8px;
+    border-radius: 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #d34329;
+}
+
+.projectsCardStats {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.projectsCardStat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.projectsCardStats h4 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-transform: uppercase;
+    color: #57575c;
+}
+
+.projectsCardStats p {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.projectsCardLink {
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(61, 61, 61, 0.12);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.projectsCardLinkBtn {
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.projectsCardLinkBtn p {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #d34329;
+    position: relative;
+    transition: 0.3s ease-in-out;
+}
+
+.projectsCardLinkBtn:hover p {
+    color: #19191c;
+}
+
+.projectsCardLinkBtn p:after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    background-color: #d34329;
+    transition: 0.3s ease-in-out;
+}
+
+.projectsCardLinkBtn:hover p:after {
+    background-color: #19191c;
+}
+
+.projectsCardLinkBtn svg path {
+    transition: 0.3s ease-in-out;
+}
+
+.projectsCardLinkBtn:hover svg path {
+    stroke: #19191c;
+}
+
+.linkToProjects {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.linkToProjects button {
+    padding: 12px 32px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 8px;
+    background-color: #d34329;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.linkToProjects button:hover {
+    background-color: #fff;
+    color: #d34329;
+}
+
+.linkToProjects button svg path {
+    transition: 0.3s ease-in-out;
+}
+
+.linkToProjects button:hover svg path {
+    stroke: #d34329;
+}

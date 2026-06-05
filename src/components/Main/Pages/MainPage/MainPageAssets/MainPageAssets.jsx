@@ -21,9 +21,9 @@ const MainPageAssets = () => {
                         <span>Tokenised Assets Potential</span>
                     </div>
                     <div className={classes.assetsBox}>
-                        <h3>The market is forming</h3>
-                        <p>The best opportunities come before it becomes</p>
-                        <span>mainstream</span>
+                        <h3>Next Wave</h3>
+                        <p>The Market Is Forming</p>
+                        <span>Based on market cycles</span>
                     </div>
                 </div>
             </div>

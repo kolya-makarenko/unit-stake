@@ -27,6 +27,7 @@ function App() {
                 <Route path="/" element={<Main />}>
                     <Route index element={<MainPage />} />
                     <Route path="projects" element={<div>PROJECTS</div>} />
+                    <Route path="projects/:id" element={<div>PROJECT</div>} />
                     <Route path="platforms" element={<div>PLATFORMS</div>} />
                     <Route
                         path="for-assets-owners"
