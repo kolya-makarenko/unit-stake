@@ -122,6 +122,9 @@ const AdminMail = () => {
                         Time:{' '}
                         <span>{formatLocalTime(mailData.$createdAt)}</span>
                     </p>
+                    <p>
+                        Purpose: <span>{mailData.purpose}</span>
+                    </p>
                 </div>
                 <button
                     className={classes.adminMailDelete}

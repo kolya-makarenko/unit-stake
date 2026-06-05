@@ -1,0 +1,117 @@
+.form {
+    padding: 60px 0;
+    box-sizing: border-box;
+}
+
+.formContainer {
+    padding: 0 60px;
+    box-sizing: border-box;
+    background:
+        url(/src/assets/images/mainPageImages/heroSectionBg.svg),
+        radial-gradient(85.1% 96.53% at 50% 0%, #1e1e20 69.55%, #d34329 94.49%);
+    background-size: cover;
+    border: 1px solid #696969;
+    border-radius: 24px;
+    display: grid;
+    grid-template-columns: 1.8fr 1.5fr;
+    gap: 100px;
+}
+
+.formInfo {
+    padding: 55px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formInfo h2 {
+    font-weight: 600;
+    font-size: 52px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #fff;
+}
+
+.formInfo p {
+    margin-top: 16px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+}
+
+.formInfo form {
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.formInfo form input {
+    width: 100%;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    background-color: #4d4d4dcf;
+    border: 1px solid #69696980;
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+}
+
+.formInfo form input::placeholder {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #ffffff4a;
+}
+
+.formInfo form button {
+    padding: 12px 32px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 8px;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-align: center;
+    color: #0c0c0c;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.formInfo form button:hover {
+    background-color: #d34329;
+    color: #fff;
+}
+
+.formInfo span {
+    margin-top: 8px;
+    display: inline-block;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+}
+
+.formInfo span.errorMessage {
+    color: #d34329;
+}
+
+.formImg {
+    padding-top: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.formImg img {
+    width: 385px;
+}

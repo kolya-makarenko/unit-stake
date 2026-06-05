@@ -27,7 +27,6 @@ const MainPagePlatforms = () => {
                     ],
                 });
                 setPlatforms(response.rows);
-                console.log(response.rows);
             } catch (error) {
                 console.error('Error fetching platforms:', error);
             }
