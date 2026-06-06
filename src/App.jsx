@@ -35,6 +35,7 @@ function App() {
                         element={<div>For Assets Owners</div>}
                     />
                     <Route path="insights" element={<div>Insights</div>} />
+                    <Route path="insights/:id" element={<div>Insight</div>} />
                     <Route path="academy" element={<div>Academy</div>} />
                     <Route path="about-us" element={<div>About us</div>} />
                     <Route

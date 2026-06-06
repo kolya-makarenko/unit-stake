@@ -1,0 +1,27 @@
+.footer {
+    padding-top: 120px;
+    padding-bottom: 24px;
+    box-sizing: border-box;
+    background-color: #19191c;
+}
+
+.footerContainer {
+    padding-top: 80px;
+    box-sizing: border-box;
+    border-top: 1px solid #ffffff26;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 100px;
+}
+
+.footerMenu ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 100px;
+    row-gap: 12px;
+}
+
+.footerSocialLinks {
+    display: flex;
+    justify-content: flex-end;
+}

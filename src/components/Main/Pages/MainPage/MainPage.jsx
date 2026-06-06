@@ -6,6 +6,7 @@ import MainPageMarket from './MainPageMarket/MainPageMarket';
 import MainPageProjects from './MainPageProjects/MainPageProjects';
 import MainPagePlatforms from './MainPagePlatforms/MainPagePlatforms';
 import MainPageForm from './MainPageForm/MainPageForm';
+import MainPageNews from './MainPageNews/MainPageNews';
 import classes from './MainPage.module.css';
 
 const MainPage = () => {
@@ -19,6 +20,7 @@ const MainPage = () => {
             <MainPageProjects />
             <MainPagePlatforms />
             <MainPageForm />
+            <MainPageNews />
         </main>
     );
 };

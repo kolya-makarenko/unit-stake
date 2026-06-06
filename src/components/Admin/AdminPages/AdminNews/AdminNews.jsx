@@ -165,7 +165,7 @@ const AdminNews = () => {
                     ID.unique(),
                     imageFile,
                 );
-                finalImageUrl = `${storage.client.config.endpoint}/storage/buckets/${BUCKET_ID}/files/${uploadedFile.$id}/preview?project=${storage.client.config.project}`;
+                finalImageUrl = `${storage.client.config.endpoint}/storage/buckets/${BUCKET_ID}/files/${uploadedFile.$id}/view?project=${storage.client.config.project}`;
             }
 
             const stringifiedBlocks = contentBlocks.map((block) =>
