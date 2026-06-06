@@ -21,7 +21,74 @@
     row-gap: 12px;
 }
 
+.footerMenuLink {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.footerMenuLink:hover {
+    color: #fff;
+}
+
 .footerSocialLinks {
     display: flex;
     justify-content: flex-end;
+    gap: 12px;
+}
+
+.footerSocialLinks a {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1f1f1f;
+    border: 1px solid rgba(61, 61, 61, 0.4);
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+}
+
+.footerSocialLinks a:hover {
+    background-color: #d34329;
+}
+
+.footerLegalText {
+    margin-top: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footerCopyright {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #8f8f8f;
+}
+
+.footerLegalLinks ul {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.footerLegalLink {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.footerLegalLink:hover {
+    color: #fff;
 }

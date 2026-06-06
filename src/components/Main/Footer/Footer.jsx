@@ -117,12 +117,16 @@ const Footer = () => {
                                 >
                                     Privacy Policy
                                 </NavLink>
+                            </li>
+                            <li>
                                 <NavLink
                                     to="/legal-disclaimer"
                                     className={classes.footerLegalLink}
                                 >
                                     Legal Disclaimer
                                 </NavLink>
+                            </li>
+                            <li>
                                 <NavLink
                                     to="/term-services"
                                     className={classes.footerLegalLink}
