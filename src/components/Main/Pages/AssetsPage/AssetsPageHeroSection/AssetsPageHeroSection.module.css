@@ -95,10 +95,11 @@
 }
 
 @media (max-width: 1000px) {
-    .heroSectionTxt h1 {
+    .heroSectionTxt h2 {
         font-size: 40px;
     }
     .heroSectionBtns {
+        flex-direction: column;
         gap: 16px;
     }
     .heroSectionBtnProjects {
