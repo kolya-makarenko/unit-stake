@@ -234,3 +234,32 @@
 .projectsCardLinkBtn:hover svg path {
     stroke: #19191c;
 }
+
+@media (max-width: 1100px) {
+    .platforms {
+        padding-top: 60px;
+    }
+    .platformsContainer {
+        gap: 16px;
+    }
+    .platformCard {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .platforms {
+        padding: 40px 0;
+    }
+    .platformsHeader {
+        flex-direction: column;
+        gap: 24px;
+        align-items: flex-start;
+    }
+    .platformsHeaderTxt h2 {
+        font-size: 38px;
+    }
+    .platformsContainer {
+        grid-template-columns: 1fr;
+    }
+}

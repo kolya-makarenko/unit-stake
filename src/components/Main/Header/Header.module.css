@@ -59,6 +59,10 @@
     background-color: #d34329;
 }
 
+.toContactsLink {
+    display: none;
+}
+
 .btnToContacts {
     padding: 12px 24px;
     background-color: #d34329;
@@ -76,4 +80,76 @@
 .btnToContacts:hover {
     background-color: #fff;
     color: #d34329;
+}
+
+.burger {
+    display: none;
+}
+
+@media (max-width: 1100px) {
+    .logoMain img {
+        width: 100px;
+    }
+    .mainMenuContainer {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .mainNavigation {
+        width: 100%;
+        height: calc(100dvh - 55px);
+        padding: 16px 2.5%;
+        box-sizing: border-box;
+        position: fixed;
+        top: 55px;
+        left: -100%;
+        opacity: 0;
+        background-color: #19191c;
+        z-index: 40;
+        transition: 0.5s ease-in-out;
+    }
+    .mainNavigation.active {
+        left: 0;
+        opacity: 1;
+    }
+    .mainNavigation ul {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .btnToContacts {
+        display: none;
+    }
+    .toContactsLink {
+        display: block;
+    }
+    .burger {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .burgerLine1,
+    .burgerLine2,
+    .burgerLine3 {
+        width: 25px;
+        height: 3px;
+        position: relative;
+        background-color: #fff;
+        border-radius: 1px;
+        transition: 0.5s ease-in-out;
+    }
+    .burger.active .burgerLine1 {
+        top: 8px;
+        transform: rotate(-45deg);
+        background-color: #d34329;
+    }
+    .burger.active .burgerLine2 {
+        opacity: 0;
+    }
+    .burger.active .burgerLine3 {
+        bottom: 8px;
+        transform: rotate(45deg);
+        background-color: #d34329;
+    }
 }

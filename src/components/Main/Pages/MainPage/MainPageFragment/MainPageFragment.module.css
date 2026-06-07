@@ -193,3 +193,33 @@
     bottom: 78px;
     left: 17px;
 }
+
+@media (max-width: 1100px) {
+    .fragmentBox {
+        padding-left: 30px;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .fragment h2 {
+        width: 100%;
+        font-size: 38px;
+    }
+    .fragmentBox {
+        height: fit-content;
+        padding: 20px;
+        box-sizing: border-box;
+        grid-template-columns: 1fr;
+    }
+    .fragmentBoxImage {
+        display: none;
+    }
+    .fragmentBoxText h3 {
+        font-size: 38px;
+    }
+    .fragmentBoxTextBtn {
+        margin-top: 40px;
+        padding: 10px 20px;
+    }
+}

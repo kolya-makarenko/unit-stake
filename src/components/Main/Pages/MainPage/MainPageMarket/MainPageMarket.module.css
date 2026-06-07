@@ -158,3 +158,47 @@
 .marketContentImg img {
     width: 100%;
 }
+
+@media (max-width: 1100px) {
+    .marketTabs {
+        padding-top: 30px;
+        padding-bottom: 8px;
+        gap: 30px;
+    }
+    .marketTabBtn:after {
+        bottom: -8px;
+    }
+    .marketContent {
+        padding: 20px;
+        gap: 20px;
+    }
+    .marketContainer {
+        height: 540px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .market h2 {
+        font-size: 38px;
+    }
+    .marketTabs {
+        padding-top: 20px;
+        gap: 8px;
+    }
+    .marketTabBtn {
+        font-size: 14px;
+    }
+    .marketContainer {
+        height: fit-content;
+    }
+    .marketContent {
+        grid-template-columns: 1fr;
+    }
+    .marketContentText h3 {
+        font-size: 38px;
+    }
+    .marketContentText button {
+        margin-top: 40px;
+        padding: 10px 20px;
+    }
+}

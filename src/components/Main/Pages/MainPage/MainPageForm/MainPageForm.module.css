@@ -115,3 +115,43 @@
 .formImg img {
     width: 385px;
 }
+
+@media (max-width: 1100px) {
+    .formContainer {
+        padding: 0 30px;
+        gap: 30px;
+    }
+    .formImg img {
+        width: 350px;
+    }
+}
+@media (max-width: 1000px) {
+    .form {
+        padding: 40px 0;
+    }
+    .formContainer {
+        padding: 20px 20px 0 20px;
+        grid-template-columns: 1fr;
+    }
+    .formInfo {
+        padding: 0;
+    }
+    .formInfo h2 {
+        font-size: 38px;
+    }
+    .formInfo form {
+        margin-top: 40px;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .formInfo form button {
+        padding: 10px 20px;
+    }
+    .formImg {
+        padding-top: 30px;
+        justify-content: center;
+    }
+    .formImg img {
+        width: 250px;
+    }
+}

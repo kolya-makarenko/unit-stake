@@ -521,3 +521,32 @@
 .aggregatorBoxTable img {
     width: 100%;
 }
+
+@media (max-width: 1100px) {
+    .aggregatorContainer {
+        gap: 16px;
+    }
+    .aggregatorBoxBorder {
+        padding: 20px 16px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .aggregator h2 {
+        font-size: 38px;
+    }
+    .aggregatorContainer {
+        grid-template-columns: 1fr;
+    }
+    .aggregatorBox:nth-child(1),
+    .aggregatorBox:nth-child(2),
+    .aggregatorBox:nth-child(3),
+    .aggregatorBox:nth-child(4),
+    .aggregatorBox:nth-child(5) {
+        grid-area: unset;
+    }
+    .aggregatorBoxBorder {
+        height: 380px;
+        padding: 20px 16px;
+    }
+}
