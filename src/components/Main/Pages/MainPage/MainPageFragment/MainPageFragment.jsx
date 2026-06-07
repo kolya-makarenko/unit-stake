@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import classes from './MainPageFragment.module.css';
 
 import fragmentBoxImage1 from '../../../../../assets/images/mainPageImages/fragmentBoxImage1.png';
@@ -6,6 +7,7 @@ import fragmentBoxImage3 from '../../../../../assets/images/mainPageImages/fragm
 import arrowIcon from '../../../../../assets/images/mainPageImages/arrow.svg';
 
 const MainPageFragment = () => {
+    const navigate = useNavigate();
     return (
         <section className={`sectionMarginTop ${classes.fragment}`}>
             <div className="wrapper">
@@ -53,7 +55,10 @@ const MainPageFragment = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button className={classes.fragmentBoxTextBtn}>
+                            <button
+                                className={classes.fragmentBoxTextBtn}
+                                onClick={() => navigate('/for-assets-owners')}
+                            >
                                 Explore More
                             </button>
                         </div>
@@ -106,7 +111,10 @@ const MainPageFragment = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button className={classes.fragmentBoxTextBtn}>
+                            <button
+                                className={classes.fragmentBoxTextBtn}
+                                onClick={() => navigate('/for-assets-owners')}
+                            >
                                 Explore More
                             </button>
                         </div>
@@ -171,7 +179,10 @@ const MainPageFragment = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button className={classes.fragmentBoxTextBtn}>
+                            <button
+                                className={classes.fragmentBoxTextBtn}
+                                onClick={() => navigate('/insights')}
+                            >
                                 Explore More
                             </button>
                         </div>

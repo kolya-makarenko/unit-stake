@@ -178,6 +178,9 @@
 }
 
 @media (max-width: 1000px) {
+    .market {
+        padding-bottom: 40px;
+    }
     .market h2 {
         font-size: 38px;
     }

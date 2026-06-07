@@ -18,6 +18,7 @@ import AdminMail from './components/Admin/AdminPages/AdminDashboard/AdminMails/A
 import AdminTeams from './components/Admin/AdminPages/AdminTeams/AdminTeams';
 import AdminProjectAdd from './components/Admin/AdminPages/AdminProjects/AdminProjectAdd/AdminProjectAdd';
 import AdminProjectEdit from './components/Admin/AdminPages/AdminProjects/AdminProjectEdit/AdminProjectEdit';
+import AssetsPage from './components/Main/Pages/AssetsPage/AssetsPage';
 import './App.css';
 
 function App() {
@@ -30,10 +31,7 @@ function App() {
                     <Route path="projects/:id" element={<div>PROJECT</div>} />
                     <Route path="platforms" element={<div>PLATFORMS</div>} />
                     <Route path="platforms/:id" element={<div>PLATFORM</div>} />
-                    <Route
-                        path="for-assets-owners"
-                        element={<div>For Assets Owners</div>}
-                    />
+                    <Route path="for-assets-owners" element={<AssetsPage />} />
                     <Route path="insights" element={<div>Insights</div>} />
                     <Route path="insights/:id" element={<div>Insight</div>} />
                     <Route path="academy" element={<div>Academy</div>} />
