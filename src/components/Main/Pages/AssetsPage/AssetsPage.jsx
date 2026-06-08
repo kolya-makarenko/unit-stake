@@ -2,6 +2,7 @@ import AssetsPageHeroSection from './AssetsPageHeroSection/AssetsPageHeroSection
 import AssetsPageTokenizing from './AssetsPageTokenizing/AssetsPageTokenizing';
 import AssetsPageTypes from './AssetsPageTypes/AssetsPageTypes';
 import AssetsPageMarket from './AssetsPageMarket/AssetsPageMarket';
+import AssetsPagePath from './AssetsPagePath/AssetsPagePath';
 
 import classes from './AssetsPage.module.css';
 
@@ -12,6 +13,7 @@ const AssetsPage = () => {
             <AssetsPageTokenizing />
             <AssetsPageTypes />
             <AssetsPageMarket />
+            <AssetsPagePath />
         </main>
     );
 };

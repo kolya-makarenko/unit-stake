@@ -82,24 +82,16 @@ const Footer = () => {
                     </div>
                     <div className={classes.footerSocialLinks}>
                         <a
-                            href="https://www.instagram.com/"
+                            href="https://www.instagram.com/unitstake"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
                             {instagramIcon}
                         </a>
-                        <a
-                            href="https://www.instagram.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
+                        <a href="" target="_blank" rel="noopener noreferrer">
                             {twitterIcon}
                         </a>
-                        <a
-                            href="https://www.instagram.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
+                        <a href="" target="_blank" rel="noopener noreferrer">
                             {youtubeIcon}
                         </a>
                     </div>

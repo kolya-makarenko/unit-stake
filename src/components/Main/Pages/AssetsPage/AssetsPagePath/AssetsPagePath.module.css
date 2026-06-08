@@ -1,0 +1,138 @@
+.path {
+    width: 100%;
+    max-width: 1440px;
+    margin: auto;
+    padding-top: 120px;
+}
+
+.path h2 {
+    width: 60%;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.pathRow {
+    margin-top: 64px;
+    height: 432px;
+    background-image: url(/src/assets/images/assetsPageImages/triangleBg.png);
+    background-size: cover;
+}
+
+.pathContainer {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.pathBox {
+    background-image: linear-gradient(
+        to bottom,
+        #3d3d3d77 8px,
+        transparent 8px
+    );
+    background-size: 1px 15px;
+    background-repeat: repeat-y;
+    background-position: left;
+    position: relative;
+}
+
+.pathBoxInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: absolute;
+}
+
+.pathBox:nth-child(1) .pathBoxInfo {
+    top: 188px;
+}
+
+.pathBox:nth-child(2) .pathBoxInfo {
+    top: 96px;
+}
+
+.pathBox:nth-child(3) .pathBoxInfo {
+    top: -3px;
+}
+
+.pathBox:nth-child(4) .pathBoxInfo {
+    top: -88px;
+}
+
+.pathBoxInfo h3 {
+    padding-left: 12px;
+    box-sizing: border-box;
+    border-left: 3px solid #d34329;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #fff;
+}
+
+.pathBoxInfo p {
+    padding-left: 12px;
+    box-sizing: border-box;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+@media (max-width: 1100px) {
+    .path h2 {
+        width: 70%;
+    }
+    .pathRow {
+        margin-top: 40px;
+    }
+    .pathBox:nth-child(1) .pathBoxInfo {
+        top: 210px;
+    }
+
+    .pathBox:nth-child(2) .pathBoxInfo {
+        top: 140px;
+    }
+
+    .pathBox:nth-child(3) .pathBoxInfo {
+        top: 70px;
+    }
+
+    .pathBox:nth-child(4) .pathBoxInfo {
+        top: 0;
+    }
+}
+
+@media (max-width: 1000px) {
+    .path {
+        padding-top: 80px;
+    }
+    .path h2 {
+        width: 100%;
+        font-size: 38px;
+    }
+    .pathRow {
+        padding-bottom: 24px;
+        height: fit-content;
+    }
+    .pathContainer {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .pathBoxInfo {
+        position: unset;
+    }
+}
