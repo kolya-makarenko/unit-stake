@@ -1,0 +1,185 @@
+.fakeBtn {
+    width: fit-content;
+    padding: 1px 1px;
+    border-radius: 100px;
+    background: linear-gradient(
+        90deg,
+        rgba(61, 61, 61, 0.4) 0%,
+        #696969 50%,
+        rgba(61, 61, 61, 0.4) 100%
+    );
+    background-size: 200% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: moveGradient 4s linear infinite;
+}
+
+@keyframes moveGradient {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.fakeBtnContainer {
+    width: fit-content;
+    padding: 4px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 100px;
+    background-color: #222;
+}
+
+.fakeBtnCircle {
+    width: 10px;
+    height: 10px;
+    background-color: #d34329;
+    box-shadow: 0px 0px 4px 1px #f0a59740;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.fakeBtnContainer p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16.5px;
+    letter-spacing: 2.04px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.choiceHeader {
+    width: 100%;
+    max-width: 950px;
+}
+
+.choiceHeader h2 {
+    margin-top: 16px;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.choiceHeader h3 {
+    margin-top: 24px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+.choiceContainer {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 24px;
+}
+
+.choiceInfo {
+    padding-left: 24px;
+    box-sizing: border-box;
+    border-left: 1px solid #ffffff1a;
+}
+
+.choiceInfoHeader {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #858585;
+}
+
+.choiceInfoContainer {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.choiceInfoBox {
+    padding: 16px 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ffffff0f;
+    display: flex;
+    gap: 16px;
+}
+
+.choiceInfoBoxIcon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    background-color: #ffffff08;
+    border: 1px solid #ffffff1a;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.choiceInfoBoxTxt h4 {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #fff;
+}
+
+.choiceInfoBoxTxt h5 {
+    margin-top: 2px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #858585;
+}
+
+.choiceInfoBoxTxt p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+.choiceInfoContainerText {
+    margin-top: 20px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+.choiceImg img {
+    width: 100%;
+}
+
+@media (max-width: 1000px) {
+    .choiceHeader h2 {
+        font-size: 38px;
+    }
+    .choiceContainer {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .choiceInfo {
+        padding-left: 16px;
+    }
+}

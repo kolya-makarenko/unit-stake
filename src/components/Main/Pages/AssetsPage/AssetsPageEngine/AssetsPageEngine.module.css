@@ -1,0 +1,116 @@
+.engineWrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.engineHeader h2 {
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    text-align: center;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.engineHeader h6 {
+    margin-top: 40px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-align: center;
+    color: #fff;
+}
+
+.engineHeader p {
+    margin-top: 16px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-align: center;
+    color: #b4b4b4;
+}
+
+.engineContainer {
+    margin-top: 40px;
+    background:
+        radial-gradient(
+            141.42% 141.42% at 0% 0%,
+            rgba(255, 255, 255, 0.04) 0%,
+            rgba(0, 0, 0, 0) 60%
+        ),
+        radial-gradient(
+            141.42% 141.42% at 100% 100%,
+            rgba(211, 67, 41, 0.16) 0%,
+            rgba(0, 0, 0, 0) 60%
+        );
+    border-radius: 24px;
+    border: 1px solid rgba(61, 61, 61, 0.4);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    gap: 10px;
+}
+
+.engineContainerTxt {
+    padding-left: 80px;
+    box-sizing: border-box;
+}
+
+.engineContainerTxt h3 {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    color: #fff;
+}
+
+.engineContainerTxt p {
+    margin-top: 16px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+.engineContainerImg img {
+    width: 100%;
+}
+
+@media (max-width: 1100px) {
+    .engineWrapper {
+        width: 95%;
+    }
+    .engineContainerTxt {
+        padding-left: 24px;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 1000px) {
+    .engineHeader h2 {
+        font-size: 38px;
+    }
+    .engineContainer {
+        border-radius: 20px;
+        grid-template-columns: 1fr;
+    }
+    .engineContainerTxt {
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .engineContainerTxt h3 {
+        font-size: 30px;
+    }
+}
