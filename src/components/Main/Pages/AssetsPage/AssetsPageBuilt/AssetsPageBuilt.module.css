@@ -1,0 +1,191 @@
+.built {
+    background-image: url(/src/assets/images/assetsPageImages/AssetsPageBuiltBg.png);
+    background-size: cover;
+}
+
+.built h2 {
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    text-align: center;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.builtContainer {
+    margin-top: 40px;
+    border: 1px solid rgba(61, 61, 61, 0.4);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.builtBoxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+}
+
+.builtBox {
+    padding: 24px 24px 40px 24px;
+    background-color: #ffffff05;
+}
+
+.builtBoxPosition {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.builtBoxIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #ffffff08;
+    border: 1px solid #ffffff1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.builtBoxNumber {
+    font-weight: 400;
+    font-size: 15.18px;
+    line-height: 17.89px;
+    letter-spacing: 2.45px;
+    text-transform: uppercase;
+    color: #ffffff8c;
+}
+
+.builtBoxTxt {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.builtBoxTxt h4 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #fff;
+}
+
+.builtBoxTxt p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+.builtMore {
+    margin-top: 3px;
+    padding: 35px 120px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
+    background-color: #ffffff05;
+    background-image: url(/src/assets/images/mainPageImages/tokenPricesBg.png);
+    background-size: 60%;
+    background-position: 100%;
+    background-repeat: no-repeat;
+}
+
+.builtMoreText h3 {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.builtMoreText p {
+    margin-top: 8px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+.builtMoreText button {
+    margin-top: 22px;
+    padding: 12px 32px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 8px;
+    background-color: #d34329;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.builtMoreText button svg path {
+    transition: 0.3s ease-in-out;
+}
+
+.builtMoreText button:hover {
+    background-color: #fff;
+    color: #d34329;
+}
+
+.builtMoreText button:hover svg path {
+    stroke: #d34329;
+}
+
+.builtMoreImage img {
+    width: 100%;
+}
+
+@media (max-width: 1100px) {
+    .builtBox {
+        padding: 20px;
+        background-color: #ffffff05;
+    }
+    .builtMore {
+        padding: 20px 40px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .built h2 {
+        font-size: 38px;
+    }
+    .builtBoxes {
+        grid-template-columns: 1fr;
+    }
+    .builtMore {
+        padding: 20px;
+        grid-template-columns: 1fr;
+        background-size: contain;
+    }
+
+    .builtMoreText button {
+        padding: 10px 20px;
+    }
+}

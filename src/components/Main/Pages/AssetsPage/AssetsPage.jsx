@@ -6,6 +6,7 @@ import AssetsPagePath from './AssetsPagePath/AssetsPagePath';
 import AssetsPageChoice from './AssetsPageChoice/AssetsPageChoice';
 import AssetsPageCards from './AssetsPageCards/AssetsPageCards';
 import AssetsPageEngine from './AssetsPageEngine/AssetsPageEngine';
+import AssetsPageBuilt from './AssetsPageBuilt/AssetsPageBuilt';
 
 import classes from './AssetsPage.module.css';
 
@@ -20,6 +21,7 @@ const AssetsPage = () => {
             <AssetsPageChoice />
             <AssetsPageCards />
             <AssetsPageEngine />
+            <AssetsPageBuilt />
         </main>
     );
 };
