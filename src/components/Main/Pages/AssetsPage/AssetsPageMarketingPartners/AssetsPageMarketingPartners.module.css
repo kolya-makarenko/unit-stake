@@ -1,0 +1,228 @@
+.partnersHeader {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.partnersHeader h2 {
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    text-align: center;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.partnersHeader p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-align: center;
+    color: #b4b4b4;
+}
+
+.partnersContainer {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.partnerCard {
+    padding: 24px;
+    box-sizing: border-box;
+    background-color: #ffffff05;
+    border: 1px solid rgba(61, 61, 61, 0.12);
+    border-radius: 16px;
+}
+
+.partnerCardImg {
+    height: 155px;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    background:
+        linear-gradient(#222, #222) padding-box,
+        conic-gradient(
+                from 169.71deg at 37.5% 31.16%,
+                #ffffff 0deg,
+                rgba(255, 255, 255, 0) 50.63deg,
+                #ffffff 155.62deg,
+                rgba(255, 255, 255, 0) 273.75deg,
+                #ffffff 360deg
+            )
+            border-box;
+}
+
+.partnerPosition {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.partnerNumber {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #858585;
+}
+
+.partnerVerified {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #858585;
+}
+
+.grinCircle {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #00d492cc;
+    flex-shrink: 0;
+    box-shadow: 0px 0px 6px 0px #34d399b2;
+}
+
+.partnerLogo {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.partnerLogo img {
+    width: 70%;
+}
+
+.partnerText {
+    margin-top: 22px;
+}
+
+.partnerText h3 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #fff;
+}
+
+.partnerDescription {
+    margin-top: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+.partnerLink {
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid #ffffff0f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.partnerLink h6 {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #858585;
+}
+
+.projectsCardLinkBtn {
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.projectsCardLinkBtn p {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #d34329;
+    position: relative;
+    transition: 0.3s ease-in-out;
+}
+
+.projectsCardLinkBtn:hover p {
+    color: #fff;
+}
+
+.projectsCardLinkBtn p:after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    background-color: #d34329;
+    transition: 0.3s ease-in-out;
+}
+
+.projectsCardLinkBtn:hover p:after {
+    background-color: #fff;
+}
+
+.projectsCardLinkBtn svg path {
+    transition: 0.3s ease-in-out;
+}
+
+.projectsCardLinkBtn:hover svg path {
+    stroke: #fff;
+}
+
+@media (max-width: 1100px) {
+    .partnersHeader {
+        width: 95%;
+    }
+    .partnersContainer {
+        gap: 16px;
+    }
+    .partnerCard {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .partnersHeader h2 {
+        font-size: 38px;
+    }
+    .partnersContainer {
+        grid-template-columns: 1fr;
+    }
+    .partnerCardImg {
+        height: 200px;
+        overflow: hidden;
+    }
+}

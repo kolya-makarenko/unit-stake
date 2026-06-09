@@ -32,6 +32,7 @@ function App() {
                     <Route path="platforms" element={<div>PLATFORMS</div>} />
                     <Route path="platforms/:id" element={<div>PLATFORM</div>} />
                     <Route path="for-assets-owners" element={<AssetsPage />} />
+                    <Route path="partner/:id" element={<div>PARTNER</div>} />
                     <Route path="insights" element={<div>Insights</div>} />
                     <Route path="insights/:id" element={<div>Insight</div>} />
                     <Route path="academy" element={<div>Academy</div>} />
