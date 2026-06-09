@@ -8,6 +8,8 @@ import AssetsPageCards from './AssetsPageCards/AssetsPageCards';
 import AssetsPageEngine from './AssetsPageEngine/AssetsPageEngine';
 import AssetsPageBuilt from './AssetsPageBuilt/AssetsPageBuilt';
 import AssetsPageMarketingPartners from './AssetsPageMarketingPartners/AssetsPageMarketingPartners';
+import AssetsPageLegalPartners from './AssetsPageLegalPartners/AssetsPageLegalPartners';
+import AssetsPageInstitutional from './AssetsPageInstitutional/AssetsPageInstitutional';
 
 import classes from './AssetsPage.module.css';
 
@@ -24,6 +26,8 @@ const AssetsPage = () => {
             <AssetsPageEngine />
             <AssetsPageBuilt />
             <AssetsPageMarketingPartners />
+            <AssetsPageLegalPartners />
+            <AssetsPageInstitutional />
         </main>
     );
 };

@@ -6,9 +6,9 @@ import {
     Query,
     TABLE_ID_PARTNERS,
 } from '../../../../../lib/appwrite';
-import classes from './AssetsPageMarketingPartners.module.css';
+import classes from './AssetsPageLegalPartners.module.css';
 
-const AssetsPageMarketingPartners = () => {
+const AssetsPageLegalPartners = () => {
     const navigate = useNavigate();
     const [partners, setPartners] = useState([]);
 
@@ -18,10 +18,7 @@ const AssetsPageMarketingPartners = () => {
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PARTNERS,
-                    queries: [
-                        Query.equal('category', 'Marketing'),
-                        Query.limit(3),
-                    ],
+                    queries: [Query.equal('category', 'Legal'), Query.limit(3)],
                 });
                 setPartners(response.rows);
             } catch (error) {
@@ -55,13 +52,13 @@ const AssetsPageMarketingPartners = () => {
         <section className={`sectionMarginTop ${classes.partners}`}>
             <div className="wrapper">
                 <div className={classes.partnersHeader}>
-                    <h2>Marketing Partners</h2>
+                    <h2>Legal Partners</h2>
                     <p>
-                        Selected partners specialising in the positioning,
-                        packaging, and growth of tokenised projects. Partners
-                        are presented based on their experience in structuring
-                        investor journeys, building market-ready narratives, and
-                        supporting projects across key growth stages.
+                        Legal partners supporting the structuring, regulatory
+                        positioning, and compliance aspects of tokenised
+                        projects across jurisdictions. Firms are presented based
+                        on their experience in digital assets, securities
+                        frameworks, and cross-border structuring.
                     </p>
                 </div>
                 <div className={classes.partnersContainer}>
@@ -133,4 +130,4 @@ const AssetsPageMarketingPartners = () => {
     );
 };
 
-export default AssetsPageMarketingPartners;
+export default AssetsPageLegalPartners;
