@@ -12,6 +12,7 @@ import AssetsPageLegalPartners from './AssetsPageLegalPartners/AssetsPageLegalPa
 import AssetsPageInstitutional from './AssetsPageInstitutional/AssetsPageInstitutional';
 import AssetsPageDownload from './AssetsPageDownload/AssetsPageDownload';
 import AssetsPageFaq from './AssetsPageFaq/AssetsPageFaq';
+import MainPageNews from '../MainPage/MainPageNews/MainPageNews';
 
 import classes from './AssetsPage.module.css';
 
@@ -32,6 +33,7 @@ const AssetsPage = () => {
             <AssetsPageInstitutional />
             <AssetsPageDownload />
             <AssetsPageFaq />
+            <MainPageNews />
         </main>
     );
 };
