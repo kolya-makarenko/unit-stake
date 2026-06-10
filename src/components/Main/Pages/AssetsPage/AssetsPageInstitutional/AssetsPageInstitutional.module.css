@@ -247,6 +247,19 @@
     box-shadow: 0px 0px 6px 0px #34d399b2;
 }
 
+.institutionalAfter {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    color: #858585;
+}
+
 @media (max-width: 1100px) {
     .institutionalHeader {
         width: 100%;
@@ -259,5 +272,9 @@
 @media (max-width: 1000px) {
     .institutionalHeader h2 {
         font-size: 38px;
+    }
+    .institutionalAfter {
+        flex-direction: column;
+        gap: 16px;
     }
 }

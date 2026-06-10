@@ -1,5 +1,5 @@
-import { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
 
 import 'swiper/css';
 
@@ -77,8 +77,6 @@ const cards = [
 ];
 
 const AssetsPageInstitutional = () => {
-    const swiperRef = useRef(null);
-
     return (
         <section className={`sectionMarginTop ${classes.institutional}`}>
             <div className="wrapper">
@@ -101,8 +99,7 @@ const AssetsPageInstitutional = () => {
                 </div>
                 <div className={classes.navigationButtons}>
                     <button
-                        className={`${classes.navBtn} ${classes.prevBtn}`}
-                        onClick={() => swiperRef.current?.slidePrev()}
+                        className={`${classes.navBtn} ${classes.prevBtn} js-swiper-prev`}
                     >
                         <svg
                             width="10"
@@ -118,8 +115,7 @@ const AssetsPageInstitutional = () => {
                         </svg>
                     </button>
                     <button
-                        className={`${classes.navBtn} ${classes.nextBtn}`}
-                        onClick={() => swiperRef.current?.slideNext()}
+                        className={`${classes.navBtn} ${classes.nextBtn} js-swiper-next`}
                     >
                         <svg
                             width="10"
@@ -137,9 +133,12 @@ const AssetsPageInstitutional = () => {
                 </div>
                 <div className={classes.institutionalContainer}>
                     <Swiper
-                        onBeforeInit={(swiper) => {
-                            swiperRef.current = swiper;
+                        modules={[Navigation]}
+                        navigation={{
+                            prevEl: '.js-swiper-prev',
+                            nextEl: '.js-swiper-next',
                         }}
+                        loop={true}
                         spaceBetween={24}
                         slidesPerView={1}
                         breakpoints={{
@@ -233,6 +232,14 @@ const AssetsPageInstitutional = () => {
                             </SwiperSlide>
                         ))}
                     </Swiper>
+                </div>
+                <div className={classes.institutionalAfter}>
+                    <div className={classes.institutionalAfterTxt}>
+                        Drag · Scroll · Explore
+                    </div>
+                    <div className={classes.institutionalAfterTxt}>
+                        9 Institutional Signals
+                    </div>
                 </div>
             </div>
         </section>
