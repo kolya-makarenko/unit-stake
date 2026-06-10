@@ -19,6 +19,7 @@ import AdminTeams from './components/Admin/AdminPages/AdminTeams/AdminTeams';
 import AdminProjectAdd from './components/Admin/AdminPages/AdminProjects/AdminProjectAdd/AdminProjectAdd';
 import AdminProjectEdit from './components/Admin/AdminPages/AdminProjects/AdminProjectEdit/AdminProjectEdit';
 import AssetsPage from './components/Main/Pages/AssetsPage/AssetsPage';
+import AboutUsPage from './components/Main/Pages/AboutUsPage/AboutUsPage';
 import './App.css';
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
                     <Route path="insights" element={<div>Insights</div>} />
                     <Route path="insights/:id" element={<div>Insight</div>} />
                     <Route path="academy" element={<div>Academy</div>} />
-                    <Route path="about-us" element={<div>About us</div>} />
+                    <Route path="about-us" element={<AboutUsPage />} />
                     <Route
                         path="verified"
                         element={<div>Verified By UnitStake</div>}
