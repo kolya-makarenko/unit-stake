@@ -1,0 +1,114 @@
+.goal {
+    padding: 60px 0;
+}
+
+.goalHeader {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.goalHeader h2 {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.goalHeader p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+.goalContainer {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.goalCard {
+    padding: 40px 60px;
+    box-sizing: border-box;
+    border: 1px solid rgba(61, 61, 61, 0.4);
+    border-radius: 24px;
+    background:
+        radial-gradient(
+            141.42% 141.42% at 0% 0%,
+            rgba(255, 255, 255, 0.04) 0%,
+            rgba(0, 0, 0, 0) 60%
+        ),
+        radial-gradient(
+            141.42% 141.42% at 100% 100%,
+            rgba(211, 67, 41, 0.16) 0%,
+            rgba(0, 0, 0, 0) 60%
+        );
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.goalBox h4 {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 160%;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #b4b4b4;
+}
+
+.goalBox h3 {
+    margin-top: 24px;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+}
+
+.goalBox p {
+    margin-top: 2px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+@media (max-width: 1100px) {
+    .goalHeader {
+        gap: 16px;
+    }
+    .goalCard {
+        padding: 24px;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .goal {
+        padding: 40px 0;
+    }
+    .goalHeader {
+        grid-template-columns: 1fr;
+    }
+    .goalContainer {
+        margin-top: 40px;
+    }
+    .goalCard {
+        padding: 20px;
+        grid-template-columns: 1fr;
+    }
+}

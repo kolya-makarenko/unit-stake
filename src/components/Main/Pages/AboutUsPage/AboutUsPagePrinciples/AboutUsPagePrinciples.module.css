@@ -1,0 +1,86 @@
+.principles {
+    padding: 120px 0;
+    background-image: radial-gradient(
+        circle,
+        rgba(211, 67, 41, 0.1) 0%,
+        rgba(211, 67, 41, 0) 55%
+    );
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.principles h2 {
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    text-align: center;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.principlesCards {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    padding-top: 40px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.principlesCard {
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #ffffff05;
+    border: 1px solid rgba(61, 61, 61, 0.4);
+    border-radius: 16px;
+}
+
+.principlesCardIcon {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    border: 1px solid #ffffff1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.principlesCard p {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+}
+
+@media (max-width: 1000px) {
+    .principles {
+        padding: 40px 0;
+    }
+    .principles h2 {
+        font-size: 38px;
+    }
+    .principlesCard {
+        width: 100%;
+        padding: 10px;
+    }
+    .principlesCard p {
+        font-size: 18px;
+        line-height: 120%;
+    }
+}
