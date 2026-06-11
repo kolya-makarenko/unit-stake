@@ -5,6 +5,7 @@ import AboutUsPageVerification from './AboutUsPageVerification/AboutUsPageVerifi
 import AboutUsPagePrinciples from './AboutUsPagePrinciples/AboutUsPagePrinciples';
 import AboutUsPagePlatform from './AboutUsPagePlatform/AboutUsPagePlatform';
 import AboutUsPageContacts from './AboutUsPageContacts/AboutUsPageContacts';
+import AssetsPageFaq from '../AssetsPage/AssetsPageFaq/AssetsPageFaq';
 import classes from './AboutUsPage.module.css';
 
 const AboutUsPage = () => {
@@ -17,6 +18,7 @@ const AboutUsPage = () => {
             <AboutUsPagePrinciples />
             <AboutUsPagePlatform />
             <AboutUsPageContacts />
+            <AssetsPageFaq pageName="about_us" />
         </main>
     );
 };

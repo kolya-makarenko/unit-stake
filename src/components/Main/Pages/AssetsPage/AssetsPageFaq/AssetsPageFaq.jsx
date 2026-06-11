@@ -7,7 +7,7 @@ import {
 } from '../../../../../lib/appwrite';
 import classes from './AssetsPageFaq.module.css';
 
-const AssetsPageFaq = () => {
+const AssetsPageFaq = (props) => {
     const [faqs, setFaqs] = useState([]);
     const [activeIndex, setActiveIndex] = useState(null);
 
@@ -21,7 +21,7 @@ const AssetsPageFaq = () => {
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_FAQS_PAGE,
-                    queries: [Query.equal('page_type', 'assets_owners')],
+                    queries: [Query.equal('page_type', props.pageName)],
                 });
                 const document = response.rows[0];
 

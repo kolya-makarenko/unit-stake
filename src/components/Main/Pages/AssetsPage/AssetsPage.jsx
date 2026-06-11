@@ -32,7 +32,7 @@ const AssetsPage = () => {
             <AssetsPageLegalPartners />
             <AssetsPageInstitutional />
             <AssetsPageDownload />
-            <AssetsPageFaq />
+            <AssetsPageFaq pageName="assets_owners" />
             <MainPageNews />
         </main>
     );
