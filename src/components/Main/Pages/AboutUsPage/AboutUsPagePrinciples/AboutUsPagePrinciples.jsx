@@ -43,6 +43,19 @@ const AboutUsPagePrinciples = () => {
                         </div>
                     ))}
                 </div>
+                <div className={classes.principlesText}>
+                    <div className={classes.principlesTxt}>
+                        We rely on verifiable data and issuer-provided
+                        documentation. We standardise how key parameters are
+                        presented across projects. We avoid subjective
+                        interpretation.
+                    </div>
+                    <div className={classes.principlesTxt}>
+                        We see tokenisation as an inevitable evolution of asset
+                        ownership and capital markets. But evolution requires
+                        structure to scale. We are building that structure.
+                    </div>
+                </div>
             </div>
         </section>
     );

@@ -1,0 +1,111 @@
+.platformContainer {
+    padding: 80px 200px;
+    box-sizing: border-box;
+    border: 1px solid rgba(61, 61, 61, 0.4);
+    border-radius: 24px;
+    background: radial-gradient(
+        90.22% 102.33% at 50% 0%,
+        #1e1e20 69.55%,
+        #d3422970 94.49%
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.platformContainer h2 {
+    font-weight: 600;
+    font-size: 52px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    text-align: center;
+    color: #fff;
+}
+
+.platformContainer p {
+    margin-top: 16px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-align: center;
+    color: #fff;
+}
+
+.platformBtns {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.platformBtn1 {
+    width: fit-content;
+    padding: 12px 32px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: none;
+    background-color: #d34329;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.platformBtn1:hover {
+    background-color: #fff;
+    color: #d34329;
+}
+
+.platformBtn2 {
+    padding: 12px 32px;
+    width: fit-content;
+    padding: 12px 32px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: none;
+    background-color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #0c0c0c;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.platformBtn2:hover {
+    background-color: #d34329;
+    color: #fff;
+}
+
+@media (max-width: 1300px) {
+    .platformContainer {
+        padding: 80px 150px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .platformContainer {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .platformContainer {
+        padding: 40px 20px;
+    }
+    .platformContainer h2 {
+        font-size: 36px;
+    }
+    .platformBtns {
+        flex-direction: column;
+    }
+    .platformBtn1,
+    .platformBtn2 {
+        padding: 10px 20px;
+    }
+}

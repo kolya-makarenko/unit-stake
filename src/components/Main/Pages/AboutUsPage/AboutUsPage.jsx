@@ -3,6 +3,8 @@ import AboutUsPageFirstText from './AboutUsPageFirstText/AboutUsPageFirstText';
 import AboutUsPageGoal from './AboutUsPageGoal/AboutUsPageGoal';
 import AboutUsPageVerification from './AboutUsPageVerification/AboutUsPageVerification';
 import AboutUsPagePrinciples from './AboutUsPagePrinciples/AboutUsPagePrinciples';
+import AboutUsPagePlatform from './AboutUsPagePlatform/AboutUsPagePlatform';
+import AboutUsPageContacts from './AboutUsPageContacts/AboutUsPageContacts';
 import classes from './AboutUsPage.module.css';
 
 const AboutUsPage = () => {
@@ -13,6 +15,8 @@ const AboutUsPage = () => {
             <AboutUsPageGoal />
             <AboutUsPageVerification />
             <AboutUsPagePrinciples />
+            <AboutUsPagePlatform />
+            <AboutUsPageContacts />
         </main>
     );
 };

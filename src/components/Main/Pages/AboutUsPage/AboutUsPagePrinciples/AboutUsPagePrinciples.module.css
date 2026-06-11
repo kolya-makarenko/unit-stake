@@ -1,5 +1,5 @@
 .principles {
-    padding: 120px 0;
+    padding-top: 120px;
     background-image: radial-gradient(
         circle,
         rgba(211, 67, 41, 0.1) 0%,
@@ -68,9 +68,24 @@
     color: #fff;
 }
 
+.principlesText {
+    margin-top: 120px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.principlesTxt {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
 @media (max-width: 1000px) {
     .principles {
-        padding: 40px 0;
+        padding-top: 40px;
     }
     .principles h2 {
         font-size: 38px;
@@ -82,5 +97,9 @@
     .principlesCard p {
         font-size: 18px;
         line-height: 120%;
+    }
+    .principlesText {
+        margin-top: 80px;
+        grid-template-columns: 1fr;
     }
 }
