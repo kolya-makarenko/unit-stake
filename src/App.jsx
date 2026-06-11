@@ -20,6 +20,7 @@ import AdminProjectAdd from './components/Admin/AdminPages/AdminProjects/AdminPr
 import AdminProjectEdit from './components/Admin/AdminPages/AdminProjects/AdminProjectEdit/AdminProjectEdit';
 import AssetsPage from './components/Main/Pages/AssetsPage/AssetsPage';
 import AboutUsPage from './components/Main/Pages/AboutUsPage/AboutUsPage';
+import VerifiedPage from './components/Main/Pages/VerifiedPage/VerifiedPage';
 import './App.css';
 
 function App() {
@@ -38,10 +39,7 @@ function App() {
                     <Route path="insights/:id" element={<div>Insight</div>} />
                     <Route path="academy" element={<div>Academy</div>} />
                     <Route path="about-us" element={<AboutUsPage />} />
-                    <Route
-                        path="verified"
-                        element={<div>Verified By UnitStake</div>}
-                    />
+                    <Route path="verified" element={<VerifiedPage />} />
                     <Route path="contact-us" element={<div>Contact us</div>} />
                 </Route>
                 <Route

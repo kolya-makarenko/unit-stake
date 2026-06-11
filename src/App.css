@@ -23,8 +23,8 @@ body {
         linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
         linear-gradient(
             91.36deg,
-            rgba(0, 86, 57, 0.4) 0.95%,
-            rgba(0, 212, 146, 0.4) 97.85%
+            rgba(0, 86, 57, 0.8) 0.95%,
+            rgba(0, 212, 146, 0.8) 97.85%
         );
     backdrop-filter: blur(23px);
     box-shadow: 0px 0px 14.1px 0px #ffffff29;

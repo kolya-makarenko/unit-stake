@@ -1,0 +1,62 @@
+.heroSection {
+    padding: 120px 0;
+    background-image: radial-gradient(
+        circle,
+        rgba(211, 67, 41, 0.1) 0%,
+        rgba(211, 67, 41, 0) 55%
+    );
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.heroSectionContainer {
+    width: 100%;
+    max-width: 850px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.heroSectionContainer h2 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-align: center;
+    color: #19191c;
+}
+
+.heroSectionContainer p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-align: center;
+    color: #57575c;
+}
+
+.heroSectionContainer a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    letter-spacing: -1%;
+    text-transform: uppercase;
+    color: #d34329;
+    text-decoration: none;
+}
+
+.heroSectionContainer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 1100px) {
+    .heroSection {
+        padding: 80px 0;
+    }
+}
