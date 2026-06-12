@@ -1,5 +1,6 @@
 import VerifiedPageHeroSection from './VerifiedPageHeroSection/VerifiedPageHeroSection';
 import VerifiedPageWeDo from './VerifiedPageWeDo/VerifiedPageWeDo';
+import VerifiedPageMatters from './VerifiedPageMatters/VerifiedPageMatters';
 import classes from './VerifiedPage.module.css';
 
 const VerifiedPage = () => {
@@ -7,6 +8,7 @@ const VerifiedPage = () => {
         <main className={classes.verifiedPage}>
             <VerifiedPageHeroSection />
             <VerifiedPageWeDo />
+            <VerifiedPageMatters />
         </main>
     );
 };

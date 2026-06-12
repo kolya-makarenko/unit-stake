@@ -121,6 +121,10 @@
     background-color: #00d492;
 }
 
+.weDoListDo ul li div img {
+    width: 11px;
+}
+
 .weDoAfterTxt {
     margin-top: 40px;
     font-weight: 400;
