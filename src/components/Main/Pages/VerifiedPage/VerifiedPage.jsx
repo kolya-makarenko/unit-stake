@@ -3,6 +3,8 @@ import VerifiedPageWeDo from './VerifiedPageWeDo/VerifiedPageWeDo';
 import VerifiedPageMatters from './VerifiedPageMatters/VerifiedPageMatters';
 import VerifiedPageDisclaimer from './VerifiedPageDisclaimer/VerifiedPageDisclaimer';
 import VerifiedPageStatus from './VerifiedPageStatus/VerifiedPageStatus';
+import VerifiedPageCategories from './VerifiedPageCategories/VerifiedPageCategories';
+import VerifiedPagePlatform from './VerifiedPagePlatform/VerifiedPagePlatform';
 import classes from './VerifiedPage.module.css';
 
 const firstDisclaimerTxt = (
@@ -49,6 +51,8 @@ const VerifiedPage = () => {
             <VerifiedPageDisclaimer text={firstDisclaimerTxt} />
             <VerifiedPageStatus />
             <VerifiedPageDisclaimer text={secondDisclaimerTxt} />
+            <VerifiedPageCategories />
+            <VerifiedPagePlatform />
         </main>
     );
 };

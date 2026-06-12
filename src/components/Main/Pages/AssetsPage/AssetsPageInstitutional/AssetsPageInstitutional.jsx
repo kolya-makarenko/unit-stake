@@ -9,6 +9,10 @@ import cardLogo1 from '../../../../../assets/images/assetsPageImages/logo1.svg';
 import cardLogo2 from '../../../../../assets/images/assetsPageImages/logo2.svg';
 import cardLogo3 from '../../../../../assets/images/assetsPageImages/logo3.svg';
 import cardLogo4 from '../../../../../assets/images/assetsPageImages/logo4.svg';
+import cardLogo6 from '../../../../../assets/images/assetsPageImages/logo6.svg';
+import cardLogo7 from '../../../../../assets/images/assetsPageImages/logo7.svg';
+import cardLogo8 from '../../../../../assets/images/assetsPageImages/logo8.svg';
+import cardLogo9 from '../../../../../assets/images/assetsPageImages/logo9.svg';
 
 const cards = [
     {
@@ -51,28 +55,28 @@ const cards = [
         title: 'United Arab Emirates / Dubai',
         subTitle: 'Legal Framework',
         text: 'Dubai has become one of the most active jurisdictions supporting tokenized real estate and digital asset frameworks.',
-        logo: cardLogo3,
+        logo: cardLogo6,
     },
     {
         id: '07',
         title: 'Switzerland',
         subTitle: 'Legal Framework',
         text: 'Switzerland remains a leading jurisdiction for compliant tokenized asset structures.',
-        logo: cardLogo3,
+        logo: cardLogo7,
     },
     {
         id: '08',
         title: 'Paxos',
         subTitle: 'Tokenized Gold',
         text: 'Developed tokenized gold products backed by allocated physical gold.',
-        logo: cardLogo3,
+        logo: cardLogo8,
     },
     {
         id: '09',
         title: 'Tether Gold Products',
         subTitle: 'Tokenized Gold',
         text: 'Expanded tokenized gold offerings to global markets.',
-        logo: cardLogo3,
+        logo: cardLogo9,
     },
 ];
 

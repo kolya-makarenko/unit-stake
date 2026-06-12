@@ -11,7 +11,7 @@ const tokenizingCards = [
         id: '01',
         icon: tokenizingIcon1,
         header: 'Raise Capital',
-        text: 'Open structured access to global investor pools through compliant tokenized offerings.',
+        text: 'Unlock access to global capital more efficiently, without the limitations and complexity of traditional financing.',
     },
     {
         id: '02',
@@ -23,19 +23,19 @@ const tokenizingCards = [
         id: '03',
         icon: tokenizingIcon3,
         header: 'Provide Investor Liquidity',
-        text: 'Introduce structured liquidity mechanics that traditional ownership models cannot offer.',
+        text: 'Create more flexible entry and exit opportunities for participants in your project.',
     },
     {
         id: '04',
         icon: tokenizingIcon4,
-        header: 'Expand Your Investor Base',
-        text: 'Reach qualified investors across jurisdictions through a structured visibility surface.',
+        header: 'Broaden your audience of interested participants',
+        text: 'Open your asset to an international audience and new sources of capital.',
     },
     {
         id: '05',
         icon: tokenizingIcon5,
         header: 'Scale Your Assets',
-        text: 'Build a programmable, modular foundation for ownership, distribution, and growth.',
+        text: 'Leverage tokenization to expand your assets and support long-term growth.',
     },
 ];
 

@@ -1,0 +1,93 @@
+.platform {
+    margin-top: 60px;
+    padding-top: 80px;
+    background-color: #19191c;
+}
+
+.platformContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.platformCard {
+    border: 1px solid rgba(61, 61, 61, 0.4);
+    border-radius: 24px;
+    background-color: #ffffff05;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    overflow: hidden;
+}
+
+.platformCardText {
+    padding-left: 80px;
+    box-sizing: border-box;
+}
+
+.platformCardText h2 {
+    font-weight: 600;
+    font-size: 52px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #fff;
+}
+
+.platformCardText p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+.platformCardText button {
+    margin-top: 60px;
+    padding: 12px 32px;
+    box-sizing: border-box;
+    border: none;
+    background-color: #d34329;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.platformCardText button:hover {
+    background-color: #fff;
+    color: #d34329;
+}
+
+.platformCard:first-child .platformCardImage {
+    padding-top: 50px;
+    padding-right: 50px;
+    box-sizing: border-box;
+}
+
+.platformCard:last-child .platformCardImage {
+    padding: 90px 40px 70px 70px;
+}
+
+.platformCardImage img {
+    width: 100%;
+    filter: drop-shadow(0px 4px 100px #d343291f);
+}
+
+@media (max-width: 1100px) {
+    .platformCard {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        border-radius: 20px;
+        padding: 24px 20px;
+    }
+    .platformCardText {
+        padding: 0;
+    }
+    .platformCardText h2 {
+        font-size: 38px;
+    }
+}
