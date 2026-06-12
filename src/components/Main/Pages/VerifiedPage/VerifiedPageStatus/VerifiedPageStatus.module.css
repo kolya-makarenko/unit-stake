@@ -1,0 +1,95 @@
+.status {
+    margin-top: 40px;
+}
+
+.statusContainer {
+    background-color: #f4f4f6;
+    border: 1px solid #dcdcdc;
+    border-radius: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.statusBox {
+    padding: 24px 32px;
+}
+
+.statusBox:first-child {
+    border-right: 1px solid #dcdcdc;
+}
+
+.statusBox h3 {
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.statusBox p {
+    margin-top: 8px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.statusBox ul {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.statusBox ul li {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.checkmark {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #00bc7d;
+    background-color: #00d492;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.checkmark img {
+    width: 11px;
+}
+
+.statusBox h4 {
+    margin-top: 24px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+@media (max-width: 1100px) {
+    .statusBox {
+        padding: 24px 20px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .statusContainer {
+        grid-template-columns: 1fr;
+    }
+    .statusBox:first-child {
+        border-right: none;
+        border-bottom: 1px solid #dcdcdc;
+    }
+}

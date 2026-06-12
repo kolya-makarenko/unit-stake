@@ -1,0 +1,35 @@
+.disclaimer {
+    margin-top: 40px;
+    padding: 40px 0;
+    border-top: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.disclaimerContainer h3 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #19191c;
+}
+
+.disclaimerContainer p {
+    margin-top: 16px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.disclaimerContainer ul {
+    margin-top: 16px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+    list-style: disc;
+    list-style-position: inside;
+}
