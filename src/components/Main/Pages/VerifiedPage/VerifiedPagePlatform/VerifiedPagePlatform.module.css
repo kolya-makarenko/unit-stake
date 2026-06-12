@@ -70,6 +70,7 @@
 
 .platformCard:last-child .platformCardImage {
     padding: 90px 40px 70px 70px;
+    box-sizing: border-box;
 }
 
 .platformCardImage img {
@@ -82,12 +83,25 @@
         grid-template-columns: 1fr;
         gap: 40px;
         border-radius: 20px;
-        padding: 24px 20px;
+        padding: 32px 20px;
+    }
+    .platformCard:first-child {
+        padding-bottom: 0;
     }
     .platformCardText {
         padding: 0;
     }
     .platformCardText h2 {
         font-size: 38px;
+    }
+    .platformCardText button {
+        margin-bottom: 40px;
+        padding: 10px 20px;
+    }
+    .platformCard:first-child .platformCardImage {
+        padding: 0;
+    }
+    .platformCard:last-child .platformCardImage {
+        padding: 0;
     }
 }
