@@ -21,6 +21,7 @@ import AdminProjectEdit from './components/Admin/AdminPages/AdminProjects/AdminP
 import AssetsPage from './components/Main/Pages/AssetsPage/AssetsPage';
 import AboutUsPage from './components/Main/Pages/AboutUsPage/AboutUsPage';
 import VerifiedPage from './components/Main/Pages/VerifiedPage/VerifiedPage';
+import PlatformsPage from './components/Main/Pages/PlatformsPage/PlatformsPage';
 import './App.css';
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
                     <Route index element={<MainPage />} />
                     <Route path="projects" element={<div>PROJECTS</div>} />
                     <Route path="projects/:id" element={<div>PROJECT</div>} />
-                    <Route path="platforms" element={<div>PLATFORMS</div>} />
+                    <Route path="platforms" element={<PlatformsPage />} />
                     <Route path="platforms/:id" element={<div>PLATFORM</div>} />
                     <Route path="for-assets-owners" element={<AssetsPage />} />
                     <Route path="partner/:id" element={<div>PARTNER</div>} />
