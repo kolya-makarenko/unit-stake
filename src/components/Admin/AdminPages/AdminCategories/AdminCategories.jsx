@@ -17,11 +17,13 @@ const AdminCategories = () => {
     const [projectCategories, setProjectCategories] = useState([]);
     const [projectFilters, setProjectFilters] = useState([]);
     const [partnerCategories, setPartnerCategories] = useState([]);
+    const [newsCategories, setNewsCategories] = useState([]);
 
     const [newPlatform, setNewPlatform] = useState('');
     const [newProject, setNewProject] = useState('');
     const [newFilter, setNewFilter] = useState('');
     const [newPartner, setNewPartner] = useState('');
+    const [newNews, setNewNews] = useState('');
 
     const [editPlatformIndex, setEditPlatformIndex] = useState(-1);
     const [editPlatformValue, setEditPlatformValue] = useState('');
@@ -34,6 +36,9 @@ const AdminCategories = () => {
 
     const [editPartnerIndex, setEditPartnerIndex] = useState(-1);
     const [editPartnerValue, setEditPartnerValue] = useState('');
+
+    const [editNewsIndex, setEditNewsIndex] = useState(-1);
+    const [editNewsValue, setEditNewsValue] = useState('');
 
     const fetchCategories = async () => {
         try {
@@ -49,6 +54,7 @@ const AdminCategories = () => {
                 setProjectCategories(dataDoc.project_categories || []);
                 setProjectFilters(dataDoc.project_filters || []);
                 setPartnerCategories(dataDoc.partner_categories || []);
+                setNewsCategories(dataDoc.news_categories || []);
             }
         } catch (error) {
             console.error(
@@ -68,6 +74,7 @@ const AdminCategories = () => {
         updatedProjects,
         updatedFilters,
         updatedPartners,
+        updatedNews,
     ) => {
         if (!docId) {
             alert('Error: The document ID was not found in the database.');
@@ -84,6 +91,7 @@ const AdminCategories = () => {
                     project_categories: updatedProjects,
                     project_filters: updatedFilters,
                     partner_categories: updatedPartners,
+                    news_categories: updatedNews,
                 },
             });
             return true;
@@ -104,6 +112,7 @@ const AdminCategories = () => {
             projectCategories,
             projectFilters,
             partnerCategories,
+            newsCategories,
         );
         if (success) {
             setPlatformCategories(updated);
@@ -122,6 +131,7 @@ const AdminCategories = () => {
             projectCategories,
             projectFilters,
             partnerCategories,
+            newsCategories,
         );
         if (success) {
             setPlatformCategories(updated);
@@ -145,6 +155,7 @@ const AdminCategories = () => {
             projectCategories,
             projectFilters,
             partnerCategories,
+            newsCategories,
         );
         if (success) {
             setPlatformCategories(updated);
@@ -162,6 +173,7 @@ const AdminCategories = () => {
             updated,
             projectFilters,
             partnerCategories,
+            newsCategories,
         );
         if (success) {
             setProjectCategories(updated);
@@ -180,6 +192,7 @@ const AdminCategories = () => {
             updated,
             projectFilters,
             partnerCategories,
+            newsCategories,
         );
         if (success) {
             setProjectCategories(updated);
@@ -203,6 +216,7 @@ const AdminCategories = () => {
             updated,
             projectFilters,
             partnerCategories,
+            newsCategories,
         );
         if (success) {
             setProjectCategories(updated);
@@ -220,6 +234,7 @@ const AdminCategories = () => {
             projectCategories,
             updated,
             partnerCategories,
+            newsCategories,
         );
         if (success) {
             setProjectFilters(updated);
@@ -238,6 +253,7 @@ const AdminCategories = () => {
             projectCategories,
             updated,
             partnerCategories,
+            newsCategories,
         );
         if (success) {
             setProjectFilters(updated);
@@ -261,6 +277,7 @@ const AdminCategories = () => {
             projectCategories,
             updated,
             partnerCategories,
+            newsCategories,
         );
         if (success) {
             setProjectFilters(updated);
@@ -278,6 +295,7 @@ const AdminCategories = () => {
             projectCategories,
             projectFilters,
             updated,
+            newsCategories,
         );
         if (success) {
             setPartnerCategories(updated);
@@ -296,6 +314,7 @@ const AdminCategories = () => {
             projectCategories,
             projectFilters,
             updated,
+            newsCategories,
         );
         if (success) {
             setPartnerCategories(updated);
@@ -319,10 +338,72 @@ const AdminCategories = () => {
             projectCategories,
             projectFilters,
             updated,
+            newsCategories,
         );
         if (success) {
             setPartnerCategories(updated);
             setEditPartnerIndex(-1);
+        }
+    };
+
+    const handleAddNews = async (e) => {
+        e.preventDefault();
+        if (!newNews.trim()) return;
+
+        const updated = [...newsCategories, newNews.trim()];
+        const success = await updateDatabase(
+            platformCategories,
+            projectCategories,
+            projectFilters,
+            partnerCategories,
+            updated,
+        );
+        if (success) {
+            setNewsCategories(updated);
+            setNewNews('');
+        }
+    };
+
+    const handleDeleteNews = async (categoryToDelete) => {
+        if (!window.confirm(`Delete category "${categoryToDelete}"?`)) return;
+
+        const updated = newsCategories.filter(
+            (cat) => cat !== categoryToDelete,
+        );
+        const success = await updateDatabase(
+            platformCategories,
+            projectCategories,
+            projectFilters,
+            partnerCategories,
+            updated,
+        );
+        if (success) {
+            setNewsCategories(updated);
+            setEditNewsIndex(-1);
+        }
+    };
+
+    const startEditNews = (index, value) => {
+        setEditNewsIndex(index);
+        setEditNewsValue(value);
+    };
+
+    const handleSaveNewsEdit = async (index) => {
+        if (!editNewsValue.trim()) return;
+
+        const updated = [...newsCategories];
+        updated[index] = editNewsValue.trim();
+
+        const success = await updateDatabase(
+            platformCategories,
+            projectCategories,
+            projectFilters,
+            partnerCategories,
+            updated,
+        );
+        if (success) {
+            setNewsCategories(updated);
+            setEditNewsIndex(-1);
         }
     };
 
@@ -689,6 +770,93 @@ const AdminCategories = () => {
                                             <button
                                                 onClick={() =>
                                                     handleDeletePartner(cat)
+                                                }
+                                                className={classes.deleteBtn}
+                                            >
+                                                <img
+                                                    src={deleteIcon}
+                                                    alt="delete"
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className={classes.adminCategoriesContainer}>
+                    <h3>News Categories</h3>
+
+                    <form onSubmit={handleAddNews} className={classes.addForm}>
+                        <input
+                            type="text"
+                            value={newNews}
+                            onChange={(e) => setNewNews(e.target.value)}
+                            placeholder="New news category"
+                        />
+                        <button type="submit">+ Add category</button>
+                    </form>
+
+                    <ul className={classes.categoryList}>
+                        {newsCategories.map((cat, index) => (
+                            <li key={index} className={classes.categoryItem}>
+                                {editNewsIndex === index ? (
+                                    <div className={classes.editWrapper}>
+                                        <input
+                                            type="text"
+                                            value={editNewsValue}
+                                            onChange={(e) =>
+                                                setEditNewsValue(e.target.value)
+                                            }
+                                            className={classes.editInput}
+                                        />
+                                        <div className={classes.actions}>
+                                            <button
+                                                onClick={() =>
+                                                    handleSaveNewsEdit(index)
+                                                }
+                                                className={classes.saveBtn}
+                                            >
+                                                <img
+                                                    src={doneIcon}
+                                                    alt="done"
+                                                />
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    setEditNewsIndex(-1)
+                                                }
+                                                className={classes.cancelBtn}
+                                            >
+                                                <img
+                                                    src={cancelIcon}
+                                                    alt="cancel"
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className={classes.categoryView}>
+                                        <span className={classes.categoryText}>
+                                            {cat}
+                                        </span>
+                                        <div className={classes.actions}>
+                                            <button
+                                                onClick={() =>
+                                                    startEditNews(index, cat)
+                                                }
+                                                className={classes.editBtn}
+                                            >
+                                                <img
+                                                    src={editIcon}
+                                                    alt="edit"
+                                                />
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleDeleteNews(cat)
                                                 }
                                                 className={classes.deleteBtn}
                                             >

@@ -4,6 +4,7 @@ import {
     DATABASE_ID,
     ID,
     TABLE_ID_NEWS,
+    TABLE_ID_CATEGORIES,
     BUCKET_ID,
     storage,
     Query,
@@ -35,6 +36,23 @@ const AdminNews = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
 
+    const [category, setCategory] = useState('');
+    const [categoriesList, setCategoriesList] = useState([]);
+
+    const fetchCategories = async () => {
+        try {
+            const response = await tablesDB.listRows({
+                databaseId: DATABASE_ID,
+                tableId: TABLE_ID_CATEGORIES,
+            });
+            if (response.rows && response.rows.length > 0) {
+                setCategoriesList(response.rows[0].news_categories || []);
+            }
+        } catch (error) {
+            console.error('Error loading news categories:', error.message);
+        }
+    };
+
     const fetchNews = async () => {
         try {
             setIsLoading(true);
@@ -62,6 +80,10 @@ const AdminNews = () => {
     useEffect(() => {
         fetchNews();
     }, [currentPage]);
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
 
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -93,6 +115,7 @@ const AdminNews = () => {
     const handleAddClick = () => {
         setTitle('');
         setAuthor('');
+        setCategory('');
         setImageUrl('');
         setImageFile(null);
         setContentBlocks([]);
@@ -104,6 +127,7 @@ const AdminNews = () => {
     const handleEditClick = (newsItem) => {
         setTitle(newsItem.title || '');
         setAuthor(newsItem.author || '');
+        setCategory(newsItem.category || '');
         setImageUrl(newsItem.image_url || '');
         setImageFile(null);
         setIsPublished(newsItem.is_published || false);
@@ -178,6 +202,7 @@ const AdminNews = () => {
             const data = {
                 title: title,
                 author: author,
+                category: category,
                 image_url: finalImageUrl,
                 content_blocks: stringifiedBlocks,
                 is_published: isPublished,
@@ -282,6 +307,25 @@ const AdminNews = () => {
                                 onChange={(e) => setAuthor(e.target.value)}
                             />
                         </div>
+
+                        <div className={classes.addPlatformFormIdentityField}>
+                            <label htmlFor="newsCategory">
+                                Article Category
+                            </label>
+                            <select
+                                id="newsCategory"
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                            >
+                                <option value="">Select a category</option>
+                                {categoriesList.map((cat, index) => (
+                                    <option key={index} value={cat}>
+                                        {cat}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
                         <div
                             className={
                                 classes.addPlatformFormIdentityFieldImage
