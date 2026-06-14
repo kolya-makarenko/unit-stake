@@ -11,12 +11,13 @@ import classes from './PlatformsPage.module.css';
 
 import platformImgNone from '../../../../assets/images/mainPageImages/platformImgNone.png';
 
-const ITEMS_PER_PAGE = 1;
+const ITEMS_PER_PAGE = 9;
 
 const PlatformsPage = () => {
     const [platforms, setPlatforms] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const navigate = useNavigate();
 
@@ -25,14 +26,21 @@ const PlatformsPage = () => {
             try {
                 const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
+                const queries = [
+                    Query.orderDesc('$createdAt'),
+                    Query.equal('is_published', true),
+                    Query.limit(ITEMS_PER_PAGE),
+                    Query.offset(offset),
+                ];
+
+                if (searchQuery.trim() !== '') {
+                    queries.push(Query.contains('name', searchQuery));
+                }
+
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PLATFORMS,
-                    queries: [
-                        Query.orderDesc('$createdAt'),
-                        Query.limit(ITEMS_PER_PAGE),
-                        Query.offset(offset),
-                    ],
+                    queries: queries,
                 });
                 setPlatforms(response.rows);
                 setTotalCount(response.total);
@@ -42,7 +50,7 @@ const PlatformsPage = () => {
             }
         };
         fetchPlatforms();
-    }, [currentPage]);
+    }, [currentPage, searchQuery]);
 
     const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
 
@@ -52,6 +60,11 @@ const PlatformsPage = () => {
 
     const handleNextPage = () => {
         if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+        setCurrentPage(1);
     };
 
     return (
@@ -69,8 +82,22 @@ const PlatformsPage = () => {
                             <div className={classes.filtersHeader}>
                                 <h3>Filters</h3>
                             </div>
+                            {/* <div className={classes.platformsFiltersContainer}>
+                                <div className={classes.platformsFilter}>
+                                    <h4>Jurisdiction</h4>
+                                </div>
+                            </div> */}
                         </div>
                         <div className={classes.platformsContainer}>
+                            <div className={classes.platformsSearch}>
+                                <input
+                                    type="text"
+                                    placeholder="Search"
+                                    value={searchQuery}
+                                    onChange={handleSearchChange}
+                                    className={classes.searchInput}
+                                />
+                            </div>
                             <div className={classes.platformsGrid}>
                                 {platforms.length > 0 ? (
                                     platforms.map((platform) => (
