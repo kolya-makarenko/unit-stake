@@ -242,7 +242,7 @@ const AdminPlatformEdit = () => {
             const data = {
                 name: name,
                 is_published: isPublished,
-                category: category ? [category] : [],
+                category: category,
                 image_url: updatedImageUrl,
                 text_blocks: serializedBlocks,
                 assets: assets,
@@ -327,6 +327,7 @@ const AdminPlatformEdit = () => {
                             onChange={(e) => setCategory(e.target.value)}
                             className={classes.selectInput}
                         >
+                            <option value="">Select a category</option>
                             {categoriesList.map((cat) => (
                                 <option key={cat} value={cat}>
                                     {cat}

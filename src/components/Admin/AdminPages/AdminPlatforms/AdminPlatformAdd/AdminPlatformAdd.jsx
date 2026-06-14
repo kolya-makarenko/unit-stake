@@ -186,7 +186,7 @@ const AdminPlatformAdd = () => {
             const data = {
                 name: name,
                 is_published: isPublished,
-                category: category ? [category] : [],
+                category: category,
                 image_url: imageUrl,
                 text_blocks: serializedBlocks,
                 assets: assets,

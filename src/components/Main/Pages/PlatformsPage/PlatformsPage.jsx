@@ -8,7 +8,6 @@ import {
 } from '../../../../lib/appwrite';
 
 import classes from './PlatformsPage.module.css';
-
 import platformImgNone from '../../../../assets/images/mainPageImages/platformImgNone.png';
 
 const ITEMS_PER_PAGE = 9;
@@ -19,7 +18,41 @@ const PlatformsPage = () => {
     const [totalCount, setTotalCount] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
 
+    const [availableJurisdictions, setAvailableJurisdictions] = useState([]);
+    const [selectedJurisdictions, setSelectedJurisdictions] = useState([]);
+    const [availableCategories, setAvailableCategories] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchFilters = async () => {
+            try {
+                const response = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_PLATFORMS,
+                    queries: [Query.equal('is_published', true)],
+                });
+
+                const countries = response.rows
+                    .map((row) => row.jurisdiction)
+                    .filter(
+                        (jurisdiction) =>
+                            jurisdiction && jurisdiction.trim() !== '',
+                    );
+
+                const categories = response.rows
+                    .map((row) => row.category)
+                    .filter((category) => category && category.trim() !== '');
+
+                setAvailableJurisdictions([...new Set(countries)]);
+                setAvailableCategories([...new Set(categories)]);
+            } catch (error) {
+                console.error('Error fetching filters:', error);
+            }
+        };
+        fetchFilters();
+    }, []);
 
     useEffect(() => {
         const fetchPlatforms = async () => {
@@ -37,20 +70,30 @@ const PlatformsPage = () => {
                     queries.push(Query.contains('name', searchQuery));
                 }
 
+                if (selectedJurisdictions.length > 0) {
+                    queries.push(
+                        Query.equal('jurisdiction', selectedJurisdictions),
+                    );
+                }
+
+                if (selectedCategories.length > 0) {
+                    queries.push(Query.equal('category', selectedCategories));
+                }
+
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PLATFORMS,
                     queries: queries,
                 });
+
                 setPlatforms(response.rows);
                 setTotalCount(response.total);
-                console.log(response.rows);
             } catch (error) {
                 console.error('Platforms loading error:', error);
             }
         };
         fetchPlatforms();
-    }, [currentPage, searchQuery]);
+    }, [currentPage, searchQuery, selectedJurisdictions, selectedCategories]);
 
     const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
 
@@ -65,6 +108,24 @@ const PlatformsPage = () => {
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
         setCurrentPage(1);
+    };
+
+    const handleJurisdictionChange = (country) => {
+        setCurrentPage(1);
+        setSelectedJurisdictions((prevSelected) =>
+            prevSelected.includes(country)
+                ? prevSelected.filter((item) => item !== country)
+                : [...prevSelected, country],
+        );
+    };
+
+    const handleCategoryChange = (category) => {
+        setCurrentPage(1);
+        setSelectedCategories((prevSelected) =>
+            prevSelected.includes(category)
+                ? prevSelected.filter((item) => item !== category)
+                : [...prevSelected, category],
+        );
     };
 
     return (
@@ -82,11 +143,76 @@ const PlatformsPage = () => {
                             <div className={classes.filtersHeader}>
                                 <h3>Filters</h3>
                             </div>
-                            {/* <div className={classes.platformsFiltersContainer}>
+                            <div className={classes.platformsFiltersContainer}>
                                 <div className={classes.platformsFilter}>
                                     <h4>Jurisdiction</h4>
+                                    <div className={classes.checkboxList}>
+                                        {availableJurisdictions.length > 0 ? (
+                                            availableJurisdictions.map(
+                                                (country) => (
+                                                    <label
+                                                        key={country}
+                                                        className={
+                                                            classes.checkboxLabel
+                                                        }
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedJurisdictions.includes(
+                                                                country,
+                                                            )}
+                                                            onChange={() =>
+                                                                handleJurisdictionChange(
+                                                                    country,
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>{country}</span>
+                                                    </label>
+                                                ),
+                                            )
+                                        ) : (
+                                            <p className={classes.noFilters}>
+                                                No jurisdictions found
+                                            </p>
+                                        )}
+                                    </div>
                                 </div>
-                            </div> */}
+                                <div className={classes.platformsFilter}>
+                                    <h4>Asset Type</h4>
+                                    <div className={classes.checkboxList}>
+                                        {availableCategories.length > 0 ? (
+                                            availableCategories.map(
+                                                (category) => (
+                                                    <label
+                                                        key={category}
+                                                        className={
+                                                            classes.checkboxLabel
+                                                        }
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedCategories.includes(
+                                                                category,
+                                                            )}
+                                                            onChange={() =>
+                                                                handleCategoryChange(
+                                                                    category,
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>{category}</span>
+                                                    </label>
+                                                ),
+                                            )
+                                        ) : (
+                                            <p className={classes.noFilters}>
+                                                No Asset Type found
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className={classes.platformsContainer}>
                             <div className={classes.platformsSearch}>
@@ -120,21 +246,13 @@ const PlatformsPage = () => {
                                                             classes.platformCardMainInfoImg
                                                         }
                                                     >
-                                                        {platform.image_url ? (
-                                                            <img
-                                                                src={
-                                                                    platform.image_url
-                                                                }
-                                                                alt="platform image"
-                                                            />
-                                                        ) : (
-                                                            <img
-                                                                src={
-                                                                    platformImgNone
-                                                                }
-                                                                alt="platform image"
-                                                            />
-                                                        )}
+                                                        <img
+                                                            src={
+                                                                platform.image_url ||
+                                                                platformImgNone
+                                                            }
+                                                            alt="platform image"
+                                                        />
                                                     </div>
                                                     <div
                                                         className={
@@ -188,16 +306,22 @@ const PlatformsPage = () => {
                                                         <h4>
                                                             Ownership & Founders
                                                         </h4>
-                                                        <a
-                                                            href={
-                                                                platform.platform_website
-                                                            }
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            {platform.name}{' '}
-                                                            Website
-                                                        </a>
+                                                        {platform.platform_website ? (
+                                                            <a
+                                                                href={
+                                                                    platform.platform_website
+                                                                }
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                {platform.name}{' '}
+                                                                Website
+                                                            </a>
+                                                        ) : (
+                                                            <p>
+                                                                {platform.name}
+                                                            </p>
+                                                        )}
                                                     </div>
                                                 </div>
                                                 <div
@@ -310,12 +434,7 @@ const PlatformsPage = () => {
                                                                 pageNumber,
                                                             )
                                                         }
-                                                        className={`${classes.PaginationBtnNumber} ${
-                                                            currentPage ===
-                                                            pageNumber
-                                                                ? classes.active
-                                                                : ''
-                                                        }`}
+                                                        className={`${classes.PaginationBtnNumber} ${currentPage === pageNumber ? classes.active : ''}`}
                                                     >
                                                         {pageNumber}
                                                     </button>
