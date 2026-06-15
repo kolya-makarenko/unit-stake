@@ -26,6 +26,8 @@ const PlatformsPage = () => {
     const [maxAvailableAssets, setMaxAvailableAssets] = useState(100000000);
     const [selectedMaxAssets, setSelectedMaxAssets] = useState(100000000);
 
+    const [isFiltersActive, setIsFiltersActive] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -160,6 +162,10 @@ const PlatformsPage = () => {
         return `${Math.round(value / 100000) / 10}M`;
     };
 
+    const openFiltersMenu = () => {
+        setIsFiltersActive(!isFiltersActive);
+    };
+
     return (
         <main className={classes.platformsPage}>
             <section className={classes.header}>
@@ -171,7 +177,13 @@ const PlatformsPage = () => {
             <section className={classes.platforms}>
                 <div className="wrapper">
                     <div className={classes.platformsSection}>
-                        <div className={classes.platformsFilters}>
+                        <div
+                            className={
+                                isFiltersActive
+                                    ? `${classes.platformsFilters} ${classes.active}`
+                                    : classes.platformsFilters
+                            }
+                        >
                             <div className={classes.filtersHeader}>
                                 <h3>Filters</h3>
                             </div>
@@ -283,10 +295,24 @@ const PlatformsPage = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <div
+                                    className={
+                                        classes.platformsFiltersMobileBtn
+                                    }
+                                >
+                                    <button onClick={openFiltersMenu}>
+                                        Close filters
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div className={classes.platformsContainer}>
                             <div className={classes.platformsSearch}>
+                                <div className={classes.filtersHeaderMobile}>
+                                    <button onClick={openFiltersMenu}>
+                                        Filters
+                                    </button>
+                                </div>
                                 <input
                                     type="text"
                                     placeholder="Search"
