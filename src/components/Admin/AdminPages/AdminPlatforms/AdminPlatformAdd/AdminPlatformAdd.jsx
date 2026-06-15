@@ -21,7 +21,7 @@ const AdminPlatformAdd = () => {
     const [name, setName] = useState('');
     const [isPublished, setIsPublished] = useState(false);
     const [category, setCategory] = useState('');
-    const [assets, setAssets] = useState('');
+    const [assets, setAssets] = useState(0);
     const [platformAge, setPlatformAge] = useState('');
     const [totalProjects, setTotalProjects] = useState('');
     const [jurisdiction, setJurisdiction] = useState('');
@@ -278,7 +278,7 @@ const AdminPlatformAdd = () => {
                             Total Tokenized Asset Volume
                         </label>
                         <input
-                            type="text"
+                            type="number"
                             id="assets"
                             placeholder="$ 0"
                             value={assets}

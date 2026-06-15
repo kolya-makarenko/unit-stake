@@ -23,7 +23,7 @@ const AdminPlatformEdit = () => {
     const [name, setName] = useState('');
     const [isPublished, setIsPublished] = useState(false);
     const [category, setCategory] = useState('');
-    const [assets, setAssets] = useState('');
+    const [assets, setAssets] = useState(0);
     const [platformAge, setPlatformAge] = useState('');
     const [totalProjects, setTotalProjects] = useState('');
     const [jurisdiction, setJurisdiction] = useState('');
@@ -54,7 +54,7 @@ const AdminPlatformEdit = () => {
                         : '',
                 );
                 setImageUrl(data.image_url || '');
-                setAssets(data.assets || '');
+                setAssets(data.assets || 0);
                 setPlatformAge(data.platform_age || '');
                 setTotalProjects(data.total_projects || '');
                 setJurisdiction(data.jurisdiction || '');
@@ -340,7 +340,7 @@ const AdminPlatformEdit = () => {
                             Total Tokenized Asset Volume
                         </label>
                         <input
-                            type="text"
+                            type="number"
                             id="assets"
                             placeholder="$ 0"
                             value={assets}

@@ -22,6 +22,9 @@ const PlatformsPage = () => {
     const [selectedJurisdictions, setSelectedJurisdictions] = useState([]);
     const [availableCategories, setAvailableCategories] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const [minAvailableAssets, setMinAvailableAssets] = useState(100000000);
+    const [maxAvailableAssets, setMaxAvailableAssets] = useState(100000000);
+    const [selectedMaxAssets, setSelectedMaxAssets] = useState(100000000);
 
     const navigate = useNavigate();
 
@@ -44,6 +47,18 @@ const PlatformsPage = () => {
                 const categories = response.rows
                     .map((row) => row.category)
                     .filter((category) => category && category.trim() !== '');
+
+                const assetValues = response.rows
+                    .map((row) => Number(row.assets))
+                    .filter((val) => !isNaN(val));
+
+                if (assetValues.length > 0) {
+                    const maxAsset = Math.max(...assetValues);
+                    setMaxAvailableAssets(maxAsset);
+                    setSelectedMaxAssets(maxAsset);
+                    const minAsset = Math.min(...assetValues);
+                    setMinAvailableAssets(minAsset);
+                }
 
                 setAvailableJurisdictions([...new Set(countries)]);
                 setAvailableCategories([...new Set(categories)]);
@@ -80,6 +95,8 @@ const PlatformsPage = () => {
                     queries.push(Query.equal('category', selectedCategories));
                 }
 
+                queries.push(Query.lessThanEqual('assets', selectedMaxAssets));
+
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PLATFORMS,
@@ -93,7 +110,13 @@ const PlatformsPage = () => {
             }
         };
         fetchPlatforms();
-    }, [currentPage, searchQuery, selectedJurisdictions, selectedCategories]);
+    }, [
+        currentPage,
+        searchQuery,
+        selectedJurisdictions,
+        selectedCategories,
+        selectedMaxAssets,
+    ]);
 
     const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
 
@@ -126,6 +149,15 @@ const PlatformsPage = () => {
                 ? prevSelected.filter((item) => item !== category)
                 : [...prevSelected, category],
         );
+    };
+
+    const handleAssetSliderChange = (e) => {
+        setCurrentPage(1);
+        setSelectedMaxAssets(Number(e.target.value));
+    };
+
+    const formatAssetLabel = (value) => {
+        return `${Math.round(value / 100000) / 10}M`;
     };
 
     return (
@@ -210,6 +242,45 @@ const PlatformsPage = () => {
                                                 No Asset Type found
                                             </p>
                                         )}
+                                    </div>
+                                </div>
+                                <div className={classes.platformsFilter}>
+                                    <h4>Max Asset Volume</h4>
+                                    <div
+                                        className={classes.priceSliderContainer}
+                                    >
+                                        <div
+                                            className={
+                                                classes.selectedMaxAssets
+                                            }
+                                        >
+                                            $
+                                            {formatAssetLabel(
+                                                selectedMaxAssets,
+                                            )}
+                                        </div>
+                                        <input
+                                            type="range"
+                                            min={minAvailableAssets}
+                                            max={maxAvailableAssets}
+                                            value={selectedMaxAssets}
+                                            onChange={handleAssetSliderChange}
+                                            className={classes.slider}
+                                        />
+                                        <div className={classes.sliderLabels}>
+                                            <span>
+                                                $
+                                                {formatAssetLabel(
+                                                    minAvailableAssets,
+                                                )}
+                                            </span>
+                                            <span>
+                                                $
+                                                {formatAssetLabel(
+                                                    maxAvailableAssets,
+                                                )}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
