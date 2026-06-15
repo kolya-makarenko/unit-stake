@@ -1,37 +1,58 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+    tablesDB,
+    DATABASE_ID,
+    Query,
+    TABLE_ID_NEWS,
+} from '../../../../../lib/appwrite';
+
 import classes from './AssetsPageMarket.module.css';
 
-import img1 from '../../../../../assets/images/assetsPageImages/AssetsPageMarket1.png';
-import img2 from '../../../../../assets/images/assetsPageImages/AssetsPageMarket2.png';
-import img3 from '../../../../../assets/images/assetsPageImages/AssetsPageMarket3.png';
-
-const marketBoxes = [
-    {
-        id: '1',
-        img: img1,
-        title: 'The Mayfair Hotel (London, UK)',
-        txt: 'A high-end hotel in Mayfair was converted into digital equity tokens for investors.',
-        amount: '$600M asset structured into tokenized format',
-        link: '',
-    },
-    {
-        id: '2',
-        img: img2,
-        title: 'RealT — Rental Properties (USA)',
-        txt: 'Residential properties structured into tokenized ownership for global investors.',
-        amount: ' 200+ properties tokenized',
-        link: '',
-    },
-    {
-        id: '3',
-        img: img3,
-        title: 'St. Regis Aspen Resort ',
-        txt: 'A landmark luxury hotel was tokenized, allowing fractional ownership for global investors.',
-        amount: '~$18M raised through token offering',
-        link: '',
-    },
-];
-
 const AssetsPageMarket = () => {
+    const [news, setNews] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchNews = async () => {
+            try {
+                const response = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_NEWS,
+                    queries: [
+                        Query.equal('is_published', true),
+                        Query.equal('category', 'News'),
+                        Query.limit(3),
+                    ],
+                });
+                setNews(response.rows);
+            } catch (error) {
+                console.error('Error fetching news:', error);
+            }
+        };
+        fetchNews();
+    }, []);
+
+    const getFirstText = (rawArray, type) => {
+        if (!Array.isArray(rawArray) || rawArray.length === 0) {
+            return null;
+        }
+
+        for (const jsonString of rawArray) {
+            try {
+                const parsedObj = JSON.parse(jsonString);
+
+                if (parsedObj && parsedObj.type === type) {
+                    return parsedObj.value;
+                }
+            } catch (error) {
+                console.error('Error parsing array element:', error);
+            }
+        }
+
+        return null;
+    };
+
     return (
         <section className={`sectionMarginTop ${classes.market}`}>
             <div className="wrapper">
@@ -41,20 +62,31 @@ const AssetsPageMarket = () => {
                     investors
                 </p>
                 <div className={classes.marketContainer}>
-                    {marketBoxes.map((item) => (
-                        <div key={item.id} className={classes.marketBox}>
+                    {news.map((item) => (
+                        <div key={item.$id} className={classes.marketBox}>
                             <div className={classes.marketBoxImage}>
-                                <img src={item.img} alt="market box image" />
+                                <img
+                                    src={item.image_url}
+                                    alt="market box image"
+                                />
                             </div>
                             <div className={classes.marketBoxText}>
                                 <h3>{item.title}</h3>
-                                <h4>{item.txt}</h4>
+                                <h4>
+                                    {getFirstText(item.content_blocks, 'text')}
+                                </h4>
                                 <div className={classes.marketBoxAmount}>
-                                    {item.amount}
+                                    {getFirstText(
+                                        item.content_blocks,
+                                        'heading',
+                                    )}
                                 </div>
                                 <div className={classes.marketBoxLink}>
                                     <div
                                         className={classes.projectsCardLinkBtn}
+                                        onClick={() =>
+                                            navigate(`/insights/${item.$id}`)
+                                        }
                                     >
                                         <p>Read more</p>
                                         <svg

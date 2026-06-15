@@ -20,6 +20,7 @@ const MainPageNews = () => {
                     tableId: TABLE_ID_NEWS,
                     queries: [
                         Query.equal('is_published', true),
+                        Query.equal('category', 'Insights'),
                         Query.orderDesc('$updatedAt'),
                         Query.limit(3),
                     ],
