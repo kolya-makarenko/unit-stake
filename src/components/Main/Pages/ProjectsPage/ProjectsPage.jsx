@@ -18,22 +18,84 @@ const ProjectsPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
 
+    const [availableJurisdictions, setAvailableJurisdictions] = useState([]);
+    const [selectedJurisdictions, setSelectedJurisdictions] = useState([]);
+    const [availableCategories, setAvailableCategories] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [availableTypes, setAvailableTypes] = useState([]);
+    const [minAvailableInvestment, setMinAvailableInvestment] = useState(0);
+    const [maxAvailableInvestment, setMaxAvailableInvestment] =
+        useState(100000000);
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchFilters = async () => {
+            try {
+                const response = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_PROJECTS,
+                    queries: [Query.equal('is_published', true)],
+                });
+
+                const countries = response.rows
+                    .map((row) => row.country)
+                    .filter((country) => country && country.trim() !== '');
+
+                const categories = response.rows
+                    .map((row) => row.category)
+                    .filter((category) => category && category.trim() !== '');
+
+                const filters = response.rows
+                    .flatMap((row) => row.filters)
+                    .map((filter) => filter?.trim())
+                    .filter(Boolean);
+
+                const investmentValues = response.rows
+                    .map((row) => Number(row.assets))
+                    .filter((val) => !isNaN(val));
+
+                if (investmentValues.length > 0) {
+                    const maxInvestment = Math.max(...investmentValues);
+                    setMaxAvailableAssets(maxInvestment);
+                    const minInvestment = Math.min(...investmentValues);
+                    setMinAvailableInvestment(minInvestment);
+                }
+
+                setAvailableJurisdictions([...new Set(countries)]);
+                setAvailableCategories([...new Set(categories)]);
+                setAvailableTypes([...new Set(filters)]);
+            } catch (error) {
+                console.error('Error fetching filters:', error);
+            }
+        };
+        fetchFilters();
+    }, []);
 
     useEffect(() => {
         const fetchProjects = async () => {
             const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
+            const queries = [
+                Query.equal('is_published', true),
+                Query.orderDesc('$createdAt'),
+                Query.limit(ITEMS_PER_PAGE),
+                Query.offset(offset),
+            ];
+
+            if (selectedJurisdictions.length > 0) {
+                queries.push(Query.equal('country', selectedJurisdictions));
+            }
+
+            if (selectedCategories.length > 0) {
+                queries.push(Query.equal('category', selectedCategories));
+            }
+
             try {
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PROJECTS,
-                    queries: [
-                        Query.equal('is_published', true),
-                        Query.orderDesc('$createdAt'),
-                        Query.limit(ITEMS_PER_PAGE),
-                        Query.offset(offset),
-                    ],
+                    queries: queries,
                 });
                 setProjects(response.rows);
                 setTotalCount(response.total);
@@ -42,7 +104,7 @@ const ProjectsPage = () => {
             }
         };
         fetchProjects();
-    }, [currentPage]);
+    }, [currentPage, selectedJurisdictions, selectedCategories]);
 
     const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
 
@@ -79,6 +141,24 @@ const ProjectsPage = () => {
         return date.toLocaleDateString();
     };
 
+    const handleJurisdictionChange = (country) => {
+        setCurrentPage(1);
+        setSelectedJurisdictions((prevSelected) =>
+            prevSelected.includes(country)
+                ? prevSelected.filter((item) => item !== country)
+                : [...prevSelected, country],
+        );
+    };
+
+    const handleCategoryChange = (category) => {
+        setCurrentPage(1);
+        setSelectedCategories((prevSelected) =>
+            prevSelected.includes(category)
+                ? prevSelected.filter((item) => item !== category)
+                : [...prevSelected, category],
+        );
+    };
+
     return (
         <main className={classes.projectsPage}>
             <section className={classes.header}>
@@ -89,6 +169,80 @@ const ProjectsPage = () => {
             </section>
             <section className={classes.projects}>
                 <div className="wrapper">
+                    <div className={classes.projectsFilters}>
+                        <div className={classes.projectsFilter}>
+                            <div className={classes.projectsFilterName}>
+                                Jurisdiction
+                            </div>
+                            <div className={classes.projectsFilterValues}>
+                                {availableJurisdictions.map((country) => (
+                                    <label key={country}>
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedJurisdictions.includes(
+                                                country,
+                                            )}
+                                            onChange={() =>
+                                                handleJurisdictionChange(
+                                                    country,
+                                                )
+                                            }
+                                        />
+                                        <span>{country}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={classes.projectsFilter}>
+                            <div className={classes.projectsFilterName}>
+                                Asset Type
+                            </div>
+                            <div className={classes.projectsFilterValues}>
+                                {availableCategories.map((category) => (
+                                    <label key={category}>
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedCategories.includes(
+                                                category,
+                                            )}
+                                            onChange={() =>
+                                                handleCategoryChange(category)
+                                            }
+                                        />
+                                        <span>{category}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={classes.projectsFilter}>
+                            <div className={classes.projectsFilterName}>
+                                Types
+                            </div>
+                            <div className={classes.projectsFilterValues}>
+                                {availableTypes.map((item) => (
+                                    <label key={item}>
+                                        <input type="checkbox" />
+                                        <span>{item}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={classes.projectsFilter}>
+                            <div className={classes.projectsFilterName}>
+                                Minimum Ticket
+                            </div>
+                            <div className={classes.projectsFilterValues}>
+                                <div className={classes.projectsFilterSlider}>
+                                    <input
+                                        type="range"
+                                        className={classes.slider}
+                                        min={minAvailableInvestment}
+                                        max={maxAvailableInvestment}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className={classes.projectsContainer}>
                         {projects.length > 0 ? (
                             projects.map((project, index) => (

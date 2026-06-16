@@ -48,11 +48,7 @@ const AdminPlatformEdit = () => {
 
                 setName(data.name || '');
                 setIsPublished(data.is_published || false);
-                setCategory(
-                    data.category && data.category.length
-                        ? data.category[0]
-                        : '',
-                );
+                setCategory(data.category || '');
                 setImageUrl(data.image_url || '');
                 setAssets(data.assets || 0);
                 setPlatformAge(data.platform_age || '');

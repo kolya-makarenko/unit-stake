@@ -263,7 +263,7 @@ const AdminProjectAdd = () => {
             const projectData = {
                 name,
                 description,
-                category: category ? [category] : [],
+                category: category,
                 min_investment: Number(minInvestment),
                 max_investment: Number(maxInvestment),
                 funding_goal: Number(fundingGoal),

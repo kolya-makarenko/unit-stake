@@ -65,11 +65,7 @@ const AdminProjectEdit = () => {
 
                 setName(data.name || '');
                 setDescription(data.description || '');
-                setCategory(
-                    data.category && data.category.length
-                        ? data.category[0]
-                        : '',
-                );
+                setCategory(data.category || '');
                 setMinInvestment(data.min_investment || '');
                 setMaxInvestment(data.max_investment || '');
                 setFundingGoal(data.funding_goal || '');
@@ -353,7 +349,7 @@ const AdminProjectEdit = () => {
             const data = {
                 name: name,
                 description: description,
-                category: category ? [category] : [],
+                category: category,
                 min_investment: minInvestment ? Number(minInvestment) : null,
                 max_investment: maxInvestment ? Number(maxInvestment) : null,
                 funding_goal: fundingGoal ? Number(fundingGoal) : null,
