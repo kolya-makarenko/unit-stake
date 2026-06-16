@@ -304,60 +304,6 @@ const PlatformsPage = () => {
                                         Close filters
                                     </button>
                                 </div>
-                                <div
-                                    className={
-                                        classes.platformsFiltersMobileBtn
-                                    }
-                                >
-                                    <button onClick={openFiltersMenu}>
-                                        Close filters
-                                    </button>
-                                </div>
-                                <div
-                                    className={
-                                        classes.platformsFiltersMobileBtn
-                                    }
-                                >
-                                    <button onClick={openFiltersMenu}>
-                                        Close filters
-                                    </button>
-                                </div>
-                                <div
-                                    className={
-                                        classes.platformsFiltersMobileBtn
-                                    }
-                                >
-                                    <button onClick={openFiltersMenu}>
-                                        Close filters
-                                    </button>
-                                </div>
-                                <div
-                                    className={
-                                        classes.platformsFiltersMobileBtn
-                                    }
-                                >
-                                    <button onClick={openFiltersMenu}>
-                                        Close filters
-                                    </button>
-                                </div>
-                                <div
-                                    className={
-                                        classes.platformsFiltersMobileBtn
-                                    }
-                                >
-                                    <button onClick={openFiltersMenu}>
-                                        Close filters
-                                    </button>
-                                </div>
-                                <div
-                                    className={
-                                        classes.platformsFiltersMobileBtn
-                                    }
-                                >
-                                    <button onClick={openFiltersMenu}>
-                                        Close filters
-                                    </button>
-                                </div>
                             </div>
                         </div>
                         <div className={classes.platformsContainer}>
