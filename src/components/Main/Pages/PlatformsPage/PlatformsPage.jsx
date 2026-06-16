@@ -303,6 +303,30 @@ const PlatformsPage = () => {
                                     <button onClick={openFiltersMenu}>
                                         Close filters
                                     </button>
+                                    <button onClick={openFiltersMenu}>
+                                        Close filters
+                                    </button>
+                                    <button onClick={openFiltersMenu}>
+                                        Close filters
+                                    </button>
+                                    <button onClick={openFiltersMenu}>
+                                        Close filters
+                                    </button>
+                                    <button onClick={openFiltersMenu}>
+                                        Close filters
+                                    </button>
+                                    <button onClick={openFiltersMenu}>
+                                        Close filters
+                                    </button>
+                                    <button onClick={openFiltersMenu}>
+                                        Close filters
+                                    </button>
+                                    <button onClick={openFiltersMenu}>
+                                        Close filters
+                                    </button>
+                                    <button onClick={openFiltersMenu}>
+                                        Close filters
+                                    </button>
                                 </div>
                             </div>
                         </div>
