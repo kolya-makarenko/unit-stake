@@ -17,15 +17,18 @@ const ProjectsPage = () => {
     const [projects, setProjects] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(null);
 
     const [availableJurisdictions, setAvailableJurisdictions] = useState([]);
     const [selectedJurisdictions, setSelectedJurisdictions] = useState([]);
     const [availableCategories, setAvailableCategories] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [availableTypes, setAvailableTypes] = useState([]);
+    const [selectedTypes, setSelectedTypes] = useState([]);
     const [minAvailableInvestment, setMinAvailableInvestment] = useState(0);
     const [maxAvailableInvestment, setMaxAvailableInvestment] =
         useState(100000000);
+    const [selectedMaxInvestment, setSelectedMaxInvestment] = useState(1000000);
 
     const navigate = useNavigate();
 
@@ -52,12 +55,13 @@ const ProjectsPage = () => {
                     .filter(Boolean);
 
                 const investmentValues = response.rows
-                    .map((row) => Number(row.assets))
+                    .map((row) => Number(row.min_investment))
                     .filter((val) => !isNaN(val));
 
                 if (investmentValues.length > 0) {
                     const maxInvestment = Math.max(...investmentValues);
-                    setMaxAvailableAssets(maxInvestment);
+                    setMaxAvailableInvestment(maxInvestment);
+                    setSelectedMaxInvestment(maxInvestment);
                     const minInvestment = Math.min(...investmentValues);
                     setMinAvailableInvestment(minInvestment);
                 }
@@ -91,6 +95,14 @@ const ProjectsPage = () => {
                 queries.push(Query.equal('category', selectedCategories));
             }
 
+            if (selectedTypes.length > 0) {
+                queries.push(Query.contains('filters', selectedTypes));
+            }
+
+            queries.push(
+                Query.lessThanEqual('min_investment', selectedMaxInvestment),
+            );
+
             try {
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
@@ -104,7 +116,13 @@ const ProjectsPage = () => {
             }
         };
         fetchProjects();
-    }, [currentPage, selectedJurisdictions, selectedCategories]);
+    }, [
+        currentPage,
+        selectedJurisdictions,
+        selectedCategories,
+        selectedTypes,
+        selectedMaxInvestment,
+    ]);
 
     const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
 
@@ -157,6 +175,24 @@ const ProjectsPage = () => {
                 ? prevSelected.filter((item) => item !== category)
                 : [...prevSelected, category],
         );
+    };
+
+    const handleTypeChange = (type) => {
+        setCurrentPage(1);
+        setSelectedTypes((prevSelected) =>
+            prevSelected.includes(type)
+                ? prevSelected.filter((item) => item !== type)
+                : [...prevSelected, type],
+        );
+    };
+
+    const handleInvestmentSliderChange = (e) => {
+        setCurrentPage(1);
+        setSelectedMaxInvestment(Number(e.target.value));
+    };
+
+    const handleToggle = (index) => {
+        setActiveIndex(activeIndex === index ? null : index);
     };
 
     return (
@@ -219,10 +255,18 @@ const ProjectsPage = () => {
                                 Types
                             </div>
                             <div className={classes.projectsFilterValues}>
-                                {availableTypes.map((item) => (
-                                    <label key={item}>
-                                        <input type="checkbox" />
-                                        <span>{item}</span>
+                                {availableTypes.map((type) => (
+                                    <label key={type}>
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedTypes.includes(
+                                                type,
+                                            )}
+                                            onChange={() =>
+                                                handleTypeChange(type)
+                                            }
+                                        />
+                                        <span>{type}</span>
                                     </label>
                                 ))}
                             </div>
@@ -233,12 +277,25 @@ const ProjectsPage = () => {
                             </div>
                             <div className={classes.projectsFilterValues}>
                                 <div className={classes.projectsFilterSlider}>
+                                    <div
+                                        className={
+                                            classes.selectedMaxInvestment
+                                        }
+                                    >
+                                        ${selectedMaxInvestment}
+                                    </div>
                                     <input
                                         type="range"
                                         className={classes.slider}
                                         min={minAvailableInvestment}
                                         max={maxAvailableInvestment}
+                                        value={selectedMaxInvestment}
+                                        onChange={handleInvestmentSliderChange}
                                     />
+                                    <div className={classes.sliderLabels}>
+                                        <span>${minAvailableInvestment}</span>
+                                        <span>${maxAvailableInvestment}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
