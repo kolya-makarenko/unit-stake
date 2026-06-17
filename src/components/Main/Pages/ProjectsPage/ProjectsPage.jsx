@@ -191,10 +191,6 @@ const ProjectsPage = () => {
         setSelectedMaxInvestment(Number(e.target.value));
     };
 
-    const handleToggle = (index) => {
-        setActiveIndex(activeIndex === index ? null : index);
-    };
-
     return (
         <main className={classes.projectsPage}>
             <section className={classes.header}>
