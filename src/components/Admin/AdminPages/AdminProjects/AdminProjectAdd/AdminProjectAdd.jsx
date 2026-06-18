@@ -974,7 +974,7 @@ const AdminProjectAdd = () => {
                                 type="button"
                                 onClick={() => addContentBlock('ul')}
                             >
-                                + Add List
+                                + Add List / Highlights
                             </button>
                             <button
                                 type="button"

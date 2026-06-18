@@ -1091,7 +1091,7 @@ const AdminProjectEdit = () => {
                                 type="button"
                                 onClick={() => addTextBlock('ul')}
                             >
-                                + Add List
+                                + Add List / Highlights
                             </button>
                             <button
                                 type="button"

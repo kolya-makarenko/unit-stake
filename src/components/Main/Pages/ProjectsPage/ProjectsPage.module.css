@@ -36,6 +36,87 @@
     padding-bottom: 40px;
 }
 
+.projectsFilters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.projectsFilterName {
+    padding: 8px 16px;
+    box-sizing: border-box;
+    background-color: #28282b;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+    cursor: pointer;
+}
+
+.arrowUp {
+    transform: rotate(180deg);
+}
+
+.projectsFilterValues {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.projectsFilterValues label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.projectsFilterValues label span {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.projectsFilterValues label input {
+    accent-color: #d34329;
+}
+
+.selectedMaxInvestment {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0px;
+    color: #19191c;
+}
+
+.projectsFilterSlider {
+    width: 200px;
+    accent-color: #d34329;
+}
+
+.slider {
+    width: 100%;
+}
+
+.sliderLabels {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 16px;
+    letter-spacing: 0px;
+    color: #57575c;
+}
+
 .projectsContainer {
     margin-top: 40px;
     display: grid;
@@ -339,5 +420,8 @@
     }
     .projectsContainer {
         grid-template-columns: 1fr;
+    }
+    .projectsFilterSlider {
+        width: 100%;
     }
 }
