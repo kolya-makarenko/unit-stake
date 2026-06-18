@@ -20,7 +20,7 @@ const MainPageProjects = () => {
                     tableId: TABLE_ID_PROJECTS,
                     queries: [
                         Query.equal('is_published', true),
-                        Query.orderDesc('$updatedAt'),
+                        Query.orderDesc('$createdAt'),
                         Query.limit(3),
                     ],
                 });
@@ -131,14 +131,19 @@ const MainPageProjects = () => {
                                             className={classes.projectsCardStat}
                                         >
                                             <h4>Progress</h4>
-                                            <p>
-                                                {Math.round(
-                                                    (project.current_investments /
-                                                        project.funding_goal) *
-                                                        100,
-                                                )}
-                                                %
-                                            </p>
+                                            {project.current_investments &&
+                                            project.funding_goal ? (
+                                                <p>
+                                                    {Math.round(
+                                                        (project.current_investments /
+                                                            project.funding_goal) *
+                                                            100,
+                                                    )}
+                                                    %
+                                                </p>
+                                            ) : (
+                                                ''
+                                            )}
                                         </div>
                                         <div
                                             className={classes.projectsCardStat}

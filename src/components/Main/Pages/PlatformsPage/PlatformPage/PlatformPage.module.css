@@ -1,0 +1,475 @@
+.platformPage {
+    background-color: #ededf0;
+    padding: 120px 0;
+}
+
+.mainInfoContainer {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    gap: 24px;
+}
+
+.updatedDate {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.identity {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.logo {
+    width: 66px;
+    height: 58px;
+    border-radius: 4px;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name {
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    background: linear-gradient(
+        180deg,
+        #19191c 0%,
+        rgba(25, 25, 28, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.shareButtons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+.shareBtn {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background-color: #1f1f1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.shareBtn:hover {
+    background-color: #d34329;
+}
+
+.secondaryInfo {
+    width: 100%;
+    max-width: 588px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.secondaryInfoNumbers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.secondaryInfoNumbersBox {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.secondaryInfoNumbersBox h3 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-transform: uppercase;
+    color: #57575c;
+}
+
+.secondaryInfoNumbersBox h4 {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.secondaryInfoNumbersBox p {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.secondaryInfoLink a {
+    width: fit-content;
+    padding: 12px 32px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: #d34329;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.secondaryInfoLink a:hover {
+    background-color: #fff;
+    color: #d34329;
+}
+
+.contentContainer {
+    margin-top: 40px;
+    padding-top: 40px;
+    box-sizing: border-box;
+    border-top: 1px solid #dcdcdc;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.contentHeading {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.contentParagraph {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.contentList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.contentListItem span {
+    width: 8px;
+    height: 8px;
+    margin-right: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #d34329;
+}
+
+.contentImage {
+    width: 100%;
+}
+
+.projects {
+    margin-top: 40px;
+}
+
+.projects h2 {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.projectsContainer {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+}
+
+.projectsCard {
+    border-radius: 24px;
+    background-color: #f4f4f6;
+    overflow: hidden;
+}
+
+.projectsCardImage {
+    height: 182px;
+    background-color: #d4d4d4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.projectsCardImage p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    color: #fff;
+}
+
+.projectsCardImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.projectVerified {
+    position: absolute;
+    top: 16px;
+    left: 24px;
+    z-index: 5;
+}
+
+.projectsCardInfo {
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.projectsCardMainInfo {
+    padding-bottom: 24px;
+    box-sizing: border-box;
+}
+
+.projectsCardMainInfo h3 {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.projectsCardMainInfo p {
+    margin-top: 8px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.projectsCardProgressNumbers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.projectsCardProgressNumbers h4 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-transform: uppercase;
+    color: #57575c;
+}
+
+.projectsCardProgressNumbers p {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.projectsCardProgressBar {
+    margin-top: 16px;
+    width: 100%;
+    height: 8px;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #dcdcdc99;
+    position: relative;
+}
+
+.projectsCardProgressBarLine {
+    height: 8px;
+    border-radius: 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #d34329;
+}
+
+.projectsCardStats {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.projectsCardStat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.projectsCardStats h4 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-transform: uppercase;
+    color: #57575c;
+}
+
+.projectsCardStats p {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.projectsCardLink {
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(61, 61, 61, 0.12);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.projectsCardLinkBtn {
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.projectsCardLinkBtn p {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #d34329;
+    position: relative;
+    transition: 0.3s ease-in-out;
+}
+
+.projectsCardLinkBtn:hover p {
+    color: #19191c;
+}
+
+.projectsCardLinkBtn p:after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    background-color: #d34329;
+    transition: 0.3s ease-in-out;
+}
+
+.projectsCardLinkBtn:hover p:after {
+    background-color: #19191c;
+}
+
+.projectsCardLinkBtn svg path {
+    transition: 0.3s ease-in-out;
+}
+
+.projectsCardLinkBtn:hover svg path {
+    stroke: #19191c;
+}
+
+.linkToProjects {
+    margin-top: 40px;
+}
+
+.linkToProjects button {
+    padding: 12px 32px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 8px;
+    background-color: #d34329;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.linkToProjects button:hover {
+    background-color: #fff;
+    color: #d34329;
+}
+
+.linkToProjects button svg path {
+    transition: 0.3s ease-in-out;
+}
+
+.linkToProjects button:hover svg path {
+    stroke: #d34329;
+}
+
+@media (max-width: 1100px) {
+    .projectsContainer {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    .projectsCardInfo {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .platformPage {
+        padding: 80px 0;
+    }
+    .identity {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .name {
+        font-size: 30px;
+    }
+    .mainInfoContainer {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .secondaryInfoNumbers {
+        grid-template-columns: 1fr;
+    }
+    .contentHeading {
+        font-size: 28px;
+    }
+    .projects h2 {
+        font-size: 30px;
+    }
+    .projectsContainer {
+        grid-template-columns: 1fr;
+    }
+    .linkToProjects button {
+        padding: 10px 20px;
+    }
+}
