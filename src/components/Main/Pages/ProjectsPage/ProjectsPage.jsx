@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     tablesDB,
@@ -8,7 +8,6 @@ import {
 } from '../../../../lib/appwrite';
 
 import classes from './ProjectsPage.module.css';
-
 import verifeidIcon from '../../../../assets/images/icons/verifeid.svg';
 
 const ITEMS_PER_PAGE = 9;
@@ -49,115 +48,140 @@ const arrowUp = (
 );
 
 const ProjectsPage = () => {
+    const navigate = useNavigate();
+
     const [projects, setProjects] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
     const [activeFilter, setActiveFilter] = useState(null);
 
     const [availableJurisdictions, setAvailableJurisdictions] = useState([]);
-    const [selectedJurisdictions, setSelectedJurisdictions] = useState([]);
     const [availableCategories, setAvailableCategories] = useState([]);
-    const [selectedCategories, setSelectedCategories] = useState([]);
     const [availableTypes, setAvailableTypes] = useState([]);
+
+    const [selectedJurisdictions, setSelectedJurisdictions] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedTypes, setSelectedTypes] = useState([]);
+
     const [minAvailableInvestment, setMinAvailableInvestment] = useState(0);
     const [maxAvailableInvestment, setMaxAvailableInvestment] =
         useState(100000000);
-    const [selectedMaxInvestment, setSelectedMaxInvestment] = useState(1000000);
-
-    const navigate = useNavigate();
+    const [selectedMaxInvestment, setSelectedMaxInvestment] =
+        useState(100000000);
 
     useEffect(() => {
-        const fetchFilters = async () => {
+        const initializeFilters = async () => {
             try {
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PROJECTS,
-                    queries: [Query.equal('is_published', true)],
+                    queries: [
+                        Query.equal('is_published', true),
+                        Query.limit(500),
+                    ],
                 });
 
-                const countries = response.rows
-                    .map((row) => row.country)
-                    .filter((country) => country && country.trim() !== '');
+                const countriesSet = new Set();
+                const categoriesSet = new Set();
+                const tagsSet = new Set();
+                const investments = [];
 
-                const categories = response.rows
-                    .map((row) => row.category)
-                    .filter((category) => category && category.trim() !== '');
+                response.rows.forEach((row) => {
+                    if (row.country && typeof row.country === 'string') {
+                        const trimmedCountry = row.country.trim();
+                        if (trimmedCountry) countriesSet.add(trimmedCountry);
+                    }
 
-                const filters = response.rows
-                    .flatMap((row) => row.filters)
-                    .map((filter) => filter?.trim())
-                    .filter(Boolean);
+                    let catValue = '';
+                    if (Array.isArray(row.category)) {
+                        catValue = row.category[0];
+                    } else if (typeof row.category === 'string') {
+                        catValue = row.category;
+                    }
+                    if (catValue && catValue.trim()) {
+                        categoriesSet.add(catValue.trim());
+                    }
 
-                const investmentValues = response.rows
-                    .map((row) => Number(row.min_investment))
-                    .filter((val) => !isNaN(val));
+                    if (Array.isArray(row.filters)) {
+                        row.filters.forEach((f) => {
+                            if (f && typeof f === 'string' && f.trim()) {
+                                tagsSet.add(f.trim());
+                            }
+                        });
+                    }
 
-                if (investmentValues.length > 0) {
-                    const maxInvestment = Math.max(...investmentValues);
-                    setMaxAvailableInvestment(maxInvestment);
-                    setSelectedMaxInvestment(maxInvestment);
-                    const minInvestment = Math.min(...investmentValues);
-                    setMinAvailableInvestment(minInvestment);
+                    const inv = Number(row.min_investment);
+                    if (!isNaN(inv) && row.min_investment !== null) {
+                        investments.push(inv);
+                    }
+                });
+
+                setAvailableJurisdictions([...countriesSet]);
+                setAvailableCategories([...categoriesSet]);
+                setAvailableTypes([...tagsSet]);
+
+                if (investments.length > 0) {
+                    const maxInv = Math.max(...investments);
+                    const minInv = Math.min(...investments);
+                    setMaxAvailableInvestment(maxInv);
+                    setMinAvailableInvestment(minInv);
+                    setSelectedMaxInvestment(maxInv);
                 }
-
-                setAvailableJurisdictions([...new Set(countries)]);
-                setAvailableCategories([...new Set(categories)]);
-                setAvailableTypes([...new Set(filters)]);
             } catch (error) {
-                console.error('Error fetching filters:', error);
+                console.error('Error initializing page filters:', error);
             }
         };
-        fetchFilters();
+
+        initializeFilters();
     }, []);
 
+    const fetchFilteredProjects = useCallback(async () => {
+        const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+        const queries = [
+            Query.equal('is_published', true),
+            Query.orderDesc('$createdAt'),
+            Query.limit(ITEMS_PER_PAGE),
+            Query.offset(offset),
+        ];
+
+        if (selectedJurisdictions.length > 0) {
+            queries.push(Query.equal('country', selectedJurisdictions));
+        }
+
+        if (selectedCategories.length > 0) {
+            queries.push(Query.equal('category', selectedCategories));
+        }
+
+        if (selectedTypes.length > 0) {
+            queries.push(Query.contains('filters', selectedTypes));
+        }
+
+        try {
+            const response = await tablesDB.listRows({
+                databaseId: DATABASE_ID,
+                tableId: TABLE_ID_PROJECTS,
+                queries: queries,
+            });
+            setProjects(response.rows);
+            setTotalCount(response.total);
+        } catch (error) {
+            console.error('Error loading filtered projects:', error);
+        }
+    }, [currentPage, selectedJurisdictions, selectedCategories, selectedTypes]);
+
     useEffect(() => {
-        const fetchProjects = async () => {
-            const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+        fetchFilteredProjects();
+    }, [fetchFilteredProjects]);
 
-            const queries = [
-                Query.equal('is_published', true),
-                Query.orderDesc('$createdAt'),
-                Query.limit(ITEMS_PER_PAGE),
-                Query.offset(offset),
-            ];
-
-            if (selectedJurisdictions.length > 0) {
-                queries.push(Query.equal('country', selectedJurisdictions));
-            }
-
-            if (selectedCategories.length > 0) {
-                queries.push(Query.equal('category', selectedCategories));
-            }
-
-            if (selectedTypes.length > 0) {
-                queries.push(Query.contains('filters', selectedTypes));
-            }
-
-            queries.push(
-                Query.lessThanEqual('min_investment', selectedMaxInvestment),
-            );
-
-            try {
-                const response = await tablesDB.listRows({
-                    databaseId: DATABASE_ID,
-                    tableId: TABLE_ID_PROJECTS,
-                    queries: queries,
-                });
-                setProjects(response.rows);
-                setTotalCount(response.total);
-            } catch (error) {
-                console.error('Error fetching projects:', error);
-            }
-        };
-        fetchProjects();
-    }, [
-        currentPage,
-        selectedJurisdictions,
-        selectedCategories,
-        selectedTypes,
-        selectedMaxInvestment,
-    ]);
+    const displayedProjects = projects.filter((project) => {
+        if (
+            project.min_investment === null ||
+            project.min_investment === undefined
+        ) {
+            return true;
+        }
+        return Number(project.min_investment) <= selectedMaxInvestment;
+    });
 
     const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
 
@@ -170,64 +194,62 @@ const ProjectsPage = () => {
     };
 
     const getFirstImageUrl = (rawArray) => {
-        if (!Array.isArray(rawArray) || rawArray.length === 0) {
-            return null;
-        }
-
+        if (!Array.isArray(rawArray) || rawArray.length === 0) return null;
         for (const jsonString of rawArray) {
             try {
-                const parsedObj = JSON.parse(jsonString);
-
+                const parsedObj =
+                    typeof jsonString === 'string'
+                        ? JSON.parse(jsonString)
+                        : jsonString;
                 if (parsedObj && parsedObj.type === 'image') {
                     return parsedObj.value;
                 }
             } catch (error) {
-                console.error('Error parsing array element:', error);
+                console.error('Error parsing content block image:', error);
             }
         }
-
         return null;
     };
 
     const dateFormatter = (dateString) => {
+        if (!dateString) return '';
         const date = new Date(dateString);
-        return date.toLocaleDateString();
+        return isNaN(date.getTime()) ? dateString : date.toLocaleDateString();
     };
 
     const handleJurisdictionChange = (country) => {
         setCurrentPage(1);
-        setSelectedJurisdictions((prevSelected) =>
-            prevSelected.includes(country)
-                ? prevSelected.filter((item) => item !== country)
-                : [...prevSelected, country],
+        setSelectedJurisdictions((prev) =>
+            prev.includes(country)
+                ? prev.filter((item) => item !== country)
+                : [...prev, country],
         );
     };
 
-    const handleCategoryChange = (category) => {
+    const handleCategoryChange = (cat) => {
         setCurrentPage(1);
-        setSelectedCategories((prevSelected) =>
-            prevSelected.includes(category)
-                ? prevSelected.filter((item) => item !== category)
-                : [...prevSelected, category],
+        setSelectedCategories((prev) =>
+            prev.includes(cat)
+                ? prev.filter((item) => item !== cat)
+                : [...prev, cat],
         );
     };
 
     const handleTypeChange = (type) => {
         setCurrentPage(1);
-        setSelectedTypes((prevSelected) =>
-            prevSelected.includes(type)
-                ? prevSelected.filter((item) => item !== type)
-                : [...prevSelected, type],
+        setSelectedTypes((prev) =>
+            prev.includes(type)
+                ? prev.filter((item) => item !== type)
+                : [...prev, type],
         );
     };
 
     const handleInvestmentSliderChange = (e) => {
-        setCurrentPage(1);
         setSelectedMaxInvestment(Number(e.target.value));
     };
 
-    const toggleFilter = (filterName) => {
-        setActiveFilter(activeFilter === filterName ? null : filterName);
+    const toggleFilterPopup = (filterName) => {
+        setActiveFilter((prev) => (prev === filterName ? null : filterName));
     };
 
     return (
@@ -244,7 +266,9 @@ const ProjectsPage = () => {
                         <div className={classes.projectsFilter}>
                             <div
                                 className={`${classes.projectsFilterName} ${activeFilter === 'jurisdiction' ? classes.active : ''}`}
-                                onClick={() => toggleFilter('jurisdiction')}
+                                onClick={() =>
+                                    toggleFilterPopup('jurisdiction')
+                                }
                             >
                                 Jurisdiction{' '}
                                 {activeFilter === 'jurisdiction'
@@ -255,7 +279,7 @@ const ProjectsPage = () => {
                         <div className={classes.projectsFilter}>
                             <div
                                 className={`${classes.projectsFilterName} ${activeFilter === 'assetType' ? classes.active : ''}`}
-                                onClick={() => toggleFilter('assetType')}
+                                onClick={() => toggleFilterPopup('assetType')}
                             >
                                 Asset Type{' '}
                                 {activeFilter === 'assetType'
@@ -266,7 +290,7 @@ const ProjectsPage = () => {
                         <div className={classes.projectsFilter}>
                             <div
                                 className={`${classes.projectsFilterName} ${activeFilter === 'types' ? classes.active : ''}`}
-                                onClick={() => toggleFilter('types')}
+                                onClick={() => toggleFilterPopup('types')}
                             >
                                 Types{' '}
                                 {activeFilter === 'types' ? arrowUp : arrowDown}
@@ -275,7 +299,7 @@ const ProjectsPage = () => {
                         <div className={classes.projectsFilter}>
                             <div
                                 className={`${classes.projectsFilterName} ${activeFilter === 'minTicket' ? classes.active : ''}`}
-                                onClick={() => toggleFilter('minTicket')}
+                                onClick={() => toggleFilterPopup('minTicket')}
                             >
                                 Minimum Ticket{' '}
                                 {activeFilter === 'minTicket'
@@ -304,18 +328,18 @@ const ProjectsPage = () => {
                     )}
                     {activeFilter === 'assetType' && (
                         <div className={classes.projectsFilterValues}>
-                            {availableCategories.map((category) => (
-                                <label key={category}>
+                            {availableCategories.map((cat) => (
+                                <label key={cat}>
                                     <input
                                         type="checkbox"
                                         checked={selectedCategories.includes(
-                                            category,
+                                            cat,
                                         )}
                                         onChange={() =>
-                                            handleCategoryChange(category)
+                                            handleCategoryChange(cat)
                                         }
                                     />
-                                    <span>{category}</span>
+                                    <span>{cat}</span>
                                 </label>
                             ))}
                         </div>
@@ -355,12 +379,11 @@ const ProjectsPage = () => {
                             </div>
                         </div>
                     )}
-
                     <div className={classes.projectsContainer}>
-                        {projects.length > 0 ? (
-                            projects.map((project, index) => (
+                        {displayedProjects.length > 0 ? (
+                            displayedProjects.map((project, index) => (
                                 <div
-                                    key={index}
+                                    key={project.$id || index}
                                     className={classes.projectsCard}
                                 >
                                     <div className={classes.projectsCardImage}>
@@ -434,11 +457,7 @@ const ProjectsPage = () => {
                                                     classes.projectsCardProgressBarLine
                                                 }
                                                 style={{
-                                                    width: `${Math.round(
-                                                        (project.current_investments /
-                                                            project.funding_goal) *
-                                                            100,
-                                                    )}%`,
+                                                    width: `${project.funding_goal ? Math.round((project.current_investments / project.funding_goal) * 100) : 0}%`,
                                                 }}
                                             ></div>
                                         </div>
@@ -464,7 +483,7 @@ const ProjectsPage = () => {
                                                         %
                                                     </p>
                                                 ) : (
-                                                    ''
+                                                    <p>0%</p>
                                                 )}
                                             </div>
                                             <div
@@ -494,7 +513,8 @@ const ProjectsPage = () => {
                                             >
                                                 <h4>Investors</h4>
                                                 <p>
-                                                    {project.number_investors}
+                                                    {project.number_investors ||
+                                                        0}
                                                 </p>
                                             </div>
                                         </div>
