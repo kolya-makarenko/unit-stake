@@ -1,0 +1,117 @@
+.projectPage {
+    background-color: #ededf0;
+    padding-top: 120px;
+}
+
+.mainInfoContainer {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    align-items: baseline;
+    gap: 24px;
+}
+
+.updatedDate {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.identity {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.name {
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    background: linear-gradient(
+        180deg,
+        #19191c 0%,
+        rgba(25, 25, 28, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.identityDescription {
+    margin-top: 24px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.mainInfoFilters {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.mainInfoFilter {
+    width: fit-content;
+    padding: 4px 8px;
+    box-sizing: border-box;
+    border-radius: 50px;
+    background-color: #d3432914;
+    border: 1px solid #d3432959;
+    flex-shrink: 0;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-transform: uppercase;
+    color: #d34329;
+}
+
+.shareButtons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+.shareBtn {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background-color: #1f1f1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.shareBtn:hover {
+    background-color: #d34329;
+}
+
+@media (max-width: 1000px) {
+    .platformPage {
+        padding-top: 80px;
+    }
+    .identity {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .name {
+        font-size: 30px;
+    }
+    .mainInfoContainer {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+}

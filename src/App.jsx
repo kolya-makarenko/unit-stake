@@ -24,6 +24,7 @@ import VerifiedPage from './components/Main/Pages/VerifiedPage/VerifiedPage';
 import PlatformsPage from './components/Main/Pages/PlatformsPage/PlatformsPage';
 import ProjectsPage from './components/Main/Pages/ProjectsPage/ProjectsPage';
 import PlatformPage from './components/Main/Pages/PlatformsPage/PlatformPage/PlatformPage';
+import ProjectPage from './components/Main/Pages/ProjectsPage/ProjectPage/ProjectPage';
 import './App.css';
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
                 <Route path="/" element={<Main />}>
                     <Route index element={<MainPage />} />
                     <Route path="projects" element={<ProjectsPage />} />
-                    <Route path="projects/:id" element={<div>PROJECT</div>} />
+                    <Route path="projects/:id" element={<ProjectPage />} />
                     <Route path="platforms" element={<PlatformsPage />} />
                     <Route path="platforms/:id" element={<PlatformPage />} />
                     <Route path="for-assets-owners" element={<AssetsPage />} />
