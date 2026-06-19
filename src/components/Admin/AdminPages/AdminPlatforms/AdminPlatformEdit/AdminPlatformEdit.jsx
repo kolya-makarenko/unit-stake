@@ -316,14 +316,14 @@ const AdminPlatformEdit = () => {
                         />
                     </div>
                     <div className={classes.addPlatformFormIdentityField}>
-                        <label htmlFor="category">Primary Category</label>
+                        <label htmlFor="category">Asset Type</label>
                         <select
                             id="category"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
                             className={classes.selectInput}
                         >
-                            <option value="">Select a category</option>
+                            <option value="">Select Asset Type</option>
                             {categoriesList.map((cat) => (
                                 <option key={cat} value={cat}>
                                     {cat}

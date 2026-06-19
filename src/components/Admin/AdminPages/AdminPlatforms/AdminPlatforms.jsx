@@ -102,7 +102,7 @@ const AdminPlatforms = () => {
                 <thead>
                     <tr>
                         <th>Platform</th>
-                        <th>Category</th>
+                        <th>Asset Type</th>
                         <th>Assets</th>
                         <th>Published</th>
                         <th>Date</th>

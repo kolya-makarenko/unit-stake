@@ -424,9 +424,9 @@ const AdminCategories = () => {
                             type="text"
                             value={newPlatform}
                             onChange={(e) => setNewPlatform(e.target.value)}
-                            placeholder="New category"
+                            placeholder="New Asset Type"
                         />
-                        <button type="submit">+ Add category</button>
+                        <button type="submit">+ Add Asset Type</button>
                     </form>
 
                     <ul className={classes.categoryList}>
@@ -521,9 +521,9 @@ const AdminCategories = () => {
                             type="text"
                             value={newProject}
                             onChange={(e) => setNewProject(e.target.value)}
-                            placeholder="New category"
+                            placeholder="New Asset Type"
                         />
-                        <button type="submit">+ Add category</button>
+                        <button type="submit">+ Add Asset Type</button>
                     </form>
 
                     <ul className={classes.categoryList}>

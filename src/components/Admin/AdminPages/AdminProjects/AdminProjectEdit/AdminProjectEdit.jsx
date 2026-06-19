@@ -473,14 +473,14 @@ const AdminProjectEdit = () => {
                     </div>
 
                     <div className={classes.addPlatformFormIdentityField}>
-                        <label htmlFor="category">Primary Category</label>
+                        <label htmlFor="category">Asset Type</label>
                         <select
                             id="category"
                             className={classes.selectInput}
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
                         >
-                            <option value="">Select a category</option>
+                            <option value="">Select Asset Type</option>
                             {categoriesList.map((cat) => (
                                 <option key={cat} value={cat}>
                                     {cat}

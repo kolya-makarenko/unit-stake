@@ -102,7 +102,7 @@ const AdminProjects = () => {
                 <thead>
                     <tr>
                         <th>Project</th>
-                        <th>Category</th>
+                        <th>Asset Type</th>
                         <th>Verifeid</th>
                         <th>Published</th>
                         <th>Date</th>
