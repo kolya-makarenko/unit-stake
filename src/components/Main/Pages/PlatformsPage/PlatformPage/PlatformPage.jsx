@@ -6,7 +6,9 @@ import {
     TABLE_ID_PLATFORMS,
     TABLE_ID_PROJECTS,
     Query,
+    TABLE_ID_TEAMS,
 } from '../../../../../lib/appwrite';
+import AssetsPageFaq from '../../AssetsPage/AssetsPageFaq/AssetsPageFaq';
 
 import classes from './PlatformPage.module.css';
 
@@ -16,13 +18,15 @@ import telegramIcon from '../../../../../assets/images/icons/telegram.svg';
 import twitterIcon from '../../../../../assets/images/icons/twitter.svg';
 import shareBtnCopyIcon from '../../../../../assets/images/icons/shareBtnCopy.svg';
 import verifeidIcon from '../../../../../assets/images/icons/verifeid.svg';
+import locationMarkIcon from '../../../../../assets/images/icons/locationMark.svg';
 
 const PlatformPage = () => {
     const { id: platformId } = useParams();
     const navigate = useNavigate();
 
     const [data, setData] = useState({});
-    const [projects, setProjects] = useState('');
+    const [projects, setProjects] = useState([]);
+    const [team, setTeam] = useState([]);
     const [copied, setCopied] = useState(false);
 
     useEffect(() => {
@@ -45,8 +49,15 @@ const PlatformPage = () => {
                     ],
                 });
 
+                const responseTeam = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_TEAMS,
+                    queries: [Query.equal('platform_id', platformId)],
+                });
+
                 setData(response);
                 setProjects(responseProjects.rows);
+                setTeam(responseTeam.rows);
             } catch (error) {
                 console.error('Error fetching platform data:', error);
                 alert('Failed to load platform data.');
@@ -275,7 +286,7 @@ const PlatformPage = () => {
                     </div>
                 </div>
             </section>
-            {projects && (
+            {projects.length > 0 && (
                 <section className={classes.projects}>
                     <div className="wrapper">
                         <h2>Projects on the Platform</h2>
@@ -492,6 +503,77 @@ const PlatformPage = () => {
                     </div>
                 </section>
             )}
+            {team.length > 0 && (
+                <section className={classes.team}>
+                    <div className="wrapper">
+                        <div className={classes.teamHeader}>
+                            <h2>Team</h2>
+                            <p>
+                                The platform team comprises experienced
+                                professionals with expertise across multiple
+                                jurisdictions, contributing to governance,
+                                strategic direction, and day-to-day operational
+                                management. All information presented is based
+                                on publicly available sources.
+                            </p>
+                        </div>
+                        <div className={classes.teamContainer}>
+                            {team.map((employer) => (
+                                <div
+                                    key={employer.$id}
+                                    className={classes.employer}
+                                >
+                                    <div className={classes.employerPhoto}>
+                                        {employer.image_url && (
+                                            <img
+                                                src={employer.image_url}
+                                                alt="photo"
+                                            />
+                                        )}
+                                    </div>
+                                    {employer.linkedin_url && (
+                                        <div
+                                            className={classes.employerLinkedin}
+                                        >
+                                            <a
+                                                href={employer.linkedin_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <img
+                                                    src={linkedinIcon}
+                                                    alt="linkedin Icon"
+                                                />
+                                            </a>
+                                        </div>
+                                    )}
+                                    <div className={classes.employerName}>
+                                        {employer.name}
+                                    </div>
+                                    <div className={classes.employerPosition}>
+                                        {employer.position}
+                                    </div>
+                                    <div
+                                        className={classes.employerDescription}
+                                    >
+                                        {employer.description}
+                                    </div>
+                                    <div className={classes.employerLocation}>
+                                        <img
+                                            src={locationMarkIcon}
+                                            alt="location Mark Icon"
+                                        />
+                                        {employer.location}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
+            <div className={classes.platformFaq}>
+                <AssetsPageFaq pageName="platform" />
+            </div>
         </main>
     );
 };

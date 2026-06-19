@@ -47,7 +47,7 @@ const AssetsPageFaq = (props) => {
     }, []);
 
     return (
-        <section className={`sectionMarginTop ${classes.faq}`}>
+        <section className={classes.faq}>
             <div className="wrapper">
                 <h2>FAQ</h2>
                 <p>No. Institutional interest is increasing globally.</p>
