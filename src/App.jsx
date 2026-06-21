@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from './components/Main/Main';
 import Admin from './components/Admin/Admin';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 import MainPage from './components/Main/Pages/MainPage/MainPage';
 import ProtectedRoute from './components/Admin/Login/ProtectedRoute';
@@ -30,6 +31,7 @@ import './App.css';
 function App() {
     return (
         <Router>
+            <ScrollToTop />
             <Routes>
                 <Route path="/" element={<Main />}>
                     <Route index element={<MainPage />} />
