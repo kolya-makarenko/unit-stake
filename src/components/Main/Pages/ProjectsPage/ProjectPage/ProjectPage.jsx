@@ -5,6 +5,11 @@ import {
     DATABASE_ID,
     TABLE_ID_PROJECTS,
 } from '../../../../../lib/appwrite';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Thumbs } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
 
 import classes from './ProjectPage.module.css';
 
@@ -18,6 +23,10 @@ const ProjectPage = () => {
     const navigate = useNavigate();
 
     const [data, setData] = useState({});
+
+    const [copied, setCopied] = useState(false);
+
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -56,6 +65,19 @@ const ProjectPage = () => {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
+
+    const contentBlocksImages = (data?.content_blocks || [])
+        .map((block) => {
+            try {
+                return typeof block === 'string' ? JSON.parse(block) : block;
+            } catch (error) {
+                console.error('Content block parsing error:', error);
+                return null;
+            }
+        })
+        .filter((obj) => obj.type === 'image');
+
+    const isLoopRequired = contentBlocksImages.length > 4;
 
     return (
         <main className={classes.projectPage}>
@@ -118,6 +140,92 @@ const ProjectPage = () => {
                             >
                                 <img src={shareBtnCopyIcon} alt="share link" />
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section className={classes.preview}>
+                <div className="wrapper">
+                    <div className={classes.contecntPreview}>
+                        <div className={classes.contentGalery}>
+                            <Swiper
+                                style={{
+                                    '--swiper-navigation-color': '#fff',
+                                    '--swiper-navigation-size': '24px',
+                                    borderRadius: '16px',
+                                    marginBottom: '16px',
+                                }}
+                                loop={contentBlocksImages.length > 4}
+                                spaceBetween={10}
+                                navigation={true}
+                                thumbs={{
+                                    swiper:
+                                        thumbsSwiper && !thumbsSwiper.destroyed
+                                            ? thumbsSwiper
+                                            : null,
+                                }}
+                                modules={[Navigation, Thumbs]}
+                                className="main-swiper"
+                            >
+                                {contentBlocksImages.map((slide) => (
+                                    <SwiperSlide key={slide.id}>
+                                        <div
+                                            style={{
+                                                position: 'relative',
+                                                width: '100%',
+                                                height: '500px',
+                                            }}
+                                        >
+                                            <img
+                                                src={slide.value}
+                                                alt="galery image"
+                                                style={{
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    objectFit: 'cover',
+                                                }}
+                                            />
+                                        </div>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+
+                            {/* 2. Слайдер мініатюр (Нижній ряд) */}
+                            <Swiper
+                                onSwiper={setThumbsSwiper}
+                                loop={contentBlocksImages.length > 4}
+                                spaceBetween={12}
+                                slidesPerView={3}
+                                watchSlidesProgress={true}
+                                modules={[Navigation, Thumbs]}
+                                className="thumbs-swiper"
+                            >
+                                {contentBlocksImages.map((slide) => (
+                                    <SwiperSlide
+                                        key={slide.id}
+                                        style={{ cursor: 'pointer' }}
+                                    >
+                                        <div
+                                            style={{
+                                                width: '100%',
+                                                height: '150px',
+                                                borderRadius: '12px',
+                                                overflow: 'hidden',
+                                            }}
+                                        >
+                                            <img
+                                                src={slide.value}
+                                                alt="galery image"
+                                                style={{
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    objectFit: 'cover',
+                                                }}
+                                            />
+                                        </div>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
                         </div>
                     </div>
                 </div>
