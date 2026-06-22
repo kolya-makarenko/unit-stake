@@ -385,7 +385,7 @@ const AdminProjectAdd = () => {
 
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="filtersInput">
-                            Filters (comma separated)
+                            Types (comma separated)
                         </label>
                         <input
                             type="text"
@@ -442,7 +442,7 @@ const AdminProjectAdd = () => {
                     </div>
 
                     <div className={classes.addPlatformFormIdentityField}>
-                        <label htmlFor="country">Country of Origin</label>
+                        <label htmlFor="country">Jurisdiction</label>
                         <input
                             type="text"
                             id="country"
