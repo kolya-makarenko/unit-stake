@@ -98,6 +98,181 @@
     background-color: #d34329;
 }
 
+.preview {
+    margin-top: 24px;
+}
+
+.contecntPreview {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) 1fr;
+    gap: 50px;
+}
+
+.mainSwiper {
+    border-radius: 16px;
+    margin-bottom: 16px;
+}
+
+.mainSwiperBox {
+    width: 100%;
+    height: 450px;
+    position: relative;
+}
+
+.mainSwiperBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbsSwiperItem {
+    width: 100%;
+    height: 175px;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.thumbsSwiperItem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.currentInvestments {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.progress {
+    margin-top: 4px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.progressBar {
+    width: 100%;
+    height: 8px;
+    margin-top: 12px;
+    border-radius: 8px;
+    background-color: #dcdcdc;
+    overflow: hidden;
+}
+
+.progressBarProcent {
+    height: 100%;
+    border-radius: 8px;
+    background-color: #d34329;
+}
+
+.nunumberInvestors {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.nunumberInvestorsNum {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.deadline {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #dcdcdc;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.daysUntil {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.contentContainer {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 50px;
+}
+
+.contentBlocks {
+    padding-right: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    border-right: 2px solid #dcdcdc;
+}
+
+.contentHeading {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.contentParagraph {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.contentList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.contentListItem span {
+    width: 8px;
+    height: 8px;
+    margin-right: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #d34329;
+}
+
+@media (max-width: 1100px) {
+    .contecntPreview {
+        gap: 20px;
+    }
+    .contentContainer {
+        gap: 20px;
+    }
+}
+
 @media (max-width: 1000px) {
     .platformPage {
         padding-top: 80px;
@@ -113,5 +288,27 @@
     .mainInfoContainer {
         display: flex;
         flex-direction: column-reverse;
+    }
+    .contecntPreview {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+    .currentInvestments,
+    .nunumberInvestorsNum,
+    .daysUntil {
+        font-size: 30px;
+    }
+    .thumbsSwiper {
+        display: none;
+    }
+    .contentContainer {
+        grid-template-columns: 1fr;
+    }
+    .contentBlocks {
+        padding: 0;
+        border: none;
+    }
+    .contentHeading {
+        font-size: 28px;
     }
 }

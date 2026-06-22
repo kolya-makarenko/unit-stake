@@ -79,6 +79,37 @@ const ProjectPage = () => {
 
     const isLoopRequired = contentBlocksImages.length > 4;
 
+    const daysUntil = (targetDateString) => {
+        const targetDate = new Date(targetDateString);
+        targetDate.setHours(0, 0, 0, 0);
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (targetDate < today) {
+            return 'The deadline has passed';
+        }
+
+        const differenceInTime = targetDate.getTime() - today.getTime();
+
+        const differenceInDays = `${Math.ceil(
+            differenceInTime / (1000 * 3600 * 24),
+        )} days`;
+
+        return differenceInDays;
+    };
+
+    const contentBlocks = (data?.content_blocks || [])
+        .map((block) => {
+            try {
+                return typeof block === 'string' ? JSON.parse(block) : block;
+            } catch (error) {
+                console.error('Content block parsing error:', error);
+                return null;
+            }
+        })
+        .filter(Boolean);
+
     return (
         <main className={classes.projectPage}>
             <section className={classes.info}>
@@ -152,8 +183,6 @@ const ProjectPage = () => {
                                 style={{
                                     '--swiper-navigation-color': '#fff',
                                     '--swiper-navigation-size': '24px',
-                                    borderRadius: '16px',
-                                    marginBottom: '16px',
                                 }}
                                 loop={contentBlocksImages.length > 4}
                                 spaceBetween={10}
@@ -165,32 +194,19 @@ const ProjectPage = () => {
                                             : null,
                                 }}
                                 modules={[Navigation, Thumbs]}
-                                className="main-swiper"
+                                className={classes.mainSwiper}
                             >
-                                {contentBlocksImages.map((slide) => (
-                                    <SwiperSlide key={slide.id}>
-                                        <div
-                                            style={{
-                                                position: 'relative',
-                                                width: '100%',
-                                                height: '500px',
-                                            }}
-                                        >
+                                {contentBlocksImages.map((slide, index) => (
+                                    <SwiperSlide key={index}>
+                                        <div className={classes.mainSwiperBox}>
                                             <img
                                                 src={slide.value}
                                                 alt="galery image"
-                                                style={{
-                                                    width: '100%',
-                                                    height: '100%',
-                                                    objectFit: 'cover',
-                                                }}
                                             />
                                         </div>
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
-
-                            {/* 2. Слайдер мініатюр (Нижній ряд) */}
                             <Swiper
                                 onSwiper={setThumbsSwiper}
                                 loop={contentBlocksImages.length > 4}
@@ -198,35 +214,148 @@ const ProjectPage = () => {
                                 slidesPerView={3}
                                 watchSlidesProgress={true}
                                 modules={[Navigation, Thumbs]}
-                                className="thumbs-swiper"
+                                className={classes.thumbsSwiper}
                             >
-                                {contentBlocksImages.map((slide) => (
+                                {contentBlocksImages.map((slide, index) => (
                                     <SwiperSlide
-                                        key={slide.id}
-                                        style={{ cursor: 'pointer' }}
+                                        key={index}
+                                        className={classes.thumbsSwiperBox}
                                     >
                                         <div
-                                            style={{
-                                                width: '100%',
-                                                height: '150px',
-                                                borderRadius: '12px',
-                                                overflow: 'hidden',
-                                            }}
+                                            className={classes.thumbsSwiperItem}
                                         >
                                             <img
                                                 src={slide.value}
                                                 alt="galery image"
-                                                style={{
-                                                    width: '100%',
-                                                    height: '100%',
-                                                    objectFit: 'cover',
-                                                }}
                                             />
                                         </div>
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
                         </div>
+                        <div className={classes.contentMainNumbers}>
+                            <div className={classes.currentInvestments}>
+                                {data.current_investments
+                                    ? `$${data.current_investments}`
+                                    : '$0'}
+                            </div>
+                            <div className={classes.progress}>
+                                {data.current_investments && data.funding_goal
+                                    ? `${Math.round(
+                                          (data.current_investments /
+                                              data.funding_goal) *
+                                              100,
+                                      )}% raised of $${data.funding_goal}`
+                                    : '$0'}
+                                <div className={classes.progressBar}>
+                                    <div
+                                        className={classes.progressBarProcent}
+                                        style={{
+                                            width: `${Math.round(
+                                                (data.current_investments /
+                                                    data.funding_goal) *
+                                                    100,
+                                            )}%`,
+                                        }}
+                                    ></div>
+                                </div>
+                                {data.number_investors && (
+                                    <div className={classes.nunumberInvestors}>
+                                        <div
+                                            className={
+                                                classes.nunumberInvestorsNum
+                                            }
+                                        >
+                                            {data.number_investors}
+                                        </div>
+                                        Investors
+                                    </div>
+                                )}
+                                {data.deadline && (
+                                    <div className={classes.deadline}>
+                                        <div className={classes.daysUntil}>
+                                            {daysUntil(data.deadline)}
+                                        </div>
+                                        Left to invest
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section className={classes.content}>
+                <div className="wrapper">
+                    <div className={classes.contentContainer}>
+                        <div className={classes.contentBlocks}>
+                            {contentBlocks.map((block, index) => {
+                                switch (block.type) {
+                                    case 'h4':
+                                        return (
+                                            <h4
+                                                key={index}
+                                                className={
+                                                    classes.contentHeading
+                                                }
+                                            >
+                                                {block.value}
+                                            </h4>
+                                        );
+
+                                    case 'p':
+                                        return (
+                                            <p
+                                                key={index}
+                                                className={
+                                                    classes.contentParagraph
+                                                }
+                                            >
+                                                {block.value}
+                                            </p>
+                                        );
+
+                                    case 'ul':
+                                        return (
+                                            <ul
+                                                key={index}
+                                                className={classes.contentList}
+                                            >
+                                                {Array.isArray(block.value) &&
+                                                    block.value.map(
+                                                        (item, i) => (
+                                                            <li
+                                                                key={i}
+                                                                className={
+                                                                    classes.contentListItem
+                                                                }
+                                                            >
+                                                                <span></span>
+                                                                {item}
+                                                            </li>
+                                                        ),
+                                                    )}
+                                            </ul>
+                                        );
+                                    case 'youtube':
+                                        return (
+                                            <iframe
+                                                key={index}
+                                                width="100%"
+                                                height="350"
+                                                src="https://www.youtube.com/embed/uvGt0svH1SU?si=GIRpdMev7GK92dEE"
+                                                title="YouTube video player"
+                                                frameBorder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                referrerPolicy="strict-origin-when-cross-origin"
+                                                allowFullScreen
+                                            ></iframe>
+                                        );
+                                    default:
+                                        return null;
+                                }
+                            })}
+                        </div>
+                        <aside></aside>
                     </div>
                 </div>
             </section>

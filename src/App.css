@@ -39,6 +39,26 @@ body {
     color: #fff;
 }
 
+.swiper-button-prev,
+.swiper-button-next {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d34329;
+}
+
+.swiper-button-prev {
+    left: -20px;
+}
+
+.swiper-button-prev svg,
+.swiper-button-next svg {
+    height: 14px;
+}
+
 @media (max-width: 1100px) {
     .wrapper {
         width: 95%;
