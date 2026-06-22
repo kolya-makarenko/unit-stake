@@ -7,6 +7,7 @@ import {
 } from '../../../../../lib/appwrite';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Thumbs } from 'swiper/modules';
+import AssetsPageFaq from '../../AssetsPage/AssetsPageFaq/AssetsPageFaq';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
@@ -17,6 +18,11 @@ import linkedinIcon from '../../../../../assets/images/icons/linkedin.svg';
 import telegramIcon from '../../../../../assets/images/icons/telegram.svg';
 import twitterIcon from '../../../../../assets/images/icons/twitter.svg';
 import shareBtnCopyIcon from '../../../../../assets/images/icons/shareBtnCopy.svg';
+import linkedinSocial from '../../../../../assets/images/projectPageImages/linkedin.svg';
+import twitterSocial from '../../../../../assets/images/projectPageImages/twitter.svg';
+import instagramSocial from '../../../../../assets/images/projectPageImages/instagram.svg';
+import facebookSocial from '../../../../../assets/images/projectPageImages/facebook.svg';
+import youtubeSocial from '../../../../../assets/images/projectPageImages/youtube.svg';
 
 const checkMark = (
     <svg
@@ -483,14 +489,12 @@ const ProjectPage = () => {
                             {data.platform_id && (
                                 <div className={classes.platform}>
                                     <p>Platform</p>
-                                    <button
-                                        onClick={() =>
-                                            navigate(
-                                                `/platforms/${data.platform_id}`,
-                                            )
-                                        }
+                                    <a
+                                        href={data.website_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                     >
-                                        View All Projects
+                                        Visit the project
                                         <svg
                                             width="19"
                                             height="19"
@@ -513,16 +517,13 @@ const ProjectPage = () => {
                                                 strokeLinecap="round"
                                             />
                                         </svg>
-                                    </button>
+                                    </a>
                                 </div>
                             )}
                             <div className={classes.documents}>
                                 <p>Documents</p>
                                 <div className={classes.documentsDescription}>
-                                    Capital R (OpenDeal Broker LLC, CRD #291387)
-                                    is hosting this Reg A+ securities offering
-                                    by Central RoRo, LLC. View the official SEC
-                                    filing and all updates:
+                                    {data.legal_name}
                                 </div>
                                 <div className={classes.documentsList}>
                                     <p>Company documents</p>
@@ -536,7 +537,7 @@ const ProjectPage = () => {
                                                         rel="noopener noreferrer"
                                                     >
                                                         {documentIcon}
-                                                        Subscription Agreement
+                                                        PDF Document
                                                     </a>
                                                 </li>
                                             ),
@@ -560,21 +561,15 @@ const ProjectPage = () => {
                                 </div>
                             </div>
                             <div className={classes.aboutInfoItem}>
-                                <p>Founded</p>
-                                <div className={classes.aboutInfoItemValue}>
-                                    {data.founded_date}
-                                </div>
-                            </div>
-                            <div className={classes.aboutInfoItem}>
-                                <p>Form</p>
-                                <div className={classes.aboutInfoItemValue}>
-                                    {data.country}
-                                </div>
-                            </div>
-                            <div className={classes.aboutInfoItem}>
                                 <p>Employees</p>
                                 <div className={classes.aboutInfoItemValue}>
                                     {data.employees_count}
+                                </div>
+                            </div>
+                            <div className={classes.aboutInfoItem}>
+                                <p>Founded</p>
+                                <div className={classes.aboutInfoItemValue}>
+                                    {data.founded_date}
                                 </div>
                             </div>
                             <div className={classes.aboutInfoItem}>
@@ -585,15 +580,82 @@ const ProjectPage = () => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
-                                        {data.website_url}
+                                        Project website
                                     </a>
+                                </div>
+                            </div>
+                            <div className={classes.aboutInfoItem}>
+                                <p>Form</p>
+                                <div className={classes.aboutInfoItemValue}>
+                                    {data.country}
                                 </div>
                             </div>
                             <div className={classes.aboutInfoItem}>
                                 <p>Social Media</p>
                                 <div
-                                    className={classes.aboutInfoItemValue}
-                                ></div>
+                                    className={classes.aboutInfoItemValueSocial}
+                                >
+                                    {data.linkedin_url && (
+                                        <a
+                                            href={data.linkedin_url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <img
+                                                src={linkedinSocial}
+                                                alt="linkedin"
+                                            />
+                                        </a>
+                                    )}
+                                    {data.x_url && (
+                                        <a
+                                            href={data.x_url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <img
+                                                src={twitterSocial}
+                                                alt="twitter"
+                                            />
+                                        </a>
+                                    )}
+                                    {data.instagram_url && (
+                                        <a
+                                            href={data.instagram_url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <img
+                                                src={instagramSocial}
+                                                alt="instagram"
+                                            />
+                                        </a>
+                                    )}
+                                    {data.facebook_url && (
+                                        <a
+                                            href={data.facebook_url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <img
+                                                src={facebookSocial}
+                                                alt="facebook"
+                                            />
+                                        </a>
+                                    )}
+                                    {data.youtube_url && (
+                                        <a
+                                            href={data.youtube_url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <img
+                                                src={youtubeSocial}
+                                                alt="youtube"
+                                            />
+                                        </a>
+                                    )}
+                                </div>
                             </div>
                         </div>
                         <div className={classes.map}>
@@ -606,6 +668,9 @@ const ProjectPage = () => {
                         </div>
                     </div>
                 </div>
+            </section>
+            <section className={classes.faq}>
+                <AssetsPageFaq pageName="project" />
             </section>
         </main>
     );

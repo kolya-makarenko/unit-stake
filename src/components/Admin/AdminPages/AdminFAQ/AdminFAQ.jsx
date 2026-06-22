@@ -331,7 +331,7 @@ const AdminFAQ = () => {
                             </div>
                         )} */}
 
-                        {pageType === 'project' && (
+                        {/* {pageType === 'project' && (
                             <div
                                 className={classes.addPlatformFormIdentityField}
                             >
@@ -356,7 +356,7 @@ const AdminFAQ = () => {
                                     ))}
                                 </select>
                             </div>
-                        )}
+                        )} */}
 
                         {pageType === 'news' && (
                             <div
