@@ -305,7 +305,7 @@ const AdminFAQ = () => {
                             </select>
                         </div>
 
-                        {pageType === 'platform' && (
+                        {/* {pageType === 'platform' && (
                             <div
                                 className={classes.addPlatformFormIdentityField}
                             >
@@ -318,7 +318,6 @@ const AdminFAQ = () => {
                                     onChange={(e) =>
                                         setRelatedId(e.target.value)
                                     }
-                                    required
                                 >
                                     <option value="" disabled>
                                         Choose Platform
@@ -330,7 +329,7 @@ const AdminFAQ = () => {
                                     ))}
                                 </select>
                             </div>
-                        )}
+                        )} */}
 
                         {pageType === 'project' && (
                             <div
