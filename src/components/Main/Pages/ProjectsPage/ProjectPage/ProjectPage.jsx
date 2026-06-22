@@ -18,6 +18,43 @@ import telegramIcon from '../../../../../assets/images/icons/telegram.svg';
 import twitterIcon from '../../../../../assets/images/icons/twitter.svg';
 import shareBtnCopyIcon from '../../../../../assets/images/icons/shareBtnCopy.svg';
 
+const checkMark = (
+    <svg
+        width="13"
+        height="9"
+        viewBox="0 0 13 9"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M4.67471 6.89708L11.341 0.230063C11.6478 -0.0767591 12.1452 -0.0768607 12.4521 0.229837C12.7592 0.536675 12.7592 1.03436 12.4523 1.34131L5.34136 8.45226C4.97318 8.82044 4.37624 8.82044 4.00806 8.45226L0.230263 4.67446C-0.0765082 4.36769 -0.0765085 3.87032 0.230262 3.56355C0.537033 3.25678 1.03441 3.25678 1.34118 3.56355L4.67471 6.89708Z"
+            fill="white"
+        />
+    </svg>
+);
+
+const documentIcon = (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <g clipPath="url(#clip0_520_1409)">
+            <path
+                d="M14.167 11.6667C14.167 11.8877 14.0792 12.0997 13.9229 12.2559C13.7666 12.4122 13.5547 12.5 13.3337 12.5H6.66699C6.44598 12.5 6.23402 12.4122 6.07774 12.2559C5.92146 12.0997 5.83366 11.8877 5.83366 11.6667C5.83366 11.4457 5.92146 11.2337 6.07774 11.0774C6.23402 10.9211 6.44598 10.8334 6.66699 10.8334H13.3337C13.5547 10.8334 13.7666 10.9211 13.9229 11.0774C14.0792 11.2337 14.167 11.4457 14.167 11.6667ZM10.8337 14.1667H6.66699C6.44598 14.1667 6.23402 14.2545 6.07774 14.4108C5.92146 14.567 5.83366 14.779 5.83366 15C5.83366 15.221 5.92146 15.433 6.07774 15.5893C6.23402 15.7456 6.44598 15.8334 6.66699 15.8334H10.8337C11.0547 15.8334 11.2666 15.7456 11.4229 15.5893C11.5792 15.433 11.667 15.221 11.667 15C11.667 14.779 11.5792 14.567 11.4229 14.4108C11.2666 14.2545 11.0547 14.1667 10.8337 14.1667ZM18.3337 8.73752V15.8334C18.3323 16.938 17.8929 17.9971 17.1118 18.7782C16.3307 19.5593 15.2717 19.9987 14.167 20H5.83366C4.729 19.9987 3.66996 19.5593 2.88884 18.7782C2.10773 17.9971 1.66832 16.938 1.66699 15.8334V4.16669C1.66832 3.06202 2.10773 2.00298 2.88884 1.22187C3.66996 0.440754 4.729 0.00134242 5.83366 1.92072e-05H9.59616C10.3625 -0.00195323 11.1216 0.148009 11.8297 0.441235C12.5377 0.734461 13.1806 1.16513 13.7212 1.70835L16.6245 4.61335C17.168 5.15355 17.599 5.79623 17.8923 6.50416C18.1857 7.2121 18.3357 7.9712 18.3337 8.73752ZM12.5428 2.88669C12.2806 2.63265 11.9861 2.41412 11.667 2.23669V5.83335C11.667 6.05437 11.7548 6.26633 11.9111 6.42261C12.0674 6.57889 12.2793 6.66669 12.5003 6.66669H16.097C15.9195 6.34768 15.7006 6.05347 15.4462 5.79169L12.5428 2.88669ZM16.667 8.73752C16.667 8.60002 16.6403 8.46835 16.6278 8.33335H12.5003C11.8373 8.33335 11.2014 8.06996 10.7326 7.60112C10.2637 7.13228 10.0003 6.49639 10.0003 5.83335V1.70585C9.86532 1.69335 9.73283 1.66669 9.59616 1.66669H5.83366C5.17062 1.66669 4.53473 1.93008 4.06589 2.39892C3.59705 2.86776 3.33366 3.50364 3.33366 4.16669V15.8334C3.33366 16.4964 3.59705 17.1323 4.06589 17.6011C4.53473 18.07 5.17062 18.3334 5.83366 18.3334H14.167C14.83 18.3334 15.4659 18.07 15.9348 17.6011C16.4036 17.1323 16.667 16.4964 16.667 15.8334V8.73752Z"
+                fill="#19191C"
+            />
+        </g>
+        <defs>
+            <clipPath id="clip0_520_1409">
+                <rect width="20" height="20" fill="white" />
+            </clipPath>
+        </defs>
+    </svg>
+);
+
 const ProjectPage = () => {
     const { id: projectId } = useParams();
     const navigate = useNavigate();
@@ -109,6 +146,17 @@ const ProjectPage = () => {
             }
         })
         .filter(Boolean);
+
+    const contentBlocksDocuments = (data?.content_blocks || [])
+        .map((block) => {
+            try {
+                return typeof block === 'string' ? JSON.parse(block) : block;
+            } catch (error) {
+                console.error('Content block parsing error:', error);
+                return null;
+            }
+        })
+        .filter((obj) => obj.type === 'document');
 
     return (
         <main className={classes.projectPage}>
@@ -355,7 +403,207 @@ const ProjectPage = () => {
                                 }
                             })}
                         </div>
-                        <aside></aside>
+                        <aside>
+                            {data.is_verified && (
+                                <div className={classes.verified}>
+                                    <p>Verified by UnitStake</p>
+                                    <ul>
+                                        <li>
+                                            Legal
+                                            <div className={classes.checked}>
+                                                {checkMark}
+                                            </div>
+                                        </li>
+                                        <li>
+                                            Financials
+                                            <div className={classes.checked}>
+                                                {checkMark}
+                                            </div>
+                                        </li>
+                                        <li>
+                                            Team KYC
+                                            <div className={classes.checked}>
+                                                {checkMark}
+                                            </div>
+                                        </li>
+                                        <li>
+                                            Reputation
+                                            <div className={classes.checked}>
+                                                {checkMark}
+                                            </div>
+                                        </li>
+                                        <li>
+                                            Tech Verification
+                                            <div className={classes.checked}>
+                                                {checkMark}
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            )}
+                            <div className={classes.dealTerms}>
+                                <p>Deal terms</p>
+                                <ul>
+                                    <li>
+                                        Minimum investment
+                                        <div>
+                                            $
+                                            {data.min_investment
+                                                ? data.min_investment
+                                                : 0}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        Maximum investment
+                                        <div>
+                                            $
+                                            {data.max_investment
+                                                ? data.max_investment
+                                                : 0}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        Funding goal
+                                        <div>
+                                            $
+                                            {data.funding_goal
+                                                ? data.funding_goal
+                                                : 0}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        Deadline
+                                        <div>
+                                            {data.deadline &&
+                                                dateFormatter(data.deadline)}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            {data.platform_id && (
+                                <div className={classes.platform}>
+                                    <p>Platform</p>
+                                    <button
+                                        onClick={() =>
+                                            navigate(
+                                                `/platforms/${data.platform_id}`,
+                                            )
+                                        }
+                                    >
+                                        View All Projects
+                                        <svg
+                                            width="19"
+                                            height="19"
+                                            viewBox="0 0 19 19"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M1.14307 17.4583L17.143 1.14307"
+                                                stroke="white"
+                                                strokeWidth="2.28571"
+                                                strokeMiterlimit="10"
+                                                strokeLinecap="round"
+                                            />
+                                            <path
+                                                d="M17.1433 13.8014V1.25735C17.1433 1.19423 17.0921 1.14307 17.029 1.14307H4.65771"
+                                                stroke="white"
+                                                strokeWidth="2.28571"
+                                                strokeMiterlimit="10"
+                                                strokeLinecap="round"
+                                            />
+                                        </svg>
+                                    </button>
+                                </div>
+                            )}
+                            <div className={classes.documents}>
+                                <p>Documents</p>
+                                <div className={classes.documentsDescription}>
+                                    Capital R (OpenDeal Broker LLC, CRD #291387)
+                                    is hosting this Reg A+ securities offering
+                                    by Central RoRo, LLC. View the official SEC
+                                    filing and all updates:
+                                </div>
+                                <div className={classes.documentsList}>
+                                    <p>Company documents</p>
+                                    <ul>
+                                        {contentBlocksDocuments.map(
+                                            (document, index) => (
+                                                <li key={index}>
+                                                    <a
+                                                        href={document.value}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                    >
+                                                        {documentIcon}
+                                                        Subscription Agreement
+                                                    </a>
+                                                </li>
+                                            ),
+                                        )}
+                                    </ul>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </section>
+            <section className={classes.about}>
+                <div className="wrapper">
+                    <h2>About Project</h2>
+                    <div className={classes.aboutContainer}>
+                        <div className={classes.aboutInfo}>
+                            <div className={classes.aboutInfoItem}>
+                                <p>Legal Name</p>
+                                <div className={classes.aboutInfoItemValue}>
+                                    {data.legal_name}
+                                </div>
+                            </div>
+                            <div className={classes.aboutInfoItem}>
+                                <p>Founded</p>
+                                <div className={classes.aboutInfoItemValue}>
+                                    {data.founded_date}
+                                </div>
+                            </div>
+                            <div className={classes.aboutInfoItem}>
+                                <p>Form</p>
+                                <div className={classes.aboutInfoItemValue}>
+                                    {data.country}
+                                </div>
+                            </div>
+                            <div className={classes.aboutInfoItem}>
+                                <p>Employees</p>
+                                <div className={classes.aboutInfoItemValue}>
+                                    {data.employees_count}
+                                </div>
+                            </div>
+                            <div className={classes.aboutInfoItem}>
+                                <p>Website</p>
+                                <div className={classes.aboutInfoItemValue}>
+                                    <a
+                                        href={data.website_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {data.website_url}
+                                    </a>
+                                </div>
+                            </div>
+                            <div className={classes.aboutInfoItem}>
+                                <p>Social Media</p>
+                                <div
+                                    className={classes.aboutInfoItemValue}
+                                ></div>
+                            </div>
+                        </div>
+                        <div className={classes.map}>
+                            <iframe
+                                src={data.google_maps_url}
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
                     </div>
                 </div>
             </section>

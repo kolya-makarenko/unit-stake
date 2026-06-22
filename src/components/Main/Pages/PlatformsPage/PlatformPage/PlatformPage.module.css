@@ -29,6 +29,7 @@
     width: 66px;
     height: 58px;
     border-radius: 4px;
+    overflow: hidden;
 }
 
 .logo img {
