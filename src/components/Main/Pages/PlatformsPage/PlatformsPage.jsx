@@ -391,9 +391,8 @@ const PlatformsPage = () => {
                                                             classes.platformCardInfoNumbersTotal
                                                         }
                                                     >
-                                                        <h4>Platform Age</h4>
+                                                        <h4>Operating since</h4>
                                                         <p>
-                                                            Operating since{' '}
                                                             {
                                                                 platform.platform_age
                                                             }

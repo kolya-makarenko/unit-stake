@@ -193,7 +193,7 @@ const PlatformPage = () => {
                                 </h4>
                             </div>
                             <div className={classes.secondaryInfoNumbersBox}>
-                                <h3>Platform Age</h3>
+                                <h3>Operating since</h3>
                                 <p>
                                     {data.platform_age
                                         ? data.platform_age
