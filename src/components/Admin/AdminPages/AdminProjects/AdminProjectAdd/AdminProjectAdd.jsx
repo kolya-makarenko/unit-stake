@@ -203,6 +203,10 @@ const AdminProjectAdd = () => {
         switch (type) {
             case 'h4':
                 return 'Section Title';
+            case 'h5':
+                return 'Subtitle';
+            case 'b':
+                return 'Bold Text';
             case 'p':
                 return 'Body Text';
             case 'ul':
@@ -790,6 +794,38 @@ const AdminProjectAdd = () => {
                                             }
                                         />
                                     )}
+                                    {block.type === 'h5' && (
+                                        <input
+                                            type="text"
+                                            placeholder="Text subtitle"
+                                            className={
+                                                classes.addPlatformFormBlocksListItemInputTitle
+                                            }
+                                            value={block.value}
+                                            onChange={(e) =>
+                                                handleContentBlockTextChange(
+                                                    block.id,
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    )}
+                                    {block.type === 'b' && (
+                                        <input
+                                            type="text"
+                                            placeholder="Bold text"
+                                            className={
+                                                classes.addPlatformFormBlocksListItemInputTitle
+                                            }
+                                            value={block.value}
+                                            onChange={(e) =>
+                                                handleContentBlockTextChange(
+                                                    block.id,
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    )}
                                     {block.type === 'p' && (
                                         <textarea
                                             placeholder="Write the section content here..."
@@ -993,6 +1029,18 @@ const AdminProjectAdd = () => {
                                 onClick={() => addContentBlock('h4')}
                             >
                                 + Add Title
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addContentBlock('h5')}
+                            >
+                                + Add Subtitle
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addContentBlock('b')}
+                            >
+                                + Add Bold Text
                             </button>
                             <button
                                 type="button"

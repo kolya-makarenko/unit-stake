@@ -47,7 +47,6 @@ const AdminProjectEdit = () => {
     const [websiteUrl, setWebsiteUrl] = useState('');
     const [country, setCountry] = useState('');
 
-    // Нові стейти для Investor Type
     const [investorTypesList, setInvestorTypesList] = useState([]);
     const [selectedInvestorTypes, setSelectedInvestorTypes] = useState([]);
 
@@ -93,7 +92,6 @@ const AdminProjectEdit = () => {
                 setYoutubeUrl(data.youtube_url || '');
                 setGoogleMapsUrl(data.google_maps_url || '');
 
-                // Завантажуємо вже збережені типи інвесторів з документа проєкту
                 setSelectedInvestorTypes(data.investor_type || []);
 
                 if (data.filters && data.filters.length) {
@@ -161,7 +159,6 @@ const AdminProjectEdit = () => {
                 setCategoriesList(
                     categoriesResponse.rows[0]?.project_categories || [],
                 );
-                // Завантажуємо повний список доступних опцій з project_filters
                 setInvestorTypesList(
                     categoriesResponse.rows[0]?.project_filters || [],
                 );
@@ -176,7 +173,6 @@ const AdminProjectEdit = () => {
         fetchProjectData();
     }, [projectId, navigate]);
 
-    // Обробник кліку по чекбоксах
     const handleInvestorTypeChange = (type) => {
         setSelectedInvestorTypes((prev) =>
             prev.includes(type)
@@ -270,6 +266,10 @@ const AdminProjectEdit = () => {
         switch (block.type) {
             case 'h4':
                 return <h6>Section Title</h6>;
+            case 'h5':
+                return <h6>Subtitle</h6>;
+            case 'b':
+                return <h6>Bold Text</h6>;
             case 'p':
                 return <h6>Body Text</h6>;
             case 'ul':
@@ -387,7 +387,7 @@ const AdminProjectEdit = () => {
                 token_addresses: serializedTokens,
                 platform_id: platformId,
                 filters: filtersArray,
-                investor_type: selectedInvestorTypes, // Відправляємо оновлений масив обраних типів інвесторів
+                investor_type: selectedInvestorTypes,
                 legal_name: legalName,
                 employees_count: employeesCount,
                 founded_date: foundedDate,
@@ -899,6 +899,38 @@ const AdminProjectEdit = () => {
                                             }
                                         />
                                     )}
+                                    {block.type === 'h5' && (
+                                        <input
+                                            type="text"
+                                            placeholder="Text subtitle"
+                                            className={
+                                                classes.addPlatformFormBlocksListItemInputTitle
+                                            }
+                                            value={block.value}
+                                            onChange={(e) =>
+                                                handleBlockTextChange(
+                                                    block.id,
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    )}
+                                    {block.type === 'b' && (
+                                        <input
+                                            type="text"
+                                            placeholder="Bold text"
+                                            className={
+                                                classes.addPlatformFormBlocksListItemInputTitle
+                                            }
+                                            value={block.value}
+                                            onChange={(e) =>
+                                                handleBlockTextChange(
+                                                    block.id,
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    )}
 
                                     {block.type === 'p' && (
                                         <textarea
@@ -1117,6 +1149,18 @@ const AdminProjectEdit = () => {
                                 onClick={() => addTextBlock('h4')}
                             >
                                 + Add Title
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addTextBlock('h5')}
+                            >
+                                + Add Subtitle
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addTextBlock('b')}
+                            >
+                                + Add Bold Text
                             </button>
                             <button
                                 type="button"
