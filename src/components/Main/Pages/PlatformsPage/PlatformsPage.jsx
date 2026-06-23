@@ -159,7 +159,13 @@ const PlatformsPage = () => {
     };
 
     const formatAssetLabel = (value) => {
-        return `${Math.round(value / 100000) / 10}M`;
+        if (value >= 100000 && value <= 100000000) {
+            return `${Math.round(value / 100000) / 10}M`;
+        } else if (value >= 100000000) {
+            return `${Math.round(value / 100000000) / 10}B`;
+        } else {
+            return value;
+        }
     };
 
     const openFiltersMenu = () => {
@@ -375,11 +381,9 @@ const PlatformsPage = () => {
                                                         </h4>
                                                         <h5>
                                                             $
-                                                            {Math.round(
-                                                                platform.assets /
-                                                                    100000,
-                                                            ) / 10}
-                                                            M
+                                                            {formatAssetLabel(
+                                                                platform.assets,
+                                                            )}
                                                         </h5>
                                                     </div>
                                                     <div

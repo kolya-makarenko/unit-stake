@@ -45,6 +45,9 @@ const AdminProjectAdd = () => {
     const [websiteUrl, setWebsiteUrl] = useState('');
     const [country, setCountry] = useState('');
 
+    const [investorTypesList, setInvestorTypesList] = useState([]);
+    const [selectedInvestorTypes, setSelectedInvestorTypes] = useState([]);
+
     const [linkedinUrl, setLinkedinUrl] = useState('');
     const [xUrl, setXUrl] = useState('');
     const [instagramUrl, setInstagramUrl] = useState('');
@@ -78,6 +81,9 @@ const AdminProjectAdd = () => {
                 setCategoriesList(
                     categoriesResponse.rows[0]?.project_categories || [],
                 );
+                setInvestorTypesList(
+                    categoriesResponse.rows[0]?.project_filters || [],
+                );
                 setPlatformsList(platformsResponse.rows || []);
             } catch (error) {
                 console.error('Error loading initial data:', error.message);
@@ -85,6 +91,14 @@ const AdminProjectAdd = () => {
         };
         fetchInitialData();
     }, []);
+
+    const handleInvestorTypeChange = (type) => {
+        setSelectedInvestorTypes((prev) =>
+            prev.includes(type)
+                ? prev.filter((item) => item !== type)
+                : [...prev, type],
+        );
+    };
 
     const addTokenBlock = () => {
         const newBlock = {
@@ -276,6 +290,7 @@ const AdminProjectAdd = () => {
                 is_verified: isVerified,
                 platform_id: platformId,
                 filters: filtersArray,
+                investor_type: selectedInvestorTypes,
                 legal_name: legalName,
                 employees_count: employeesCount,
                 founded_date: foundedDate,
@@ -394,6 +409,29 @@ const AdminProjectAdd = () => {
                             value={filtersText}
                             onChange={(e) => setFiltersText(e.target.value)}
                         />
+                    </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label>Investor Type</label>
+                        <div className={classes.investorTypeList}>
+                            {investorTypesList.map((type) => (
+                                <label
+                                    key={type}
+                                    className={classes.investorType}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedInvestorTypes.includes(
+                                            type,
+                                        )}
+                                        onChange={() =>
+                                            handleInvestorTypeChange(type)
+                                        }
+                                    />
+                                    <span>{type}</span>
+                                </label>
+                            ))}
+                        </div>
                     </div>
 
                     <div className={classes.addPlatformFormIdentityField}>

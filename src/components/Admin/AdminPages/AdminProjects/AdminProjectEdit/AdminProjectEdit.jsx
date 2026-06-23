@@ -46,6 +46,11 @@ const AdminProjectEdit = () => {
     const [foundedDate, setFoundedDate] = useState('');
     const [websiteUrl, setWebsiteUrl] = useState('');
     const [country, setCountry] = useState('');
+
+    // Нові стейти для Investor Type
+    const [investorTypesList, setInvestorTypesList] = useState([]);
+    const [selectedInvestorTypes, setSelectedInvestorTypes] = useState([]);
+
     const [linkedinUrl, setLinkedinUrl] = useState('');
     const [xUrl, setXUrl] = useState('');
     const [instagramUrl, setInstagramUrl] = useState('');
@@ -87,6 +92,9 @@ const AdminProjectEdit = () => {
                 setFacebookUrl(data.facebook_url || '');
                 setYoutubeUrl(data.youtube_url || '');
                 setGoogleMapsUrl(data.google_maps_url || '');
+
+                // Завантажуємо вже збережені типи інвесторів з документа проєкту
+                setSelectedInvestorTypes(data.investor_type || []);
 
                 if (data.filters && data.filters.length) {
                     setFiltersText(data.filters.join(', '));
@@ -153,6 +161,10 @@ const AdminProjectEdit = () => {
                 setCategoriesList(
                     categoriesResponse.rows[0]?.project_categories || [],
                 );
+                // Завантажуємо повний список доступних опцій з project_filters
+                setInvestorTypesList(
+                    categoriesResponse.rows[0]?.project_filters || [],
+                );
                 setPlatformsList(platformsResponse.rows || []);
             } catch (error) {
                 console.error('Error loading initial lists:', error.message);
@@ -163,6 +175,15 @@ const AdminProjectEdit = () => {
         fetchInitialData();
         fetchProjectData();
     }, [projectId, navigate]);
+
+    // Обробник кліку по чекбоксах
+    const handleInvestorTypeChange = (type) => {
+        setSelectedInvestorTypes((prev) =>
+            prev.includes(type)
+                ? prev.filter((item) => item !== type)
+                : [...prev, type],
+        );
+    };
 
     const addTextBlock = (type) => {
         const newBlock = {
@@ -366,6 +387,7 @@ const AdminProjectEdit = () => {
                 token_addresses: serializedTokens,
                 platform_id: platformId,
                 filters: filtersArray,
+                investor_type: selectedInvestorTypes, // Відправляємо оновлений масив обраних типів інвесторів
                 legal_name: legalName,
                 employees_count: employeesCount,
                 founded_date: foundedDate,
@@ -500,6 +522,29 @@ const AdminProjectEdit = () => {
                             value={filtersText}
                             onChange={(e) => setFiltersText(e.target.value)}
                         />
+                    </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label>Investor Type</label>
+                        <div className={classes.investorTypeList}>
+                            {investorTypesList.map((type) => (
+                                <label
+                                    key={type}
+                                    className={classes.investorType}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedInvestorTypes.includes(
+                                            type,
+                                        )}
+                                        onChange={() =>
+                                            handleInvestorTypeChange(type)
+                                        }
+                                    />
+                                    <span>{type}</span>
+                                </label>
+                            ))}
+                        </div>
                     </div>
 
                     <div className={classes.addPlatformFormIdentityField}>

@@ -117,6 +117,16 @@ const PlatformPage = () => {
         return null;
     };
 
+    const formatAssetLabel = (value) => {
+        if (value >= 100000 && value <= 100000000) {
+            return `${Math.round(value / 100000) / 10}M`;
+        } else if (value >= 100000000) {
+            return `${Math.round(value / 100000000) / 10}B`;
+        } else {
+            return value;
+        }
+    };
+
     return (
         <main className={classes.platformPage}>
             <section className={classes.info}>
@@ -176,7 +186,11 @@ const PlatformPage = () => {
                         <div className={classes.secondaryInfoNumbers}>
                             <div className={classes.secondaryInfoNumbersBox}>
                                 <h3>Total Tokenized Asset Volume</h3>
-                                <h4>{data.assets ? `$${data.assets}` : '—'}</h4>
+                                <h4>
+                                    {data.assets
+                                        ? `$${formatAssetLabel(data.assets)}`
+                                        : '—'}
+                                </h4>
                             </div>
                             <div className={classes.secondaryInfoNumbersBox}>
                                 <h3>Platform Age</h3>

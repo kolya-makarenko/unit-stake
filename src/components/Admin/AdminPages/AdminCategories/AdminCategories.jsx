@@ -603,7 +603,7 @@ const AdminCategories = () => {
                 </div>
 
                 <div className={classes.adminCategoriesContainer}>
-                    <h3>Project Filters</h3>
+                    <h3>Investor Type</h3>
 
                     <form
                         onSubmit={handleAddFilter}
