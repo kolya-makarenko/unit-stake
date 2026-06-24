@@ -18,12 +18,14 @@ const AdminCategories = () => {
     const [projectFilters, setProjectFilters] = useState([]);
     const [partnerCategories, setPartnerCategories] = useState([]);
     const [newsCategories, setNewsCategories] = useState([]);
+    const [types, setTypes] = useState([]);
 
     const [newPlatform, setNewPlatform] = useState('');
     const [newProject, setNewProject] = useState('');
     const [newFilter, setNewFilter] = useState('');
     const [newPartner, setNewPartner] = useState('');
     const [newNews, setNewNews] = useState('');
+    const [newType, setNewType] = useState('');
 
     const [editPlatformIndex, setEditPlatformIndex] = useState(-1);
     const [editPlatformValue, setEditPlatformValue] = useState('');
@@ -40,6 +42,9 @@ const AdminCategories = () => {
     const [editNewsIndex, setEditNewsIndex] = useState(-1);
     const [editNewsValue, setEditNewsValue] = useState('');
 
+    const [editTypeIndex, setEditTypeIndex] = useState(-1);
+    const [editTypeValue, setEditTypeValue] = useState('');
+
     const fetchCategories = async () => {
         try {
             const response = await tablesDB.listRows({
@@ -55,6 +60,7 @@ const AdminCategories = () => {
                 setProjectFilters(dataDoc.project_filters || []);
                 setPartnerCategories(dataDoc.partner_categories || []);
                 setNewsCategories(dataDoc.news_categories || []);
+                setTypes(dataDoc.types || []);
             }
         } catch (error) {
             console.error(
@@ -75,6 +81,7 @@ const AdminCategories = () => {
         updatedFilters,
         updatedPartners,
         updatedNews,
+        updatedTypes,
     ) => {
         if (!docId) {
             alert('Error: The document ID was not found in the database.');
@@ -92,6 +99,7 @@ const AdminCategories = () => {
                     project_filters: updatedFilters,
                     partner_categories: updatedPartners,
                     news_categories: updatedNews,
+                    types: updatedTypes,
                 },
             });
             return true;
@@ -113,6 +121,7 @@ const AdminCategories = () => {
             projectFilters,
             partnerCategories,
             newsCategories,
+            types,
         );
         if (success) {
             setPlatformCategories(updated);
@@ -132,6 +141,7 @@ const AdminCategories = () => {
             projectFilters,
             partnerCategories,
             newsCategories,
+            types,
         );
         if (success) {
             setPlatformCategories(updated);
@@ -156,6 +166,7 @@ const AdminCategories = () => {
             projectFilters,
             partnerCategories,
             newsCategories,
+            types,
         );
         if (success) {
             setPlatformCategories(updated);
@@ -174,6 +185,7 @@ const AdminCategories = () => {
             projectFilters,
             partnerCategories,
             newsCategories,
+            types,
         );
         if (success) {
             setProjectCategories(updated);
@@ -193,6 +205,7 @@ const AdminCategories = () => {
             projectFilters,
             partnerCategories,
             newsCategories,
+            types,
         );
         if (success) {
             setProjectCategories(updated);
@@ -217,6 +230,7 @@ const AdminCategories = () => {
             projectFilters,
             partnerCategories,
             newsCategories,
+            types,
         );
         if (success) {
             setProjectCategories(updated);
@@ -235,6 +249,7 @@ const AdminCategories = () => {
             updated,
             partnerCategories,
             newsCategories,
+            types,
         );
         if (success) {
             setProjectFilters(updated);
@@ -254,6 +269,7 @@ const AdminCategories = () => {
             updated,
             partnerCategories,
             newsCategories,
+            types,
         );
         if (success) {
             setProjectFilters(updated);
@@ -278,6 +294,7 @@ const AdminCategories = () => {
             updated,
             partnerCategories,
             newsCategories,
+            types,
         );
         if (success) {
             setProjectFilters(updated);
@@ -296,6 +313,7 @@ const AdminCategories = () => {
             projectFilters,
             updated,
             newsCategories,
+            types,
         );
         if (success) {
             setPartnerCategories(updated);
@@ -315,6 +333,7 @@ const AdminCategories = () => {
             projectFilters,
             updated,
             newsCategories,
+            types,
         );
         if (success) {
             setPartnerCategories(updated);
@@ -339,6 +358,7 @@ const AdminCategories = () => {
             projectFilters,
             updated,
             newsCategories,
+            types,
         );
         if (success) {
             setPartnerCategories(updated);
@@ -357,6 +377,7 @@ const AdminCategories = () => {
             projectFilters,
             partnerCategories,
             updated,
+            types,
         );
         if (success) {
             setNewsCategories(updated);
@@ -376,6 +397,7 @@ const AdminCategories = () => {
             projectFilters,
             partnerCategories,
             updated,
+            types,
         );
         if (success) {
             setNewsCategories(updated);
@@ -400,10 +422,73 @@ const AdminCategories = () => {
             projectFilters,
             partnerCategories,
             updated,
+            types,
         );
         if (success) {
             setNewsCategories(updated);
             setEditNewsIndex(-1);
+        }
+    };
+
+    const handleAddType = async (e) => {
+        e.preventDefault();
+        if (!newType.trim()) return;
+
+        const updated = [...types, newType.trim()];
+        const success = await updateDatabase(
+            platformCategories,
+            projectCategories,
+            projectFilters,
+            partnerCategories,
+            newsCategories,
+            updated,
+        );
+        if (success) {
+            setTypes(updated);
+            setNewType('');
+        }
+    };
+
+    const handleDeleteType = async (typeToDelete) => {
+        if (!window.confirm(`Delete type "${typeToDelete}"?`)) return;
+
+        const updated = types.filter((t) => t !== typeToDelete);
+        const success = await updateDatabase(
+            platformCategories,
+            projectCategories,
+            projectFilters,
+            partnerCategories,
+            newsCategories,
+            updated,
+        );
+        if (success) {
+            setTypes(updated);
+            setEditTypeIndex(-1);
+        }
+    };
+
+    const startEditType = (index, value) => {
+        setEditTypeIndex(index);
+        setEditTypeValue(value);
+    };
+
+    const handleSaveTypeEdit = async (index) => {
+        if (!editTypeValue.trim()) return;
+
+        const updated = [...types];
+        updated[index] = editTypeValue.trim();
+
+        const success = await updateDatabase(
+            platformCategories,
+            projectCategories,
+            projectFilters,
+            partnerCategories,
+            newsCategories,
+            updated,
+        );
+        if (success) {
+            setTypes(updated);
+            setEditTypeIndex(-1);
         }
     };
 
@@ -613,9 +698,9 @@ const AdminCategories = () => {
                             type="text"
                             value={newFilter}
                             onChange={(e) => setNewFilter(e.target.value)}
-                            placeholder="New filter"
+                            placeholder="New Investor Type"
                         />
-                        <button type="submit">+ Add filter</button>
+                        <button type="submit">+ Add Investor Type</button>
                     </form>
 
                     <ul className={classes.categoryList}>
@@ -678,6 +763,93 @@ const AdminCategories = () => {
                                             <button
                                                 onClick={() =>
                                                     handleDeleteFilter(filt)
+                                                }
+                                                className={classes.deleteBtn}
+                                            >
+                                                <img
+                                                    src={deleteIcon}
+                                                    alt="delete"
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className={classes.adminCategoriesContainer}>
+                    <h3>Types</h3>
+
+                    <form onSubmit={handleAddType} className={classes.addForm}>
+                        <input
+                            type="text"
+                            value={newType}
+                            onChange={(e) => setNewType(e.target.value)}
+                            placeholder="New Type"
+                        />
+                        <button type="submit">+ Add Type</button>
+                    </form>
+
+                    <ul className={classes.categoryList}>
+                        {types.map((t, index) => (
+                            <li key={index} className={classes.categoryItem}>
+                                {editTypeIndex === index ? (
+                                    <div className={classes.editWrapper}>
+                                        <input
+                                            type="text"
+                                            value={editTypeValue}
+                                            onChange={(e) =>
+                                                setEditTypeValue(e.target.value)
+                                            }
+                                            className={classes.editInput}
+                                        />
+                                        <div className={classes.actions}>
+                                            <button
+                                                onClick={() =>
+                                                    handleSaveTypeEdit(index)
+                                                }
+                                                className={classes.saveBtn}
+                                            >
+                                                <img
+                                                    src={doneIcon}
+                                                    alt="done"
+                                                />
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    setEditTypeIndex(-1)
+                                                }
+                                                className={classes.cancelBtn}
+                                            >
+                                                <img
+                                                    src={cancelIcon}
+                                                    alt="cancel"
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className={classes.categoryView}>
+                                        <span className={classes.categoryText}>
+                                            {t}
+                                        </span>
+                                        <div className={classes.actions}>
+                                            <button
+                                                onClick={() =>
+                                                    startEditType(index, t)
+                                                }
+                                                className={classes.editBtn}
+                                            >
+                                                <img
+                                                    src={editIcon}
+                                                    alt="edit"
+                                                />
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleDeleteType(t)
                                                 }
                                                 className={classes.deleteBtn}
                                             >

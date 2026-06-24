@@ -13,6 +13,7 @@ import {
 
 import classes from './AdminProjectEdit.module.css';
 
+import plusIcon from '../../../../../assets/images/icons/plus.svg';
 import deleteIcon from '../../../../../assets/images/icons/delete.svg';
 import upLoadIcon from '../../../../../assets/images/icons/upload.svg';
 import imageIcon from '../../../../../assets/images/icons/imageIcon.svg';
@@ -24,8 +25,12 @@ const AdminProjectEdit = () => {
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
+
     const [categoriesList, setCategoriesList] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [typesList, setTypesList] = useState([]);
+    const [selectedTypes, setSelectedTypes] = useState([]);
+
     const [minInvestment, setMinInvestment] = useState('');
     const [maxInvestment, setMaxInvestment] = useState('');
     const [fundingGoal, setFundingGoal] = useState('');
@@ -40,7 +45,6 @@ const AdminProjectEdit = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [platformsList, setPlatformsList] = useState([]);
     const [platformId, setPlatformId] = useState('');
-    const [filtersText, setFiltersText] = useState('');
     const [legalName, setLegalName] = useState('');
     const [employeesCount, setEmployeesCount] = useState('');
     const [foundedDate, setFoundedDate] = useState('');
@@ -71,7 +75,17 @@ const AdminProjectEdit = () => {
 
                 setName(data.name || '');
                 setDescription(data.description || '');
-                setCategory(data.category || '');
+
+                if (data.category) {
+                    setSelectedCategories(
+                        Array.isArray(data.category)
+                            ? data.category
+                            : [data.category],
+                    );
+                } else {
+                    setSelectedCategories([]);
+                }
+
                 setMinInvestment(data.min_investment || '');
                 setMaxInvestment(data.max_investment || '');
                 setFundingGoal(data.funding_goal || '');
@@ -86,7 +100,17 @@ const AdminProjectEdit = () => {
                 setEmployeesCount(data.employees_count || '');
                 setFoundedDate(data.founded_date || '');
                 setWebsiteUrl(data.website_url || '');
-                setCountry(data.country || '');
+
+                if (data.country) {
+                    setCountry(
+                        Array.isArray(data.country)
+                            ? data.country.join(', ')
+                            : data.country,
+                    );
+                } else {
+                    setCountry('');
+                }
+
                 setLinkedinUrl(data.linkedin_url || '');
                 setXUrl(data.x_url || '');
                 setInstagramUrl(data.instagram_url || '');
@@ -95,12 +119,7 @@ const AdminProjectEdit = () => {
                 setGoogleMapsUrl(data.google_maps_url || '');
 
                 setSelectedInvestorTypes(data.investor_type || []);
-
-                if (data.filters && data.filters.length) {
-                    setFiltersText(data.filters.join(', '));
-                } else {
-                    setFiltersText('');
-                }
+                setSelectedTypes(data.filters || []);
 
                 if (data.content_blocks && data.content_blocks.length) {
                     const parsedBlocks = data.content_blocks.map((blockStr) => {
@@ -110,9 +129,11 @@ const AdminProjectEdit = () => {
                             type: block.type,
                             value: block.value,
                             file: null,
+                            fileName: block.name || '',
                             existingUrl:
                                 block.type === 'image' ||
-                                block.type === 'document'
+                                block.type === 'document' ||
+                                block.type === 'imageForContent'
                                     ? block.value
                                     : null,
                         };
@@ -164,6 +185,7 @@ const AdminProjectEdit = () => {
                 setInvestorTypesList(
                     categoriesResponse.rows[0]?.project_filters || [],
                 );
+                setTypesList(categoriesResponse.rows[0]?.types || []);
                 setPlatformsList(platformsResponse.rows || []);
             } catch (error) {
                 console.error('Error loading initial lists:', error.message);
@@ -183,12 +205,29 @@ const AdminProjectEdit = () => {
         );
     };
 
+    const handleCategoryChange = (cat) => {
+        setSelectedCategories((prev) =>
+            prev.includes(cat)
+                ? prev.filter((item) => item !== cat)
+                : [...prev, cat],
+        );
+    };
+
+    const handleTypeChange = (type) => {
+        setSelectedTypes((prev) =>
+            prev.includes(type)
+                ? prev.filter((item) => item !== type)
+                : [...prev, type],
+        );
+    };
+
     const addTextBlock = (type) => {
         const newBlock = {
             id: ID.unique(),
             type: type,
             value: type === 'ul' ? [''] : '',
             file: null,
+            fileName: '',
         };
         setTextBlocks([...textBlocks, newBlock]);
     };
@@ -211,6 +250,7 @@ const AdminProjectEdit = () => {
                               ...block,
                               file: file,
                               value: file.name,
+                              fileName: file.name,
                               existingUrl: null,
                           }
                         : block,
@@ -264,26 +304,28 @@ const AdminProjectEdit = () => {
         setTextBlocks(textBlocks.filter((block) => block.id !== id));
     };
 
-    const renderBlockContent = (block) => {
-        switch (block.type) {
+    const renderBlockContentLabel = (type) => {
+        switch (type) {
             case 'h4':
-                return <h6>Section Title</h6>;
+                return 'Section Title';
             case 'h5':
-                return <h6>Subtitle</h6>;
+                return 'Subtitle';
             case 'b':
-                return <h6>Bold Text</h6>;
+                return 'Bold Text';
             case 'p':
-                return <h6>Body Text</h6>;
+                return 'Body Text';
             case 'ul':
-                return <h6>List block</h6>;
+                return 'List Block';
             case 'image':
-                return <h6>Image</h6>;
+                return 'Image For Carousel / Slider';
+            case 'imageForContent':
+                return 'Content Image';
             case 'document':
-                return <h6>Document</h6>;
+                return 'Document (PDF)';
             case 'youtube':
-                return <h6>YouTube Video</h6>;
+                return 'YouTube Video';
             default:
-                return null;
+                return 'Block';
         }
     };
 
@@ -317,7 +359,6 @@ const AdminProjectEdit = () => {
 
     const handleDragOver = (e, index) => {
         e.preventDefault();
-
         if (draggedIndex === null || draggedIndex === index) return;
 
         const updatedBlocks = [...textBlocks];
@@ -337,14 +378,16 @@ const AdminProjectEdit = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!name) return;
-
         setIsSubmitting(true);
 
         try {
             const serializedBlocks = [];
-
             for (const block of textBlocks) {
-                if (block.type === 'image' || block.type === 'document') {
+                if (
+                    block.type === 'image' ||
+                    block.type === 'document' ||
+                    block.type === 'imageForContent'
+                ) {
                     if (block.file) {
                         const uploadedBlockFile = await storage.createFile(
                             BUCKET_ID,
@@ -352,11 +395,11 @@ const AdminProjectEdit = () => {
                             block.file,
                         );
                         const fileUrl = `${storage.client.config.endpoint}/storage/buckets/${BUCKET_ID}/files/${uploadedBlockFile.$id}/view?project=${storage.client.config.project}`;
-
                         serializedBlocks.push(
                             JSON.stringify({
                                 type: block.type,
                                 value: fileUrl,
+                                name: block.file.name,
                             }),
                         );
                     } else {
@@ -364,6 +407,7 @@ const AdminProjectEdit = () => {
                             JSON.stringify({
                                 type: block.type,
                                 value: block.existingUrl || '',
+                                name: block.fileName || '',
                             }),
                         );
                     }
@@ -386,8 +430,8 @@ const AdminProjectEdit = () => {
                 }),
             );
 
-            const filtersArray = filtersText
-                ? filtersText
+            const countryArray = country
+                ? country
                       .split(',')
                       .map((item) => item.trim())
                       .filter((item) => item !== '')
@@ -396,7 +440,7 @@ const AdminProjectEdit = () => {
             const data = {
                 name: name,
                 description: description,
-                category: category,
+                category: selectedCategories,
                 min_investment: minInvestment ? Number(minInvestment) : null,
                 max_investment: maxInvestment ? Number(maxInvestment) : null,
                 funding_goal: fundingGoal ? Number(fundingGoal) : null,
@@ -412,13 +456,13 @@ const AdminProjectEdit = () => {
                 content_blocks: serializedBlocks,
                 token_addresses: serializedTokens,
                 platform_id: platformId,
-                filters: filtersArray,
+                filters: selectedTypes,
                 investor_type: selectedInvestorTypes,
                 legal_name: legalName,
                 employees_count: employeesCount,
                 founded_date: foundedDate,
                 website_url: websiteUrl,
-                country: country,
+                country: countryArray,
                 linkedin_url: linkedinUrl,
                 x_url: xUrl,
                 instagram_url: instagramUrl,
@@ -488,7 +532,6 @@ const AdminProjectEdit = () => {
                             required
                         />
                     </div>
-
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="projectDescription">
                             Short Description
@@ -500,7 +543,6 @@ const AdminProjectEdit = () => {
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
-
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="relatedPlatform">
                             Belongs to Platform
@@ -519,37 +561,50 @@ const AdminProjectEdit = () => {
                             ))}
                         </select>
                     </div>
-
-                    <div className={classes.addPlatformFormIdentityField}>
-                        <label htmlFor="category">Asset Type</label>
-                        <select
-                            id="category"
-                            className={classes.selectInput}
-                            value={category}
-                            onChange={(e) => setCategory(e.target.value)}
-                        >
-                            <option value="">Select Asset Type</option>
+                    <div
+                        className={`${classes.addPlatformFormIdentityField} ${classes.investorTypeListBox}`}
+                    >
+                        <label>Asset Type</label>
+                        <div className={classes.investorTypeList}>
                             {categoriesList.map((cat) => (
-                                <option key={cat} value={cat}>
-                                    {cat}
-                                </option>
+                                <label
+                                    key={cat}
+                                    className={classes.investorType}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedCategories.includes(
+                                            cat,
+                                        )}
+                                        onChange={() =>
+                                            handleCategoryChange(cat)
+                                        }
+                                    />
+                                    <span>{cat}</span>
+                                </label>
                             ))}
-                        </select>
+                        </div>
                     </div>
-
-                    <div className={classes.addPlatformFormIdentityField}>
-                        <label htmlFor="filtersInput">
-                            Types (comma separated)
-                        </label>
-                        <input
-                            type="text"
-                            id="filtersInput"
-                            placeholder="e.g. Real Estate, Ecology, DeFi"
-                            value={filtersText}
-                            onChange={(e) => setFiltersText(e.target.value)}
-                        />
+                    <div
+                        className={`${classes.addPlatformFormIdentityField} ${classes.investorTypeListBox}`}
+                    >
+                        <label>Types</label>
+                        <div className={classes.investorTypeList}>
+                            {typesList.map((type) => (
+                                <label
+                                    key={type}
+                                    className={classes.investorType}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedTypes.includes(type)}
+                                        onChange={() => handleTypeChange(type)}
+                                    />
+                                    <span>{type}</span>
+                                </label>
+                            ))}
+                        </div>
                     </div>
-
                     <div className={classes.addPlatformFormIdentityField}>
                         <label>Investor Type</label>
                         <div className={classes.investorTypeList}>
@@ -572,7 +627,6 @@ const AdminProjectEdit = () => {
                             ))}
                         </div>
                     </div>
-
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="legalName">Legal Name</label>
                         <input
@@ -583,7 +637,6 @@ const AdminProjectEdit = () => {
                             onChange={(e) => setLegalName(e.target.value)}
                         />
                     </div>
-
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="employeesCount">
                             Number of Employees
@@ -596,7 +649,6 @@ const AdminProjectEdit = () => {
                             onChange={(e) => setEmployeesCount(e.target.value)}
                         />
                     </div>
-
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="foundedDate">Founding Date</label>
                         <input
@@ -606,7 +658,6 @@ const AdminProjectEdit = () => {
                             onChange={(e) => setFoundedDate(e.target.value)}
                         />
                     </div>
-
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="websiteUrl">Website URL</label>
                         <input
@@ -617,7 +668,6 @@ const AdminProjectEdit = () => {
                             onChange={(e) => setWebsiteUrl(e.target.value)}
                         />
                     </div>
-
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="country">Jurisdiction</label>
                         <input
@@ -628,7 +678,6 @@ const AdminProjectEdit = () => {
                             onChange={(e) => setCountry(e.target.value)}
                         />
                     </div>
-
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="minInvestment">
                             Minimum investment
@@ -699,7 +748,6 @@ const AdminProjectEdit = () => {
                             onChange={(e) => setDeadline(e.target.value)}
                         />
                     </div>
-
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="linkedinUrl">LinkedIn Profile</label>
                         <input
@@ -747,10 +795,9 @@ const AdminProjectEdit = () => {
                             id="youtubeUrl"
                             placeholder="https://youtube.com/c/..."
                             value={youtubeUrl}
-                            onChange={(e) => setYoutubeUrl(e.target.value)}
+                            onChange={(e) => setYouTubeUrl(e.target.value)}
                         />
                     </div>
-
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="googleMapsUrl">
                             Google Maps Location Link
@@ -764,7 +811,6 @@ const AdminProjectEdit = () => {
                         />
                     </div>
                 </div>
-
                 <div className={classes.addPlatformFormContent}>
                     <h3 className={classes.addPlatformFormHeader}>
                         Token addresses
@@ -910,9 +956,11 @@ const AdminProjectEdit = () => {
                                         }
                                     >
                                         <span>
-                                            ☰ Block {index + 1}
+                                            ☰ Block {index + 1}{' '}
                                             <strong>
-                                                {renderBlockContent(block)}
+                                                {renderBlockContentLabel(
+                                                    block.type,
+                                                )}
                                             </strong>
                                         </span>
                                         <button
@@ -928,7 +976,6 @@ const AdminProjectEdit = () => {
                                             />
                                         </button>
                                     </div>
-
                                     {block.type === 'h4' && (
                                         <input
                                             type="text"
@@ -977,7 +1024,6 @@ const AdminProjectEdit = () => {
                                             }
                                         />
                                     )}
-
                                     {block.type === 'p' && (
                                         <textarea
                                             placeholder="Write the section content here..."
@@ -994,7 +1040,6 @@ const AdminProjectEdit = () => {
                                             rows={6}
                                         />
                                     )}
-
                                     {block.type === 'youtube' && (
                                         <input
                                             type="text"
@@ -1011,7 +1056,6 @@ const AdminProjectEdit = () => {
                                             }
                                         />
                                     )}
-
                                     {block.type === 'ul' && (
                                         <div
                                             className={
@@ -1075,7 +1119,6 @@ const AdminProjectEdit = () => {
                                             </button>
                                         </div>
                                     )}
-
                                     {block.type === 'image' && (
                                         <div
                                             className={
@@ -1098,7 +1141,8 @@ const AdminProjectEdit = () => {
                                                             {block.file
                                                                 ? block.file
                                                                       .name
-                                                                : 'Current Block Image'}
+                                                                : block.fileName ||
+                                                                  'Current Block Image'}
                                                         </span>
                                                     </div>
                                                 ) : (
@@ -1130,7 +1174,61 @@ const AdminProjectEdit = () => {
                                             />
                                         </div>
                                     )}
-
+                                    {block.type === 'imageForContent' && (
+                                        <div
+                                            className={
+                                                classes.addPlatformFormIdentityFieldImage
+                                            }
+                                        >
+                                            <label
+                                                htmlFor={`imageBlockEdit-${block.id}`}
+                                            >
+                                                {block.file ||
+                                                block.existingUrl ? (
+                                                    <div
+                                                        className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
+                                                    >
+                                                        <img
+                                                            src={imageIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            {block.file
+                                                                ? block.file
+                                                                      .name
+                                                                : block.fileName ||
+                                                                  'Current Block Image'}
+                                                        </span>
+                                                    </div>
+                                                ) : (
+                                                    <div
+                                                        className={
+                                                            classes.addPlatformFormIdentityFieldImagePlaceholder
+                                                        }
+                                                    >
+                                                        <img
+                                                            src={upLoadIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            Select an image
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </label>
+                                            <input
+                                                id={`imageBlockEdit-${block.id}`}
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) =>
+                                                    handleBlockFileChange(
+                                                        block.id,
+                                                        e,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    )}
                                     {block.type === 'document' && (
                                         <div
                                             className={
@@ -1153,7 +1251,8 @@ const AdminProjectEdit = () => {
                                                             {block.file
                                                                 ? block.file
                                                                       .name
-                                                                : 'Current Block Document'}
+                                                                : block.fileName ||
+                                                                  'Current Block Document'}
                                                         </span>
                                                     </div>
                                                 ) : (
@@ -1214,14 +1313,12 @@ const AdminProjectEdit = () => {
                             >
                                 + Add Body Text
                             </button>
-
                             <button
                                 type="button"
                                 onClick={() => addTextBlock('youtube')}
                             >
                                 + Add YouTube Video
                             </button>
-
                             <button
                                 type="button"
                                 onClick={() => addTextBlock('ul')}
@@ -1232,7 +1329,13 @@ const AdminProjectEdit = () => {
                                 type="button"
                                 onClick={() => addTextBlock('image')}
                             >
-                                + Add Image
+                                + Add Image For Carousel / Slider
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addTextBlock('imageForContent')}
+                            >
+                                + Add Image For Content
                             </button>
                             <button
                                 type="button"

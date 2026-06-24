@@ -461,6 +461,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #00000017;
+    border-radius: 8px;
 }
 
 .investorType {
