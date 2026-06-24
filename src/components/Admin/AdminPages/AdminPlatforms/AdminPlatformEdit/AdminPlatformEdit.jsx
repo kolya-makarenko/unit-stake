@@ -35,6 +35,8 @@ const AdminPlatformEdit = () => {
     const [textBlocks, setTextBlocks] = useState([]);
     const [categoriesList, setCategoriesList] = useState([]);
 
+    const [draggedIndex, setDraggedIndex] = useState(null);
+
     useEffect(() => {
         const fetchPlatformData = async () => {
             try {
@@ -180,6 +182,30 @@ const AdminPlatformEdit = () => {
 
     const removeBlock = (id) => {
         setTextBlocks(textBlocks.filter((block) => block.id !== id));
+    };
+
+    const handleDragStart = (e, index) => {
+        setDraggedIndex(index);
+        e.dataTransfer.effectAllowed = 'move';
+    };
+
+    const handleDragOver = (e, index) => {
+        e.preventDefault();
+
+        if (draggedIndex === null || draggedIndex === index) return;
+
+        const updatedBlocks = [...textBlocks];
+        const draggedBlock = updatedBlocks[draggedIndex];
+
+        updatedBlocks.splice(draggedIndex, 1);
+        updatedBlocks.splice(index, 0, draggedBlock);
+
+        setDraggedIndex(index);
+        setTextBlocks(updatedBlocks);
+    };
+
+    const handleDragEnd = () => {
+        setDraggedIndex(null);
     };
 
     const handleSubmit = async (e) => {
@@ -428,15 +454,35 @@ const AdminPlatformEdit = () => {
                             {textBlocks.map((block, index) => (
                                 <div
                                     key={block.id}
-                                    className={`${classes.addPlatformFormBlocksListItem} ${classes[block.type]}`}
+                                    className={`${classes.addPlatformFormBlocksListItem} ${classes[block.type]} ${
+                                        draggedIndex === index
+                                            ? classes.dragging
+                                            : ''
+                                    }`}
+                                    draggable={
+                                        draggedIndex === index || undefined
+                                    }
+                                    onDragOver={(e) => handleDragOver(e, index)}
+                                    onDragEnd={handleDragEnd}
                                 >
                                     <div
                                         className={
                                             classes.addPlatformFormBlocksListItemHeader
                                         }
+                                        onMouseDown={(e) => {
+                                            if (
+                                                e.target.tagName !== 'BUTTON' &&
+                                                e.target.tagName !== 'IMG'
+                                            ) {
+                                                setDraggedIndex(index);
+                                            }
+                                        }}
+                                        onDragStart={(e) =>
+                                            handleDragStart(e, index)
+                                        }
                                     >
                                         <span>
-                                            Block {index + 1}
+                                            ☰ Block {index + 1}
                                             <strong>
                                                 {renderBlockContent(block)}
                                             </strong>

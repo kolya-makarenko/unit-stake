@@ -202,6 +202,13 @@
 .addPlatformFormBlocksListItemHeader {
     display: flex;
     justify-content: space-between;
+    cursor: grab;
+}
+
+.dragging {
+    opacity: 0.5;
+    border: 2px dashed #d34329;
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .addPlatformFormBlocksListItemHeader span {
