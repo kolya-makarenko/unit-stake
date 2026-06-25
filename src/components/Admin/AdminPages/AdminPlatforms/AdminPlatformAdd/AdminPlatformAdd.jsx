@@ -20,7 +20,15 @@ const AdminPlatformAdd = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [isPublished, setIsPublished] = useState(false);
-    const [category, setCategory] = useState('');
+
+    const [categoriesList, setCategoriesList] = useState([]);
+    const [typesList, setTypesList] = useState([]);
+    const [investorTypesList, setInvestorTypesList] = useState([]);
+
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [selectedTypes, setSelectedTypes] = useState([]);
+    const [selectedInvestorTypes, setSelectedInvestorTypes] = useState([]);
+
     const [assets, setAssets] = useState(0);
     const [platformAge, setPlatformAge] = useState('');
     const [totalProjects, setTotalProjects] = useState('');
@@ -29,25 +37,52 @@ const AdminPlatformAdd = () => {
     const [imageFile, setImageFile] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [textBlocks, setTextBlocks] = useState([]);
-    const [categoriesList, setCategoriesList] = useState([]);
 
     const [draggedIndex, setDraggedIndex] = useState(null);
 
     useEffect(() => {
-        const fetchCategories = async () => {
+        const fetchCategoriesData = async () => {
             try {
-                const respomse = await tablesDB.listRows({
+                const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_CATEGORIES,
                 });
-                setCategoriesList(respomse.rows[0].platform_categories);
+                const row = response.rows[0] || {};
+
+                setCategoriesList(row.platform_categories || []);
+                setTypesList(row.types || []);
+                setInvestorTypesList(row.project_filters || []);
             } catch (error) {
                 console.error('Error loading categories:', error.message);
                 alert('Failed to load categories data.');
             }
         };
-        fetchCategories();
+        fetchCategoriesData();
     }, []);
+
+    const handleCategoryChange = (cat) => {
+        setSelectedCategories((prev) =>
+            prev.includes(cat)
+                ? prev.filter((item) => item !== cat)
+                : [...prev, cat],
+        );
+    };
+
+    const handleTypeChange = (type) => {
+        setSelectedTypes((prev) =>
+            prev.includes(type)
+                ? prev.filter((item) => item !== type)
+                : [...prev, type],
+        );
+    };
+
+    const handleInvestorTypeChange = (type) => {
+        setSelectedInvestorTypes((prev) =>
+            prev.includes(type)
+                ? prev.filter((item) => item !== type)
+                : [...prev, type],
+        );
+    };
 
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -142,7 +177,6 @@ const AdminPlatformAdd = () => {
 
     const handleDragOver = (e, index) => {
         e.preventDefault();
-
         if (draggedIndex === null || draggedIndex === index) return;
 
         const updatedBlocks = [...textBlocks];
@@ -177,7 +211,6 @@ const AdminPlatformAdd = () => {
             }
 
             const serializedBlocks = [];
-
             for (const block of textBlocks) {
                 if (block.type === 'image') {
                     if (block.file) {
@@ -209,17 +242,26 @@ const AdminPlatformAdd = () => {
                 }
             }
 
+            const jurisdictionArray = jurisdiction
+                ? jurisdiction
+                      .split(',')
+                      .map((item) => item.trim())
+                      .filter((item) => item !== '')
+                : [];
+
             const data = {
                 name: name,
                 is_published: isPublished,
-                category: category,
+                category: selectedCategories,
                 image_url: imageUrl,
                 text_blocks: serializedBlocks,
-                assets: assets,
+                assets: assets ? Number(assets) : 0,
                 platform_age: platformAge,
                 total_projects: totalProjects,
-                jurisdiction: jurisdiction,
+                jurisdiction: jurisdictionArray,
                 platform_website: platformWebsite,
+                filters: selectedTypes,
+                investor_type: selectedInvestorTypes,
             };
 
             await tablesDB.createRow({
@@ -243,16 +285,18 @@ const AdminPlatformAdd = () => {
         switch (block.type) {
             case 'h4':
                 return <h6>Section Title</h6>;
-                break;
+            case 'h5':
+                return <h6>Subtitle</h6>;
+            case 'b':
+                return <h6>Bold Text</h6>;
             case 'p':
                 return <h6>Body Text</h6>;
-                break;
             case 'ul':
                 return <h6>List block</h6>;
-                break;
             case 'image':
                 return <h6>Image</h6>;
-                break;
+            default:
+                return <h6>Block</h6>;
         }
     };
 
@@ -283,22 +327,78 @@ const AdminPlatformAdd = () => {
                             required
                         />
                     </div>
-                    <div className={classes.addPlatformFormIdentityField}>
-                        <label htmlFor="category">Asset Type</label>
-                        <select
-                            id="category"
-                            value={category}
-                            onChange={(e) => setCategory(e.target.value)}
-                            className={classes.selectInput}
-                        >
-                            <option value="">Select Asset Type</option>
+
+                    <div
+                        className={`${classes.addPlatformFormIdentityField} ${classes.investorTypeListBox}`}
+                    >
+                        <label>Asset Type</label>
+                        <div className={classes.investorTypeList}>
                             {categoriesList.map((cat) => (
-                                <option key={cat} value={cat}>
-                                    {cat}
-                                </option>
+                                <label
+                                    key={cat}
+                                    className={classes.investorType}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedCategories.includes(
+                                            cat,
+                                        )}
+                                        onChange={() =>
+                                            handleCategoryChange(cat)
+                                        }
+                                    />
+                                    <span>{cat}</span>
+                                </label>
                             ))}
-                        </select>
+                        </div>
                     </div>
+
+                    <div
+                        className={`${classes.addPlatformFormIdentityField} ${classes.investorTypeListBox}`}
+                    >
+                        <label>Types</label>
+                        <div className={classes.investorTypeList}>
+                            {typesList.map((type) => (
+                                <label
+                                    key={type}
+                                    className={classes.investorType}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedTypes.includes(type)}
+                                        onChange={() => handleTypeChange(type)}
+                                    />
+                                    <span>{type}</span>
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div
+                        className={`${classes.addPlatformFormIdentityField} ${classes.investorTypeListBox}`}
+                    >
+                        <label>Investor Type</label>
+                        <div className={classes.investorTypeList}>
+                            {investorTypesList.map((type) => (
+                                <label
+                                    key={type}
+                                    className={classes.investorType}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedInvestorTypes.includes(
+                                            type,
+                                        )}
+                                        onChange={() =>
+                                            handleInvestorTypeChange(type)
+                                        }
+                                    />
+                                    <span>{type}</span>
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="assets">
                             Total Tokenized Asset Volume
@@ -306,7 +406,7 @@ const AdminPlatformAdd = () => {
                         <input
                             type="number"
                             id="assets"
-                            placeholder="$ 0"
+                            placeholder="0"
                             value={assets}
                             onChange={(e) => setAssets(e.target.value)}
                         />
@@ -333,16 +433,18 @@ const AdminPlatformAdd = () => {
                             onChange={(e) => setTotalProjects(e.target.value)}
                         />
                     </div>
+
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="jurisdiction">Jurisdiction</label>
                         <input
                             type="text"
                             id="jurisdiction"
-                            placeholder="City, Country"
+                            placeholder="e.g. UA, US, United Kingdom"
                             value={jurisdiction}
                             onChange={(e) => setJurisdiction(e.target.value)}
                         />
                     </div>
+
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="platformUrl">URL Slug</label>
                         <input
@@ -438,7 +540,6 @@ const AdminPlatformAdd = () => {
                                             />
                                         </button>
                                     </div>
-
                                     {block.type === 'h4' && (
                                         <input
                                             type="text"
@@ -455,7 +556,38 @@ const AdminPlatformAdd = () => {
                                             }
                                         />
                                     )}
-
+                                    {block.type === 'h5' && (
+                                        <input
+                                            type="text"
+                                            placeholder="Text Subtitle"
+                                            className={
+                                                classes.addPlatformFormBlocksListItemInputTitle
+                                            }
+                                            value={block.value}
+                                            onChange={(e) =>
+                                                handleBlockTextChange(
+                                                    block.id,
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    )}
+                                    {block.type === 'b' && (
+                                        <input
+                                            type="text"
+                                            placeholder="Bold Text"
+                                            className={
+                                                classes.addPlatformFormBlocksListItemInputTitle
+                                            }
+                                            value={block.value}
+                                            onChange={(e) =>
+                                                handleBlockTextChange(
+                                                    block.id,
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    )}
                                     {block.type === 'p' && (
                                         <textarea
                                             placeholder="Write the section content here..."
@@ -472,7 +604,6 @@ const AdminPlatformAdd = () => {
                                             rows={6}
                                         />
                                     )}
-
                                     {block.type === 'ul' && (
                                         <div
                                             className={
@@ -536,14 +667,15 @@ const AdminPlatformAdd = () => {
                                             </button>
                                         </div>
                                     )}
-
                                     {block.type === 'image' && (
                                         <div
                                             className={
                                                 classes.addPlatformFormIdentityFieldImage
                                             }
                                         >
-                                            <label htmlFor="imageBlockAdd">
+                                            <label
+                                                htmlFor={`imageBlock-${block.id}`}
+                                            >
                                                 {block.file ? (
                                                     <div
                                                         className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
@@ -573,7 +705,7 @@ const AdminPlatformAdd = () => {
                                                 )}
                                             </label>
                                             <input
-                                                id="imageBlockAdd"
+                                                id={`imageBlock-${block.id}`}
                                                 type="file"
                                                 accept="image/*"
                                                 onChange={(e) =>
@@ -597,6 +729,18 @@ const AdminPlatformAdd = () => {
                             </button>
                             <button
                                 type="button"
+                                onClick={() => addTextBlock('h5')}
+                            >
+                                + Add Subtitle
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addTextBlock('b')}
+                            >
+                                + Add Bold Text
+                            </button>
+                            <button
+                                type="button"
                                 onClick={() => addTextBlock('p')}
                             >
                                 + Add Body Text
@@ -605,7 +749,7 @@ const AdminPlatformAdd = () => {
                                 type="button"
                                 onClick={() => addTextBlock('ul')}
                             >
-                                + Add List
+                                + Add List / Highlights
                             </button>
                             <button
                                 type="button"

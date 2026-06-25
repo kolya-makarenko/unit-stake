@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
     tablesDB,
     DATABASE_ID,
@@ -22,41 +22,75 @@ const AdminPlatformEdit = () => {
 
     const [name, setName] = useState('');
     const [isPublished, setIsPublished] = useState(false);
-    const [category, setCategory] = useState('');
+
+    const [categoriesList, setCategoriesList] = useState([]);
+    const [typesList, setTypesList] = useState([]);
+    const [investorTypesList, setInvestorTypesList] = useState([]);
+
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [selectedTypes, setSelectedTypes] = useState([]);
+    const [selectedInvestorTypes, setSelectedInvestorTypes] = useState([]);
+
     const [assets, setAssets] = useState(0);
     const [platformAge, setPlatformAge] = useState('');
     const [totalProjects, setTotalProjects] = useState('');
     const [jurisdiction, setJurisdiction] = useState('');
     const [platformWebsite, setPlatformWebsite] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
-    const [imageFile, setImageFile] = useState(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [textBlocks, setTextBlocks] = useState([]);
-    const [categoriesList, setCategoriesList] = useState([]);
 
+    const [imageFile, setImageFile] = useState(null);
+    const [currentImageUrl, setCurrentImageUrl] = useState('');
+
+    const [textBlocks, setTextBlocks] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [draggedIndex, setDraggedIndex] = useState(null);
 
     useEffect(() => {
+        const fetchInitialData = async () => {
+            try {
+                const response = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_CATEGORIES,
+                });
+                const row = response.rows[0] || {};
+                setCategoriesList(row.platform_categories || []);
+                setTypesList(row.types || []);
+                setInvestorTypesList(row.project_filters || []);
+            } catch (error) {
+                console.error('Error loading categories:', error.message);
+                alert('Failed to load categories data.');
+            }
+        };
+
         const fetchPlatformData = async () => {
             try {
-                const response = await tablesDB.getRow({
+                const data = await tablesDB.getRow({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PLATFORMS,
                     rowId: platformId,
                 });
 
-                const data = response;
-
                 setName(data.name || '');
                 setIsPublished(data.is_published || false);
-                setCategory(data.category || '');
-                setImageUrl(data.image_url || '');
                 setAssets(data.assets || 0);
                 setPlatformAge(data.platform_age || '');
                 setTotalProjects(data.total_projects || '');
-                setJurisdiction(data.jurisdiction || '');
                 setPlatformWebsite(data.platform_website || '');
+                setCurrentImageUrl(data.image_url || '');
+
+                setSelectedCategories(data.category || []);
+                setSelectedTypes(data.filters || []);
+                setSelectedInvestorTypes(data.investor_type || []);
+
+                if (data.jurisdiction) {
+                    setJurisdiction(
+                        Array.isArray(data.jurisdiction)
+                            ? data.jurisdiction.join(', ')
+                            : data.jurisdiction,
+                    );
+                } else {
+                    setJurisdiction('');
+                }
 
                 if (data.text_blocks && data.text_blocks.length) {
                     const parsedBlocks = data.text_blocks.map((blockStr) => {
@@ -81,21 +115,33 @@ const AdminPlatformEdit = () => {
             }
         };
 
-        const fetchCategories = async () => {
-            try {
-                const respomse = await tablesDB.listRows({
-                    databaseId: DATABASE_ID,
-                    tableId: TABLE_ID_CATEGORIES,
-                });
-                setCategoriesList(respomse.rows[0].platform_categories);
-            } catch (error) {
-                console.error('Error loading categories:', error.message);
-                alert('Failed to load categories data.');
-            }
-        };
-        fetchCategories();
+        fetchInitialData();
         fetchPlatformData();
     }, [platformId, navigate]);
+
+    const handleCategoryChange = (cat) => {
+        setSelectedCategories((prev) =>
+            prev.includes(cat)
+                ? prev.filter((item) => item !== cat)
+                : [...prev, cat],
+        );
+    };
+
+    const handleTypeChange = (type) => {
+        setSelectedTypes((prev) =>
+            prev.includes(type)
+                ? prev.filter((item) => item !== type)
+                : [...prev, type],
+        );
+    };
+
+    const handleInvestorTypeChange = (type) => {
+        setSelectedInvestorTypes((prev) =>
+            prev.includes(type)
+                ? prev.filter((item) => item !== type)
+                : [...prev, type],
+        );
+    };
 
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -109,6 +155,7 @@ const AdminPlatformEdit = () => {
             type: type,
             value: type === 'ul' ? [''] : '',
             file: null,
+            existingUrl: null,
         };
         setTextBlocks([...textBlocks, newBlock]);
     };
@@ -191,7 +238,6 @@ const AdminPlatformEdit = () => {
 
     const handleDragOver = (e, index) => {
         e.preventDefault();
-
         if (draggedIndex === null || draggedIndex === index) return;
 
         const updatedBlocks = [...textBlocks];
@@ -215,18 +261,17 @@ const AdminPlatformEdit = () => {
         setIsSubmitting(true);
 
         try {
-            let updatedImageUrl = imageUrl;
+            let imageUrl = currentImageUrl;
             if (imageFile) {
                 const uploadedFile = await storage.createFile(
                     BUCKET_ID,
                     ID.unique(),
                     imageFile,
                 );
-                updatedImageUrl = `${storage.client.config.endpoint}/storage/buckets/${BUCKET_ID}/files/${uploadedFile.$id}/view?project=${storage.client.config.project}`;
+                imageUrl = `${storage.client.config.endpoint}/storage/buckets/${BUCKET_ID}/files/${uploadedFile.$id}/view?project=${storage.client.config.project}`;
             }
 
             const serializedBlocks = [];
-
             for (const block of textBlocks) {
                 if (block.type === 'image') {
                     if (block.file) {
@@ -247,7 +292,7 @@ const AdminPlatformEdit = () => {
                         serializedBlocks.push(
                             JSON.stringify({
                                 type: 'image',
-                                value: block.existingUrl || '',
+                                value: block.existingUrl || block.value || '',
                             }),
                         );
                     }
@@ -261,17 +306,26 @@ const AdminPlatformEdit = () => {
                 }
             }
 
+            const jurisdictionArray = jurisdiction
+                ? jurisdiction
+                      .split(',')
+                      .map((item) => item.trim())
+                      .filter((item) => item !== '')
+                : [];
+
             const data = {
                 name: name,
                 is_published: isPublished,
-                category: category,
-                image_url: updatedImageUrl,
+                category: selectedCategories,
+                image_url: imageUrl,
                 text_blocks: serializedBlocks,
-                assets: assets,
+                assets: assets ? Number(assets) : 0,
                 platform_age: platformAge,
                 total_projects: totalProjects,
-                jurisdiction: jurisdiction,
+                jurisdiction: jurisdictionArray,
                 platform_website: platformWebsite,
+                filters: selectedTypes,
+                investor_type: selectedInvestorTypes,
             };
 
             await tablesDB.updateRow({
@@ -295,6 +349,10 @@ const AdminPlatformEdit = () => {
         switch (block.type) {
             case 'h4':
                 return <h6>Section Title</h6>;
+            case 'h5':
+                return <h6>Subtitle</h6>;
+            case 'b':
+                return <h6>Bold Text</h6>;
             case 'p':
                 return <h6>Body Text</h6>;
             case 'ul':
@@ -302,7 +360,7 @@ const AdminPlatformEdit = () => {
             case 'image':
                 return <h6>Image</h6>;
             default:
-                return null;
+                return <h6>Block</h6>;
         }
     };
 
@@ -335,28 +393,83 @@ const AdminPlatformEdit = () => {
                         <input
                             type="text"
                             id="platformName"
-                            placeholder="e.g. NexusFi"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             required
                         />
                     </div>
-                    <div className={classes.addPlatformFormIdentityField}>
-                        <label htmlFor="category">Asset Type</label>
-                        <select
-                            id="category"
-                            value={category}
-                            onChange={(e) => setCategory(e.target.value)}
-                            className={classes.selectInput}
-                        >
-                            <option value="">Select Asset Type</option>
+
+                    <div
+                        className={`${classes.addPlatformFormIdentityField} ${classes.investorTypeListBox}`}
+                    >
+                        <label>Asset Type</label>
+                        <div className={classes.investorTypeList}>
                             {categoriesList.map((cat) => (
-                                <option key={cat} value={cat}>
-                                    {cat}
-                                </option>
+                                <label
+                                    key={cat}
+                                    className={classes.investorType}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedCategories.includes(
+                                            cat,
+                                        )}
+                                        onChange={() =>
+                                            handleCategoryChange(cat)
+                                        }
+                                    />
+                                    <span>{cat}</span>
+                                </label>
                             ))}
-                        </select>
+                        </div>
                     </div>
+
+                    <div
+                        className={`${classes.addPlatformFormIdentityField} ${classes.investorTypeListBox}`}
+                    >
+                        <label>Types</label>
+                        <div className={classes.investorTypeList}>
+                            {typesList.map((type) => (
+                                <label
+                                    key={type}
+                                    className={classes.investorType}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedTypes.includes(type)}
+                                        onChange={() => handleTypeChange(type)}
+                                    />
+                                    <span>{type}</span>
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div
+                        className={`${classes.addPlatformFormIdentityField} ${classes.investorTypeListBox}`}
+                    >
+                        <label>Investor Type</label>
+                        <div className={classes.investorTypeList}>
+                            {investorTypesList.map((type) => (
+                                <label
+                                    key={type}
+                                    className={classes.investorType}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedInvestorTypes.includes(
+                                            type,
+                                        )}
+                                        onChange={() =>
+                                            handleInvestorTypeChange(type)
+                                        }
+                                    />
+                                    <span>{type}</span>
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="assets">
                             Total Tokenized Asset Volume
@@ -364,7 +477,6 @@ const AdminPlatformEdit = () => {
                         <input
                             type="number"
                             id="assets"
-                            placeholder="$ 0"
                             value={assets}
                             onChange={(e) => setAssets(e.target.value)}
                         />
@@ -391,16 +503,18 @@ const AdminPlatformEdit = () => {
                             onChange={(e) => setTotalProjects(e.target.value)}
                         />
                     </div>
+
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="jurisdiction">Jurisdiction</label>
                         <input
                             type="text"
                             id="jurisdiction"
-                            placeholder="City, Country"
+                            placeholder="e.g. UA, US, United Kingdom"
                             value={jurisdiction}
                             onChange={(e) => setJurisdiction(e.target.value)}
                         />
                     </div>
+
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="platformUrl">URL Slug</label>
                         <input
@@ -414,16 +528,19 @@ const AdminPlatformEdit = () => {
                     <div className={classes.addPlatformFormIdentityFieldImage}>
                         <p>Logo</p>
                         <label htmlFor="image">
-                            {imageFile || imageUrl ? (
+                            {imageFile ? (
                                 <div
                                     className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
                                 >
                                     <img src={imageIcon} alt="upload" />
-                                    <span>
-                                        {imageFile
-                                            ? imageFile.name
-                                            : 'Current Logo (Uploaded)'}
-                                    </span>
+                                    <span>{imageFile.name}</span>
+                                </div>
+                            ) : currentImageUrl ? (
+                                <div
+                                    className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
+                                >
+                                    <img src={imageIcon} alt="logo" />
+                                    <span>Current Logo Attached</span>
                                 </div>
                             ) : (
                                 <div
@@ -500,7 +617,6 @@ const AdminPlatformEdit = () => {
                                             />
                                         </button>
                                     </div>
-
                                     {block.type === 'h4' && (
                                         <input
                                             type="text"
@@ -517,7 +633,38 @@ const AdminPlatformEdit = () => {
                                             }
                                         />
                                     )}
-
+                                    {block.type === 'h5' && (
+                                        <input
+                                            type="text"
+                                            placeholder="Text Subtitle"
+                                            className={
+                                                classes.addPlatformFormBlocksListItemInputTitle
+                                            }
+                                            value={block.value}
+                                            onChange={(e) =>
+                                                handleBlockTextChange(
+                                                    block.id,
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    )}
+                                    {block.type === 'b' && (
+                                        <input
+                                            type="text"
+                                            placeholder="Bold Text"
+                                            className={
+                                                classes.addPlatformFormBlocksListItemInputTitle
+                                            }
+                                            value={block.value}
+                                            onChange={(e) =>
+                                                handleBlockTextChange(
+                                                    block.id,
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    )}
                                     {block.type === 'p' && (
                                         <textarea
                                             placeholder="Write the section content here..."
@@ -534,7 +681,6 @@ const AdminPlatformEdit = () => {
                                             rows={6}
                                         />
                                     )}
-
                                     {block.type === 'ul' && (
                                         <div
                                             className={
@@ -598,7 +744,6 @@ const AdminPlatformEdit = () => {
                                             </button>
                                         </div>
                                     )}
-
                                     {block.type === 'image' && (
                                         <div
                                             className={
@@ -606,10 +751,9 @@ const AdminPlatformEdit = () => {
                                             }
                                         >
                                             <label
-                                                htmlFor={`imageBlockEdit-${block.id}`}
+                                                htmlFor={`imageBlock-${block.id}`}
                                             >
-                                                {block.file ||
-                                                block.existingUrl ? (
+                                                {block.file ? (
                                                     <div
                                                         className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
                                                     >
@@ -618,10 +762,19 @@ const AdminPlatformEdit = () => {
                                                             alt="upload"
                                                         />
                                                         <span>
-                                                            {block.file
-                                                                ? block.file
-                                                                      .name
-                                                                : 'Current Block Image'}
+                                                            {block.file.name}
+                                                        </span>
+                                                    </div>
+                                                ) : block.existingUrl ? (
+                                                    <div
+                                                        className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
+                                                    >
+                                                        <img
+                                                            src={imageIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            Image Loaded
                                                         </span>
                                                     </div>
                                                 ) : (
@@ -641,7 +794,7 @@ const AdminPlatformEdit = () => {
                                                 )}
                                             </label>
                                             <input
-                                                id={`imageBlockEdit-${block.id}`}
+                                                id={`imageBlock-${block.id}`}
                                                 type="file"
                                                 accept="image/*"
                                                 onChange={(e) =>
@@ -665,6 +818,18 @@ const AdminPlatformEdit = () => {
                             </button>
                             <button
                                 type="button"
+                                onClick={() => addTextBlock('h5')}
+                            >
+                                + Add Subtitle
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addTextBlock('b')}
+                            >
+                                + Add Bold Text
+                            </button>
+                            <button
+                                type="button"
                                 onClick={() => addTextBlock('p')}
                             >
                                 + Add Body Text
@@ -673,7 +838,7 @@ const AdminPlatformEdit = () => {
                                 type="button"
                                 onClick={() => addTextBlock('ul')}
                             >
-                                + Add List
+                                + Add List / Highlights
                             </button>
                             <button
                                 type="button"
