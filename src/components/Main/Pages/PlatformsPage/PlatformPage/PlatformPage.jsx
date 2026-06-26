@@ -20,6 +20,38 @@ import shareBtnCopyIcon from '../../../../../assets/images/icons/shareBtnCopy.sv
 import verifeidIcon from '../../../../../assets/images/icons/verifeid.svg';
 import locationMarkIcon from '../../../../../assets/images/icons/locationMark.svg';
 
+const linkIcon = (
+    <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M15 3H21V9"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        <path
+            d="M10.001 14L21.001 3"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        <path
+            d="M18 13V19C18 19.5304 17.7893 20.0391 17.4142 20.4142C17.0391 20.7893 16.5304 21 16 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V8C3 7.46957 3.21071 6.96086 3.58579 6.58579C3.96086 6.21071 4.46957 6 5 6H11"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
+);
+
 const PlatformPage = () => {
     const { id: platformId } = useParams();
     const navigate = useNavigate();
@@ -147,6 +179,11 @@ const PlatformPage = () => {
                                 </div>
                                 <div className={classes.name}>{data.name}</div>
                             </div>
+                            {data.description && (
+                                <div className={classes.platformDescription}>
+                                    {data.description}
+                                </div>
+                            )}
                         </div>
                         <div className={classes.shareButtons}>
                             Share
@@ -212,7 +249,7 @@ const PlatformPage = () => {
                                 <h3>Jurisdiction</h3>
                                 <p>
                                     {data.jurisdiction
-                                        ? data.jurisdiction
+                                        ? data.jurisdiction.join(', ')
                                         : '—'}
                                 </p>
                             </div>
@@ -225,6 +262,7 @@ const PlatformPage = () => {
                                     rel="noopener noreferrer"
                                 >
                                     Visit Platform Website
+                                    {linkIcon}
                                 </a>
                             </div>
                         )}
@@ -244,6 +282,25 @@ const PlatformPage = () => {
                                         >
                                             {block.value}
                                         </h4>
+                                    );
+
+                                case 'h5':
+                                    return (
+                                        <h5
+                                            key={index}
+                                            className={classes.contentSubtitle}
+                                        >
+                                            {block.value}
+                                        </h5>
+                                    );
+                                case 'b':
+                                    return (
+                                        <b
+                                            key={index}
+                                            className={classes.contentBoldTxt}
+                                        >
+                                            {block.value}
+                                        </b>
                                     );
 
                                 case 'p':
@@ -359,16 +416,13 @@ const PlatformPage = () => {
                                             <h4>Funding Progress</h4>
                                             <p>
                                                 $
-                                                {Math.round(
-                                                    project.current_investments /
-                                                        100000,
-                                                ) / 10}
-                                                M / $
-                                                {Math.round(
-                                                    project.funding_goal /
-                                                        100000,
-                                                ) / 10}
-                                                M
+                                                {formatAssetLabel(
+                                                    project.current_investments,
+                                                )}{' '}
+                                                / $
+                                                {formatAssetLabel(
+                                                    project.funding_goal,
+                                                )}
                                             </p>
                                         </div>
                                         <div
@@ -420,7 +474,12 @@ const PlatformPage = () => {
                                                 }
                                             >
                                                 <h4>Token Price</h4>
-                                                <p>${project.min_investment}</p>
+                                                <p>
+                                                    $
+                                                    {formatAssetLabel(
+                                                        project.min_investment,
+                                                    )}
+                                                </p>
                                             </div>
                                             <div
                                                 className={
@@ -441,7 +500,10 @@ const PlatformPage = () => {
                                             >
                                                 <h4>Investors</h4>
                                                 <p>
-                                                    {project.number_investors}
+                                                    {project.number_investors >
+                                                    0
+                                                        ? project.number_investors
+                                                        : '—'}
                                                 </p>
                                             </div>
                                         </div>

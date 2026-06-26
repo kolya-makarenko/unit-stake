@@ -21,6 +21,7 @@ const AdminPlatformEdit = () => {
     const navigate = useNavigate();
 
     const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
     const [isPublished, setIsPublished] = useState(false);
 
     const [categoriesList, setCategoriesList] = useState([]);
@@ -71,6 +72,7 @@ const AdminPlatformEdit = () => {
                 });
 
                 setName(data.name || '');
+                setDescription(data.description || '');
                 setIsPublished(data.is_published || false);
                 setAssets(data.assets || 0);
                 setPlatformAge(data.platform_age || '');
@@ -315,6 +317,7 @@ const AdminPlatformEdit = () => {
 
             const data = {
                 name: name,
+                description: description,
                 is_published: isPublished,
                 category: selectedCategories,
                 image_url: imageUrl,
@@ -398,7 +401,15 @@ const AdminPlatformEdit = () => {
                             required
                         />
                     </div>
-
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="platformDescription">Description</label>
+                        <input
+                            type="text"
+                            id="platformDescription"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </div>
                     <div
                         className={`${classes.addPlatformFormIdentityField} ${classes.investorTypeListBox}`}
                     >

@@ -19,6 +19,7 @@ import removeIcon from '../../../../../assets/images/icons/remove.svg';
 const AdminPlatformAdd = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
     const [isPublished, setIsPublished] = useState(false);
 
     const [categoriesList, setCategoriesList] = useState([]);
@@ -251,6 +252,7 @@ const AdminPlatformAdd = () => {
 
             const data = {
                 name: name,
+                description: description,
                 is_published: isPublished,
                 category: selectedCategories,
                 image_url: imageUrl,
@@ -327,7 +329,16 @@ const AdminPlatformAdd = () => {
                             required
                         />
                     </div>
-
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="platformDescription">Description</label>
+                        <input
+                            type="text"
+                            id="platformDescription"
+                            placeholder="Description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </div>
                     <div
                         className={`${classes.addPlatformFormIdentityField} ${classes.investorTypeListBox}`}
                     >

@@ -54,6 +54,15 @@
     color: transparent;
 }
 
+.platformDescription {
+    margin-top: 24px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
 .shareButtons {
     display: flex;
     justify-content: flex-end;
@@ -131,6 +140,9 @@
     box-sizing: border-box;
     border-radius: 8px;
     background-color: #d34329;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-weight: 600;
     font-size: 16px;
     line-height: 160%;
@@ -140,9 +152,17 @@
     transition: 0.3s ease-in-out;
 }
 
+.secondaryInfoLink a svg path {
+    transition: 0.3s ease-in-out;
+}
+
 .secondaryInfoLink a:hover {
     background-color: #fff;
     color: #d34329;
+}
+
+.secondaryInfoLink a:hover svg path {
+    stroke: #d34329;
 }
 
 .contentContainer {

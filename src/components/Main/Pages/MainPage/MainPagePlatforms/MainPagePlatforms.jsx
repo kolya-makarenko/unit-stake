@@ -22,7 +22,7 @@ const MainPagePlatforms = () => {
                     tableId: TABLE_ID_PLATFORMS,
                     queries: [
                         Query.equal('is_published', true),
-                        Query.orderDesc('$updatedAt'),
+                        Query.orderDesc('$createdAt'),
                         Query.limit(3),
                     ],
                 });
@@ -33,6 +33,16 @@ const MainPagePlatforms = () => {
         };
         fetchPlatforms();
     }, []);
+
+    const formatAssetLabel = (value) => {
+        if (value >= 100000 && value <= 100000000) {
+            return `${Math.round(value / 100000) / 10}M`;
+        } else if (value >= 100000000) {
+            return `${Math.round(value / 100000000) / 10}B`;
+        } else {
+            return value;
+        }
+    };
 
     return (
         <section className={classes.platforms}>
@@ -119,10 +129,9 @@ const MainPagePlatforms = () => {
                                             </h4>
                                             <h5>
                                                 $
-                                                {Math.round(
-                                                    platform.assets / 100000,
-                                                ) / 10}
-                                                M
+                                                {formatAssetLabel(
+                                                    platform.assets,
+                                                )}
                                             </h5>
                                         </div>
                                         <div
@@ -130,11 +139,8 @@ const MainPagePlatforms = () => {
                                                 classes.platformCardInfoNumbersTotal
                                             }
                                         >
-                                            <h4>Platform Age</h4>
-                                            <p>
-                                                Operating since{' '}
-                                                {platform.platform_age}
-                                            </p>
+                                            <h4>Operating since</h4>
+                                            <p>{platform.platform_age}</p>
                                         </div>
                                         <div
                                             className={
@@ -142,13 +148,19 @@ const MainPagePlatforms = () => {
                                             }
                                         >
                                             <h4>Ownership & Founders</h4>
-                                            <a
-                                                href={platform.platform_website}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                {platform.name} Website
-                                            </a>
+                                            {platform.platform_website ? (
+                                                <a
+                                                    href={
+                                                        platform.platform_website
+                                                    }
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    {platform.name} Website
+                                                </a>
+                                            ) : (
+                                                <p>{platform.name}</p>
+                                            )}
                                         </div>
                                     </div>
                                     <div
@@ -160,7 +172,14 @@ const MainPagePlatforms = () => {
                                         </div>
                                         <div>
                                             <h4>Jurisdiction</h4>
-                                            <h6>{platform.jurisdiction}</h6>
+                                            <h6>
+                                                {platform.jurisdiction.length >
+                                                0
+                                                    ? platform.jurisdiction.join(
+                                                          ', ',
+                                                      )
+                                                    : '—'}
+                                            </h6>
                                         </div>
                                     </div>
                                     <div className={classes.projectsCardLink}>

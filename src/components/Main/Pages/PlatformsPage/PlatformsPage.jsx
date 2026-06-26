@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     tablesDB,
@@ -13,16 +13,17 @@ import platformImgNone from '../../../../assets/images/mainPageImages/platformIm
 const ITEMS_PER_PAGE = 9;
 
 const PlatformsPage = () => {
-    const [platforms, setPlatforms] = useState([]);
+    const [allPlatforms, setAllPlatforms] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalCount, setTotalCount] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
 
-    const [availableJurisdictions, setAvailableJurisdictions] = useState([]);
     const [selectedJurisdictions, setSelectedJurisdictions] = useState([]);
-    const [availableCategories, setAvailableCategories] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [minAvailableAssets, setMinAvailableAssets] = useState(100000000);
+    const [selectedTypes, setSelectedTypes] = useState([]);
+    const [selectedInvestorTypes, setSelectedInvestorTypes] = useState([]);
+
+    const [minAvailableAssets, setMinAvailableAssets] = useState(0);
     const [maxAvailableAssets, setMaxAvailableAssets] = useState(100000000);
     const [selectedMaxAssets, setSelectedMaxAssets] = useState(100000000);
 
@@ -31,96 +32,146 @@ const PlatformsPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchFilters = async () => {
+        const fetchPlatformsData = async () => {
             try {
+                setIsLoading(true);
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PLATFORMS,
-                    queries: [Query.equal('is_published', true)],
+                    queries: [
+                        Query.equal('is_published', true),
+                        Query.orderDesc('$createdAt'),
+                        Query.limit(500),
+                    ],
                 });
 
-                const countries = response.rows
-                    .map((row) => row.jurisdiction)
-                    .filter(
-                        (jurisdiction) =>
-                            jurisdiction && jurisdiction.trim() !== '',
-                    );
+                const rows = response.rows || [];
+                setAllPlatforms(rows);
 
-                const categories = response.rows
-                    .map((row) => row.category)
-                    .filter((category) => category && category.trim() !== '');
-
-                const assetValues = response.rows
+                const assetValues = rows
                     .map((row) => Number(row.assets))
                     .filter((val) => !isNaN(val));
 
                 if (assetValues.length > 0) {
                     const maxAsset = Math.max(...assetValues);
+                    const minAsset = Math.min(...assetValues);
                     setMaxAvailableAssets(maxAsset);
                     setSelectedMaxAssets(maxAsset);
-                    const minAsset = Math.min(...assetValues);
                     setMinAvailableAssets(minAsset);
                 }
-
-                setAvailableJurisdictions([...new Set(countries)]);
-                setAvailableCategories([...new Set(categories)]);
             } catch (error) {
-                console.error('Error fetching filters:', error);
+                console.error('Error fetching platforms data:', error);
+            } finally {
+                setIsLoading(false);
             }
         };
-        fetchFilters();
+        fetchPlatformsData();
     }, []);
 
-    useEffect(() => {
-        const fetchPlatforms = async () => {
-            try {
-                const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+    const availableFilters = useMemo(() => {
+        const jurisdictionsSet = new Set();
+        const categoriesSet = new Set();
+        const typesSet = new Set();
+        const investorTypesSet = new Set();
 
-                const queries = [
-                    Query.orderDesc('$createdAt'),
-                    Query.equal('is_published', true),
-                    Query.limit(ITEMS_PER_PAGE),
-                    Query.offset(offset),
-                ];
-
-                if (searchQuery.trim() !== '') {
-                    queries.push(Query.contains('name', searchQuery));
-                }
-
-                if (selectedJurisdictions.length > 0) {
-                    queries.push(
-                        Query.equal('jurisdiction', selectedJurisdictions),
-                    );
-                }
-
-                if (selectedCategories.length > 0) {
-                    queries.push(Query.equal('category', selectedCategories));
-                }
-
-                queries.push(Query.lessThanEqual('assets', selectedMaxAssets));
-
-                const response = await tablesDB.listRows({
-                    databaseId: DATABASE_ID,
-                    tableId: TABLE_ID_PLATFORMS,
-                    queries: queries,
-                });
-
-                setPlatforms(response.rows);
-                setTotalCount(response.total);
-            } catch (error) {
-                console.error('Platforms loading error:', error);
+        allPlatforms.forEach((platform) => {
+            if (Array.isArray(platform.jurisdiction)) {
+                platform.jurisdiction.forEach(
+                    (j) => j && jurisdictionsSet.add(j.trim()),
+                );
             }
+            if (Array.isArray(platform.category)) {
+                platform.category.forEach(
+                    (c) => c && categoriesSet.add(c.trim()),
+                );
+            }
+            if (Array.isArray(platform.filters)) {
+                platform.filters.forEach((t) => t && typesSet.add(t.trim()));
+            }
+            if (Array.isArray(platform.investor_type)) {
+                platform.investor_type.forEach(
+                    (i) => i && investorTypesSet.add(i.trim()),
+                );
+            }
+        });
+
+        return {
+            jurisdictions: [...jurisdictionsSet].sort(),
+            categories: [...categoriesSet].sort(),
+            types: [...typesSet].sort(),
+            investorTypes: [...investorTypesSet].sort(),
         };
-        fetchPlatforms();
+    }, [allPlatforms]);
+
+    const filteredPlatforms = useMemo(() => {
+        return allPlatforms.filter((platform) => {
+            if (searchQuery.trim() !== '') {
+                const nameMatch = platform.name
+                    ?.toLowerCase()
+                    .includes(searchQuery.toLowerCase());
+                if (!nameMatch) return false;
+            }
+
+            if (selectedJurisdictions.length > 0) {
+                const hasJurisdiction = platform.jurisdiction?.some((j) =>
+                    selectedJurisdictions.includes(j.trim()),
+                );
+                if (!hasJurisdiction) return false;
+            }
+
+            if (selectedCategories.length > 0) {
+                const hasCategory = platform.category?.some((c) =>
+                    selectedCategories.includes(c.trim()),
+                );
+                if (!hasCategory) return false;
+            }
+
+            if (selectedTypes.length > 0) {
+                const hasType = platform.filters?.some((t) =>
+                    selectedTypes.includes(t.trim()),
+                );
+                if (!hasType) return false;
+            }
+
+            if (selectedInvestorTypes.length > 0) {
+                const hasInvestor = platform.investor_type?.some((i) =>
+                    selectedInvestorTypes.includes(i.trim()),
+                );
+                if (!hasInvestor) return false;
+            }
+
+            const platformAssets = Number(platform.assets) || 0;
+            if (platformAssets > selectedMaxAssets) return false;
+
+            return true;
+        });
     }, [
-        currentPage,
+        allPlatforms,
         searchQuery,
         selectedJurisdictions,
         selectedCategories,
+        selectedTypes,
+        selectedInvestorTypes,
         selectedMaxAssets,
     ]);
 
-    const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [
+        searchQuery,
+        selectedJurisdictions,
+        selectedCategories,
+        selectedTypes,
+        selectedInvestorTypes,
+        selectedMaxAssets,
+    ]);
+
+    const paginatedPlatforms = useMemo(() => {
+        const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+        return filteredPlatforms.slice(offset, offset + ITEMS_PER_PAGE);
+    }, [filteredPlatforms, currentPage]);
+
+    const totalPages = Math.ceil(filteredPlatforms.length / ITEMS_PER_PAGE);
 
     const handlePrevPage = () => {
         if (currentPage > 1) setCurrentPage((prev) => prev - 1);
@@ -132,29 +183,41 @@ const PlatformsPage = () => {
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
-        setCurrentPage(1);
     };
 
     const handleJurisdictionChange = (country) => {
-        setCurrentPage(1);
-        setSelectedJurisdictions((prevSelected) =>
-            prevSelected.includes(country)
-                ? prevSelected.filter((item) => item !== country)
-                : [...prevSelected, country],
+        setSelectedJurisdictions((prev) =>
+            prev.includes(country)
+                ? prev.filter((item) => item !== country)
+                : [...prev, country],
         );
     };
 
     const handleCategoryChange = (category) => {
-        setCurrentPage(1);
-        setSelectedCategories((prevSelected) =>
-            prevSelected.includes(category)
-                ? prevSelected.filter((item) => item !== category)
-                : [...prevSelected, category],
+        setSelectedCategories((prev) =>
+            prev.includes(category)
+                ? prev.filter((item) => item !== category)
+                : [...prev, category],
+        );
+    };
+
+    const handleTypeChange = (type) => {
+        setSelectedTypes((prev) =>
+            prev.includes(type)
+                ? prev.filter((item) => item !== type)
+                : [...prev, type],
+        );
+    };
+
+    const handleInvestorTypeChange = (type) => {
+        setSelectedInvestorTypes((prev) =>
+            prev.includes(type)
+                ? prev.filter((item) => item !== type)
+                : [...prev, type],
         );
     };
 
     const handleAssetSliderChange = (e) => {
-        setCurrentPage(1);
         setSelectedMaxAssets(Number(e.target.value));
     };
 
@@ -171,6 +234,18 @@ const PlatformsPage = () => {
     const openFiltersMenu = () => {
         setIsFiltersActive(!isFiltersActive);
     };
+
+    if (isLoading) {
+        return (
+            <main className={classes.platformsPage}>
+                <section className={classes.header}>
+                    <div className="wrapper">
+                        <h2>Loading platforms...</h2>
+                    </div>
+                </section>
+            </main>
+        );
+    }
 
     return (
         <main className={classes.platformsPage}>
@@ -197,8 +272,9 @@ const PlatformsPage = () => {
                                 <div className={classes.platformsFilter}>
                                     <h4>Jurisdiction</h4>
                                     <div className={classes.checkboxList}>
-                                        {availableJurisdictions.length > 0 ? (
-                                            availableJurisdictions.map(
+                                        {availableFilters.jurisdictions.length >
+                                        0 ? (
+                                            availableFilters.jurisdictions.map(
                                                 (country) => (
                                                     <label
                                                         key={country}
@@ -228,11 +304,13 @@ const PlatformsPage = () => {
                                         )}
                                     </div>
                                 </div>
+
                                 <div className={classes.platformsFilter}>
                                     <h4>Asset Type</h4>
                                     <div className={classes.checkboxList}>
-                                        {availableCategories.length > 0 ? (
-                                            availableCategories.map(
+                                        {availableFilters.categories.length >
+                                        0 ? (
+                                            availableFilters.categories.map(
                                                 (category) => (
                                                     <label
                                                         key={category}
@@ -257,7 +335,78 @@ const PlatformsPage = () => {
                                             )
                                         ) : (
                                             <p className={classes.noFilters}>
-                                                No Asset Type found
+                                                No Asset Types found
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className={classes.platformsFilter}>
+                                    <h4>Types</h4>
+                                    <div className={classes.checkboxList}>
+                                        {availableFilters.types.length > 0 ? (
+                                            availableFilters.types.map(
+                                                (type) => (
+                                                    <label
+                                                        key={type}
+                                                        className={
+                                                            classes.checkboxLabel
+                                                        }
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedTypes.includes(
+                                                                type,
+                                                            )}
+                                                            onChange={() =>
+                                                                handleTypeChange(
+                                                                    type,
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>{type}</span>
+                                                    </label>
+                                                ),
+                                            )
+                                        ) : (
+                                            <p className={classes.noFilters}>
+                                                No Types found
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className={classes.platformsFilter}>
+                                    <h4>Investor Type</h4>
+                                    <div className={classes.checkboxList}>
+                                        {availableFilters.investorTypes.length >
+                                        0 ? (
+                                            availableFilters.investorTypes.map(
+                                                (type) => (
+                                                    <label
+                                                        key={type}
+                                                        className={
+                                                            classes.checkboxLabel
+                                                        }
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedInvestorTypes.includes(
+                                                                type,
+                                                            )}
+                                                            onChange={() =>
+                                                                handleInvestorTypeChange(
+                                                                    type,
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>{type}</span>
+                                                    </label>
+                                                ),
+                                            )
+                                        ) : (
+                                            <p className={classes.noFilters}>
+                                                No Investor Types found
                                             </p>
                                         )}
                                     </div>
@@ -328,8 +477,8 @@ const PlatformsPage = () => {
                                 />
                             </div>
                             <div className={classes.platformsGrid}>
-                                {platforms.length > 0 ? (
-                                    platforms.map((platform) => (
+                                {paginatedPlatforms.length > 0 ? (
+                                    paginatedPlatforms.map((platform) => (
                                         <div
                                             key={platform.$id}
                                             className={classes.platformCard}
@@ -440,9 +589,14 @@ const PlatformsPage = () => {
                                                     <div>
                                                         <h4>Jurisdiction</h4>
                                                         <h6>
-                                                            {
-                                                                platform.jurisdiction
-                                                            }
+                                                            {platform.jurisdiction &&
+                                                            platform
+                                                                .jurisdiction
+                                                                .length > 0
+                                                                ? platform.jurisdiction.join(
+                                                                      ', ',
+                                                                  )
+                                                                : '—'}
                                                         </h6>
                                                     </div>
                                                 </div>
