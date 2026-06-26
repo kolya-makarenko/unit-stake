@@ -19,6 +19,7 @@ import twitterIcon from '../../../../../assets/images/icons/twitter.svg';
 import shareBtnCopyIcon from '../../../../../assets/images/icons/shareBtnCopy.svg';
 import verifeidIcon from '../../../../../assets/images/icons/verifeid.svg';
 import locationMarkIcon from '../../../../../assets/images/icons/locationMark.svg';
+import ReadMoreText from '../../../../ReadMoreText/ReadMoreText';
 
 const linkIcon = (
     <svg
@@ -305,12 +306,13 @@ const PlatformPage = () => {
 
                                 case 'p':
                                     return (
-                                        <p
-                                            key={index}
-                                            className={classes.contentParagraph}
-                                        >
-                                            {block.value}
-                                        </p>
+                                        <ReadMoreText text={block.value} />
+                                        // <p
+                                        //     key={index}
+                                        //     className={classes.contentParagraph}
+                                        // >
+                                        //     {block.value}
+                                        // </p>
                                     );
 
                                 case 'ul':

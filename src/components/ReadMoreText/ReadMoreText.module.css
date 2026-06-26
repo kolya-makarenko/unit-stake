@@ -1,0 +1,33 @@
+.contentParagraph {
+    margin-bottom: 24px;
+}
+
+.textBlock {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.clamped {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.readMoreBtn {
+    margin-top: 16px;
+    padding: 0 0 4px 0;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1.5px solid #d34329;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #d34329;
+    cursor: pointer;
+}
