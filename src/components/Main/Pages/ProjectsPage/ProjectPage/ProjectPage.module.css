@@ -378,6 +378,57 @@ aside {
     color: #19191c;
 }
 
+.platformIdentify {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.platformImg {
+    width: 56px;
+    height: 48px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.platformImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.platformName {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.platformName h4 {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.platformName span {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .platform a {
     width: 100%;
     margin-top: 16px;
@@ -546,12 +597,78 @@ aside {
     background-color: #19191c;
 }
 
+.download {
+    background-color: #19191c;
+}
+
+.downloadContainer {
+    padding: 60px 20px;
+    box-sizing: border-box;
+    background: radial-gradient(
+        90.22% 102.33% at 50% 0%,
+        #1e1e20 69.55%,
+        #d3422970 94.49%
+    );
+    border: 1px solid rgba(61, 61, 61, 0.4);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.downloadContainer h2 {
+    width: 100%;
+    max-width: 540px;
+    font-weight: 600;
+    font-size: 52px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    text-align: center;
+    color: #fff;
+}
+
+.downloadContainer p {
+    margin-top: 16px;
+    margin-bottom: 40px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-align: center;
+    color: #fff;
+}
+
+.downloadContainer a {
+    padding: 12px 32px;
+    background-color: #d34329;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.downloadContainer a:hover {
+    background-color: #fff;
+    color: #d34329;
+}
+
 @media (max-width: 1100px) {
     .contecntPreview {
         gap: 20px;
     }
     .contentContainer {
         gap: 20px;
+    }
+    .downloadContainer {
+        padding: 40px 20px;
+        border-radius: 20px;
     }
 }
 
@@ -607,5 +724,13 @@ aside {
     }
     .faq {
         margin-top: 80px;
+    }
+    .downloadContainer h2 {
+        font-size: 38px;
+        line-height: 120%;
+    }
+    .downloadContainer a {
+        gap: 8px;
+        padding: 10px 20px;
     }
 }

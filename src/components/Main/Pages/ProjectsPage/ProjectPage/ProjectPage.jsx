@@ -4,6 +4,7 @@ import {
     tablesDB,
     DATABASE_ID,
     TABLE_ID_PROJECTS,
+    TABLE_ID_PLATFORMS,
 } from '../../../../../lib/appwrite';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Thumbs } from 'swiper/modules';
@@ -24,6 +25,7 @@ import twitterSocial from '../../../../../assets/images/projectPageImages/twitte
 import instagramSocial from '../../../../../assets/images/projectPageImages/instagram.svg';
 import facebookSocial from '../../../../../assets/images/projectPageImages/facebook.svg';
 import youtubeSocial from '../../../../../assets/images/projectPageImages/youtube.svg';
+import platformImgNone from '../../../../../assets/images/mainPageImages/platformImgNone.png';
 
 const checkMark = (
     <svg
@@ -68,6 +70,8 @@ const ProjectPage = () => {
 
     const [data, setData] = useState({});
 
+    const [platform, setPlatform] = useState([]);
+
     const [copied, setCopied] = useState(false);
 
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -82,6 +86,14 @@ const ProjectPage = () => {
                 });
 
                 setData(response);
+                if (response.platform_id) {
+                    const responsePlatform = await tablesDB.getRow({
+                        databaseId: DATABASE_ID,
+                        tableId: TABLE_ID_PLATFORMS,
+                        rowId: response.platform_id,
+                    });
+                    setPlatform(responsePlatform);
+                }
             } catch (error) {
                 console.error('Error fetching project data:', error);
                 alert('Failed to load project data.');
@@ -174,6 +186,14 @@ const ProjectPage = () => {
             return value;
         }
     };
+
+    function formatDate(dateString) {
+        const date = new Date(dateString + 'T00:00:00');
+
+        const options = { month: 'long', year: 'numeric' };
+
+        return new Intl.DateTimeFormat('en-US', options).format(date);
+    }
 
     return (
         <main className={classes.projectPage}>
@@ -504,7 +524,9 @@ const ProjectPage = () => {
                                         <div>
                                             $
                                             {data.min_investment
-                                                ? data.min_investment
+                                                ? formatAssetLabel(
+                                                      data.min_investment,
+                                                  )
                                                 : 0}
                                         </div>
                                     </li>
@@ -513,7 +535,9 @@ const ProjectPage = () => {
                                         <div>
                                             $
                                             {data.max_investment
-                                                ? data.max_investment
+                                                ? formatAssetLabel(
+                                                      data.max_investment,
+                                                  )
                                                 : 0}
                                         </div>
                                     </li>
@@ -522,7 +546,9 @@ const ProjectPage = () => {
                                         <div>
                                             $
                                             {data.funding_goal
-                                                ? data.funding_goal
+                                                ? formatAssetLabel(
+                                                      data.funding_goal,
+                                                  )
                                                 : 0}
                                         </div>
                                     </li>
@@ -538,6 +564,25 @@ const ProjectPage = () => {
                             {data.platform_id && (
                                 <div className={classes.platform}>
                                     <p>Platform</p>
+                                    <div className={classes.platformIdentify}>
+                                        <div className={classes.platformImg}>
+                                            {platform.image_url ? (
+                                                <img
+                                                    src={platform.image_url}
+                                                    alt="platform logo"
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={platformImgNone}
+                                                    alt="platform logo"
+                                                />
+                                            )}
+                                        </div>
+                                        <div className={classes.platformName}>
+                                            <h4>{platform.name}</h4>
+                                            <span>{platform.description}</span>
+                                        </div>
+                                    </div>
                                     <a
                                         href={data.website_url}
                                         target="_blank"
@@ -569,31 +614,37 @@ const ProjectPage = () => {
                                     </a>
                                 </div>
                             )}
-                            <div className={classes.documents}>
-                                <p>Documents</p>
-                                <div className={classes.documentsDescription}>
-                                    {data.legal_name}
+                            {contentBlocksDocuments.length > 0 && (
+                                <div className={classes.documents}>
+                                    <p>Documents</p>
+                                    <div
+                                        className={classes.documentsDescription}
+                                    >
+                                        {data.legal_name}
+                                    </div>
+                                    <div className={classes.documentsList}>
+                                        <p>Company documents</p>
+                                        <ul>
+                                            {contentBlocksDocuments.map(
+                                                (document, index) => (
+                                                    <li key={index}>
+                                                        <a
+                                                            href={
+                                                                document.value
+                                                            }
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            {documentIcon}
+                                                            {document.name}
+                                                        </a>
+                                                    </li>
+                                                ),
+                                            )}
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div className={classes.documentsList}>
-                                    <p>Company documents</p>
-                                    <ul>
-                                        {contentBlocksDocuments.map(
-                                            (document, index) => (
-                                                <li key={index}>
-                                                    <a
-                                                        href={document.value}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                    >
-                                                        {documentIcon}
-                                                        PDF Document
-                                                    </a>
-                                                </li>
-                                            ),
-                                        )}
-                                    </ul>
-                                </div>
-                            </div>
+                            )}
                         </aside>
                     </div>
                 </div>
@@ -618,7 +669,8 @@ const ProjectPage = () => {
                             <div className={classes.aboutInfoItem}>
                                 <p>Founded</p>
                                 <div className={classes.aboutInfoItemValue}>
-                                    {data.founded_date}
+                                    {data.founded_date &&
+                                        formatDate(data.founded_date)}
                                 </div>
                             </div>
                             <div className={classes.aboutInfoItem}>
@@ -636,7 +688,7 @@ const ProjectPage = () => {
                             <div className={classes.aboutInfoItem}>
                                 <p>Form</p>
                                 <div className={classes.aboutInfoItemValue}>
-                                    {data.country}
+                                    {data.country && data.country.join(', ')}
                                 </div>
                             </div>
                             <div className={classes.aboutInfoItem}>
@@ -720,6 +772,26 @@ const ProjectPage = () => {
             </section>
             <section className={classes.faq}>
                 <AssetsPageFaq pageName="project" />
+            </section>
+
+            <section className={classes.download}>
+                <div className="wrapper">
+                    <div className={classes.downloadContainer}>
+                        <h2>
+                            Explore the Full Project on the Official Website
+                        </h2>
+                        <p>Get complete details directly from the source.</p>
+                        {data.website_url && (
+                            <a
+                                href={data.website_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                View project
+                            </a>
+                        )}
+                    </div>
+                </div>
             </section>
         </main>
     );
