@@ -57,6 +57,16 @@ const MainPageProjects = () => {
         return date.toLocaleDateString();
     };
 
+    const formatAssetLabel = (value) => {
+        if (value >= 100000 && value <= 100000000) {
+            return `${Math.round(value / 100000) / 10}M`;
+        } else if (value >= 100000000) {
+            return `${Math.round(value / 100000000) / 10}B`;
+        } else {
+            return value;
+        }
+    };
+
     return (
         <section className={classes.projects}>
             <div className="wrapper">
@@ -95,18 +105,19 @@ const MainPageProjects = () => {
                                         }
                                     >
                                         <h4>Funding Progress</h4>
-                                        <p>
-                                            $
-                                            {Math.round(
-                                                project.current_investments /
-                                                    100000,
-                                            ) / 10}
-                                            M / $
-                                            {Math.round(
-                                                project.funding_goal / 100000,
-                                            ) / 10}
-                                            M
-                                        </p>
+                                        {project.current_investments > 0 &&
+                                            project.funding_goal > 0 && (
+                                                <p>
+                                                    $
+                                                    {formatAssetLabel(
+                                                        project.current_investments,
+                                                    )}{' '}
+                                                    / $
+                                                    {formatAssetLabel(
+                                                        project.funding_goal,
+                                                    )}
+                                                </p>
+                                            )}
                                     </div>
                                     <div
                                         className={
@@ -142,14 +153,23 @@ const MainPageProjects = () => {
                                                     %
                                                 </p>
                                             ) : (
-                                                ''
+                                                <p>0%</p>
                                             )}
                                         </div>
                                         <div
                                             className={classes.projectsCardStat}
                                         >
                                             <h4>Token Price</h4>
-                                            <p>${project.min_investment}</p>
+                                            {project.min_investment > 0 ? (
+                                                <p>
+                                                    $
+                                                    {formatAssetLabel(
+                                                        project.min_investment,
+                                                    )}
+                                                </p>
+                                            ) : (
+                                                <p>$0</p>
+                                            )}
                                         </div>
                                         <div
                                             className={classes.projectsCardStat}
@@ -158,14 +178,22 @@ const MainPageProjects = () => {
                                             <p>
                                                 {dateFormatter(
                                                     project.deadline,
-                                                )}
+                                                ) == '01.01.1970'
+                                                    ? '*'
+                                                    : dateFormatter(
+                                                          project.deadline,
+                                                      )}
                                             </p>
                                         </div>
                                         <div
                                             className={classes.projectsCardStat}
                                         >
                                             <h4>Investors</h4>
-                                            <p>{project.number_investors}</p>
+                                            <p>
+                                                {project.number_investors > 0
+                                                    ? project.number_investors
+                                                    : '*'}
+                                            </p>
                                         </div>
                                     </div>
                                     <div className={classes.projectsCardLink}>

@@ -8,6 +8,7 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Thumbs } from 'swiper/modules';
 import AssetsPageFaq from '../../AssetsPage/AssetsPageFaq/AssetsPageFaq';
+import ReadMoreText from '../../../../ReadMoreText/ReadMoreText';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
@@ -164,6 +165,16 @@ const ProjectPage = () => {
         })
         .filter((obj) => obj.type === 'document');
 
+    const formatAssetLabel = (value) => {
+        if (value >= 100000 && value <= 100000000) {
+            return `${Math.round(value / 100000) / 10}M`;
+        } else if (value >= 100000000) {
+            return `${Math.round(value / 100000000) / 10}B`;
+        } else {
+            return value;
+        }
+    };
+
     return (
         <main className={classes.projectPage}>
             <section className={classes.info}>
@@ -290,7 +301,7 @@ const ProjectPage = () => {
                         <div className={classes.contentMainNumbers}>
                             <div className={classes.currentInvestments}>
                                 {data.current_investments
-                                    ? `$${data.current_investments}`
+                                    ? `$${formatAssetLabel(data.current_investments)}`
                                     : '$0'}
                             </div>
                             <div className={classes.progress}>
@@ -299,7 +310,7 @@ const ProjectPage = () => {
                                           (data.current_investments /
                                               data.funding_goal) *
                                               100,
-                                      )}% raised of $${data.funding_goal}`
+                                      )}% raised of $${formatAssetLabel(data.funding_goal)}`
                                     : '$0'}
                                 <div className={classes.progressBar}>
                                     <div
@@ -356,16 +367,36 @@ const ProjectPage = () => {
                                             </h4>
                                         );
 
-                                    case 'p':
+                                    case 'h5':
                                         return (
-                                            <p
+                                            <h5
                                                 key={index}
                                                 className={
-                                                    classes.contentParagraph
+                                                    classes.contentSubtitle
                                                 }
                                             >
                                                 {block.value}
-                                            </p>
+                                            </h5>
+                                        );
+
+                                    case 'b':
+                                        return (
+                                            <b
+                                                key={index}
+                                                className={
+                                                    classes.contentBoldTxt
+                                                }
+                                            >
+                                                {block.value}
+                                            </b>
+                                        );
+
+                                    case 'p':
+                                        return (
+                                            <ReadMoreText
+                                                text={block.value}
+                                                key={index}
+                                            />
                                         );
 
                                     case 'ul':
@@ -389,6 +420,24 @@ const ProjectPage = () => {
                                                         ),
                                                     )}
                                             </ul>
+                                        );
+
+                                    case 'imageForContent':
+                                        return (
+                                            <div
+                                                key={index}
+                                                className={
+                                                    classes.contentImageWrapper
+                                                }
+                                            >
+                                                <img
+                                                    src={block.value}
+                                                    alt="Project detail"
+                                                    className={
+                                                        classes.contentImage
+                                                    }
+                                                />
+                                            </div>
                                         );
                                     case 'youtube':
                                         return (

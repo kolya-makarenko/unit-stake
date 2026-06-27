@@ -9,6 +9,7 @@ import {
 
 import classes from './PlatformsPage.module.css';
 import platformImgNone from '../../../../assets/images/mainPageImages/platformImgNone.png';
+import Loader from '../../../Loader/Loader';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -238,11 +239,7 @@ const PlatformsPage = () => {
     if (isLoading) {
         return (
             <main className={classes.platformsPage}>
-                <section className={classes.header}>
-                    <div className="wrapper">
-                        <h2>Loading platforms...</h2>
-                    </div>
-                </section>
+                <Loader />
             </main>
         );
     }

@@ -669,11 +669,13 @@ const AdminProjectEdit = () => {
                         />
                     </div>
                     <div className={classes.addPlatformFormIdentityField}>
-                        <label htmlFor="country">Jurisdiction</label>
+                        <label htmlFor="country">
+                            Jurisdiction (comma separated)
+                        </label>
                         <input
                             type="text"
                             id="country"
-                            placeholder="e.g. United Kingdom"
+                            placeholder="USA, UK"
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
                         />

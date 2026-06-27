@@ -559,7 +559,7 @@ const AdminProjectAdd = () => {
                         <input
                             type="text"
                             id="country"
-                            placeholder="e.g. United Kingdom, Ukraine, USA"
+                            placeholder="USA, UK"
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
                         />

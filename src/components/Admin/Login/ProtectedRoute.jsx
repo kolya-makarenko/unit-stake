@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { account } from '../../../lib/appwrite';
 import Login from './Login';
+import Loader from '../../Loader/Loader';
 import classes from './ProtectedRoute.module.css';
-
-import favicon from '../../../assets/images/favicon.svg';
 
 function ProtectedRoute({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -22,11 +21,7 @@ function ProtectedRoute({ children }) {
     }, []);
 
     if (isAuthenticated === null) {
-        return (
-            <div className={classes.loader}>
-                <img src={favicon} alt="loader" />
-            </div>
-        );
+        return <Loader />;
     }
 
     if (!isAuthenticated) {

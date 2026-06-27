@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     tablesDB,
@@ -6,6 +6,7 @@ import {
     Query,
     TABLE_ID_PROJECTS,
 } from '../../../../lib/appwrite';
+import Loader from '../../../Loader/Loader';
 
 import classes from './ProjectsPage.module.css';
 import verifeidIcon from '../../../../assets/images/icons/verifeid.svg';
@@ -50,18 +51,15 @@ const arrowUp = (
 const ProjectsPage = () => {
     const navigate = useNavigate();
 
-    const [projects, setProjects] = useState([]);
+    const [allProjects, setAllProjects] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalCount, setTotalCount] = useState(0);
     const [activeFilter, setActiveFilter] = useState(null);
-
-    const [availableJurisdictions, setAvailableJurisdictions] = useState([]);
-    const [availableCategories, setAvailableCategories] = useState([]);
-    const [availableTypes, setAvailableTypes] = useState([]);
 
     const [selectedJurisdictions, setSelectedJurisdictions] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedTypes, setSelectedTypes] = useState([]);
+    const [selectedInvestorTypes, setSelectedInvestorTypes] = useState([]);
 
     const [minAvailableInvestment, setMinAvailableInvestment] = useState(0);
     const [maxAvailableInvestment, setMaxAvailableInvestment] =
@@ -70,55 +68,25 @@ const ProjectsPage = () => {
         useState(100000000);
 
     useEffect(() => {
-        const initializeFilters = async () => {
+        const fetchAllProjectsData = async () => {
             try {
+                setIsLoading(true);
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PROJECTS,
                     queries: [
                         Query.equal('is_published', true),
+                        Query.orderDesc('$createdAt'),
                         Query.limit(500),
                     ],
                 });
 
-                const countriesSet = new Set();
-                const categoriesSet = new Set();
-                const tagsSet = new Set();
-                const investments = [];
+                const rows = response.rows || [];
+                setAllProjects(rows);
 
-                response.rows.forEach((row) => {
-                    if (row.country && typeof row.country === 'string') {
-                        const trimmedCountry = row.country.trim();
-                        if (trimmedCountry) countriesSet.add(trimmedCountry);
-                    }
-
-                    let catValue = '';
-                    if (Array.isArray(row.category)) {
-                        catValue = row.category[0];
-                    } else if (typeof row.category === 'string') {
-                        catValue = row.category;
-                    }
-                    if (catValue && catValue.trim()) {
-                        categoriesSet.add(catValue.trim());
-                    }
-
-                    if (Array.isArray(row.filters)) {
-                        row.filters.forEach((f) => {
-                            if (f && typeof f === 'string' && f.trim()) {
-                                tagsSet.add(f.trim());
-                            }
-                        });
-                    }
-
-                    const inv = Number(row.min_investment);
-                    if (!isNaN(inv) && row.min_investment !== null) {
-                        investments.push(inv);
-                    }
-                });
-
-                setAvailableJurisdictions([...countriesSet]);
-                setAvailableCategories([...categoriesSet]);
-                setAvailableTypes([...tagsSet]);
+                const investments = rows
+                    .map((row) => Number(row.min_investment))
+                    .filter((inv) => !isNaN(inv) && inv !== null);
 
                 if (investments.length > 0) {
                     const maxInv = Math.max(...investments);
@@ -128,62 +96,151 @@ const ProjectsPage = () => {
                     setSelectedMaxInvestment(maxInv);
                 }
             } catch (error) {
-                console.error('Error initializing page filters:', error);
+                console.error('Error fetching all projects:', error);
+            } finally {
+                setIsLoading(false);
             }
         };
 
-        initializeFilters();
+        fetchAllProjectsData();
     }, []);
 
-    const fetchFilteredProjects = useCallback(async () => {
-        const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-        const queries = [
-            Query.equal('is_published', true),
-            Query.orderDesc('$createdAt'),
-            Query.limit(ITEMS_PER_PAGE),
-            Query.offset(offset),
-        ];
+    const availableFilters = useMemo(() => {
+        const countriesSet = new Set();
+        const categoriesSet = new Set();
+        const tagsSet = new Set();
+        const investorTypesSet = new Set();
 
-        if (selectedJurisdictions.length > 0) {
-            queries.push(Query.equal('country', selectedJurisdictions));
-        }
+        allProjects.forEach((project) => {
+            if (project.country && typeof project.country === 'string') {
+                const trimmedCountry = project.country.trim();
+                if (trimmedCountry) countriesSet.add(trimmedCountry);
+            } else if (Array.isArray(project.country)) {
+                project.country.forEach((c) => c && countriesSet.add(c.trim()));
+            }
 
-        if (selectedCategories.length > 0) {
-            queries.push(Query.equal('category', selectedCategories));
-        }
+            if (Array.isArray(project.category)) {
+                project.category.forEach(
+                    (c) => c && categoriesSet.add(c.trim()),
+                );
+            } else if (
+                project.category &&
+                typeof project.category === 'string'
+            ) {
+                const trimmedCat = project.category.trim();
+                if (trimmedCat) categoriesSet.add(trimmedCat);
+            }
 
-        if (selectedTypes.length > 0) {
-            queries.push(Query.contains('filters', selectedTypes));
-        }
+            if (Array.isArray(project.filters)) {
+                project.filters.forEach((f) => {
+                    if (f && typeof f === 'string' && f.trim()) {
+                        tagsSet.add(f.trim());
+                    }
+                });
+            }
 
-        try {
-            const response = await tablesDB.listRows({
-                databaseId: DATABASE_ID,
-                tableId: TABLE_ID_PROJECTS,
-                queries: queries,
-            });
-            setProjects(response.rows);
-            setTotalCount(response.total);
-        } catch (error) {
-            console.error('Error loading filtered projects:', error);
-        }
-    }, [currentPage, selectedJurisdictions, selectedCategories, selectedTypes]);
+            if (Array.isArray(project.investor_type)) {
+                project.investor_type.forEach((i) => {
+                    if (i && typeof i === 'string' && i.trim()) {
+                        investorTypesSet.add(i.trim());
+                    }
+                });
+            } else if (
+                project.investor_type &&
+                typeof project.investor_type === 'string'
+            ) {
+                const trimmedInv = project.investor_type.trim();
+                if (trimmedInv) investorTypesSet.add(trimmedInv);
+            }
+        });
+
+        return {
+            jurisdictions: [...countriesSet].sort(),
+            categories: [...categoriesSet].sort(),
+            types: [...tagsSet].sort(),
+            investorTypes: [...investorTypesSet].sort(),
+        };
+    }, [allProjects]);
+
+    const filteredProjects = useMemo(() => {
+        return allProjects.filter((project) => {
+            if (selectedJurisdictions.length > 0) {
+                if (Array.isArray(project.country)) {
+                    const hasJurisdiction = project.country.some((c) =>
+                        selectedJurisdictions.includes(c?.trim()),
+                    );
+                    if (!hasJurisdiction) return false;
+                } else {
+                    const country = project.country?.trim();
+                    if (!selectedJurisdictions.includes(country)) return false;
+                }
+            }
+
+            if (selectedCategories.length > 0) {
+                if (Array.isArray(project.category)) {
+                    const hasCategory = project.category.some((c) =>
+                        selectedCategories.includes(c?.trim()),
+                    );
+                    if (!hasCategory) return false;
+                } else {
+                    const cat = project.category?.trim();
+                    if (!selectedCategories.includes(cat)) return false;
+                }
+            }
+
+            if (selectedTypes.length > 0) {
+                if (Array.isArray(project.filters)) {
+                    const hasType = project.filters.some((f) =>
+                        selectedTypes.includes(f?.trim()),
+                    );
+                    if (!hasType) return false;
+                } else {
+                    return false;
+                }
+            }
+
+            if (selectedInvestorTypes.length > 0) {
+                if (Array.isArray(project.investor_type)) {
+                    const hasInvestorType = project.investor_type.some((i) =>
+                        selectedInvestorTypes.includes(i?.trim()),
+                    );
+                    if (!hasInvestorType) return false;
+                } else {
+                    const invType = project.investor_type?.trim();
+                    if (!selectedInvestorTypes.includes(invType)) return false;
+                }
+            }
+
+            const minInv = Number(project.min_investment);
+            if (!isNaN(minInv) && minInv > selectedMaxInvestment) return false;
+
+            return true;
+        });
+    }, [
+        allProjects,
+        selectedJurisdictions,
+        selectedCategories,
+        selectedTypes,
+        selectedInvestorTypes,
+        selectedMaxInvestment,
+    ]);
 
     useEffect(() => {
-        fetchFilteredProjects();
-    }, [fetchFilteredProjects]);
+        setCurrentPage(1);
+    }, [
+        selectedJurisdictions,
+        selectedCategories,
+        selectedTypes,
+        selectedInvestorTypes,
+        selectedMaxInvestment,
+    ]);
 
-    const displayedProjects = projects.filter((project) => {
-        if (
-            project.min_investment === null ||
-            project.min_investment === undefined
-        ) {
-            return true;
-        }
-        return Number(project.min_investment) <= selectedMaxInvestment;
-    });
+    const paginatedProjects = useMemo(() => {
+        const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+        return filteredProjects.slice(offset, offset + ITEMS_PER_PAGE);
+    }, [filteredProjects, currentPage]);
 
-    const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
 
     const handlePrevPage = () => {
         if (currentPage > 1) setCurrentPage((prev) => prev - 1);
@@ -218,7 +275,6 @@ const ProjectsPage = () => {
     };
 
     const handleJurisdictionChange = (country) => {
-        setCurrentPage(1);
         setSelectedJurisdictions((prev) =>
             prev.includes(country)
                 ? prev.filter((item) => item !== country)
@@ -227,7 +283,6 @@ const ProjectsPage = () => {
     };
 
     const handleCategoryChange = (cat) => {
-        setCurrentPage(1);
         setSelectedCategories((prev) =>
             prev.includes(cat)
                 ? prev.filter((item) => item !== cat)
@@ -236,8 +291,15 @@ const ProjectsPage = () => {
     };
 
     const handleTypeChange = (type) => {
-        setCurrentPage(1);
         setSelectedTypes((prev) =>
+            prev.includes(type)
+                ? prev.filter((item) => item !== type)
+                : [...prev, type],
+        );
+    };
+
+    const handleInvestorTypeChange = (type) => {
+        setSelectedInvestorTypes((prev) =>
             prev.includes(type)
                 ? prev.filter((item) => item !== type)
                 : [...prev, type],
@@ -251,6 +313,24 @@ const ProjectsPage = () => {
     const toggleFilterPopup = (filterName) => {
         setActiveFilter((prev) => (prev === filterName ? null : filterName));
     };
+
+    const formatAssetLabel = (value) => {
+        if (value >= 100000 && value <= 100000000) {
+            return `${Math.round(value / 100000) / 10}M`;
+        } else if (value >= 100000000) {
+            return `${Math.round(value / 100000000) / 10}B`;
+        } else {
+            return value;
+        }
+    };
+
+    if (isLoading) {
+        return (
+            <main className={classes.projectsPage}>
+                <Loader />
+            </main>
+        );
+    }
 
     return (
         <main className={classes.projectsPage}>
@@ -298,6 +378,19 @@ const ProjectsPage = () => {
                         </div>
                         <div className={classes.projectsFilter}>
                             <div
+                                className={`${classes.projectsFilterName} ${activeFilter === 'investorType' ? classes.active : ''}`}
+                                onClick={() =>
+                                    toggleFilterPopup('investorType')
+                                }
+                            >
+                                Investor Type{' '}
+                                {activeFilter === 'investorType'
+                                    ? arrowUp
+                                    : arrowDown}
+                            </div>
+                        </div>
+                        <div className={classes.projectsFilter}>
+                            <div
                                 className={`${classes.projectsFilterName} ${activeFilter === 'minTicket' ? classes.active : ''}`}
                                 onClick={() => toggleFilterPopup('minTicket')}
                             >
@@ -310,52 +403,102 @@ const ProjectsPage = () => {
                     </div>
                     {activeFilter === 'jurisdiction' && (
                         <div className={classes.projectsFilterValues}>
-                            {availableJurisdictions.map((country) => (
-                                <label key={country}>
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedJurisdictions.includes(
-                                            country,
-                                        )}
-                                        onChange={() =>
-                                            handleJurisdictionChange(country)
-                                        }
-                                    />
-                                    <span>{country}</span>
-                                </label>
-                            ))}
+                            {availableFilters.jurisdictions.length > 0 ? (
+                                availableFilters.jurisdictions.map(
+                                    (country) => (
+                                        <label key={country}>
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedJurisdictions.includes(
+                                                    country,
+                                                )}
+                                                onChange={() =>
+                                                    handleJurisdictionChange(
+                                                        country,
+                                                    )
+                                                }
+                                            />
+                                            <span>{country}</span>
+                                        </label>
+                                    ),
+                                )
+                            ) : (
+                                <p className={classes.noFilters}>
+                                    No active jurisdictions
+                                </p>
+                            )}
                         </div>
                     )}
                     {activeFilter === 'assetType' && (
                         <div className={classes.projectsFilterValues}>
-                            {availableCategories.map((cat) => (
-                                <label key={cat}>
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedCategories.includes(
-                                            cat,
-                                        )}
-                                        onChange={() =>
-                                            handleCategoryChange(cat)
-                                        }
-                                    />
-                                    <span>{cat}</span>
-                                </label>
-                            ))}
+                            {availableFilters.categories.length > 0 ? (
+                                availableFilters.categories.map((cat) => (
+                                    <label key={cat}>
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedCategories.includes(
+                                                cat,
+                                            )}
+                                            onChange={() =>
+                                                handleCategoryChange(cat)
+                                            }
+                                        />
+                                        <span>{cat}</span>
+                                    </label>
+                                ))
+                            ) : (
+                                <p className={classes.noFilters}>
+                                    No active Asset Types
+                                </p>
+                            )}
                         </div>
                     )}
                     {activeFilter === 'types' && (
                         <div className={classes.projectsFilterValues}>
-                            {availableTypes.map((type) => (
-                                <label key={type}>
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedTypes.includes(type)}
-                                        onChange={() => handleTypeChange(type)}
-                                    />
-                                    <span>{type}</span>
-                                </label>
-                            ))}
+                            {availableFilters.types.length > 0 ? (
+                                availableFilters.types.map((type) => (
+                                    <label key={type}>
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedTypes.includes(
+                                                type,
+                                            )}
+                                            onChange={() =>
+                                                handleTypeChange(type)
+                                            }
+                                        />
+                                        <span>{type}</span>
+                                    </label>
+                                ))
+                            ) : (
+                                <p className={classes.noFilters}>
+                                    No active Types
+                                </p>
+                            )}
+                        </div>
+                    )}
+                    {activeFilter === 'investorType' && (
+                        <div className={classes.projectsFilterValues}>
+                            {availableFilters.investorTypes.length > 0 ? (
+                                availableFilters.investorTypes.map((type) => (
+                                    <label key={type}>
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedInvestorTypes.includes(
+                                                type,
+                                            )}
+                                            onChange={() =>
+                                                handleInvestorTypeChange(type)
+                                            }
+                                        />
+                                        <span>{type}</span>
+                                    </label>
+                                ))
+                            ) : (
+                                <p className={classes.noFilters}>
+                                    No active Investor Types
+                                </p>
+                            )}
                         </div>
                     )}
                     {activeFilter === 'minTicket' && (
@@ -380,8 +523,8 @@ const ProjectsPage = () => {
                         </div>
                     )}
                     <div className={classes.projectsContainer}>
-                        {displayedProjects.length > 0 ? (
-                            displayedProjects.map((project, index) => (
+                        {paginatedProjects.length > 0 ? (
+                            paginatedProjects.map((project, index) => (
                                 <div
                                     key={project.$id || index}
                                     className={classes.projectsCard}
@@ -433,19 +576,19 @@ const ProjectsPage = () => {
                                             }
                                         >
                                             <h4>Funding Progress</h4>
-                                            <p>
-                                                $
-                                                {Math.round(
-                                                    project.current_investments /
-                                                        100000,
-                                                ) / 10}
-                                                M / $
-                                                {Math.round(
-                                                    project.funding_goal /
-                                                        100000,
-                                                ) / 10}
-                                                M
-                                            </p>
+                                            {project.current_investments > 0 &&
+                                                project.funding_goal > 0 && (
+                                                    <p>
+                                                        $
+                                                        {formatAssetLabel(
+                                                            project.current_investments,
+                                                        )}{' '}
+                                                        / $
+                                                        {formatAssetLabel(
+                                                            project.funding_goal,
+                                                        )}
+                                                    </p>
+                                                )}
                                         </div>
                                         <div
                                             className={
@@ -492,7 +635,16 @@ const ProjectsPage = () => {
                                                 }
                                             >
                                                 <h4>Token Price</h4>
-                                                <p>${project.min_investment}</p>
+                                                {project.min_investment > 0 ? (
+                                                    <p>
+                                                        $
+                                                        {formatAssetLabel(
+                                                            project.min_investment,
+                                                        )}
+                                                    </p>
+                                                ) : (
+                                                    <p>$0</p>
+                                                )}
                                             </div>
                                             <div
                                                 className={
@@ -503,7 +655,11 @@ const ProjectsPage = () => {
                                                 <p>
                                                     {dateFormatter(
                                                         project.deadline,
-                                                    )}
+                                                    ) == '01.01.1970'
+                                                        ? '*'
+                                                        : dateFormatter(
+                                                              project.deadline,
+                                                          )}
                                                 </p>
                                             </div>
                                             <div
@@ -513,8 +669,10 @@ const ProjectsPage = () => {
                                             >
                                                 <h4>Investors</h4>
                                                 <p>
-                                                    {project.number_investors ||
-                                                        0}
+                                                    {project.number_investors >
+                                                    0
+                                                        ? project.number_investors
+                                                        : '*'}
                                                 </p>
                                             </div>
                                         </div>

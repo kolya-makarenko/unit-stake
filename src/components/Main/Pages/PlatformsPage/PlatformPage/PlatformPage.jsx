@@ -306,13 +306,10 @@ const PlatformPage = () => {
 
                                 case 'p':
                                     return (
-                                        <ReadMoreText text={block.value} />
-                                        // <p
-                                        //     key={index}
-                                        //     className={classes.contentParagraph}
-                                        // >
-                                        //     {block.value}
-                                        // </p>
+                                        <ReadMoreText
+                                            text={block.value}
+                                            key={index}
+                                        />
                                     );
 
                                 case 'ul':

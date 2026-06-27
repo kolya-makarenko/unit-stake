@@ -446,11 +446,13 @@ const AdminPlatformAdd = () => {
                     </div>
 
                     <div className={classes.addPlatformFormIdentityField}>
-                        <label htmlFor="jurisdiction">Jurisdiction</label>
+                        <label htmlFor="jurisdiction">
+                            Jurisdiction (comma separated)
+                        </label>
                         <input
                             type="text"
                             id="jurisdiction"
-                            placeholder="e.g. UA, US, United Kingdom"
+                            placeholder="USA, UK"
                             value={jurisdiction}
                             onChange={(e) => setJurisdiction(e.target.value)}
                         />
