@@ -413,16 +413,19 @@ const PlatformPage = () => {
                                             }
                                         >
                                             <h4>Funding Progress</h4>
-                                            <p>
-                                                $
-                                                {formatAssetLabel(
-                                                    project.current_investments,
-                                                )}{' '}
-                                                / $
-                                                {formatAssetLabel(
-                                                    project.funding_goal,
+                                            {project.current_investments > 0 &&
+                                                project.funding_goal > 0 && (
+                                                    <p>
+                                                        $
+                                                        {formatAssetLabel(
+                                                            project.current_investments,
+                                                        )}{' '}
+                                                        / $
+                                                        {formatAssetLabel(
+                                                            project.funding_goal,
+                                                        )}
+                                                    </p>
                                                 )}
-                                            </p>
                                         </div>
                                         <div
                                             className={
@@ -464,7 +467,7 @@ const PlatformPage = () => {
                                                         %
                                                     </p>
                                                 ) : (
-                                                    ''
+                                                    <p>0%</p>
                                                 )}
                                             </div>
                                             <div
@@ -473,12 +476,16 @@ const PlatformPage = () => {
                                                 }
                                             >
                                                 <h4>Token Price</h4>
-                                                <p>
-                                                    $
-                                                    {formatAssetLabel(
-                                                        project.min_investment,
-                                                    )}
-                                                </p>
+                                                {project.min_investment > 0 ? (
+                                                    <p>
+                                                        $
+                                                        {formatAssetLabel(
+                                                            project.min_investment,
+                                                        )}
+                                                    </p>
+                                                ) : (
+                                                    <p>$0</p>
+                                                )}
                                             </div>
                                             <div
                                                 className={
@@ -489,7 +496,11 @@ const PlatformPage = () => {
                                                 <p>
                                                     {dateFormatter(
                                                         project.deadline,
-                                                    )}
+                                                    ) == '1 January 1970'
+                                                        ? '*'
+                                                        : dateFormatter(
+                                                              project.deadline,
+                                                          )}
                                                 </p>
                                             </div>
                                             <div
@@ -502,7 +513,7 @@ const PlatformPage = () => {
                                                     {project.number_investors >
                                                     0
                                                         ? project.number_investors
-                                                        : '—'}
+                                                        : '*'}
                                                 </p>
                                             </div>
                                         </div>
