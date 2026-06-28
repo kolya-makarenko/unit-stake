@@ -465,7 +465,7 @@ const ProjectPage = () => {
                                                 key={index}
                                                 width="100%"
                                                 height="350"
-                                                src="https://www.youtube.com/embed/uvGt0svH1SU?si=GIRpdMev7GK92dEE"
+                                                src={block.value}
                                                 title="YouTube video player"
                                                 frameBorder="0"
                                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
