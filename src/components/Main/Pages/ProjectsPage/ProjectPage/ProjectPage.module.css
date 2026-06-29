@@ -511,6 +511,117 @@ aside {
     color: #d34329;
 }
 
+.tokensHeader {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dcdcdc;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tokensHeader p {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.tokensHeader span {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.tokensContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.token p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.shareBtnToken {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.shareBtnToken span {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 30ch;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+    transition: 0.3s ease-in-out;
+}
+
+.shareBtnToken svg {
+    flex-shrink: 0;
+}
+
+.shareBtnToken svg path {
+    transition: 0.3s ease-in-out;
+}
+
+.shareBtnToken:hover span {
+    color: #d34329;
+}
+
+.shareBtnToken:hover svg path {
+    fill: #d34329;
+}
+
+.token a {
+    margin-top: 12px;
+    width: 100%;
+    padding: 12px 0;
+    border: 1px solid #d34329;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #d34329;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.token a:hover {
+    color: #fff;
+    background-color: #d34329;
+}
+
+.token a svg path {
+    transition: 0.3s ease-in-out;
+}
+
+.token a:hover svg path {
+    stroke: #fff;
+}
+
 .about {
     margin-top: 120px;
 }
@@ -670,6 +781,9 @@ aside {
         padding: 40px 20px;
         border-radius: 20px;
     }
+    .shareBtnToken span {
+        max-width: 25ch;
+    }
 }
 
 @media (max-width: 1000px) {
@@ -732,5 +846,14 @@ aside {
     .downloadContainer a {
         gap: 8px;
         padding: 10px 20px;
+    }
+    .shareBtnToken span {
+        max-width: 45ch;
+    }
+}
+
+@media (max-width: 400px) {
+    .shareBtnToken span {
+        max-width: 35ch;
     }
 }

@@ -852,7 +852,7 @@ const AdminProjectEdit = () => {
                                     >
                                         <input
                                             type="text"
-                                            placeholder="Address Name (e.g. USDT)"
+                                            placeholder="Address Name"
                                             value={block.name}
                                             onChange={(e) =>
                                                 handleTokenBlockChange(
@@ -882,7 +882,7 @@ const AdminProjectEdit = () => {
                                         />
                                         <input
                                             type="text"
-                                            placeholder="Network/Blockchain (e.g. ERC-20)"
+                                            placeholder="Network/Blockchain"
                                             value={block.network}
                                             onChange={(e) =>
                                                 handleTokenBlockChange(
