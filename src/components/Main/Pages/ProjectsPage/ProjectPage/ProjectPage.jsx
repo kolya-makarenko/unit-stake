@@ -10,6 +10,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Thumbs } from 'swiper/modules';
 import AssetsPageFaq from '../../AssetsPage/AssetsPageFaq/AssetsPageFaq';
 import ReadMoreText from '../../../../ReadMoreText/ReadMoreText';
+import ExternalLink from '../../../../ExternalLink/ExternalLink';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
@@ -76,6 +77,9 @@ const ProjectPage = () => {
     const [copiedToken, setCopiedToken] = useState(false);
 
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [targetUrl, setTargetUrl] = useState('');
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -212,6 +216,17 @@ const ProjectPage = () => {
         setCopied(true);
         alert('Copied');
         setTimeout(() => setCopied(false), 2000);
+    };
+
+    const handleExternalLinkClick = (e, url) => {
+        e.preventDefault();
+        setTargetUrl(url);
+        setIsModalOpen(true);
+    };
+
+    const handleConfirmTransition = () => {
+        setIsModalOpen(false);
+        window.open(targetUrl, '_blank', 'noopener,noreferrer');
     };
 
     return (
@@ -604,6 +619,12 @@ const ProjectPage = () => {
                                     </div>
                                     <a
                                         href={data.website_url}
+                                        onClick={(e) =>
+                                            handleExternalLinkClick(
+                                                e,
+                                                data.website_url,
+                                            )
+                                        }
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
@@ -885,6 +906,12 @@ const ProjectPage = () => {
                     </div>
                 </div>
             </section>
+            <ExternalLink
+                isOpen={isModalOpen}
+                url={targetUrl}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={handleConfirmTransition}
+            />
         </main>
     );
 };
