@@ -337,7 +337,7 @@ const AdminProjectAdd = () => {
                 max_investment: Number(maxInvestment),
                 funding_goal: Number(fundingGoal),
                 current_investments: Number(currentInvestments),
-                number_investors: Number(numberInvestors),
+                number_investors: numberInvestors,
                 deadline: deadline,
                 token_addresses: serializedTokenBlocks,
                 content_blocks: serializedContentBlocks,
@@ -618,7 +618,7 @@ const AdminProjectAdd = () => {
                             Number of investors
                         </label>
                         <input
-                            type="number"
+                            type="text"
                             id="numberInvestors"
                             placeholder="63"
                             value={numberInvestors}

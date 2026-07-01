@@ -447,9 +447,7 @@ const AdminProjectEdit = () => {
                 current_investments: currentInvestments
                     ? Number(currentInvestments)
                     : null,
-                number_investors: numberInvestors
-                    ? Number(numberInvestors)
-                    : null,
+                number_investors: numberInvestors,
                 deadline: deadline || null,
                 is_published: isPublished,
                 is_verified: isVerified,
@@ -733,7 +731,7 @@ const AdminProjectEdit = () => {
                             Number of investors
                         </label>
                         <input
-                            type="number"
+                            type="text"
                             id="numberInvestors"
                             placeholder="63"
                             value={numberInvestors}
