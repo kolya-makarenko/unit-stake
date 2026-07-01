@@ -125,3 +125,21 @@
     color: #fff;
     cursor: pointer;
 }
+
+@media (max-width: 1000px) {
+    .modalOverlayHeader {
+        padding: 12px 16px;
+    }
+    .modalOverlayHeader h2 {
+        font-size: 24px;
+    }
+    .modalOverlayContent {
+        padding: 20px 16px;
+    }
+    .modalOverlayTxt {
+        font-size: 16px;
+    }
+    .checkboxContainer {
+        font-size: 16px;
+    }
+}

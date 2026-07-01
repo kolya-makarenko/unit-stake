@@ -255,6 +255,30 @@ const ProjectPage = () => {
                                             {item}
                                         </div>
                                     ))}
+                                    {data.investor_type.map((item, index) => (
+                                        <div
+                                            key={index}
+                                            className={classes.mainInfoFilter}
+                                        >
+                                            {item}
+                                        </div>
+                                    ))}
+                                    {data.category.map((item, index) => (
+                                        <div
+                                            key={index}
+                                            className={classes.mainInfoFilter}
+                                        >
+                                            {item}
+                                        </div>
+                                    ))}
+                                    {data.country.map((item, index) => (
+                                        <div
+                                            key={index}
+                                            className={classes.mainInfoFilter}
+                                        >
+                                            {item}
+                                        </div>
+                                    ))}
                                 </div>
                             )}
                         </div>
