@@ -752,6 +752,12 @@ const ProjectPage = () => {
                                                     }
                                                     target="_blank"
                                                     rel="noopener noreferrer"
+                                                    onClick={(e) =>
+                                                        handleExternalLinkClick(
+                                                            e,
+                                                            data.website_url,
+                                                        )
+                                                    }
                                                 >
                                                     View on {item.network}
                                                     <svg
@@ -817,6 +823,12 @@ const ProjectPage = () => {
                                         href={data.website_url}
                                         target="_blank"
                                         rel="noopener noreferrer"
+                                        onClick={(e) =>
+                                            handleExternalLinkClick(
+                                                e,
+                                                data.website_url,
+                                            )
+                                        }
                                     >
                                         Project website
                                     </a>
@@ -923,6 +935,9 @@ const ProjectPage = () => {
                                 href={data.website_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={(e) =>
+                                    handleExternalLinkClick(e, data.website_url)
+                                }
                             >
                                 View project
                             </a>

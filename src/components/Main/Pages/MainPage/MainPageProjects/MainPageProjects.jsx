@@ -77,7 +77,13 @@ const MainPageProjects = () => {
                 <div className={classes.projectsContainer}>
                     {projects.length > 0 ? (
                         projects.map((project, index) => (
-                            <div key={index} className={classes.projectsCard}>
+                            <div
+                                key={index}
+                                className={classes.projectsCard}
+                                onClick={() =>
+                                    navigate(`/projects/${project.$id}`)
+                                }
+                            >
                                 <div className={classes.projectsCardImage}>
                                     {getFirstImageUrl(
                                         project.content_blocks,
@@ -190,7 +196,7 @@ const MainPageProjects = () => {
                                         >
                                             <h4>Investors</h4>
                                             <p>
-                                                {project.number_investors > 0
+                                                {project.number_investors
                                                     ? project.number_investors
                                                     : '*'}
                                             </p>

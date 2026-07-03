@@ -2,14 +2,6 @@ import { useState, useEffect } from 'react';
 import classes from './ExternalLink.module.css';
 
 const ExternalLink = ({ isOpen, onClose, onConfirm, url }) => {
-    const [isChecked, setIsChecked] = useState(false);
-
-    useEffect(() => {
-        if (isOpen) {
-            setIsChecked(false);
-        }
-    }, [isOpen]);
-
     if (!isOpen) return null;
 
     return (
@@ -35,22 +27,7 @@ const ExternalLink = ({ isOpen, onClose, onConfirm, url }) => {
                             Terms and Conditions.
                         </p>
                     </div>
-                    <label className={classes.checkboxContainer}>
-                        <input
-                            type="checkbox"
-                            checked={isChecked}
-                            onChange={(e) => setIsChecked(e.target.checked)}
-                        />
-                        I agree to the{' '}
-                        <a href="#" target="_blank" rel="noopener noreferrer">
-                            Terms and Conditions
-                        </a>
-                    </label>
-                    <button
-                        className={classes.btnConfirm}
-                        disabled={!isChecked}
-                        onClick={onConfirm}
-                    >
+                    <button className={classes.btnConfirm} onClick={onConfirm}>
                         Go Now
                     </button>
                 </div>

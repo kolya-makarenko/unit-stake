@@ -479,6 +479,11 @@ const PlatformsPage = () => {
                                         <div
                                             key={platform.$id}
                                             className={classes.platformCard}
+                                            onClick={() =>
+                                                navigate(
+                                                    `/platforms/${platform.$id}`,
+                                                )
+                                            }
                                         >
                                             <div
                                                 className={
@@ -543,31 +548,6 @@ const PlatformsPage = () => {
                                                                 platform.platform_age
                                                             }
                                                         </p>
-                                                    </div>
-                                                    <div
-                                                        className={
-                                                            classes.platformCardInfoNumbersTotal
-                                                        }
-                                                    >
-                                                        <h4>
-                                                            Ownership & Founders
-                                                        </h4>
-                                                        {platform.platform_website ? (
-                                                            <a
-                                                                href={
-                                                                    platform.platform_website
-                                                                }
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                            >
-                                                                {platform.name}{' '}
-                                                                Website
-                                                            </a>
-                                                        ) : (
-                                                            <p>
-                                                                {platform.name}
-                                                            </p>
-                                                        )}
                                                     </div>
                                                 </div>
                                                 <div

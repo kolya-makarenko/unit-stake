@@ -528,6 +528,9 @@ const ProjectsPage = () => {
                                 <div
                                     key={project.$id || index}
                                     className={classes.projectsCard}
+                                    onClick={() =>
+                                        navigate(`/projects/${project.$id}`)
+                                    }
                                 >
                                     <div className={classes.projectsCardImage}>
                                         {getFirstImageUrl(
@@ -669,8 +672,7 @@ const ProjectsPage = () => {
                                             >
                                                 <h4>Investors</h4>
                                                 <p>
-                                                    {project.number_investors >
-                                                    0
+                                                    {project.number_investors
                                                         ? project.number_investors
                                                         : '*'}
                                                 </p>

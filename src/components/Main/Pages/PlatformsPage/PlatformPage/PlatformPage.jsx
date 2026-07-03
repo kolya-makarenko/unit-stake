@@ -8,6 +8,7 @@ import {
     Query,
     TABLE_ID_TEAMS,
 } from '../../../../../lib/appwrite';
+import ExternalLink from '../../../../ExternalLink/ExternalLink';
 import AssetsPageFaq from '../../AssetsPage/AssetsPageFaq/AssetsPageFaq';
 
 import classes from './PlatformPage.module.css';
@@ -61,6 +62,9 @@ const PlatformPage = () => {
     const [projects, setProjects] = useState([]);
     const [team, setTeam] = useState([]);
     const [copied, setCopied] = useState(false);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [targetUrl, setTargetUrl] = useState('');
 
     useEffect(() => {
         const fetchPlatformData = async () => {
@@ -158,6 +162,17 @@ const PlatformPage = () => {
         } else {
             return value;
         }
+    };
+
+    const handleExternalLinkClick = (e, url) => {
+        e.preventDefault();
+        setTargetUrl(url);
+        setIsModalOpen(true);
+    };
+
+    const handleConfirmTransition = () => {
+        setIsModalOpen(false);
+        window.open(targetUrl, '_blank', 'noopener,noreferrer');
     };
 
     return (
@@ -261,6 +276,12 @@ const PlatformPage = () => {
                                     href={data.platform_website}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={(e) =>
+                                        handleExternalLinkClick(
+                                            e,
+                                            data.platform_website,
+                                        )
+                                    }
                                 >
                                     Visit Platform Website
                                     {linkIcon}
@@ -365,6 +386,9 @@ const PlatformPage = () => {
                                 <div
                                     key={index}
                                     className={classes.projectsCard}
+                                    onClick={() =>
+                                        navigate(`/projects/${project.$id}`)
+                                    }
                                 >
                                     <div className={classes.projectsCardImage}>
                                         {getFirstImageUrl(
@@ -510,8 +534,7 @@ const PlatformPage = () => {
                                             >
                                                 <h4>Investors</h4>
                                                 <p>
-                                                    {project.number_investors >
-                                                    0
+                                                    {project.number_investors
                                                         ? project.number_investors
                                                         : '*'}
                                                 </p>
@@ -660,6 +683,12 @@ const PlatformPage = () => {
             <div className={classes.platformFaq}>
                 <AssetsPageFaq pageName="platform" />
             </div>
+            <ExternalLink
+                isOpen={isModalOpen}
+                url={targetUrl}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={handleConfirmTransition}
+            />
         </main>
     );
 };

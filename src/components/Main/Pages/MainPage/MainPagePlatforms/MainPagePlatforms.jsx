@@ -84,6 +84,9 @@ const MainPagePlatforms = () => {
                             <div
                                 key={platform.$id}
                                 className={classes.platformCard}
+                                onClick={() =>
+                                    navigate(`/platforms/${platform.$id}`)
+                                }
                             >
                                 <div className={classes.platformCardInfo}>
                                     <div
@@ -141,26 +144,6 @@ const MainPagePlatforms = () => {
                                         >
                                             <h4>Operating since</h4>
                                             <p>{platform.platform_age}</p>
-                                        </div>
-                                        <div
-                                            className={
-                                                classes.platformCardInfoNumbersTotal
-                                            }
-                                        >
-                                            <h4>Ownership & Founders</h4>
-                                            {platform.platform_website ? (
-                                                <a
-                                                    href={
-                                                        platform.platform_website
-                                                    }
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                >
-                                                    {platform.name} Website
-                                                </a>
-                                            ) : (
-                                                <p>{platform.name}</p>
-                                            )}
                                         </div>
                                     </div>
                                     <div
