@@ -19,6 +19,7 @@ import editIcon from '../../../../assets/images/icons/edit.svg';
 const AdminPartners = () => {
     const [partners, setPartners] = useState([]);
     const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [partnerUrl, setPartnerUrl] = useState('');
     const [imageFile, setImageFile] = useState(null);
@@ -126,6 +127,7 @@ const AdminPartners = () => {
 
     const handleAddClick = () => {
         setName('');
+        setDescription('');
         setImageUrl('');
         setPartnerUrl('');
         setEmail('');
@@ -138,6 +140,7 @@ const AdminPartners = () => {
 
     const handleEditClick = (partner) => {
         setName(partner.name || '');
+        setDescription(partner.description || '');
         setImageUrl(partner.image_url || '');
         setPartnerUrl(partner.partner_url || '');
         setEmail(partner.email || '');
@@ -242,6 +245,7 @@ const AdminPartners = () => {
 
             const data = {
                 name: name,
+                description: description,
                 image_url: finalImageUrl,
                 partner_url: partnerUrl,
                 email: email,
@@ -323,7 +327,18 @@ const AdminPartners = () => {
                                 required
                             />
                         </div>
-
+                        <div className={classes.addPlatformFormIdentityField}>
+                            <label htmlFor="partnerDescription">
+                                Description
+                            </label>
+                            <input
+                                type="text"
+                                id="partnerDescription"
+                                placeholder="Describe the partner..."
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                        </div>
                         <div className={classes.addPlatformFormIdentityField}>
                             <label htmlFor="partnerEmail">Partner Email</label>
                             <input
