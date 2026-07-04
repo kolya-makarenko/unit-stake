@@ -72,9 +72,7 @@ const AssetsPageMarket = () => {
                             </div>
                             <div className={classes.marketBoxText}>
                                 <h3>{item.title}</h3>
-                                <h4>
-                                    {getFirstText(item.content_blocks, 'text')}
-                                </h4>
+                                <h4>{item.description}</h4>
                                 <div className={classes.marketBoxAmount}>
                                     {getFirstText(
                                         item.content_blocks,

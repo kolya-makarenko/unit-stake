@@ -19,6 +19,7 @@ const AdminCategories = () => {
     const [partnerCategories, setPartnerCategories] = useState([]);
     const [newsCategories, setNewsCategories] = useState([]);
     const [types, setTypes] = useState([]);
+    const [trendingTopics, setTrendingTopics] = useState([]);
 
     const [newPlatform, setNewPlatform] = useState('');
     const [newProject, setNewProject] = useState('');
@@ -26,6 +27,7 @@ const AdminCategories = () => {
     const [newPartner, setNewPartner] = useState('');
     const [newNews, setNewNews] = useState('');
     const [newType, setNewType] = useState('');
+    const [newTrendingTopic, setNewTrendingTopic] = useState('');
 
     const [editPlatformIndex, setEditPlatformIndex] = useState(-1);
     const [editPlatformValue, setEditPlatformValue] = useState('');
@@ -45,6 +47,9 @@ const AdminCategories = () => {
     const [editTypeIndex, setEditTypeIndex] = useState(-1);
     const [editTypeValue, setEditTypeValue] = useState('');
 
+    const [editTrendingTopicIndex, setEditTrendingTopicIndex] = useState(-1);
+    const [editTrendingTopicValue, setEditTrendingTopicValue] = useState('');
+
     const fetchCategories = async () => {
         try {
             const response = await tablesDB.listRows({
@@ -61,6 +66,7 @@ const AdminCategories = () => {
                 setPartnerCategories(dataDoc.partner_categories || []);
                 setNewsCategories(dataDoc.news_categories || []);
                 setTypes(dataDoc.types || []);
+                setTrendingTopics(dataDoc.trending_topics || []);
             }
         } catch (error) {
             console.error(
@@ -82,6 +88,7 @@ const AdminCategories = () => {
         updatedPartners,
         updatedNews,
         updatedTypes,
+        updatedTrendingTopics,
     ) => {
         if (!docId) {
             alert('Error: The document ID was not found in the database.');
@@ -100,6 +107,7 @@ const AdminCategories = () => {
                     partner_categories: updatedPartners,
                     news_categories: updatedNews,
                     types: updatedTypes,
+                    trending_topics: updatedTrendingTopics,
                 },
             });
             return true;
@@ -122,6 +130,7 @@ const AdminCategories = () => {
             partnerCategories,
             newsCategories,
             types,
+            trendingTopics,
         );
         if (success) {
             setPlatformCategories(updated);
@@ -142,6 +151,7 @@ const AdminCategories = () => {
             partnerCategories,
             newsCategories,
             types,
+            trendingTopics,
         );
         if (success) {
             setPlatformCategories(updated);
@@ -167,6 +177,7 @@ const AdminCategories = () => {
             partnerCategories,
             newsCategories,
             types,
+            trendingTopics,
         );
         if (success) {
             setPlatformCategories(updated);
@@ -186,6 +197,7 @@ const AdminCategories = () => {
             partnerCategories,
             newsCategories,
             types,
+            trendingTopics,
         );
         if (success) {
             setProjectCategories(updated);
@@ -206,6 +218,7 @@ const AdminCategories = () => {
             partnerCategories,
             newsCategories,
             types,
+            trendingTopics,
         );
         if (success) {
             setProjectCategories(updated);
@@ -231,6 +244,7 @@ const AdminCategories = () => {
             partnerCategories,
             newsCategories,
             types,
+            trendingTopics,
         );
         if (success) {
             setProjectCategories(updated);
@@ -250,6 +264,7 @@ const AdminCategories = () => {
             partnerCategories,
             newsCategories,
             types,
+            trendingTopics,
         );
         if (success) {
             setProjectFilters(updated);
@@ -270,6 +285,7 @@ const AdminCategories = () => {
             partnerCategories,
             newsCategories,
             types,
+            trendingTopics,
         );
         if (success) {
             setProjectFilters(updated);
@@ -295,6 +311,7 @@ const AdminCategories = () => {
             partnerCategories,
             newsCategories,
             types,
+            trendingTopics,
         );
         if (success) {
             setProjectFilters(updated);
@@ -314,6 +331,7 @@ const AdminCategories = () => {
             updated,
             newsCategories,
             types,
+            trendingTopics,
         );
         if (success) {
             setPartnerCategories(updated);
@@ -334,6 +352,7 @@ const AdminCategories = () => {
             updated,
             newsCategories,
             types,
+            trendingTopics,
         );
         if (success) {
             setPartnerCategories(updated);
@@ -359,6 +378,7 @@ const AdminCategories = () => {
             updated,
             newsCategories,
             types,
+            trendingTopics,
         );
         if (success) {
             setPartnerCategories(updated);
@@ -378,6 +398,7 @@ const AdminCategories = () => {
             partnerCategories,
             updated,
             types,
+            trendingTopics,
         );
         if (success) {
             setNewsCategories(updated);
@@ -398,6 +419,7 @@ const AdminCategories = () => {
             partnerCategories,
             updated,
             types,
+            trendingTopics,
         );
         if (success) {
             setNewsCategories(updated);
@@ -423,6 +445,7 @@ const AdminCategories = () => {
             partnerCategories,
             updated,
             types,
+            trendingTopics,
         );
         if (success) {
             setNewsCategories(updated);
@@ -442,6 +465,7 @@ const AdminCategories = () => {
             partnerCategories,
             newsCategories,
             updated,
+            trendingTopics,
         );
         if (success) {
             setTypes(updated);
@@ -460,6 +484,7 @@ const AdminCategories = () => {
             partnerCategories,
             newsCategories,
             updated,
+            trendingTopics,
         );
         if (success) {
             setTypes(updated);
@@ -485,10 +510,77 @@ const AdminCategories = () => {
             partnerCategories,
             newsCategories,
             updated,
+            trendingTopics,
         );
         if (success) {
             setTypes(updated);
             setEditTypeIndex(-1);
+        }
+    };
+
+    const handleAddTrendingTopic = async (e) => {
+        e.preventDefault();
+        if (!newTrendingTopic.trim()) return;
+
+        const updated = [...trendingTopics, newTrendingTopic.trim()];
+        const success = await updateDatabase(
+            platformCategories,
+            projectCategories,
+            projectFilters,
+            partnerCategories,
+            newsCategories,
+            types,
+            updated,
+        );
+        if (success) {
+            setTrendingTopics(updated);
+            setNewTrendingTopic('');
+        }
+    };
+
+    const handleDeleteTrendingTopic = async (topicToDelete) => {
+        if (!window.confirm(`Delete trending topic "${topicToDelete}"?`))
+            return;
+
+        const updated = trendingTopics.filter((t) => t !== topicToDelete);
+        const success = await updateDatabase(
+            platformCategories,
+            projectCategories,
+            projectFilters,
+            partnerCategories,
+            newsCategories,
+            types,
+            updated,
+        );
+        if (success) {
+            setTrendingTopics(updated);
+            setEditTrendingTopicIndex(-1);
+        }
+    };
+
+    const startEditTrendingTopic = (index, value) => {
+        setEditTrendingTopicIndex(index);
+        setEditTrendingTopicValue(value);
+    };
+
+    const handleSaveTrendingTopicEdit = async (index) => {
+        if (!editTrendingTopicValue.trim()) return;
+
+        const updated = [...trendingTopics];
+        updated[index] = editTrendingTopicValue.trim();
+
+        const success = await updateDatabase(
+            platformCategories,
+            projectCategories,
+            projectFilters,
+            partnerCategories,
+            newsCategories,
+            types,
+            updated,
+        );
+        if (success) {
+            setTrendingTopics(updated);
+            setEditTrendingTopicIndex(-1);
         }
     };
 
@@ -1029,6 +1121,107 @@ const AdminCategories = () => {
                                             <button
                                                 onClick={() =>
                                                     handleDeleteNews(cat)
+                                                }
+                                                className={classes.deleteBtn}
+                                            >
+                                                <img
+                                                    src={deleteIcon}
+                                                    alt="delete"
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className={classes.adminCategoriesContainer}>
+                    <h3>Trending Topics (News)</h3>
+                    <form
+                        onSubmit={handleAddTrendingTopic}
+                        className={classes.addForm}
+                    >
+                        <input
+                            type="text"
+                            value={newTrendingTopic}
+                            onChange={(e) =>
+                                setNewTrendingTopic(e.target.value)
+                            }
+                            placeholder="New Trending Topic"
+                        />
+                        <button type="submit">+ Add Topic</button>
+                    </form>
+                    <ul className={classes.categoryList}>
+                        {trendingTopics.map((topic, index) => (
+                            <li key={index} className={classes.categoryItem}>
+                                {editTrendingTopicIndex === index ? (
+                                    <div className={classes.editWrapper}>
+                                        <input
+                                            type="text"
+                                            value={editTrendingTopicValue}
+                                            onChange={(e) =>
+                                                setEditTrendingTopicValue(
+                                                    e.target.value,
+                                                )
+                                            }
+                                            className={classes.editInput}
+                                        />
+                                        <div className={classes.actions}>
+                                            <button
+                                                onClick={() =>
+                                                    handleSaveTrendingTopicEdit(
+                                                        index,
+                                                    )
+                                                }
+                                                className={classes.saveBtn}
+                                            >
+                                                <img
+                                                    src={doneIcon}
+                                                    alt="done"
+                                                />
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    setEditTrendingTopicIndex(
+                                                        -1,
+                                                    )
+                                                }
+                                                className={classes.cancelBtn}
+                                            >
+                                                <img
+                                                    src={cancelIcon}
+                                                    alt="cancel"
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className={classes.categoryView}>
+                                        <span className={classes.categoryText}>
+                                            {topic}
+                                        </span>
+                                        <div className={classes.actions}>
+                                            <button
+                                                onClick={() =>
+                                                    startEditTrendingTopic(
+                                                        index,
+                                                        topic,
+                                                    )
+                                                }
+                                                className={classes.editBtn}
+                                            >
+                                                <img
+                                                    src={editIcon}
+                                                    alt="edit"
+                                                />
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleDeleteTrendingTopic(
+                                                        topic,
+                                                    )
                                                 }
                                                 className={classes.deleteBtn}
                                             >

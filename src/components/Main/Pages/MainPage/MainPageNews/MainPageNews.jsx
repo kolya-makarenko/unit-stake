@@ -33,26 +33,6 @@ const MainPageNews = () => {
         fetchNews();
     }, []);
 
-    const getFirstText = (rawArray) => {
-        if (!Array.isArray(rawArray) || rawArray.length === 0) {
-            return null;
-        }
-
-        for (const jsonString of rawArray) {
-            try {
-                const parsedObj = JSON.parse(jsonString);
-
-                if (parsedObj && parsedObj.type === 'text') {
-                    return parsedObj.value;
-                }
-            } catch (error) {
-                console.error('Error parsing array element:', error);
-            }
-        }
-
-        return null;
-    };
-
     const dateFormatter = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString();
@@ -92,7 +72,7 @@ const MainPageNews = () => {
                                         {article.title}
                                     </div>
                                     <div className={classes.articleDescription}>
-                                        {getFirstText(article.content_blocks)}
+                                        {article.description}
                                     </div>
                                     <div className={classes.articleLink}>
                                         <h5>

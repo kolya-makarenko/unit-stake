@@ -23,6 +23,7 @@ const AdminNews = () => {
     const [newsList, setNewsList] = useState([]);
 
     const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
     const [author, setAuthor] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [imageFile, setImageFile] = useState(null);
@@ -114,6 +115,7 @@ const AdminNews = () => {
 
     const handleAddClick = () => {
         setTitle('');
+        setDescription('');
         setAuthor('');
         setCategory('');
         setImageUrl('');
@@ -126,6 +128,7 @@ const AdminNews = () => {
 
     const handleEditClick = (newsItem) => {
         setTitle(newsItem.title || '');
+        setDescription(newsItem.description || '');
         setAuthor(newsItem.author || '');
         setCategory(newsItem.category || '');
         setImageUrl(newsItem.image_url || '');
@@ -201,6 +204,7 @@ const AdminNews = () => {
 
             const data = {
                 title: title,
+                description: description,
                 author: author,
                 category: category,
                 image_url: finalImageUrl,
@@ -295,6 +299,18 @@ const AdminNews = () => {
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 required
+                            />
+                        </div>
+                        <div className={classes.addPlatformFormIdentityField}>
+                            <label htmlFor="newsDescription">
+                                Article Description
+                            </label>
+                            <input
+                                type="text"
+                                id="newsDescription"
+                                placeholder="Description of the article..."
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
                             />
                         </div>
                         <div className={classes.addPlatformFormIdentityField}>
