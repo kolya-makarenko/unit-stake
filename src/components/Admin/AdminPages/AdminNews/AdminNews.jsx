@@ -40,6 +40,9 @@ const AdminNews = () => {
     const [category, setCategory] = useState('');
     const [categoriesList, setCategoriesList] = useState([]);
 
+    const [trendingTopicsList, setTrendingTopicsList] = useState([]);
+    const [selectedTrendingTopics, setSelectedTrendingTopics] = useState([]);
+
     const fetchCategories = async () => {
         try {
             const response = await tablesDB.listRows({
@@ -48,6 +51,7 @@ const AdminNews = () => {
             });
             if (response.rows && response.rows.length > 0) {
                 setCategoriesList(response.rows[0].news_categories || []);
+                setTrendingTopicsList(response.rows[0].trending_topics || []);
             }
         } catch (error) {
             console.error('Error loading news categories:', error.message);
@@ -119,6 +123,7 @@ const AdminNews = () => {
         setAuthor('');
         setCategory('');
         setImageUrl('');
+        setSelectedTrendingTopics([]);
         setImageFile(null);
         setContentBlocks([]);
         setIsPublished(false);
@@ -131,6 +136,7 @@ const AdminNews = () => {
         setDescription(newsItem.description || '');
         setAuthor(newsItem.author || '');
         setCategory(newsItem.category || '');
+        setSelectedTrendingTopics(newsItem.trending_topics || []);
         setImageUrl(newsItem.image_url || '');
         setImageFile(null);
         setIsPublished(newsItem.is_published || false);
@@ -177,6 +183,16 @@ const AdminNews = () => {
         setEditingNewsId(null);
     };
 
+    const handleTrendingTopicChange = (topic) => {
+        if (selectedTrendingTopics.includes(topic)) {
+            setSelectedTrendingTopics(
+                selectedTrendingTopics.filter((t) => t !== topic),
+            );
+        } else {
+            setSelectedTrendingTopics([...selectedTrendingTopics, topic]);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!title) return;
@@ -210,6 +226,7 @@ const AdminNews = () => {
                 image_url: finalImageUrl,
                 content_blocks: stringifiedBlocks,
                 is_published: isPublished,
+                trending_topics: selectedTrendingTopics,
             };
 
             if (editingNewsId) {
@@ -341,7 +358,31 @@ const AdminNews = () => {
                                 ))}
                             </select>
                         </div>
-
+                        <div
+                            className={`${classes.addPlatformFormIdentityField} ${classes.investorTypeListBox}`}
+                        >
+                            <label>Trending Topics</label>
+                            <div className={classes.investorTypeList}>
+                                {trendingTopicsList.map((topic, index) => (
+                                    <label
+                                        key={index}
+                                        className={classes.investorType}
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            id={`trending-topic-${index}`}
+                                            checked={selectedTrendingTopics.includes(
+                                                topic,
+                                            )}
+                                            onChange={() =>
+                                                handleTrendingTopicChange(topic)
+                                            }
+                                        />
+                                        <span>{topic}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
                         <div
                             className={
                                 classes.addPlatformFormIdentityFieldImage
