@@ -80,31 +80,6 @@ const News = () => {
         <section className={classes.news}>
             <div className="wrapper">
                 <div className={classes.articles}>
-                    {popularArticles.length > 0 ? (
-                        popularArticles.map((article) => (
-                            <div
-                                key={article.$id}
-                                className={classes.popularArticles}
-                            >
-                                <h3>Popular This Month</h3>
-                                <ul>
-                                    <li
-                                        onClick={() =>
-                                            navigate(`/insights/${article.$id}`)
-                                        }
-                                    >
-                                        <h4>{article.title}</h4>
-                                        <p>{article.description}</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        ))
-                    ) : (
-                        <div className={classes.popularArticles}>
-                            <h3>Popular This Month</h3>
-                            <h4>No popular articles available</h4>
-                        </div>
-                    )}
                     {articles.length > 0 ? (
                         articles.map((article) => (
                             <div
@@ -169,6 +144,29 @@ const News = () => {
                         ))
                     ) : (
                         <p className={classes.noArticles}>No articles found.</p>
+                    )}
+                    {popularArticles.length > 0 ? (
+                        <div className={classes.popularArticles}>
+                            <h3>Popular This Month</h3>
+                            <ul>
+                                {popularArticles.map((article) => (
+                                    <li
+                                        key={article.$id}
+                                        onClick={() =>
+                                            navigate(`/insights/${article.$id}`)
+                                        }
+                                    >
+                                        <h4>{article.title}</h4>
+                                        <p>{article.description}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ) : (
+                        <div className={classes.popularArticles}>
+                            <h3>Popular This Month</h3>
+                            <h4>No popular articles available</h4>
+                        </div>
                     )}
                 </div>
                 <div className={classes.paginationContainer}>
