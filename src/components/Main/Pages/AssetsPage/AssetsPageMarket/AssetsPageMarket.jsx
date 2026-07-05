@@ -21,7 +21,7 @@ const AssetsPageMarket = () => {
                     tableId: TABLE_ID_NEWS,
                     queries: [
                         Query.equal('is_published', true),
-                        Query.equal('category', 'News'),
+                        Query.equal('category', 'News & Market'),
                         Query.limit(3),
                     ],
                 });
@@ -73,12 +73,11 @@ const AssetsPageMarket = () => {
                             <div className={classes.marketBoxText}>
                                 <h3>{item.title}</h3>
                                 <h4>{item.description}</h4>
-                                <div className={classes.marketBoxAmount}>
-                                    {getFirstText(
-                                        item.content_blocks,
-                                        'heading',
-                                    )}
-                                </div>
+                                {item.category && (
+                                    <div className={classes.marketBoxAmount}>
+                                        {item.category}
+                                    </div>
+                                )}
                                 <div className={classes.marketBoxLink}>
                                     <div
                                         className={classes.projectsCardLinkBtn}
