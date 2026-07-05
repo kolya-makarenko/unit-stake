@@ -28,6 +28,7 @@ const AdminNews = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [imageFile, setImageFile] = useState(null);
     const [isPublished, setIsPublished] = useState(false);
+    const [isPopular, setIsPopular] = useState(false);
     const [contentBlocks, setContentBlocks] = useState([]);
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [editingNewsId, setEditingNewsId] = useState(null);
@@ -127,6 +128,7 @@ const AdminNews = () => {
         setImageFile(null);
         setContentBlocks([]);
         setIsPublished(false);
+        setIsPopular(false);
         setEditingNewsId(null);
         setIsFormOpen(true);
     };
@@ -140,6 +142,7 @@ const AdminNews = () => {
         setImageUrl(newsItem.image_url || '');
         setImageFile(null);
         setIsPublished(newsItem.is_published || false);
+        setIsPopular(newsItem.is_popular || false);
         setEditingNewsId(newsItem.$id);
 
         if (newsItem.content_blocks && newsItem.content_blocks.length) {
@@ -226,6 +229,7 @@ const AdminNews = () => {
                 image_url: finalImageUrl,
                 content_blocks: stringifiedBlocks,
                 is_published: isPublished,
+                is_popular: isPopular,
                 trending_topics: selectedTrendingTopics,
             };
 
@@ -536,6 +540,26 @@ const AdminNews = () => {
                                         checked={isPublished}
                                         onChange={(e) =>
                                             setIsPublished(e.target.checked)
+                                        }
+                                    />
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div className={classes.addPlatformFormSwitchesBox}>
+                                <div>
+                                    <h6>Popular</h6>
+                                    <p>
+                                        Show the article on the popular news
+                                        feed
+                                    </p>
+                                </div>
+                                <label htmlFor="isPopular">
+                                    <input
+                                        type="checkbox"
+                                        id="isPopular"
+                                        checked={isPopular}
+                                        onChange={(e) =>
+                                            setIsPopular(e.target.checked)
                                         }
                                     />
                                     <span></span>

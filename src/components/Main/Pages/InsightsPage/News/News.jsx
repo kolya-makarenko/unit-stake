@@ -12,6 +12,7 @@ const ITEMS_PER_PAGE = 7;
 
 const News = () => {
     const [articles, setArticles] = useState([]);
+    const [popularArticles, setPopularArticles] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
@@ -36,6 +37,19 @@ const News = () => {
                 });
                 setArticles(response.rows);
                 setTotalCount(response.total);
+
+                const responsePopular = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_NEWS,
+                    queries: [
+                        Query.equal('is_published', true),
+                        Query.equal('is_popular', true),
+                        Query.equal('category', 'News & Market'),
+                        Query.orderDesc('$updatedAt'),
+                        Query.limit(6),
+                    ],
+                });
+                setPopularArticles(responsePopular.rows);
             } catch (error) {
                 console.error('Error fetching articles:', error);
             }
@@ -53,10 +67,44 @@ const News = () => {
         if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
     };
 
+    const dateFormatter = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        });
+    };
+
     return (
         <section className={classes.news}>
             <div className="wrapper">
                 <div className={classes.articles}>
+                    {popularArticles.length > 0 ? (
+                        popularArticles.map((article) => (
+                            <div
+                                key={article.$id}
+                                className={classes.popularArticles}
+                            >
+                                <h3>Popular This Month</h3>
+                                <ul>
+                                    <li
+                                        onClick={() =>
+                                            navigate(`/insights/${article.$id}`)
+                                        }
+                                    >
+                                        <h4>{article.title}</h4>
+                                        <p>{article.description}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        ))
+                    ) : (
+                        <div className={classes.popularArticles}>
+                            <h3>Popular This Month</h3>
+                            <h4>No popular articles available</h4>
+                        </div>
+                    )}
                     {articles.length > 0 ? (
                         articles.map((article) => (
                             <div
@@ -78,40 +126,44 @@ const News = () => {
                                         </div>
                                     )}
                                 </div>
-                                <div className={classes.articleCategory}>
-                                    {article.category}
-                                </div>
-                                <h4>{article.title}</h4>
-                                <div className={classes.articleDescription}>
-                                    {article.description}
-                                </div>
-                                <div className={classes.articleDateAndLink}>
-                                    <div className={classes.articleDate}></div>
-                                    <button>
-                                        <span>Read more</span>
-                                        <svg
-                                            width="16"
-                                            height="17"
-                                            viewBox="0 0 16 17"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M1 15.2758L15 1"
-                                                stroke="#D34329"
-                                                strokeWidth="2"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                            />
-                                            <path
-                                                d="M14.9991 12.0761V1.1C14.9991 1.04477 14.9543 1 14.8991 1H4.07422"
-                                                stroke="#D34329"
-                                                strokeWidth="2"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                            />
-                                        </svg>
-                                    </button>
+                                <div className={classes.articleInfo}>
+                                    <div className={classes.articleCategory}>
+                                        {article.category}
+                                    </div>
+                                    <h4>{article.title}</h4>
+                                    <div className={classes.articleDescription}>
+                                        {article.description}
+                                    </div>
+                                    <div className={classes.articleDateAndLink}>
+                                        <div className={classes.articleDate}>
+                                            {dateFormatter(article.$updatedAt)}
+                                        </div>
+                                        <button>
+                                            <span>Read more</span>
+                                            <svg
+                                                width="16"
+                                                height="17"
+                                                viewBox="0 0 16 17"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M1 15.2758L15 1"
+                                                    stroke="#D34329"
+                                                    strokeWidth="2"
+                                                    strokeMiterlimit="10"
+                                                    strokeLinecap="round"
+                                                />
+                                                <path
+                                                    d="M14.9991 12.0761V1.1C14.9991 1.04477 14.9543 1 14.8991 1H4.07422"
+                                                    stroke="#D34329"
+                                                    strokeWidth="2"
+                                                    strokeMiterlimit="10"
+                                                    strokeLinecap="round"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         ))
