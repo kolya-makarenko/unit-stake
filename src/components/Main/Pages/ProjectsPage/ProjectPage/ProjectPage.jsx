@@ -700,7 +700,9 @@ const ProjectPage = () => {
                                                             rel="noopener noreferrer"
                                                         >
                                                             {documentIcon}
-                                                            {document.name}
+                                                            <span>
+                                                                {document.name}
+                                                            </span>
                                                         </a>
                                                     </li>
                                                 ),

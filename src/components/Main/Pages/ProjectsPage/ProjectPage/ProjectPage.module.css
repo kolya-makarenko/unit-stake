@@ -511,6 +511,17 @@ aside {
     color: #d34329;
 }
 
+.documentsList ul li a svg {
+    flex-shrink: 0;
+}
+
+.documentsList ul li a span {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .tokensHeader {
     margin-bottom: 12px;
     padding-bottom: 12px;

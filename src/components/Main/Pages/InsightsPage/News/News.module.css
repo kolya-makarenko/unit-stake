@@ -1,3 +1,11 @@
+.filters {
+    margin-top: 24px;
+}
+
+.arrowUp {
+    transform: rotate(180deg);
+}
+
 .articles {
     margin-top: 40px;
     display: grid;

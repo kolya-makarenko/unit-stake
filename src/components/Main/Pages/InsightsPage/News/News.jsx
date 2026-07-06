@@ -1,42 +1,79 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     tablesDB,
     Query,
     DATABASE_ID,
     TABLE_ID_NEWS,
+    TABLE_ID_CATEGORIES,
 } from '../../../../../lib/appwrite';
 import classes from './News.module.css';
+
+const arrowDown = (
+    <svg
+        width="13"
+        height="7"
+        viewBox="0 0 13 7"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M0.849609 0.849976L6.34961 5.84998L11.8496 0.849976"
+            stroke="white"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+        />
+    </svg>
+);
+
+const arrowUp = (
+    <svg
+        className={classes.arrowUp}
+        width="13"
+        height="7"
+        viewBox="0 0 13 7"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M0.849609 0.849976L6.34961 5.84998L11.8496 0.849976"
+            stroke="white"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+        />
+    </svg>
+);
 
 const ITEMS_PER_PAGE = 7;
 
 const News = () => {
     const [articles, setArticles] = useState([]);
     const [popularArticles, setPopularArticles] = useState([]);
+    const [trendingTopicsList, setTrendingTopicsList] = useState([]);
+
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedTopics, setSelectedTopics] = useState([]);
+    const [sortBy, setSortBy] = useState('newest');
+
+    const [activeTab, setActiveTab] = useState(null);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalCount, setTotalCount] = useState(0);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchArticles = async () => {
+        const fetchData = async () => {
             try {
-                const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_NEWS,
                     queries: [
                         Query.equal('is_published', true),
                         Query.equal('category', 'News & Market'),
-                        Query.orderDesc('$createdAt'),
-                        Query.limit(ITEMS_PER_PAGE),
-                        Query.offset(offset),
+                        Query.limit(500),
                     ],
                 });
                 setArticles(response.rows);
-                setTotalCount(response.total);
 
                 const responsePopular = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
@@ -50,14 +87,109 @@ const News = () => {
                     ],
                 });
                 setPopularArticles(responsePopular.rows);
+
+                const responseCategories = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_CATEGORIES,
+                });
+                if (
+                    responseCategories.rows &&
+                    responseCategories.rows.length > 0
+                ) {
+                    setTrendingTopicsList(
+                        responseCategories.rows[0].trending_topics || [],
+                    );
+                }
             } catch (error) {
-                console.error('Error fetching articles:', error);
+                console.error('Error fetching data:', error);
             }
         };
-        fetchArticles();
-    }, [currentPage]);
+        fetchData();
+    }, []);
 
-    const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchQuery, selectedTopics, sortBy]);
+
+    const toggleTab = (tabName) => {
+        setActiveTab((prevTab) => (prevTab === tabName ? null : tabName));
+    };
+
+    const activeTrendingTopics = useMemo(() => {
+        const topicsInArticles = new Set();
+
+        articles.forEach((article) => {
+            if (
+                article.trending_topics &&
+                Array.isArray(article.trending_topics)
+            ) {
+                article.trending_topics.forEach((topic) => {
+                    if (topic) topicsInArticles.add(topic);
+                });
+            }
+        });
+
+        return trendingTopicsList.filter((topic) =>
+            topicsInArticles.has(topic),
+        );
+    }, [articles, trendingTopicsList]);
+
+    const filteredArticles = useMemo(() => {
+        let result = [...articles];
+
+        if (searchQuery.trim()) {
+            const query = searchQuery.toLowerCase();
+            result = result.filter((article) =>
+                article.title?.toLowerCase().includes(query),
+            );
+        }
+
+        if (selectedTopics.length > 0) {
+            result = result.filter(
+                (article) =>
+                    article.trending_topics &&
+                    selectedTopics.some((topic) =>
+                        article.trending_topics.includes(topic),
+                    ),
+            );
+        }
+
+        const now = new Date();
+        if (sortBy === 'week') {
+            const oneWeekAgo = new Date(
+                now.getTime() - 7 * 24 * 60 * 60 * 1000,
+            );
+            result = result.filter(
+                (article) => new Date(article.$createdAt) >= oneWeekAgo,
+            );
+        } else if (sortBy === 'month') {
+            const oneMonthAgo = new Date(
+                now.getTime() - 30 * 24 * 60 * 60 * 1000,
+            );
+            result = result.filter(
+                (article) => new Date(article.$createdAt) >= oneMonthAgo,
+            );
+        }
+
+        if (sortBy === 'oldest') {
+            result.sort(
+                (a, b) => new Date(a.$createdAt) - new Date(b.$createdAt),
+            );
+        } else {
+            result.sort(
+                (a, b) => new Date(b.$createdAt) - new Date(a.$createdAt),
+            );
+        }
+
+        return result;
+    }, [articles, searchQuery, selectedTopics, sortBy]);
+
+    const totalPages = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
+    const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+    const displayedArticles = filteredArticles.slice(
+        offset,
+        offset + ITEMS_PER_PAGE,
+    );
 
     const handlePrevPage = () => {
         if (currentPage > 1) setCurrentPage((prev) => prev - 1);
@@ -65,6 +197,14 @@ const News = () => {
 
     const handleNextPage = () => {
         if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+    };
+
+    const handleTopicCheckboxChange = (topic) => {
+        if (selectedTopics.includes(topic)) {
+            setSelectedTopics(selectedTopics.filter((t) => t !== topic));
+        } else {
+            setSelectedTopics([...selectedTopics, topic]);
+        }
     };
 
     const dateFormatter = (dateString) => {
@@ -79,9 +219,108 @@ const News = () => {
     return (
         <section className={classes.news}>
             <div className="wrapper">
+                <div className={classes.filters}>
+                    <div className={classes.searchWrapper}>
+                        <input
+                            type="text"
+                            placeholder="Start typing to search"
+                            className={classes.searchInput}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+
+                    {activeTrendingTopics.length > 0 && (
+                        <div className={classes.topicsFilter}>
+                            <h5 onClick={() => toggleTab('topics')}>
+                                <span>
+                                    Trending Topics
+                                    {selectedTopics.length > 0 &&
+                                        `(${selectedTopics.length})`}
+                                </span>
+                                {activeTab === 'topics' ? arrowUp : arrowDown}
+                            </h5>
+
+                            {activeTab === 'topics' && (
+                                <div>
+                                    {activeTrendingTopics.map(
+                                        (topic, index) => (
+                                            <label key={index}>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedTopics.includes(
+                                                        topic,
+                                                    )}
+                                                    onChange={() =>
+                                                        handleTopicCheckboxChange(
+                                                            topic,
+                                                        )
+                                                    }
+                                                />
+                                                <span>{topic}</span>
+                                            </label>
+                                        ),
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    <div className={classes.sortFilter}>
+                        <h5 onClick={() => toggleTab('sort')}>
+                            <span>Sort by:</span>
+                            {activeTab === 'sort' ? arrowUp : arrowDown}
+                        </h5>
+
+                        {activeTab === 'sort' && (
+                            <div>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="sortBy"
+                                        value="newest"
+                                        checked={sortBy === 'newest'}
+                                        onChange={() => setSortBy('newest')}
+                                    />
+                                    <span>New at first</span>
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="sortBy"
+                                        value="oldest"
+                                        checked={sortBy === 'oldest'}
+                                        onChange={() => setSortBy('oldest')}
+                                    />
+                                    <span>First, the old ones</span>
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="sortBy"
+                                        value="week"
+                                        checked={sortBy === 'week'}
+                                        onChange={() => setSortBy('week')}
+                                    />
+                                    <span>New this week</span>
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="sortBy"
+                                        value="month"
+                                        checked={sortBy === 'month'}
+                                        onChange={() => setSortBy('month')}
+                                    />
+                                    <span>New this month</span>
+                                </label>
+                            </div>
+                        )}
+                    </div>
+                </div>
                 <div className={classes.articles}>
-                    {articles.length > 0 ? (
-                        articles.map((article) => (
+                    {displayedArticles.length > 0 ? (
+                        displayedArticles.map((article) => (
                             <div
                                 key={article.$id}
                                 className={classes.article}
