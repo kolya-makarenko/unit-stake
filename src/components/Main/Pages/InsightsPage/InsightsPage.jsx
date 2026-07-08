@@ -1,4 +1,5 @@
 import News from './News/News';
+import Insights from './Insights/Insights';
 import classes from './InsightsPage.module.css';
 
 const InsightsPage = () => {
@@ -20,6 +21,7 @@ const InsightsPage = () => {
                     <h2>Latest Insights</h2>
                 </div>
             </section>
+            <Insights />
             <section className={classes.reports}>
                 <div className="wrapper">
                     <h2>Reports & Research</h2>

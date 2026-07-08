@@ -229,94 +229,84 @@ const News = () => {
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                     </div>
-
                     {activeTrendingTopics.length > 0 && (
-                        <div className={classes.topicsFilter}>
-                            <h5 onClick={() => toggleTab('topics')}>
-                                <span>
-                                    Trending Topics
-                                    {selectedTopics.length > 0 &&
-                                        `(${selectedTopics.length})`}
-                                </span>
-                                {activeTab === 'topics' ? arrowUp : arrowDown}
-                            </h5>
-
-                            {activeTab === 'topics' && (
-                                <div>
-                                    {activeTrendingTopics.map(
-                                        (topic, index) => (
-                                            <label key={index}>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={selectedTopics.includes(
-                                                        topic,
-                                                    )}
-                                                    onChange={() =>
-                                                        handleTopicCheckboxChange(
-                                                            topic,
-                                                        )
-                                                    }
-                                                />
-                                                <span>{topic}</span>
-                                            </label>
-                                        ),
-                                    )}
-                                </div>
-                            )}
+                        <div
+                            className={classes.topicsFilter}
+                            onClick={() => toggleTab('topics')}
+                        >
+                            <span>Trending Topics</span>
+                            {activeTab === 'topics' ? arrowUp : arrowDown}
                         </div>
                     )}
-
-                    <div className={classes.sortFilter}>
-                        <h5 onClick={() => toggleTab('sort')}>
-                            <span>Sort by:</span>
-                            {activeTab === 'sort' ? arrowUp : arrowDown}
-                        </h5>
-
-                        {activeTab === 'sort' && (
-                            <div>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="sortBy"
-                                        value="newest"
-                                        checked={sortBy === 'newest'}
-                                        onChange={() => setSortBy('newest')}
-                                    />
-                                    <span>New at first</span>
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="sortBy"
-                                        value="oldest"
-                                        checked={sortBy === 'oldest'}
-                                        onChange={() => setSortBy('oldest')}
-                                    />
-                                    <span>First, the old ones</span>
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="sortBy"
-                                        value="week"
-                                        checked={sortBy === 'week'}
-                                        onChange={() => setSortBy('week')}
-                                    />
-                                    <span>New this week</span>
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="sortBy"
-                                        value="month"
-                                        checked={sortBy === 'month'}
-                                        onChange={() => setSortBy('month')}
-                                    />
-                                    <span>New this month</span>
-                                </label>
-                            </div>
-                        )}
+                    <div
+                        className={classes.sortFilter}
+                        onClick={() => toggleTab('sort')}
+                    >
+                        <span>Sort by</span>
+                        {activeTab === 'sort' ? arrowUp : arrowDown}
                     </div>
+                </div>
+                <div className={classes.filtersResults}>
+                    {activeTab === 'topics' && (
+                        <div className={classes.filtersResult}>
+                            {activeTrendingTopics.map((topic, index) => (
+                                <label key={index}>
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedTopics.includes(topic)}
+                                        onChange={() =>
+                                            handleTopicCheckboxChange(topic)
+                                        }
+                                    />
+                                    <span>{topic}</span>
+                                </label>
+                            ))}
+                        </div>
+                    )}
+                    {activeTab === 'sort' && (
+                        <div className={classes.filtersResult}>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="sortBy"
+                                    value="newest"
+                                    checked={sortBy === 'newest'}
+                                    onChange={() => setSortBy('newest')}
+                                />
+                                <span>New at first</span>
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="sortBy"
+                                    value="oldest"
+                                    checked={sortBy === 'oldest'}
+                                    onChange={() => setSortBy('oldest')}
+                                />
+                                <span>First, the old ones</span>
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="sortBy"
+                                    value="week"
+                                    checked={sortBy === 'week'}
+                                    onChange={() => setSortBy('week')}
+                                />
+                                <span>New this week</span>
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="sortBy"
+                                    value="month"
+                                    checked={sortBy === 'month'}
+                                    onChange={() => setSortBy('month')}
+                                />
+                                <span>New this month</span>
+                            </label>
+                        </div>
+                    )}
                 </div>
                 <div className={classes.articles}>
                     {displayedArticles.length > 0 ? (
@@ -411,9 +401,6 @@ const News = () => {
                 <div className={classes.paginationContainer}>
                     {totalPages > 1 && (
                         <div className={classes.pagination}>
-                            <h4 className={classes.paginationInfo}>
-                                Showing {currentPage} of {totalPages} articles
-                            </h4>
                             <div className={classes.paginationBtns}>
                                 <button
                                     onClick={handlePrevPage}
