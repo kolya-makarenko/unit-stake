@@ -106,7 +106,7 @@ const ProjectPage = () => {
             }
         };
         fetchProject();
-    }, [projectId]);
+    }, [projectId, navigate]);
 
     const dateFormatter = (dateString) => {
         const date = new Date(dateString);
