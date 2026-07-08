@@ -6,19 +6,19 @@ import {
     DATABASE_ID,
     TABLE_ID_NEWS,
 } from '../../../../../lib/appwrite';
-import classes from './Insights.module.css';
+import classes from './Reports.module.css';
 
 const ITEMS_PER_PAGE = 6;
 
-const Insights = () => {
-    const [insights, setInsights] = useState([]);
+const Reports = () => {
+    const [reports, setReports] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchInsights = async () => {
+        const fetchReports = async () => {
             const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
             try {
@@ -27,19 +27,19 @@ const Insights = () => {
                     tableId: TABLE_ID_NEWS,
                     queries: [
                         Query.equal('is_published', true),
-                        Query.equal('category', 'Insights'),
+                        Query.equal('category', 'Reports & Research'),
                         Query.orderDesc('$updatedAt'),
                         Query.limit(ITEMS_PER_PAGE),
                         Query.offset(offset),
                     ],
                 });
-                setInsights(response.rows);
+                setReports(response.rows);
                 setTotalCount(response.total);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
-        fetchInsights();
+        fetchReports();
     }, [currentPage]);
 
     const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
@@ -62,71 +62,57 @@ const Insights = () => {
     };
 
     return (
-        <section>
+        <section className={classes.reports}>
             <div className="wrapper">
-                {insights.length > 0 ? (
-                    <div className={classes.insightsContainer}>
-                        {insights.map((article) => (
+                {reports.length > 0 ? (
+                    <div className={classes.reportsContainer}>
+                        {reports.map((report) => (
                             <div
-                                key={article.$id}
-                                className={classes.insight}
+                                key={report.$id}
+                                className={classes.report}
                                 onClick={() =>
-                                    navigate(`/insights/${article.$id}`)
+                                    navigate(`/insights/${report.$id}`)
                                 }
                             >
-                                <div className={classes.insightImage}>
-                                    {article.image_url ? (
-                                        <img
-                                            src={article.image_url}
-                                            alt="article image"
-                                        />
-                                    ) : (
-                                        <div
-                                            className={classes.placeholderImage}
-                                        >
-                                            Article Image
-                                        </div>
-                                    )}
+                                <div className={classes.reportInfo}>
+                                    <h3>{report.title}</h3>
+                                    <h4>{report.description}</h4>
                                 </div>
-                                <div className={classes.insightInfo}>
-                                    <h3>{article.title}</h3>
-                                    <h4>{article.description}</h4>
-                                    <div className={classes.articleDateAndLink}>
-                                        <div className={classes.articleDate}>
-                                            {dateFormatter(article.$updatedAt)}
-                                        </div>
-                                        <button>
-                                            <span>Read more</span>
-                                            <svg
-                                                width="16"
-                                                height="17"
-                                                viewBox="0 0 16 17"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    d="M1 15.2758L15 1"
-                                                    stroke="#D34329"
-                                                    strokeWidth="2"
-                                                    strokeMiterlimit="10"
-                                                    strokeLinecap="round"
-                                                />
-                                                <path
-                                                    d="M14.9991 12.0761V1.1C14.9991 1.04477 14.9543 1 14.8991 1H4.07422"
-                                                    stroke="#D34329"
-                                                    strokeWidth="2"
-                                                    strokeMiterlimit="10"
-                                                    strokeLinecap="round"
-                                                />
-                                            </svg>
-                                        </button>
+                                <div className={classes.articleDateAndLink}>
+                                    <div className={classes.articleDate}>
+                                        {dateFormatter(report.$updatedAt)}
                                     </div>
+                                    <button>
+                                        <span>Read more</span>
+                                        <svg
+                                            width="16"
+                                            height="17"
+                                            viewBox="0 0 16 17"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M1 15.2758L15 1"
+                                                stroke="#D34329"
+                                                strokeWidth="2"
+                                                strokeMiterlimit="10"
+                                                strokeLinecap="round"
+                                            />
+                                            <path
+                                                d="M14.9991 12.0761V1.1C14.9991 1.04477 14.9543 1 14.8991 1H4.07422"
+                                                stroke="#D34329"
+                                                strokeWidth="2"
+                                                strokeMiterlimit="10"
+                                                strokeLinecap="round"
+                                            />
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <p className={classes.noInsights}>No insights available.</p>
+                    <p className={classes.noReports}>No reports available.</p>
                 )}
                 {totalPages > 1 && (
                     <div className={classes.paginationContainer}>
@@ -204,4 +190,4 @@ const Insights = () => {
     );
 };
 
-export default Insights;
+export default Reports;

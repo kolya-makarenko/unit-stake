@@ -90,4 +90,7 @@
     .reports {
         margin-top: 80px;
     }
+    .reports h2 {
+        font-size: 38px;
+    }
 }

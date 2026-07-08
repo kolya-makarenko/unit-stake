@@ -44,7 +44,7 @@ const arrowUp = (
     </svg>
 );
 
-const ITEMS_PER_PAGE = 7;
+const ITEMS_PER_PAGE = 2;
 
 const News = () => {
     const [articles, setArticles] = useState([]);
@@ -110,6 +110,10 @@ const News = () => {
     useEffect(() => {
         setCurrentPage(1);
     }, [searchQuery, selectedTopics, sortBy]);
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [currentPage]);
 
     const toggleTab = (tabName) => {
         setActiveTab((prevTab) => (prevTab === tabName ? null : tabName));
@@ -398,8 +402,8 @@ const News = () => {
                         </div>
                     )}
                 </div>
-                <div className={classes.paginationContainer}>
-                    {totalPages > 1 && (
+                {totalPages > 1 && (
+                    <div className={classes.paginationContainer}>
                         <div className={classes.pagination}>
                             <div className={classes.paginationBtns}>
                                 <button
@@ -467,8 +471,8 @@ const News = () => {
                                 </button>
                             </div>
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
         </section>
     );

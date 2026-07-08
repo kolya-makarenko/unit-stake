@@ -1,55 +1,27 @@
-.insightsContainer {
+.reportsContainer {
     margin-top: 40px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 24px;
 }
 
-.insight {
-    height: 240px;
+.report {
+    padding: 24px;
+    box-sizing: border-box;
     border: 1px solid rgba(61, 61, 61, 0.4);
     border-radius: 24px;
-    overflow: hidden;
     background-color: #ffffff05;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
     cursor: pointer;
     transition: 0.3s ease-in-out;
 }
 
-.insight:hover {
+.report:hover {
     box-shadow: 0px 0px 10px #d34329;
 }
 
-.insightImage {
-    background-color: #acacaf;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.insightImage img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.placeholderImage {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.5px;
-    color: #fff;
-}
-
-.insightInfo {
-    padding: 24px;
-    box-sizing: border-box;
-}
-
-.insightInfo h3 {
+.reportInfo h3 {
     font-weight: 600;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 140%;
     letter-spacing: -1.5%;
     color: #fff;
@@ -59,10 +31,10 @@
     overflow: hidden;
 }
 
-.insightInfo h4 {
+.reportInfo h4 {
     margin-top: 8px;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 160%;
     letter-spacing: -1%;
     color: #b4b4b4;
@@ -135,7 +107,7 @@
     stroke: #fff;
 }
 
-.noInsights {
+.noReports {
     margin-top: 16px;
     font-weight: 600;
     font-size: 24px;
@@ -234,26 +206,17 @@
 }
 
 @media (max-width: 1100px) {
-    .insightsContainer {
+    .reportsContainer {
         gap: 16px;
     }
-    .insight {
-        border-radius: 16px;
-    }
-    .insightInfo {
+    .report {
         padding: 16px;
+        border-radius: 16px;
     }
 }
 
 @media (max-width: 1000px) {
-    .insightsContainer {
+    .reportsContainer {
         grid-template-columns: 1fr;
-    }
-    .insight {
-        height: fit-content;
-        grid-template-columns: 1fr;
-    }
-    .insightImage {
-        height: 200px;
     }
 }

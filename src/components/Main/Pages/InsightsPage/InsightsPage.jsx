@@ -1,5 +1,7 @@
 import News from './News/News';
 import Insights from './Insights/Insights';
+import Reports from './Reports/Reports';
+
 import classes from './InsightsPage.module.css';
 
 const InsightsPage = () => {
@@ -27,6 +29,7 @@ const InsightsPage = () => {
                     <h2>Reports & Research</h2>
                 </div>
             </section>
+            <Reports />
         </main>
     );
 };
