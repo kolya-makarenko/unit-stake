@@ -44,7 +44,7 @@ const arrowUp = (
     </svg>
 );
 
-const ITEMS_PER_PAGE = 2;
+const ITEMS_PER_PAGE = 7;
 
 const News = () => {
     const [articles, setArticles] = useState([]);
