@@ -1,9 +1,6 @@
 .articlePage {
+    padding-top: 120px;
     scroll-behavior: smooth;
-}
-
-.article {
-    padding: 120px 0;
     background-color: #ededf0;
 }
 
@@ -164,6 +161,11 @@
     color: #d34329;
 }
 
+.darkBg {
+    margin-top: 120px;
+    background-color: #19191c;
+}
+
 @media (max-width: 1100px) {
     .articleContainer {
         gap: 16px;
@@ -177,8 +179,8 @@
 }
 
 @media (max-width: 1000px) {
-    .article {
-        padding: 80px 0;
+    .articlePage {
+        padding-top: 80px;
     }
     .articleContentMain h2 {
         font-size: 38px;
@@ -203,5 +205,8 @@
     .activeHashLink {
         font-weight: 400;
         color: #57575c;
+    }
+    .darkBg {
+        margin-top: 80px;
     }
 }

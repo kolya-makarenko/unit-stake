@@ -1,0 +1,28 @@
+.readNext {
+    padding-top: 60px;
+}
+
+.readNext h2 {
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+@media (max-width: 1000px) {
+    .readNext {
+        padding-top: 40px;
+    }
+    .readNext h2 {
+        font-size: 38px;
+    }
+}

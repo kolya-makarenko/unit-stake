@@ -6,6 +6,9 @@ import {
     DATABASE_ID,
     TABLE_ID_NEWS,
 } from '../../../../../lib/appwrite';
+import ArticleFaq from './ArticleFaq/ArticleFaq';
+import MainPageForm from '../../MainPage/MainPageForm/MainPageForm';
+import ReadNext from './ReadNext/ReadNext';
 
 import classes from './Article.module.css';
 
@@ -32,7 +35,6 @@ const Article = () => {
                     rowId: articleId,
                 });
                 setArticleData(response);
-
                 window.scrollTo(0, 0);
             } catch (error) {
                 console.error('Error fetching article data:', error);
@@ -232,6 +234,7 @@ const Article = () => {
                                     })}
                                 </div>
                             </div>
+                            <ArticleFaq />
                         </div>
                         <div className={classes.articleTable}>
                             <div className={classes.articleTableContainer}>
@@ -265,6 +268,10 @@ const Article = () => {
                     </div>
                 </div>
             </section>
+            <div className={classes.darkBg}>
+                <MainPageForm />
+                <ReadNext />
+            </div>
         </main>
     );
 };
