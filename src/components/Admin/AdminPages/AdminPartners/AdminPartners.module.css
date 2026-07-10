@@ -329,6 +329,13 @@ p.addPlatformFormHeader {
 .addPlatformFormBlocksListItemHeader {
     display: flex;
     justify-content: space-between;
+    cursor: grab;
+}
+
+.dragging {
+    opacity: 0.5;
+    border: 2px dashed #d34329;
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .addPlatformFormBlocksListItemHeader span {
@@ -424,4 +431,10 @@ p.addPlatformFormHeader {
     background-color: #f59e0b10;
     border: 1px solid #f59e0b25;
     color: #f59e0b;
+}
+
+.modelBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }

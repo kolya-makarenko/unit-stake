@@ -20,6 +20,7 @@ const AdminPartners = () => {
     const [partners, setPartners] = useState([]);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [jurisdiction, setJurisdiction] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [partnerUrl, setPartnerUrl] = useState('');
     const [imageFile, setImageFile] = useState(null);
@@ -29,7 +30,14 @@ const AdminPartners = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [email, setEmail] = useState('');
+    const [whatsappUrl, setWhatsappUrl] = useState('');
+    const [linkedinUrl, setLinkedinUrl] = useState('');
     const [textBlocks, setTextBlocks] = useState([]);
+    const [approachText, setApproachText] = useState('');
+    const [engagementBlocks, setEngagementBlocks] = useState([]);
+
+    const [draggedContentIndex, setDraggedContentIndex] = useState(null);
+    const [draggedEngagementIndex, setDraggedEngagementIndex] = useState(null);
 
     const [category, setCategory] = useState('');
     const [categoriesList, setCategoriesList] = useState([]);
@@ -125,14 +133,90 @@ const AdminPartners = () => {
         setTextBlocks(textBlocks.filter((block) => block.id !== id));
     };
 
+    const handleContentDragStart = (e, index) => {
+        setDraggedContentIndex(index);
+        e.dataTransfer.effectAllowed = 'move';
+    };
+
+    const handleContentDragOver = (e, index) => {
+        e.preventDefault();
+        if (draggedContentIndex === null || draggedContentIndex === index)
+            return;
+
+        const updatedBlocks = [...textBlocks];
+        const draggedBlock = updatedBlocks[draggedContentIndex];
+
+        updatedBlocks.splice(draggedContentIndex, 1);
+        updatedBlocks.splice(index, 0, draggedBlock);
+
+        setDraggedContentIndex(index);
+        setTextBlocks(updatedBlocks);
+    };
+
+    const handleContentDragEnd = () => {
+        setDraggedContentIndex(null);
+    };
+
+    const addEngagementBlock = () => {
+        const newBlock = {
+            id: ID.unique(),
+            title: '',
+            text: '',
+        };
+        setEngagementBlocks([...engagementBlocks, newBlock]);
+    };
+
+    const handleEngagementBlockChange = (id, field, value) => {
+        setEngagementBlocks(
+            engagementBlocks.map((block) =>
+                block.id === id ? { ...block, [field]: value } : block,
+            ),
+        );
+    };
+
+    const removeEngagementBlock = (id) => {
+        setEngagementBlocks(
+            engagementBlocks.filter((block) => block.id !== id),
+        );
+    };
+
+    const handleEngagementDragStart = (e, index) => {
+        setDraggedEngagementIndex(index);
+        e.dataTransfer.effectAllowed = 'move';
+    };
+
+    const handleEngagementDragOver = (e, index) => {
+        e.preventDefault();
+        if (draggedEngagementIndex === null || draggedEngagementIndex === index)
+            return;
+
+        const updatedBlocks = [...engagementBlocks];
+        const draggedBlock = updatedBlocks[draggedEngagementIndex];
+
+        updatedBlocks.splice(draggedEngagementIndex, 1);
+        updatedBlocks.splice(index, 0, draggedBlock);
+
+        setDraggedEngagementIndex(index);
+        setEngagementBlocks(updatedBlocks);
+    };
+
+    const handleEngagementDragEnd = () => {
+        setDraggedEngagementIndex(null);
+    };
+
     const handleAddClick = () => {
         setName('');
         setDescription('');
+        setJurisdiction('');
         setImageUrl('');
         setPartnerUrl('');
         setEmail('');
+        setWhatsappUrl('');
+        setLinkedinUrl('');
         setCategory('');
         setTextBlocks([]);
+        setEngagementBlocks([]);
+        setApproachText('');
         setImageFile(null);
         setEditingPartnerId(null);
         setIsFormOpen(true);
@@ -141,12 +225,16 @@ const AdminPartners = () => {
     const handleEditClick = (partner) => {
         setName(partner.name || '');
         setDescription(partner.description || '');
+        setJurisdiction(partner.jurisdiction || '');
         setImageUrl(partner.image_url || '');
         setPartnerUrl(partner.partner_url || '');
         setEmail(partner.email || '');
+        setWhatsappUrl(partner.whatsapp_url || '');
+        setLinkedinUrl(partner.linkedin_url || '');
         setCategory(partner.category || '');
         setImageFile(null);
         setEditingPartnerId(partner.$id);
+        setApproachText(partner.approach_text || '');
 
         if (partner.content_blocks && partner.content_blocks.length) {
             const parsedBlocks = partner.content_blocks.map((blockStr) => {
@@ -162,6 +250,22 @@ const AdminPartners = () => {
             setTextBlocks(parsedBlocks);
         } else {
             setTextBlocks([]);
+        }
+
+        if (partner.engagement_blocks && partner.engagement_blocks.length) {
+            const parsedEngBlocks = partner.engagement_blocks.map(
+                (blockStr) => {
+                    const block = JSON.parse(blockStr);
+                    return {
+                        id: ID.unique(),
+                        title: block.title || '',
+                        text: block.text || '',
+                    };
+                },
+            );
+            setEngagementBlocks(parsedEngBlocks);
+        } else {
+            setEngagementBlocks([]);
         }
 
         setIsFormOpen(true);
@@ -243,14 +347,26 @@ const AdminPartners = () => {
                 }
             }
 
+            const serializedEngagementBlocks = engagementBlocks.map((block) =>
+                JSON.stringify({
+                    title: block.title,
+                    text: block.text,
+                }),
+            );
+
             const data = {
                 name: name,
                 description: description,
+                jurisdiction: jurisdiction,
                 image_url: finalImageUrl,
                 partner_url: partnerUrl,
                 email: email,
+                linkedin_url: linkedinUrl,
+                whatsapp_url: whatsappUrl,
                 category: category,
                 content_blocks: serializedBlocks,
+                engagement_blocks: serializedEngagementBlocks,
+                approach_text: approachText,
             };
 
             if (editingPartnerId) {
@@ -340,6 +456,20 @@ const AdminPartners = () => {
                             />
                         </div>
                         <div className={classes.addPlatformFormIdentityField}>
+                            <label htmlFor="partnerJurisdiction">
+                                Jurisdiction
+                            </label>
+                            <input
+                                type="text"
+                                id="partnerJurisdiction"
+                                placeholder="Jurisdiction"
+                                value={jurisdiction}
+                                onChange={(e) =>
+                                    setJurisdiction(e.target.value)
+                                }
+                            />
+                        </div>
+                        <div className={classes.addPlatformFormIdentityField}>
                             <label htmlFor="partnerEmail">Partner Email</label>
                             <input
                                 type="email"
@@ -362,7 +492,26 @@ const AdminPartners = () => {
                                 onChange={(e) => setPartnerUrl(e.target.value)}
                             />
                         </div>
-
+                        <div className={classes.addPlatformFormIdentityField}>
+                            <label htmlFor="whatsappUrl">What'sApp URL</label>
+                            <input
+                                type="text"
+                                id="whatsappUrl"
+                                placeholder="https://wa.me/..."
+                                value={whatsappUrl}
+                                onChange={(e) => setWhatsappUrl(e.target.value)}
+                            />
+                        </div>
+                        <div className={classes.addPlatformFormIdentityField}>
+                            <label htmlFor="linkedinUrl">LinkedIn URL</label>
+                            <input
+                                type="text"
+                                id="linkedinUrl"
+                                placeholder="https://linkedin.com/..."
+                                value={linkedinUrl}
+                                onChange={(e) => setLinkedinUrl(e.target.value)}
+                            />
+                        </div>
                         <div className={classes.addPlatformFormIdentityField}>
                             <label htmlFor="partnerCategory">
                                 Partner Category
@@ -418,6 +567,140 @@ const AdminPartners = () => {
                             />
                         </div>
                     </div>
+                    <div className={classes.addPlatformFormContent}>
+                        <h3 className={classes.addPlatformFormHeader}>
+                            Approach text block
+                        </h3>
+                        <div className={classes.addPlatformFormContentBlocks}>
+                            <div
+                                className={
+                                    classes.addPlatformFormBlocksListItem
+                                }
+                            >
+                                <div
+                                    className={
+                                        classes.addPlatformFormBlocksListItemHeader
+                                    }
+                                >
+                                    <span>Approach to Projects</span>
+                                </div>
+                                <textarea
+                                    placeholder="Enter Approach to Projects text..."
+                                    className={
+                                        classes.addPlatformFormBlocksListItemInputTitle
+                                    }
+                                    value={approachText}
+                                    onChange={(e) =>
+                                        setApproachText(e.target.value)
+                                    }
+                                    rows={4}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={classes.addPlatformFormContent}>
+                        <h3 className={classes.addPlatformFormHeader}>
+                            Engagement Model
+                        </h3>
+                        <div className={classes.addPlatformFormContentBlocks}>
+                            <div className={classes.addPlatformFormBlocksList}>
+                                {engagementBlocks.map((block, index) => (
+                                    <div
+                                        key={block.id}
+                                        className={`${classes.addPlatformFormBlocksListItem} ${
+                                            draggedEngagementIndex === index
+                                                ? classes.dragging
+                                                : ''
+                                        }`}
+                                        onDragOver={(e) =>
+                                            handleEngagementDragOver(e, index)
+                                        }
+                                    >
+                                        <div
+                                            className={
+                                                classes.addPlatformFormBlocksListItemHeader
+                                            }
+                                            draggable="true"
+                                            onDragStart={(e) =>
+                                                handleEngagementDragStart(
+                                                    e,
+                                                    index,
+                                                )
+                                            }
+                                            onDragEnd={handleEngagementDragEnd}
+                                        >
+                                            <span>
+                                                ☰ Model Block {index + 1}:{' '}
+                                                <strong>Title & Text</strong>
+                                            </span>
+                                            <button
+                                                type="button"
+                                                className={
+                                                    classes.deleteBlockBtn
+                                                }
+                                                onClick={() =>
+                                                    removeEngagementBlock(
+                                                        block.id,
+                                                    )
+                                                }
+                                            >
+                                                <img
+                                                    src={deleteIcon}
+                                                    alt="Delete"
+                                                />
+                                            </button>
+                                        </div>
+
+                                        <div className={classes.modelBlock}>
+                                            <input
+                                                type="text"
+                                                placeholder="Enter step title..."
+                                                className={
+                                                    classes.addPlatformFormBlocksListItemInputTitle
+                                                }
+                                                value={block.title}
+                                                onChange={(e) =>
+                                                    handleEngagementBlockChange(
+                                                        block.id,
+                                                        'title',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                required
+                                            />
+                                            <textarea
+                                                placeholder="Enter step text description..."
+                                                className={
+                                                    classes.addPlatformFormBlocksListItemInputTitle
+                                                }
+                                                value={block.text}
+                                                onChange={(e) =>
+                                                    handleEngagementBlockChange(
+                                                        block.id,
+                                                        'text',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                rows={3}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div
+                                className={classes.addPlatformFormBlockButtons}
+                            >
+                                <button
+                                    type="button"
+                                    onClick={addEngagementBlock}
+                                >
+                                    + Add Engagement Block
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
                     <div className={classes.addPlatformFormContent}>
                         <h3 className={classes.addPlatformFormHeader}>
@@ -428,15 +711,27 @@ const AdminPartners = () => {
                                 {textBlocks.map((block, index) => (
                                     <div
                                         key={block.id}
-                                        className={`${classes.addPlatformFormBlocksListItem} ${classes[block.type]}`}
+                                        className={`${classes.addPlatformFormBlocksListItem} ${classes[block.type]} ${
+                                            draggedContentIndex === index
+                                                ? classes.dragging
+                                                : ''
+                                        }`}
+                                        onDragOver={(e) =>
+                                            handleContentDragOver(e, index)
+                                        }
                                     >
                                         <div
                                             className={
                                                 classes.addPlatformFormBlocksListItemHeader
                                             }
+                                            draggable="true"
+                                            onDragStart={(e) =>
+                                                handleContentDragStart(e, index)
+                                            }
+                                            onDragEnd={handleContentDragEnd}
                                         >
                                             <span>
-                                                Block {index + 1}:{' '}
+                                                ☰ Block {index + 1}:{' '}
                                                 <strong>
                                                     {block.type === 'h4' &&
                                                         'Title'}
