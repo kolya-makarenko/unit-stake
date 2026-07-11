@@ -28,26 +28,6 @@ const AssetsPageLegalPartners = () => {
         fetchPartners();
     }, []);
 
-    const getFirstText = (rawArray) => {
-        if (!Array.isArray(rawArray) || rawArray.length === 0) {
-            return null;
-        }
-
-        for (const jsonString of rawArray) {
-            try {
-                const parsedObj = JSON.parse(jsonString);
-
-                if (parsedObj && parsedObj.type === 'p') {
-                    return parsedObj.value;
-                }
-            } catch (error) {
-                console.error('Error parsing array element:', error);
-            }
-        }
-
-        return null;
-    };
-
     return (
         <section className={`sectionMarginTop ${classes.partners}`}>
             <div className="wrapper">
@@ -86,7 +66,7 @@ const AssetsPageLegalPartners = () => {
                             <div className={classes.partnerText}>
                                 <h3>{item.name}</h3>
                                 <p className={classes.partnerDescription}>
-                                    {getFirstText(item.content_blocks)}
+                                    {item.description}
                                 </p>
                             </div>
                             <div className={classes.partnerLink}>

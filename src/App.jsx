@@ -28,6 +28,8 @@ import PlatformPage from './components/Main/Pages/PlatformsPage/PlatformPage/Pla
 import ProjectPage from './components/Main/Pages/ProjectsPage/ProjectPage/ProjectPage';
 import InsightsPage from './components/Main/Pages/InsightsPage/InsightsPage';
 import Article from './components/Main/Pages/InsightsPage/Article/Article';
+import PartnerPage from './components/Main/Pages/PartnerPage/PartnerPage';
+
 import './App.css';
 
 function App() {
@@ -42,7 +44,7 @@ function App() {
                     <Route path="platforms" element={<PlatformsPage />} />
                     <Route path="platforms/:id" element={<PlatformPage />} />
                     <Route path="for-assets-owners" element={<AssetsPage />} />
-                    <Route path="partner/:id" element={<div>PARTNER</div>} />
+                    <Route path="partner/:id" element={<PartnerPage />} />
                     <Route path="insights" element={<InsightsPage />} />
                     <Route path="insights/:id" element={<Article />} />
                     <Route path="academy" element={<div>Academy</div>} />

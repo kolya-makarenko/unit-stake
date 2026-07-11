@@ -1,0 +1,108 @@
+.partnerPage {
+    padding-top: 120px;
+    background-color: #19191c;
+}
+
+.identityContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logoAndName {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.partnerImage {
+    width: 116px;
+    height: 48px;
+    padding: 12px 8px;
+    box-sizing: border-box;
+    background-color: #ffffff05;
+    border: 1px solid rgba(61, 61, 61, 0.4);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.partnerImage img {
+    width: 100%;
+}
+
+.logoAndName h2 {
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.shareButtons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+.shareBtn {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background-color: #1f1f1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.shareBtn:hover {
+    background-color: #d34329;
+}
+
+.identityTxt {
+    width: 100%;
+    max-width: 750px;
+}
+
+.description {
+    margin-top: 24px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+@media (max-width: 1000px) {
+    .identityContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .logoAndName {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .logoAndName h2 {
+        font-size: 38px;
+    }
+}
