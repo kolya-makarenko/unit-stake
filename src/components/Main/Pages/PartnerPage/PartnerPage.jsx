@@ -6,6 +6,8 @@ import {
     TABLE_ID_PARTNERS,
 } from '../../../../lib/appwrite';
 import CategoryTxt from './CategoryTxt/CategoryTxt';
+import FocusTxt from './FocusTxt/FocusTxt';
+import ServicesCards from './ServicesCards/ServicesCards';
 
 import classes from './PartnerPage.module.css';
 
@@ -46,17 +48,6 @@ const PartnerPage = () => {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
-
-    // const addCategoryTxt = () => {
-    //     switch (partner.category) {
-    //         case 'Marketing':
-    //             return 'Marketing & Distribution for Tokenised Assets';
-    //         case 'Legal':
-    //             return 'Legal Structuring for Tokenised Real-World Assets';
-    //         default:
-    //             break;
-    //     }
-    // };
 
     return (
         <main className={classes.partnerPage}>
@@ -116,8 +107,18 @@ const PartnerPage = () => {
                             </p>
                         )}
                     </div>
+                    <div className={classes.locationAndFocus}>
+                        {partner.jurisdiction && (
+                            <div className={classes.locationAndFocusBox}>
+                                <h4>Jurisdiction</h4>
+                                <p>{partner.jurisdiction}</p>
+                            </div>
+                        )}
+                        <FocusTxt category={partner.category} />
+                    </div>
                 </div>
             </section>
+            <ServicesCards category={partner.category} />
         </main>
     );
 };

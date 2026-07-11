@@ -91,6 +91,43 @@
     color: #b4b4b4;
 }
 
+.locationAndFocus {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 60px;
+}
+
+.locationAndFocusBox {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.locationAndFocusBox h4 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #858585;
+}
+
+.locationAndFocusBox p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+}
+
+@media (max-width: 1100px) {
+    .locationAndFocus {
+        gap: 24px;
+    }
+}
+
 @media (max-width: 1000px) {
     .identityContainer {
         display: flex;
@@ -104,5 +141,8 @@
     }
     .logoAndName h2 {
         font-size: 38px;
+    }
+    .locationAndFocus {
+        gap: 16px;
     }
 }
