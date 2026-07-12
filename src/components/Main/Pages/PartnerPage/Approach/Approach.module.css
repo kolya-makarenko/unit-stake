@@ -1,0 +1,28 @@
+.approach {
+    padding: 60px 0;
+    background-color: #ededf0;
+}
+
+.approach h2 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #19191c;
+}
+
+.approach p {
+    margin-top: 16px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+@media (max-width: 1000px) {
+    .approach {
+        padding: 40px 0;
+    }
+}

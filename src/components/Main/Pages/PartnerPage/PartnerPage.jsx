@@ -10,6 +10,9 @@ import FocusTxt from './FocusTxt/FocusTxt';
 import ServicesCards from './ServicesCards/ServicesCards';
 import ExternalLinks from './ExternalLinks/ExternalLinks';
 import StrategicManifesto from './StrategicManifesto/StrategicManifesto';
+import ForOwners from './ForOwners/ForOwners';
+import Approach from './Approach/Approach';
+import SocialLinks from './SocialLinks/SocialLinks';
 
 import classes from './PartnerPage.module.css';
 
@@ -126,6 +129,13 @@ const PartnerPage = () => {
                 whatsapp_url={partner.whatsapp_url}
             />
             <StrategicManifesto category={partner.category} />
+            <ForOwners category={partner.category} />
+            <Approach approach_text={partner.approach_text} />
+            <SocialLinks
+                partner_url={partner.partner_url}
+                email={partner.email}
+                linkedin_url={partner.linkedin_url}
+            />
         </main>
     );
 };
