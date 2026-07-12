@@ -95,6 +95,10 @@ const CARDS_MAP = {
 const ServicesCards = ({ category }) => {
     const cards = CARDS_MAP[category] || [];
 
+    if (!cards) {
+        return null;
+    }
+
     return (
         <section className={classes.servicesCards}>
             <div className="wrapper">

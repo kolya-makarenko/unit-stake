@@ -1,0 +1,201 @@
+.strategicManifesto {
+    margin-top: 120px;
+}
+
+.strategicManifestoMainTxt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.fakeBtn {
+    width: fit-content;
+    padding: 1px 1px;
+    border-radius: 100px;
+    background: linear-gradient(
+        90deg,
+        rgba(61, 61, 61, 0.4) 0%,
+        #696969 50%,
+        rgba(61, 61, 61, 0.4) 100%
+    );
+    background-size: 200% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: moveGradient 4s linear infinite;
+}
+
+@keyframes moveGradient {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.fakeBtnContainer {
+    width: fit-content;
+    padding: 4px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 100px;
+    background-color: #222;
+}
+
+.fakeBtnCircle {
+    width: 10px;
+    height: 10px;
+    background-color: #d34329;
+    box-shadow: 0px 0px 4px 1px #f0a59740;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.fakeBtnContainer p {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-transform: uppercase;
+    background: linear-gradient(
+        90deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0.8) 81.28%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.strategicManifestoMainTxt h2 {
+    width: 100%;
+    max-width: 770px;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    text-align: center;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.layerContainer {
+    margin-top: 40px;
+    padding: 40px 60px;
+    box-sizing: border-box;
+    border: 1px solid rgba(61, 61, 61, 0.4);
+    border-radius: 24px;
+    background:
+        radial-gradient(
+            141.42% 141.42% at 0% 0%,
+            rgba(255, 255, 255, 0.04) 0%,
+            rgba(0, 0, 0, 0) 60%
+        ),
+        radial-gradient(
+            141.42% 141.42% at 100% 100%,
+            rgba(211, 67, 41, 0.16) 0%,
+            rgba(0, 0, 0, 0) 60%
+        );
+    display: flex;
+    justify-content: space-between;
+}
+
+.layerHeader {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 160%;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #b4b4b4;
+}
+
+.layer h3 {
+    margin-top: 24px;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+}
+
+.layer h4 {
+    margin-top: 2px;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+.layer p {
+    margin-top: 24px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #b4b4b4;
+}
+
+.layerRed {
+    text-align: end;
+}
+
+.layerRed .layerHeader {
+    color: #d34329;
+}
+
+.layerRed h4 {
+    color: #d34329;
+}
+
+.simpleTxt {
+    margin-top: 40px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-align: center;
+    color: #b4b4b4;
+}
+
+.simpleTxt span {
+    color: #fff;
+}
+
+@media (max-width: 1100px) {
+    .layerContainer {
+        padding: 24px;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .strategicManifesto {
+        margin-top: 80px;
+    }
+    .strategicManifestoMainTxt h2 {
+        font-size: 38px;
+    }
+    .layerContainer {
+        padding: 16px;
+    }
+    .layerContainer {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .layerRed {
+        text-align: start;
+    }
+}
