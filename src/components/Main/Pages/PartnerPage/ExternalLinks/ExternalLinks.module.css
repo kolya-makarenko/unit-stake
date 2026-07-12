@@ -1,0 +1,85 @@
+.externalLinks {
+    margin-top: 40px;
+}
+
+.externalLinksContainer {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.secondaryInfoLink a {
+    width: fit-content;
+    padding: 12px 32px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: #d34329;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.secondaryInfoLink a svg path {
+    transition: 0.3s ease-in-out;
+}
+
+.secondaryInfoLink a:hover {
+    background-color: #fff;
+    color: #d34329;
+}
+
+.secondaryInfoLink a:hover svg path {
+    stroke: #d34329;
+}
+
+.whatsappLink a {
+    width: fit-content;
+    padding: 12px 32px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #0c0c0c;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.whatsappLink a svg path {
+    transition: 0.3s ease-in-out;
+}
+
+.whatsappLink a:hover {
+    background-color: #d34329;
+    color: #fff;
+}
+
+.whatsappLink a:hover svg path {
+    fill: #fff;
+}
+
+@media (max-width: 1000px) {
+    .externalLinksContainer {
+        flex-direction: column;
+    }
+    .secondaryInfoLink,
+    .secondaryInfoLink a,
+    .whatsappLink,
+    .whatsappLink a {
+        width: 100%;
+    }
+}

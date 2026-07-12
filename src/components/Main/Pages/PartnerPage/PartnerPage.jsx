@@ -8,6 +8,7 @@ import {
 import CategoryTxt from './CategoryTxt/CategoryTxt';
 import FocusTxt from './FocusTxt/FocusTxt';
 import ServicesCards from './ServicesCards/ServicesCards';
+import ExternalLinks from './ExternalLinks/ExternalLinks';
 
 import classes from './PartnerPage.module.css';
 
@@ -119,6 +120,10 @@ const PartnerPage = () => {
                 </div>
             </section>
             <ServicesCards category={partner.category} />
+            <ExternalLinks
+                partner_url={partner.partner_url}
+                whatsapp_url={partner.whatsapp_url}
+            />
         </main>
     );
 };
