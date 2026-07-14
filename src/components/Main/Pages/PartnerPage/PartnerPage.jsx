@@ -13,6 +13,8 @@ import StrategicManifesto from './StrategicManifesto/StrategicManifesto';
 import ForOwners from './ForOwners/ForOwners';
 import Approach from './Approach/Approach';
 import SocialLinks from './SocialLinks/SocialLinks';
+import Engagement from './Engagement/Engagement';
+import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
 
 import classes from './PartnerPage.module.css';
 
@@ -20,6 +22,7 @@ import linkedinIcon from '../../../../assets/images/icons/linkedin.svg';
 import telegramIcon from '../../../../assets/images/icons/telegram.svg';
 import twitterIcon from '../../../../assets/images/icons/twitter.svg';
 import shareBtnCopyIcon from '../../../../assets/images/icons/shareBtnCopy.svg';
+import AssetsPageFaq from '../AssetsPage/AssetsPageFaq/AssetsPageFaq';
 
 const PartnerPage = () => {
     const { id: partnerId } = useParams();
@@ -136,6 +139,9 @@ const PartnerPage = () => {
                 email={partner.email}
                 linkedin_url={partner.linkedin_url}
             />
+            <Engagement engagement_blocks={partner.engagement_blocks} />
+            <AdditionalInfo content_blocks={partner.content_blocks} />
+            <AssetsPageFaq pageName="partner" relatedId={partnerId} />
         </main>
     );
 };

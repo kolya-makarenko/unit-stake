@@ -18,10 +18,16 @@ const AssetsPageFaq = (props) => {
     useEffect(() => {
         const fetchFaqs = async () => {
             try {
+                const queries = [Query.equal('page_type', props.pageName)];
+
+                if (props.relatedId) {
+                    queries.push(Query.equal('related_id', props.relatedId));
+                }
+
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_FAQS_PAGE,
-                    queries: [Query.equal('page_type', props.pageName)],
+                    queries: queries,
                 });
                 const document = response.rows[0];
 
@@ -45,6 +51,10 @@ const AssetsPageFaq = (props) => {
         };
         fetchFaqs();
     }, []);
+
+    if (faqs.length === 0) {
+        return null;
+    }
 
     return (
         <section className={classes.faq}>
