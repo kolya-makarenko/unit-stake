@@ -29,6 +29,7 @@ import ProjectPage from './components/Main/Pages/ProjectsPage/ProjectPage/Projec
 import InsightsPage from './components/Main/Pages/InsightsPage/InsightsPage';
 import Article from './components/Main/Pages/InsightsPage/Article/Article';
 import PartnerPage from './components/Main/Pages/PartnerPage/PartnerPage';
+import Academy from './components/Main/Pages/Academy/Academy';
 
 import './App.css';
 
@@ -47,7 +48,7 @@ function App() {
                     <Route path="partner/:id" element={<PartnerPage />} />
                     <Route path="insights" element={<InsightsPage />} />
                     <Route path="insights/:id" element={<Article />} />
-                    <Route path="academy" element={<div>Academy</div>} />
+                    <Route path="academy" element={<Academy />} />
                     <Route path="about-us" element={<AboutUsPage />} />
                     <Route path="verified" element={<VerifiedPage />} />
                     <Route path="contact-us" element={<div>Contact us</div>} />

@@ -1,0 +1,75 @@
+.academyPage {
+    background-color: #ededf0;
+}
+
+.heroSection {
+    padding: 120px 0;
+}
+
+.fakeBtn {
+    width: fit-content;
+    padding: 1px 1px;
+    border-radius: 100px;
+    background: linear-gradient(
+        90deg,
+        rgba(61, 61, 61, 0.4) 0%,
+        #696969 50%,
+        rgba(61, 61, 61, 0.4) 100%
+    );
+    background-size: 200% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: moveGradient 4s linear infinite;
+}
+
+@keyframes moveGradient {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.fakeBtnContainer {
+    width: fit-content;
+    padding: 4px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 100px;
+    background-color: #222;
+}
+
+.fakeBtnCircle {
+    width: 10px;
+    height: 10px;
+    background-color: #d34329;
+    box-shadow: 0px 0px 4px 1px #f0a59740;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.fakeBtnContainer p {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    text-transform: uppercase;
+    background: linear-gradient(
+        90deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0.8) 81.28%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+@media (max-width: 1000px) {
+    .heroSection {
+        padding: 80px 0;
+    }
+}

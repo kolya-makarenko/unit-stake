@@ -16,6 +16,8 @@ const AdminAcademy = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const [draggedIndex, setDraggedIndex] = useState(null);
+
     useEffect(() => {
         const fetchAcademyData = async () => {
             try {
@@ -37,8 +39,11 @@ const AdminAcademy = () => {
                                 const parsed = JSON.parse(blockStr);
                                 return {
                                     id: ID.unique(),
-                                    title: parsed.title || '',
-                                    text: parsed.text || '',
+                                    type: parsed.type || 'p',
+                                    value:
+                                        parsed.value !== undefined
+                                            ? parsed.value
+                                            : parsed.text || parsed.title || '',
                                 };
                             },
                         );
@@ -55,25 +60,48 @@ const AdminAcademy = () => {
         fetchAcademyData();
     }, []);
 
-    const addBlock = () => {
+    const addBlock = (type) => {
         const newBlock = {
             id: ID.unique(),
-            title: '',
-            text: '',
+            type: type,
+            value: '',
         };
         setBlocks([...blocks, newBlock]);
     };
 
-    const handleBlockChange = (id, field, value) => {
+    const handleBlockChange = (id, value) => {
         setBlocks(
             blocks.map((block) =>
-                block.id === id ? { ...block, [field]: value } : block,
+                block.id === id ? { ...block, value: value } : block,
             ),
         );
     };
 
     const removeBlock = (id) => {
         setBlocks(blocks.filter((block) => block.id !== id));
+    };
+
+    const handleDragStart = (e, index) => {
+        setDraggedIndex(index);
+        e.dataTransfer.effectAllowed = 'move';
+    };
+
+    const handleDragOver = (e, index) => {
+        e.preventDefault();
+        if (draggedIndex === null || draggedIndex === index) return;
+
+        const updatedBlocks = [...blocks];
+        const draggedBlock = updatedBlocks[draggedIndex];
+
+        updatedBlocks.splice(draggedIndex, 1);
+        updatedBlocks.splice(index, 0, draggedBlock);
+
+        setDraggedIndex(index);
+        setBlocks(updatedBlocks);
+    };
+
+    const handleDragEnd = () => {
+        setDraggedIndex(null);
     };
 
     const handleSubmit = async (e) => {
@@ -83,8 +111,8 @@ const AdminAcademy = () => {
         try {
             const serializedBlocks = blocks.map((block) =>
                 JSON.stringify({
-                    title: block.title,
-                    text: block.text,
+                    type: block.type,
+                    value: block.value,
                 }),
             );
 
@@ -143,16 +171,34 @@ const AdminAcademy = () => {
                             {blocks.map((block, index) => (
                                 <div
                                     key={block.id}
-                                    className={
-                                        classes.addPlatformFormBlocksListItem
-                                    }
+                                    className={`${classes.addPlatformFormBlocksListItem} ${classes[block.type] || ''} ${
+                                        draggedIndex === index
+                                            ? classes.dragging
+                                            : ''
+                                    }`}
+                                    onDragOver={(e) => handleDragOver(e, index)}
                                 >
                                     <div
-                                        className={
-                                            classes.addPlatformFormBlocksListItemHeader
+                                        className={`${classes.addPlatformFormBlocksListItemHeader}`}
+                                        draggable="true"
+                                        onDragStart={(e) =>
+                                            handleDragStart(e, index)
                                         }
+                                        onDragEnd={handleDragEnd}
+                                        style={{ cursor: 'grab' }}
                                     >
-                                        <span>Content Block {index + 1}</span>
+                                        <span>
+                                            ☰ Block {index + 1}:{' '}
+                                            <strong>
+                                                {block.type === 'h3' && 'Title'}
+                                                {block.type === 'h4' &&
+                                                    'Subtitle'}
+                                                {block.type === 'strong' &&
+                                                    'Bold Text'}
+                                                {block.type === 'p' &&
+                                                    'Body Text'}
+                                            </strong>
+                                        </span>
                                         <button
                                             type="button"
                                             className={classes.deleteBlockBtn}
@@ -168,46 +214,68 @@ const AdminAcademy = () => {
                                     </div>
 
                                     <div className={classes.academyBlockFields}>
-                                        <input
-                                            type="text"
-                                            placeholder="Section Title (e.g., Introduction)"
-                                            value={block.title}
-                                            onChange={(e) =>
-                                                handleBlockChange(
-                                                    block.id,
-                                                    'title',
-                                                    e.target.value,
-                                                )
-                                            }
-                                            className={
-                                                classes.addPlatformFormBlocksListItemInputTitle
-                                            }
-                                            required
-                                        />
-                                        <textarea
-                                            placeholder="Write the section content here..."
-                                            value={block.text}
-                                            onChange={(e) =>
-                                                handleBlockChange(
-                                                    block.id,
-                                                    'text',
-                                                    e.target.value,
-                                                )
-                                            }
-                                            className={
-                                                classes.addPlatformFormBlocksListItemInputTitle
-                                            }
-                                            rows={6}
-                                            required
-                                        />
+                                        {block.type === 'h3' ||
+                                        block.type === 'h4' ? (
+                                            <input
+                                                type="text"
+                                                placeholder={`Enter ${block.type === 'h3' ? 'title' : 'subtitle'}...`}
+                                                value={block.value}
+                                                onChange={(e) =>
+                                                    handleBlockChange(
+                                                        block.id,
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className={
+                                                    classes.addPlatformFormBlocksListItemInputTitle
+                                                }
+                                                required
+                                            />
+                                        ) : (
+                                            <textarea
+                                                placeholder={`Enter ${block.type === 'strong' ? 'bold text' : 'paragraph content'}...`}
+                                                value={block.value}
+                                                onChange={(e) =>
+                                                    handleBlockChange(
+                                                        block.id,
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className={
+                                                    classes.addPlatformFormBlocksListItemInputTitle
+                                                }
+                                                rows={
+                                                    block.type === 'p' ? 6 : 1
+                                                }
+                                                required
+                                            />
+                                        )}
                                     </div>
                                 </div>
                             ))}
                         </div>
 
                         <div className={classes.addPlatformFormBlockButtons}>
-                            <button type="button" onClick={addBlock}>
-                                + Add Content Block
+                            <button
+                                type="button"
+                                onClick={() => addBlock('h3')}
+                            >
+                                + Add Title
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addBlock('h4')}
+                            >
+                                + Add Subtitle
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addBlock('strong')}
+                            >
+                                + Add Bold Text
+                            </button>
+                            <button type="button" onClick={() => addBlock('p')}>
+                                + Add Body Text
                             </button>
                         </div>
                     </div>
