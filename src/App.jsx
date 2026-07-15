@@ -30,6 +30,7 @@ import InsightsPage from './components/Main/Pages/InsightsPage/InsightsPage';
 import Article from './components/Main/Pages/InsightsPage/Article/Article';
 import PartnerPage from './components/Main/Pages/PartnerPage/PartnerPage';
 import Academy from './components/Main/Pages/Academy/Academy';
+import NotFound from './components/Main/Pages/NotFound/NotFound';
 
 import './App.css';
 
@@ -52,6 +53,7 @@ function App() {
                     <Route path="about-us" element={<AboutUsPage />} />
                     <Route path="verified" element={<VerifiedPage />} />
                     <Route path="contact-us" element={<div>Contact us</div>} />
+                    <Route path="*" element={<NotFound />} />
                 </Route>
                 <Route
                     path="/admin"
