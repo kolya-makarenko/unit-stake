@@ -43,14 +43,16 @@ const Academy = () => {
     useEffect(() => {
         if (contentBlocks.length === 0) return;
 
-        const headings = contentBlocks
+        const targets = contentBlocks
             .map((block, index) =>
-                block.type === 'h3' ? `heading${index}` : null,
+                block.type === 'h3' || block.type === 'strong'
+                    ? `block-${index}`
+                    : null,
             )
             .filter(Boolean);
 
-        if (headings.length > 0) {
-            setActiveHeadingId(headings[0]);
+        if (targets.length > 0) {
+            setActiveHeadingId(targets[0]);
         }
 
         let observer;
@@ -63,14 +65,14 @@ const Academy = () => {
             };
 
             const observerCallback = (entries) => {
-                if (window.scrollY <= 50 && headings.length > 0) {
-                    setActiveHeadingId(headings[0]);
+                if (window.scrollY <= 50 && targets.length > 0) {
+                    setActiveHeadingId(targets[0]);
                     return;
                 }
 
                 entries.forEach((entry) => {
                     const currentId = entry.target.id;
-                    const currentIndex = headings.indexOf(currentId);
+                    const currentIndex = targets.indexOf(currentId);
 
                     if (entry.isIntersecting) {
                         setActiveHeadingId(currentId);
@@ -80,7 +82,7 @@ const Academy = () => {
                             currentIndex > 0 &&
                             window.scrollY > 50
                         ) {
-                            setActiveHeadingId(headings[currentIndex - 1]);
+                            setActiveHeadingId(targets[currentIndex - 1]);
                         }
                     }
                 });
@@ -91,8 +93,8 @@ const Academy = () => {
                 observerOptions,
             );
 
-            Object.values(headingRefs.current).forEach((heading) => {
-                if (heading) observer.observe(heading);
+            Object.values(headingRefs.current).forEach((target) => {
+                if (target) observer.observe(target);
             });
         }, 100);
 
@@ -101,6 +103,20 @@ const Academy = () => {
             if (observer) observer.disconnect();
         };
     }, [contentBlocks.length]);
+
+    const activeIndex = activeHeadingId
+        ? parseInt(activeHeadingId.replace('block-', ''), 10)
+        : -1;
+
+    let activeH3Index = -1;
+    if (activeIndex !== -1) {
+        for (let i = activeIndex; i >= 0; i--) {
+            if (contentBlocks[i]?.type === 'h3') {
+                activeH3Index = i;
+                break;
+            }
+        }
+    }
 
     return (
         <main className={classes.academyPage}>
@@ -132,17 +148,17 @@ const Academy = () => {
                         <aside>
                             <div className={classes.HashLinks}>
                                 {contentBlocks.map((block, index) => {
-                                    const headingId = `heading${index}`;
+                                    const blockId = `block-${index}`;
                                     switch (block.type) {
                                         case 'h3':
                                             return (
                                                 <HashLink
                                                     key={index}
                                                     smooth
-                                                    to={`#${headingId}`}
+                                                    to={`#${blockId}`}
                                                     className={`${classes.hashLink} ${
                                                         activeHeadingId ===
-                                                        headingId
+                                                        blockId
                                                             ? classes.activeHashLink
                                                             : ''
                                                     }`}
@@ -150,7 +166,42 @@ const Academy = () => {
                                                     {block.value}
                                                 </HashLink>
                                             );
+                                        case 'strong': {
+                                            let parentH3Index = -1;
+                                            for (let i = index; i >= 0; i--) {
+                                                if (
+                                                    contentBlocks[i]?.type ===
+                                                    'h3'
+                                                ) {
+                                                    parentH3Index = i;
+                                                    break;
+                                                }
+                                            }
 
+                                            if (
+                                                parentH3Index !==
+                                                    activeH3Index ||
+                                                activeH3Index === -1
+                                            ) {
+                                                return null;
+                                            }
+
+                                            return (
+                                                <HashLink
+                                                    key={index}
+                                                    smooth
+                                                    to={`#${blockId}`}
+                                                    className={`${classes.secondaryHashLink} ${
+                                                        activeHeadingId ===
+                                                        blockId
+                                                            ? classes.activeSecondaryHashLink
+                                                            : ''
+                                                    }`}
+                                                >
+                                                    {block.value}
+                                                </HashLink>
+                                            );
+                                        }
                                         default:
                                             return null;
                                     }
@@ -159,16 +210,16 @@ const Academy = () => {
                         </aside>
                         <div className={classes.contentBlocks}>
                             {contentBlocks.map((block, index) => {
-                                const headingId = `heading${index}`;
+                                const blockId = `block-${index}`;
                                 switch (block.type) {
                                     case 'h3':
                                         return (
                                             <h3
                                                 key={index}
-                                                id={headingId}
+                                                id={blockId}
                                                 ref={(el) =>
                                                     (headingRefs.current[
-                                                        headingId
+                                                        blockId
                                                     ] = el)
                                                 }
                                                 className={
@@ -193,6 +244,12 @@ const Academy = () => {
                                         return (
                                             <b
                                                 key={index}
+                                                id={blockId}
+                                                ref={(el) =>
+                                                    (headingRefs.current[
+                                                        blockId
+                                                    ] = el)
+                                                }
                                                 className={
                                                     classes.contentBoldTxt
                                                 }

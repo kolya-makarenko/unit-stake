@@ -121,7 +121,7 @@
 
 .hashLink {
     padding: 16px 0;
-    border-bottom: 1px solid #dcdcdc;
+    border-top: 1px solid #dcdcdc;
     display: block;
     font-weight: 400;
     font-size: 18px;
@@ -134,11 +134,30 @@
 
 .hashLink:first-child {
     padding-top: 0;
+    border: none;
 }
 
 .hashLink:hover,
 .activeHashLink {
     font-weight: 800;
+    color: #d34329;
+}
+
+.secondaryHashLink {
+    display: block;
+    margin-left: 24px;
+    margin-bottom: 8px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #858585;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.secondaryHashLink:hover,
+.activeSecondaryHashLink {
     color: #d34329;
 }
 
@@ -178,6 +197,12 @@
 }
 
 .contentBoldTxt {
+    padding-top: 16px;
+    background-image: linear-gradient(to right, #dcdcdc 50%, transparent 50%);
+    background-size: 16px 1px;
+    background-repeat: repeat-x;
+    background-position: top;
+    scroll-margin-top: 120px;
     font-weight: 600;
     font-size: 24px;
     line-height: 140%;
@@ -212,7 +237,9 @@
     }
     .hashLink:first-child {
         padding: 16px 0;
-        border-top: 1px solid #dcdcdc;
+    }
+    .secondaryHashLink {
+        display: none;
     }
     .contentHeading {
         font-size: 34px;
