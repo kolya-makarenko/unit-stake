@@ -57,7 +57,13 @@ const MainPageNews = () => {
                 <div className={classes.newsContainer}>
                     {news.length > 0 ? (
                         news.map((article, index) => (
-                            <article key={index} className={classes.article}>
+                            <article
+                                key={index}
+                                className={classes.article}
+                                onClick={() =>
+                                    navigate(`/insights/${article.$id}`)
+                                }
+                            >
                                 <div className={classes.articleImg}>
                                     <img
                                         src={article.image_url}
