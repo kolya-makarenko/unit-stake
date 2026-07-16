@@ -58,8 +58,32 @@
     background-color: #d34329;
 }
 
+.disclaimer {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.disclaimerHeader {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #b4b4b4;
+}
+
+.disclaimer p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
 .footerLegalText {
-    margin-top: 90px;
+    margin-top: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -117,7 +141,7 @@
         gap: 16px;
     }
     .footerLegalText {
-        margin-top: 60px;
+        margin-top: 40px;
         flex-direction: column-reverse;
         gap: 30px;
     }

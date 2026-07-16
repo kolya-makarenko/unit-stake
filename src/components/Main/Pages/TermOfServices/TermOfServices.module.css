@@ -1,0 +1,40 @@
+.legalPage {
+    background-color: #19191c;
+    padding-top: 120px;
+}
+
+.legalPageContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.legalPageContainer h2 {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.legalPageContainer p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+@media (max-width: 1000px) {
+    .legalPage {
+        padding-top: 80px;
+    }
+}
