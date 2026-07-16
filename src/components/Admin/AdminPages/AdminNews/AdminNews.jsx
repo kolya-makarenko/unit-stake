@@ -25,6 +25,7 @@ const AdminNews = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [author, setAuthor] = useState('');
+    const [minRead, setMinRead] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [imageFile, setImageFile] = useState(null);
     const [isPublished, setIsPublished] = useState(false);
@@ -124,6 +125,7 @@ const AdminNews = () => {
         setTitle('');
         setDescription('');
         setAuthor('');
+        setMinRead('');
         setCategory('');
         setImageUrl('');
         setSelectedTrendingTopics([]);
@@ -139,6 +141,7 @@ const AdminNews = () => {
         setTitle(newsItem.title || '');
         setDescription(newsItem.description || '');
         setAuthor(newsItem.author || '');
+        setMinRead(newsItem.min_read || '');
         setCategory(newsItem.category || '');
         setSelectedTrendingTopics(newsItem.trending_topics || []);
         setImageUrl(newsItem.image_url || '');
@@ -250,6 +253,7 @@ const AdminNews = () => {
                 title: title,
                 description: description,
                 author: author,
+                min_read: minRead,
                 category: category,
                 image_url: finalImageUrl,
                 content_blocks: stringifiedBlocks,
@@ -369,7 +373,16 @@ const AdminNews = () => {
                                 onChange={(e) => setAuthor(e.target.value)}
                             />
                         </div>
-
+                        <div className={classes.addPlatformFormIdentityField}>
+                            <label htmlFor="newsAuthor">Min read</label>
+                            <input
+                                type="text"
+                                id="newsAuthor"
+                                placeholder="8"
+                                value={minRead}
+                                onChange={(e) => setMinRead(e.target.value)}
+                            />
+                        </div>
                         <div className={classes.addPlatformFormIdentityField}>
                             <label htmlFor="newsCategory">
                                 Article Category

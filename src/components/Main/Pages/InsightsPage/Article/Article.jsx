@@ -146,6 +146,12 @@ const Article = () => {
                             <div className={classes.articleContentMain}>
                                 <p className={classes.articleDate}>
                                     {dateFormatter(articleData.$updatedAt)}
+                                    {articleData.min_read && (
+                                        <span>
+                                            {' '}
+                                            • {articleData.min_read} min read
+                                        </span>
+                                    )}
                                 </p>
                                 <h2>{articleData.title}</h2>
                                 <h3>{articleData.description}</h3>
