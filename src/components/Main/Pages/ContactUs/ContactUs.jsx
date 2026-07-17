@@ -4,6 +4,23 @@ import { useNavigate } from 'react-router-dom';
 
 import classes from './ContactUs.module.css';
 
+const arrowDown = (
+    <svg
+        width="13"
+        height="7"
+        viewBox="0 0 13 7"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M0.849609 0.849976L6.34961 5.84998L11.8496 0.849976"
+            stroke="#19191C99"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+        />
+    </svg>
+);
+
 const TABLE_ID_CATEGORIES = 'categories';
 const TABLE_ID_FORM_MESSAGES = 'form_messages';
 
@@ -165,7 +182,11 @@ const ContactUs = () => {
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className={classes.contactForm}>
+                <form
+                    onSubmit={handleSubmit}
+                    className={classes.contactForm}
+                    id="form"
+                >
                     <div className={classes.formGrid}>
                         <div className={classes.formGroup}>
                             <input
@@ -194,7 +215,7 @@ const ContactUs = () => {
                             <input
                                 type="email"
                                 name="email"
-                                placeholder="Email *"
+                                placeholder="Email*"
                                 value={formData.email}
                                 onChange={handleInputChange}
                                 className={classes.formInput}
@@ -240,7 +261,7 @@ const ContactUs = () => {
                                 <span
                                     className={`${classes.dropdownArrow} ${isDropdownOpen ? classes.arrowOpen : ''}`}
                                 >
-                                    🞃
+                                    {arrowDown}
                                 </span>
                             </div>
 

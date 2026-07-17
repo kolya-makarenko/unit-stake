@@ -56,7 +56,6 @@ const ProjectsPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [activeFilter, setActiveFilter] = useState(null);
 
-    // Новий стейт для контролю видимості фільтрів на мобільних пристроях
     const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
     const [selectedJurisdictions, setSelectedJurisdictions] = useState([]);
@@ -345,7 +344,6 @@ const ProjectsPage = () => {
             </section>
             <section className={classes.projects}>
                 <div className="wrapper">
-                    {/* Кнопка "Filters" для мобільної версії */}
                     <button
                         className={`${classes.mobileFiltersBtn} ${isMobileFiltersOpen ? classes.btnActive : ''}`}
                         onClick={() => setIsMobileFiltersOpen((prev) => !prev)}
@@ -353,11 +351,9 @@ const ProjectsPage = () => {
                         <span>Filters</span>
                     </button>
 
-                    {/* Загальний контейнер фільтрів */}
                     <div
                         className={`${classes.filtersWrapper} ${isMobileFiltersOpen ? classes.mobileOpen : ''}`}
                     >
-                        {/* --- ДЕСКТОПНА ВЕРСІЯ ФІЛЬТРІВ (ховатиметься на мобілці через CSS) --- */}
                         <div className={classes.desktopFilters}>
                             <div className={classes.projectsFilters}>
                                 <div className={classes.projectsFilter}>
@@ -572,11 +568,9 @@ const ProjectsPage = () => {
                             )}
                         </div>
 
-                        {/* --- МОБІЛЬНА ВЕРСІЯ ФІЛЬТРІВ (показує ВСЕ одразу, без внутрішніх кнопок) --- */}
                         <div
                             className={`${classes.mobileFilters} ${isMobileFiltersOpen ? classes.mobileOpen : ''}`}
                         >
-                            {/* Jurisdiction */}
                             <div className={classes.mobileFilterSection}>
                                 <h4>Jurisdiction</h4>
                                 <div className={classes.mobileFilterValuesList}>
@@ -608,7 +602,6 @@ const ProjectsPage = () => {
                                 </div>
                             </div>
 
-                            {/* Asset Type */}
                             <div className={classes.mobileFilterSection}>
                                 <h4>Asset Type</h4>
                                 <div className={classes.mobileFilterValuesList}>
@@ -639,7 +632,6 @@ const ProjectsPage = () => {
                                 </div>
                             </div>
 
-                            {/* Types */}
                             <div className={classes.mobileFilterSection}>
                                 <h4>Types</h4>
                                 <div className={classes.mobileFilterValuesList}>
@@ -666,7 +658,6 @@ const ProjectsPage = () => {
                                 </div>
                             </div>
 
-                            {/* Investor Type */}
                             <div className={classes.mobileFilterSection}>
                                 <h4>Investor Type</h4>
                                 <div className={classes.mobileFilterValuesList}>
@@ -698,7 +689,6 @@ const ProjectsPage = () => {
                                 </div>
                             </div>
 
-                            {/* Minimum Ticket */}
                             <div className={classes.mobileFilterSection}>
                                 <h4>Minimum Ticket</h4>
                                 <div

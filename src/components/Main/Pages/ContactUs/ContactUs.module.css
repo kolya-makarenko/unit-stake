@@ -1,9 +1,200 @@
 .contactContainer {
     padding: 120px 0;
+    background-color: #ededf0;
+}
+
+.contactHeader h2 {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 120%;
+    letter-spacing: -1.5%;
+    background: linear-gradient(
+        180deg,
+        #19191c 0%,
+        rgba(25, 25, 28, 0) 231.82%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.contactHeader p {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    color: #57575c;
+}
+
+.contactForm {
+    margin-top: 40px;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.formGroup input {
+    width: 100%;
+    padding: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid #dcdcdc;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    color: #19191c;
+}
+
+.formGroup input:focus-visible,
+.formGroup input:focus {
+    outline: none;
+}
+
+.formGroup input::placeholder {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    color: #19191c;
+}
+
+.customDropdown {
+    width: 100%;
+    padding: 8px 0;
+    box-sizing: border-box;
+    border-bottom: 2px solid #dcdcdc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    color: #19191c;
+    cursor: pointer;
+}
+
+.dropdownMenu {
+    padding: 24px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dropdownItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+    cursor: pointer;
+}
+
+.dropdownItem input.checkboxInput {
+    width: fit-content;
+    margin: 0;
+    accent-color: #d34329;
+}
+
+.actionSection {
+    margin-top: 16px;
+}
+
+.actionSectionTitle {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    color: #19191c;
+}
+
+.checkboxGrid {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.actionCheckboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+    cursor: pointer;
+}
+
+.checkboxInput {
+    margin: 0;
+    accent-color: #d34329;
+}
+
+.formFooter {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.errorMessage {
+    margin-bottom: 16px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #d34329;
+}
+
+.submitBtn {
+    padding: 12px 62px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 8px;
+    background-color: #d34329;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.submitBtn:hover {
+    background-color: #fff;
+    color: #d34329;
 }
 
 @media (max-width: 1000px) {
     .contactContainer {
         padding: 80px 0;
+    }
+    .formGrid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .actionSection {
+        margin-top: 24px;
+    }
+    .checkboxGrid {
+        gap: 8px;
+    }
+    .formFooter {
+        align-items: start;
+    }
+    .submitBtn {
+        width: 100%;
+        padding: 12px 0;
+        display: flex;
+        justify-content: center;
     }
 }
