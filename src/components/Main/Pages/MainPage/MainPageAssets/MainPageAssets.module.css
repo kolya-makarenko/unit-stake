@@ -45,6 +45,20 @@
 
 @media (max-width: 1000px) {
     .assetsContainer {
-        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .assetsBox {
+        padding-left: 8px;
+    }
+    .assetsBox h3 {
+        font-size: 18px;
+    }
+    .assetsBox p {
+        margin-top: 8px;
+        margin-bottom: 4px;
+        font-size: 12px;
+    }
+    .assetsBox span {
+        font-size: 12px;
     }
 }

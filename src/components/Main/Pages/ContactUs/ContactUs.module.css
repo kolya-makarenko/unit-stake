@@ -1,0 +1,9 @@
+.contactContainer {
+    padding: 120px 0;
+}
+
+@media (max-width: 1000px) {
+    .contactContainer {
+        padding: 80px 0;
+    }
+}

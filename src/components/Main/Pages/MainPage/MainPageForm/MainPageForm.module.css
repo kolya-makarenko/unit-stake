@@ -137,15 +137,19 @@
         padding: 0;
     }
     .formInfo h2 {
-        font-size: 38px;
+        font-size: 28px;
+    }
+    .formInfo p {
+        font-size: 16px;
+        color: #b4b4b4;
     }
     .formInfo form {
         margin-top: 40px;
         flex-direction: column;
-        align-items: flex-end;
+        gap: 16px;
     }
     .formInfo form button {
-        padding: 10px 20px;
+        width: 100%;
     }
     .formImg {
         padding-top: 30px;

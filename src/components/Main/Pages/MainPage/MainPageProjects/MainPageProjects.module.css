@@ -283,12 +283,13 @@
         padding-bottom: 40px;
     }
     .projects h2 {
-        font-size: 38px;
+        font-size: 28px;
     }
     .projectsContainer {
         grid-template-columns: 1fr;
     }
     .linkToProjects button {
-        padding: 10px 20px;
+        width: 100%;
+        justify-content: center;
     }
 }

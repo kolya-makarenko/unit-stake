@@ -33,6 +33,7 @@ import Academy from './components/Main/Pages/Academy/Academy';
 import PrivacyPolicy from './components/Main/Pages/PrivacyPolicy/PrivacyPolicy';
 import LegalDisclaimer from './components/Main/Pages/LegalDisclaimer/LegalDisclaimer';
 import TermOfServices from './components/Main/Pages/TermOfServices/TermOfServices';
+import ContactUs from './components/Main/Pages/ContactUs/ContactUs';
 import NotFound from './components/Main/Pages/NotFound/NotFound';
 
 import './App.css';
@@ -55,7 +56,7 @@ function App() {
                     <Route path="academy" element={<Academy />} />
                     <Route path="about-us" element={<AboutUsPage />} />
                     <Route path="verified" element={<VerifiedPage />} />
-                    <Route path="contact-us" element={<div>Contact us</div>} />
+                    <Route path="contact-us" element={<ContactUs />} />
                     <Route path="privacy-policy" element={<PrivacyPolicy />} />
                     <Route
                         path="legal-disclaimer"

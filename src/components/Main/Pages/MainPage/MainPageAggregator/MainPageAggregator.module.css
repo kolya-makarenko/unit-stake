@@ -532,8 +532,11 @@
 }
 
 @media (max-width: 1000px) {
+    .aggregatorSimpleText {
+        font-size: 12px;
+    }
     .aggregator h2 {
-        font-size: 38px;
+        font-size: 28px;
     }
     .aggregatorContainer {
         grid-template-columns: 1fr;
@@ -547,6 +550,18 @@
     }
     .aggregatorBoxBorder {
         height: 380px;
-        padding: 20px 16px;
+        padding: 16px;
+    }
+    .aggregatorBoxBorder h3 {
+        font-size: 20px;
+    }
+    .aggregatorBoxBorder p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 330px) {
+    .aggregatorBoxBorder {
+        padding: 16px 10px;
     }
 }

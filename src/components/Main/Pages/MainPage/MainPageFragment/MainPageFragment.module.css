@@ -204,11 +204,11 @@
 @media (max-width: 1000px) {
     .fragment h2 {
         width: 100%;
-        font-size: 38px;
+        font-size: 28px;
     }
     .fragmentBox {
         height: fit-content;
-        padding: 20px;
+        padding: 16px;
         box-sizing: border-box;
         grid-template-columns: 1fr;
     }
@@ -216,10 +216,13 @@
         display: none;
     }
     .fragmentBoxText h3 {
-        font-size: 38px;
+        font-size: 24px;
+    }
+    .fakeBtnContainer p {
+        font-size: 10px;
     }
     .fragmentBoxTextBtn {
+        width: 100%;
         margin-top: 40px;
-        padding: 10px 20px;
     }
 }

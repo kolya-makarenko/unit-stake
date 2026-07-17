@@ -238,7 +238,7 @@
         align-items: flex-start;
     }
     .newsHeaderTxt h2 {
-        font-size: 38px;
+        font-size: 28px;
     }
     .newsContainer {
         grid-template-columns: 1fr;
@@ -254,5 +254,10 @@
     }
     .articleImg {
         height: 280px;
+    }
+    .newsHeader button {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 }

@@ -102,15 +102,12 @@
     .pathBox:nth-child(1) .pathBoxInfo {
         top: 210px;
     }
-
     .pathBox:nth-child(2) .pathBoxInfo {
         top: 140px;
     }
-
     .pathBox:nth-child(3) .pathBoxInfo {
         top: 70px;
     }
-
     .pathBox:nth-child(4) .pathBoxInfo {
         top: 0;
     }
@@ -134,5 +131,8 @@
     }
     .pathBoxInfo {
         position: unset;
+    }
+    .pathRow {
+        background-image: unset;
     }
 }

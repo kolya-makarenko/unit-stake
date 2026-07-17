@@ -6,40 +6,46 @@ import categoriesIcon3 from '../../../../../assets/images/verifiedPageImages/ver
 import categoriesIcon4 from '../../../../../assets/images/verifiedPageImages/verificationCategoriesIcon4.svg';
 import categoriesIcon5 from '../../../../../assets/images/verifiedPageImages/verificationCategoriesIcon5.svg';
 
+import LegalVerificationMethodology from '../../../../../assets/documents/Legal_Verification_Methodology.pdf';
+import FinancialsVerificationMethodology from '../../../../../assets/documents/Financials_Verification_Methodology.pdf';
+import TeamKYCVerificationMethodology from '../../../../../assets/documents/Team_KYC_Verification_Methodology.pdf';
+import ReputationVerificationMethodology from '../../../../../assets/documents/Reputation_Verification_Methodology.pdf';
+import TechVerificationVerificationMethodology from '../../../../../assets/documents/Tech_Verification_Verification_Methodology.pdf';
+
 const categoriesBoxes = [
     {
         id: '1',
         title: 'Legal',
         text: 'Corporate structure, company jurisdiction, and token holder rights.',
-        downloadLink: '',
+        downloadLink: LegalVerificationMethodology,
         icon: categoriesIcon1,
     },
     {
         id: '2',
         title: 'Financials',
         text: 'Disclosed financial data, cash flow model, and key financial indicators.',
-        downloadLink: '',
+        downloadLink: FinancialsVerificationMethodology,
         icon: categoriesIcon2,
     },
     {
         id: '3',
         title: 'Team KYC',
         text: 'Identity verification of key project participants.',
-        downloadLink: '',
+        downloadLink: TeamKYCVerificationMethodology,
         icon: categoriesIcon3,
     },
     {
         id: '4',
         title: 'Reputation',
         text: 'Media coverage of the project and key contributors, including the history of previous ventures.',
-        downloadLink: '',
+        downloadLink: ReputationVerificationMethodology,
         icon: categoriesIcon4,
     },
     {
         id: '5',
         title: 'Tech Verification',
         text: 'Verification of smart contracts and technical infrastructure.',
-        downloadLink: '',
+        downloadLink: TechVerificationVerificationMethodology,
         icon: categoriesIcon5,
     },
 ];
@@ -56,7 +62,7 @@ const VerifiedPageCategories = () => {
                                 <div className={classes.categoriesBoxIcon}>
                                     <img src={item.icon} alt="icon" />
                                 </div>
-                                <h4>Legal</h4>
+                                <h4>{item.title}</h4>
                             </div>
                             <p>{item.text}</p>
                             <div className={classes.categoriesDownloadLink}>

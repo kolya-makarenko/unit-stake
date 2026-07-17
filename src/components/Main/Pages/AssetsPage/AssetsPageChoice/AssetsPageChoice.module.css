@@ -182,4 +182,7 @@
     .choiceInfo {
         padding-left: 16px;
     }
+    .choiceImg img {
+        display: none;
+    }
 }

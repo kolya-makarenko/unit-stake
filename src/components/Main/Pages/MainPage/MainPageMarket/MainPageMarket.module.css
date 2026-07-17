@@ -182,14 +182,13 @@
         padding-bottom: 40px;
     }
     .market h2 {
-        font-size: 38px;
+        font-size: 28px;
     }
     .marketTabs {
+        width: 90%;
         padding-top: 20px;
+        flex-direction: column;
         gap: 8px;
-    }
-    .marketTabBtn {
-        font-size: 14px;
     }
     .marketContainer {
         height: fit-content;
@@ -198,10 +197,37 @@
         grid-template-columns: 1fr;
     }
     .marketContentText h3 {
-        font-size: 38px;
+        font-size: 20px;
+    }
+    .marketContentText p {
+        font-size: 16px;
+    }
+    .marketContentFakeBtn {
+        font-size: 10px;
     }
     .marketContentText button {
-        margin-top: 40px;
-        padding: 10px 20px;
+        width: 100%;
+    }
+    .marketContentImg img {
+        display: none;
+    }
+    .marketTabBtn {
+        background-color: #ffffff05;
+        border: 1px solid rgba(61, 61, 61, 0.4);
+        text-align: center;
+        padding: 12px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+    }
+    .marketTabBtn.active {
+        background-color: #fff;
+        border: 1px solid #fff;
+        color: #19191c;
+    }
+    .marketTabBtn:after,
+    .marketTabs:after {
+        display: none;
     }
 }

@@ -136,17 +136,35 @@
         grid-template-columns: 1fr;
         gap: 20px;
     }
+    .footerlogo img {
+        width: 100px;
+    }
     .footerMenu ul {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 16px;
+    }
+    .footerMenuLink {
+        font-size: 12px;
+    }
+    .footerSocialLinks {
+        justify-content: flex-start;
     }
     .footerLegalText {
         margin-top: 40px;
         flex-direction: column-reverse;
         gap: 30px;
     }
+    .footerLegalLinks {
+        width: 100%;
+    }
     .footerLegalLinks ul {
-        flex-direction: column;
+        justify-content: flex-start;
         gap: 16px;
+    }
+    .footerLegalLink {
+        font-size: 12px;
+    }
+    .footerCopyright {
+        font-size: 12px;
     }
 }

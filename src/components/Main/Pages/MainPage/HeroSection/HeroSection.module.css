@@ -206,22 +206,46 @@
 }
 
 @media (max-width: 1000px) {
+    .heroSectionContainer {
+        padding: 100px 0 20px 0;
+        gap: 0;
+    }
+    .heroSectionTxt {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     .heroSectionTxt h1 {
-        font-size: 40px;
+        font-size: 32px;
+        text-align: center;
+    }
+    .heroSectionSecondaryTxt {
+        margin-top: 16px;
+        font-size: 16px;
+        text-align: center;
     }
     .heroSectionBtns {
+        width: 85%;
+        margin-top: 24px;
+        flex-direction: column;
         gap: 16px;
     }
     .heroSectionBtnProjects {
-        padding: 10px 20px;
+        width: 100%;
     }
     .heroSectionBtnPlatforms {
-        padding: 10px 20px;
+        width: 100%;
     }
     .heroSectionLinks {
         margin-top: 60px;
-        flex-direction: column;
-        align-items: flex-end;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 20px;
+    }
+    .heroSectionLink span {
+        font-size: 14px;
+    }
+    .heroSectionImg img {
+        display: none;
     }
 }

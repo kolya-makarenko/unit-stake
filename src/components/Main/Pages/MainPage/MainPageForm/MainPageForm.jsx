@@ -56,6 +56,7 @@ const MainPageForm = () => {
                         </p>
                         <form onSubmit={handleSubmit} id={classes.form}>
                             <input
+                                id={classes.email}
                                 type="email"
                                 placeholder="Enter your email to continue"
                                 value={email}

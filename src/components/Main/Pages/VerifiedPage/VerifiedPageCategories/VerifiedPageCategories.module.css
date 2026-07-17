@@ -139,7 +139,33 @@
         font-size: 38px;
     }
     .categoriesContainer {
-        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .categoriesContainer::-webkit-scrollbar {
+        display: none;
+    }
+    .categoriesBox {
+        flex-shrink: 0;
+        width: 100%;
+        margin-right: 16px;
+        scroll-snap-align: start;
+    }
+    .categoriesTextBox {
+        flex-shrink: 0;
+        width: 100%;
+        margin-right: 16px;
+        scroll-snap-align: start;
+        width: 100%;
+        padding: 24px 20px;
+        border-radius: 16px;
+        box-sizing: border-box;
+        border: 1px solid rgba(61, 61, 61, 0.12);
+        border-radius: 24px;
     }
     .categoriesBox p {
         height: fit-content;

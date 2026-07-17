@@ -117,7 +117,21 @@
         font-size: 38px;
     }
     .tokenizingContainer {
-        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .tokenizingContainer::-webkit-scrollbar {
+        display: none;
+    }
+    .tokenizingCard {
+        flex-shrink: 0;
+        width: 100%;
+        margin-right: 16px;
+        scroll-snap-align: start;
     }
     .tokenizingCard:nth-child(1),
     .tokenizingCard:nth-child(2),

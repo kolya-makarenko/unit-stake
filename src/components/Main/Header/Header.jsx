@@ -61,7 +61,7 @@ const Header = () => {
                                         className={getNavLinkClass}
                                         onClick={openMobileMenu}
                                     >
-                                        Contact Us
+                                        STAY UPDATED
                                     </NavLink>
                                 </li>
                             </ul>
@@ -83,7 +83,7 @@ const Header = () => {
                         className={classes.btnToContacts}
                         onClick={() => navigate('/contact-us')}
                     >
-                        Contact Us
+                        STAY UPDATED
                     </button>
                 </div>
             </div>

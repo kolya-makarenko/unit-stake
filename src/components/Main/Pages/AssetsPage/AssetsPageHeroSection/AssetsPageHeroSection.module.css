@@ -95,6 +95,9 @@
 }
 
 @media (max-width: 1000px) {
+    .heroSectionContainer {
+        gap: 0;
+    }
     .heroSectionTxt h2 {
         font-size: 40px;
     }
@@ -103,9 +106,12 @@
         gap: 16px;
     }
     .heroSectionBtnProjects {
-        padding: 10px 20px;
+        width: 100%;
     }
     .heroSectionBtnPlatforms {
-        padding: 10px 20px;
+        width: 100%;
+    }
+    .heroSectionImg img {
+        display: none;
     }
 }

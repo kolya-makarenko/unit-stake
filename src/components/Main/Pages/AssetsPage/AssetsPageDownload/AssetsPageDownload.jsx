@@ -1,5 +1,7 @@
 import classes from './AssetsPageDownload.module.css';
 
+import ChecklistUnitStake from '../../../../../assets/documents/Checklist_UnitStake.pdf';
+
 const AssetsPageDownload = () => {
     return (
         <section className={`sectionMarginTop ${classes.download}`}>
@@ -10,7 +12,7 @@ const AssetsPageDownload = () => {
                         Download the checklist that shows how to prepare your
                         asset for tokenization
                     </p>
-                    <a href="#">
+                    <a href={ChecklistUnitStake} download={ChecklistUnitStake}>
                         <svg
                             width="24"
                             height="24"

@@ -41,10 +41,10 @@ const AboutUsPageContacts = () => {
                             </a>
                         </div>
                         <div className={classes.contactsMailCard}>
-                            <h4>Sales</h4>
+                            <h4>Business Development</h4>
                             <p>Listing and commercial inquiries.</p>
-                            <a href="mailto:support@unitstake.com">
-                                support@unitstake.com
+                            <a href="mailto:bd@unitstake.com">
+                                bd@unitstake.com
                             </a>
                         </div>
                     </div>
@@ -60,9 +60,7 @@ const AboutUsPageContacts = () => {
                             want to be part of shaping it.
                         </p>
                         <h6>Send your CV:</h6>
-                        <a href="mailto:support@unitstake.com">
-                            support@unitstake.com
-                        </a>
+                        <a href="mailto:hr@unitstake.com">hr@unitstake.com</a>
                     </div>
                 </div>
             </div>

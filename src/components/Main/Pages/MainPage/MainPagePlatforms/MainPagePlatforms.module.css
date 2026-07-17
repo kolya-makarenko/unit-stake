@@ -263,9 +263,13 @@
         align-items: flex-start;
     }
     .platformsHeaderTxt h2 {
-        font-size: 38px;
+        font-size: 28px;
     }
     .platformsContainer {
         grid-template-columns: 1fr;
+    }
+    .platformsHeader button {
+        width: 100%;
+        justify-content: center;
     }
 }

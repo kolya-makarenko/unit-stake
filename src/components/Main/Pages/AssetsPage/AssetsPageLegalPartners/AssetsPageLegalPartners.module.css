@@ -218,6 +218,9 @@
     .partnersHeader h2 {
         font-size: 38px;
     }
+    .partnersHeader p {
+        display: none;
+    }
     .partnersContainer {
         grid-template-columns: 1fr;
     }
