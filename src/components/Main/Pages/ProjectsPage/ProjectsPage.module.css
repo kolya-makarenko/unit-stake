@@ -411,6 +411,22 @@
     color: #fff;
 }
 
+.mobileFiltersBtn {
+    display: none;
+}
+
+.desktopFilters {
+    display: block;
+}
+
+.mobileFilters {
+    display: none;
+}
+
+.filtersWrapper {
+    margin-bottom: 24px;
+}
+
 @media (max-width: 1100px) {
     .projectsContainer {
         grid-template-columns: 1fr 1fr;
@@ -433,5 +449,83 @@
     }
     .projectsFilterSlider {
         width: 100%;
+    }
+    .desktopFilters {
+        display: none;
+    }
+    .mobileFiltersBtn {
+        width: 100%;
+        padding: 12px 32px;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #19191c;
+        color: #fff;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .filtersWrapper {
+        width: 100%;
+        height: calc(100dvh - 55px);
+        box-sizing: border-box;
+        background-color: #f4f4f6;
+        position: fixed;
+        top: 55px;
+        left: -100%;
+        z-index: 10;
+        transition: 0.5s ease-in-out;
+    }
+    .filtersWrapper.mobileOpen {
+        left: 0;
+    }
+    .mobileFilters {
+        margin-top: 0;
+        padding: 24px 2.5%;
+        max-height: calc(100dvh - 95px);
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .mobileFilterSection h4 {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 160%;
+        letter-spacing: -1%;
+        color: #19191c;
+    }
+    .mobileFilterValuesList {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .mobileFilterValuesList label {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        cursor: pointer;
+    }
+    .mobileFilterValuesList input {
+        accent-color: #d34329;
+    }
+    .mobileFilterValuesList span {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 160%;
+        letter-spacing: -1%;
+        color: #19191c;
+        transition: 0.3s ease-in-out;
+    }
+    .slider {
+        width: 100%;
+        cursor: pointer;
+        accent-color: #d34329;
+    }
+    .closeFiltersBtn {
+        background-color: #d34329;
     }
 }

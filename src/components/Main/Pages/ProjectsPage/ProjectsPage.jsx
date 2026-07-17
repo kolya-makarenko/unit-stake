@@ -56,6 +56,9 @@ const ProjectsPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [activeFilter, setActiveFilter] = useState(null);
 
+    // Новий стейт для контролю видимості фільтрів на мобільних пристроях
+    const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+
     const [selectedJurisdictions, setSelectedJurisdictions] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedTypes, setSelectedTypes] = useState([]);
@@ -342,186 +345,397 @@ const ProjectsPage = () => {
             </section>
             <section className={classes.projects}>
                 <div className="wrapper">
-                    <div className={classes.projectsFilters}>
-                        <div className={classes.projectsFilter}>
-                            <div
-                                className={`${classes.projectsFilterName} ${activeFilter === 'jurisdiction' ? classes.active : ''}`}
+                    {/* Кнопка "Filters" для мобільної версії */}
+                    <button
+                        className={`${classes.mobileFiltersBtn} ${isMobileFiltersOpen ? classes.btnActive : ''}`}
+                        onClick={() => setIsMobileFiltersOpen((prev) => !prev)}
+                    >
+                        <span>Filters</span>
+                    </button>
+
+                    {/* Загальний контейнер фільтрів */}
+                    <div
+                        className={`${classes.filtersWrapper} ${isMobileFiltersOpen ? classes.mobileOpen : ''}`}
+                    >
+                        {/* --- ДЕСКТОПНА ВЕРСІЯ ФІЛЬТРІВ (ховатиметься на мобілці через CSS) --- */}
+                        <div className={classes.desktopFilters}>
+                            <div className={classes.projectsFilters}>
+                                <div className={classes.projectsFilter}>
+                                    <div
+                                        className={`${classes.projectsFilterName} ${activeFilter === 'jurisdiction' ? classes.active : ''}`}
+                                        onClick={() =>
+                                            toggleFilterPopup('jurisdiction')
+                                        }
+                                    >
+                                        Jurisdiction{' '}
+                                        {activeFilter === 'jurisdiction'
+                                            ? arrowUp
+                                            : arrowDown}
+                                    </div>
+                                </div>
+                                <div className={classes.projectsFilter}>
+                                    <div
+                                        className={`${classes.projectsFilterName} ${activeFilter === 'assetType' ? classes.active : ''}`}
+                                        onClick={() =>
+                                            toggleFilterPopup('assetType')
+                                        }
+                                    >
+                                        Asset Type{' '}
+                                        {activeFilter === 'assetType'
+                                            ? arrowUp
+                                            : arrowDown}
+                                    </div>
+                                </div>
+                                <div className={classes.projectsFilter}>
+                                    <div
+                                        className={`${classes.projectsFilterName} ${activeFilter === 'types' ? classes.active : ''}`}
+                                        onClick={() =>
+                                            toggleFilterPopup('types')
+                                        }
+                                    >
+                                        Types{' '}
+                                        {activeFilter === 'types'
+                                            ? arrowUp
+                                            : arrowDown}
+                                    </div>
+                                </div>
+                                <div className={classes.projectsFilter}>
+                                    <div
+                                        className={`${classes.projectsFilterName} ${activeFilter === 'investorType' ? classes.active : ''}`}
+                                        onClick={() =>
+                                            toggleFilterPopup('investorType')
+                                        }
+                                    >
+                                        Investor Type{' '}
+                                        {activeFilter === 'investorType'
+                                            ? arrowUp
+                                            : arrowDown}
+                                    </div>
+                                </div>
+                                <div className={classes.projectsFilter}>
+                                    <div
+                                        className={`${classes.projectsFilterName} ${activeFilter === 'minTicket' ? classes.active : ''}`}
+                                        onClick={() =>
+                                            toggleFilterPopup('minTicket')
+                                        }
+                                    >
+                                        Minimum Ticket{' '}
+                                        {activeFilter === 'minTicket'
+                                            ? arrowUp
+                                            : arrowDown}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {activeFilter === 'jurisdiction' && (
+                                <div className={classes.projectsFilterValues}>
+                                    {availableFilters.jurisdictions.length >
+                                    0 ? (
+                                        availableFilters.jurisdictions.map(
+                                            (country) => (
+                                                <label key={country}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={selectedJurisdictions.includes(
+                                                            country,
+                                                        )}
+                                                        onChange={() =>
+                                                            handleJurisdictionChange(
+                                                                country,
+                                                            )
+                                                        }
+                                                    />
+                                                    <span>{country}</span>
+                                                </label>
+                                            ),
+                                        )
+                                    ) : (
+                                        <p className={classes.noFilters}>
+                                            No active jurisdictions
+                                        </p>
+                                    )}
+                                </div>
+                            )}
+                            {activeFilter === 'assetType' && (
+                                <div className={classes.projectsFilterValues}>
+                                    {availableFilters.categories.length > 0 ? (
+                                        availableFilters.categories.map(
+                                            (cat) => (
+                                                <label key={cat}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={selectedCategories.includes(
+                                                            cat,
+                                                        )}
+                                                        onChange={() =>
+                                                            handleCategoryChange(
+                                                                cat,
+                                                            )
+                                                        }
+                                                    />
+                                                    <span>{cat}</span>
+                                                </label>
+                                            ),
+                                        )
+                                    ) : (
+                                        <p className={classes.noFilters}>
+                                            No active Asset Types
+                                        </p>
+                                    )}
+                                </div>
+                            )}
+                            {activeFilter === 'types' && (
+                                <div className={classes.projectsFilterValues}>
+                                    {availableFilters.types.length > 0 ? (
+                                        availableFilters.types.map((type) => (
+                                            <label key={type}>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedTypes.includes(
+                                                        type,
+                                                    )}
+                                                    onChange={() =>
+                                                        handleTypeChange(type)
+                                                    }
+                                                />
+                                                <span>{type}</span>
+                                            </label>
+                                        ))
+                                    ) : (
+                                        <p className={classes.noFilters}>
+                                            No active Types
+                                        </p>
+                                    )}
+                                </div>
+                            )}
+                            {activeFilter === 'investorType' && (
+                                <div className={classes.projectsFilterValues}>
+                                    {availableFilters.investorTypes.length >
+                                    0 ? (
+                                        availableFilters.investorTypes.map(
+                                            (type) => (
+                                                <label key={type}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={selectedInvestorTypes.includes(
+                                                            type,
+                                                        )}
+                                                        onChange={() =>
+                                                            handleInvestorTypeChange(
+                                                                type,
+                                                            )
+                                                        }
+                                                    />
+                                                    <span>{type}</span>
+                                                </label>
+                                            ),
+                                        )
+                                    ) : (
+                                        <p className={classes.noFilters}>
+                                            No active Investor Types
+                                        </p>
+                                    )}
+                                </div>
+                            )}
+                            {activeFilter === 'minTicket' && (
+                                <div className={classes.projectsFilterValues}>
+                                    <div
+                                        className={classes.projectsFilterSlider}
+                                    >
+                                        <div
+                                            className={
+                                                classes.selectedMaxInvestment
+                                            }
+                                        >
+                                            ${selectedMaxInvestment}
+                                        </div>
+                                        <input
+                                            type="range"
+                                            className={classes.slider}
+                                            min={minAvailableInvestment}
+                                            max={maxAvailableInvestment}
+                                            value={selectedMaxInvestment}
+                                            onChange={
+                                                handleInvestmentSliderChange
+                                            }
+                                        />
+                                        <div className={classes.sliderLabels}>
+                                            <span>
+                                                ${minAvailableInvestment}
+                                            </span>
+                                            <span>
+                                                ${maxAvailableInvestment}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* --- МОБІЛЬНА ВЕРСІЯ ФІЛЬТРІВ (показує ВСЕ одразу, без внутрішніх кнопок) --- */}
+                        <div
+                            className={`${classes.mobileFilters} ${isMobileFiltersOpen ? classes.mobileOpen : ''}`}
+                        >
+                            {/* Jurisdiction */}
+                            <div className={classes.mobileFilterSection}>
+                                <h4>Jurisdiction</h4>
+                                <div className={classes.mobileFilterValuesList}>
+                                    {availableFilters.jurisdictions.length >
+                                    0 ? (
+                                        availableFilters.jurisdictions.map(
+                                            (country) => (
+                                                <label key={country}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={selectedJurisdictions.includes(
+                                                            country,
+                                                        )}
+                                                        onChange={() =>
+                                                            handleJurisdictionChange(
+                                                                country,
+                                                            )
+                                                        }
+                                                    />
+                                                    <span>{country}</span>
+                                                </label>
+                                            ),
+                                        )
+                                    ) : (
+                                        <p className={classes.noFilters}>
+                                            No active jurisdictions
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Asset Type */}
+                            <div className={classes.mobileFilterSection}>
+                                <h4>Asset Type</h4>
+                                <div className={classes.mobileFilterValuesList}>
+                                    {availableFilters.categories.length > 0 ? (
+                                        availableFilters.categories.map(
+                                            (cat) => (
+                                                <label key={cat}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={selectedCategories.includes(
+                                                            cat,
+                                                        )}
+                                                        onChange={() =>
+                                                            handleCategoryChange(
+                                                                cat,
+                                                            )
+                                                        }
+                                                    />
+                                                    <span>{cat}</span>
+                                                </label>
+                                            ),
+                                        )
+                                    ) : (
+                                        <p className={classes.noFilters}>
+                                            No active Asset Types
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Types */}
+                            <div className={classes.mobileFilterSection}>
+                                <h4>Types</h4>
+                                <div className={classes.mobileFilterValuesList}>
+                                    {availableFilters.types.length > 0 ? (
+                                        availableFilters.types.map((type) => (
+                                            <label key={type}>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedTypes.includes(
+                                                        type,
+                                                    )}
+                                                    onChange={() =>
+                                                        handleTypeChange(type)
+                                                    }
+                                                />
+                                                <span>{type}</span>
+                                            </label>
+                                        ))
+                                    ) : (
+                                        <p className={classes.noFilters}>
+                                            No active Types
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Investor Type */}
+                            <div className={classes.mobileFilterSection}>
+                                <h4>Investor Type</h4>
+                                <div className={classes.mobileFilterValuesList}>
+                                    {availableFilters.investorTypes.length >
+                                    0 ? (
+                                        availableFilters.investorTypes.map(
+                                            (type) => (
+                                                <label key={type}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={selectedInvestorTypes.includes(
+                                                            type,
+                                                        )}
+                                                        onChange={() =>
+                                                            handleInvestorTypeChange(
+                                                                type,
+                                                            )
+                                                        }
+                                                    />
+                                                    <span>{type}</span>
+                                                </label>
+                                            ),
+                                        )
+                                    ) : (
+                                        <p className={classes.noFilters}>
+                                            No active Investor Types
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Minimum Ticket */}
+                            <div className={classes.mobileFilterSection}>
+                                <h4>Minimum Ticket</h4>
+                                <div
+                                    className={classes.mobileFilterSliderBlock}
+                                >
+                                    <div
+                                        className={
+                                            classes.selectedMaxInvestment
+                                        }
+                                    >
+                                        ${selectedMaxInvestment}
+                                    </div>
+                                    <input
+                                        type="range"
+                                        className={classes.slider}
+                                        min={minAvailableInvestment}
+                                        max={maxAvailableInvestment}
+                                        value={selectedMaxInvestment}
+                                        onChange={handleInvestmentSliderChange}
+                                    />
+                                    <div className={classes.sliderLabels}>
+                                        <span>${minAvailableInvestment}</span>
+                                        <span>${maxAvailableInvestment}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button
+                                className={`${classes.mobileFiltersBtn} ${classes.closeFiltersBtn}`}
                                 onClick={() =>
-                                    toggleFilterPopup('jurisdiction')
+                                    setIsMobileFiltersOpen((prev) => !prev)
                                 }
                             >
-                                Jurisdiction{' '}
-                                {activeFilter === 'jurisdiction'
-                                    ? arrowUp
-                                    : arrowDown}
-                            </div>
-                        </div>
-                        <div className={classes.projectsFilter}>
-                            <div
-                                className={`${classes.projectsFilterName} ${activeFilter === 'assetType' ? classes.active : ''}`}
-                                onClick={() => toggleFilterPopup('assetType')}
-                            >
-                                Asset Type{' '}
-                                {activeFilter === 'assetType'
-                                    ? arrowUp
-                                    : arrowDown}
-                            </div>
-                        </div>
-                        <div className={classes.projectsFilter}>
-                            <div
-                                className={`${classes.projectsFilterName} ${activeFilter === 'types' ? classes.active : ''}`}
-                                onClick={() => toggleFilterPopup('types')}
-                            >
-                                Types{' '}
-                                {activeFilter === 'types' ? arrowUp : arrowDown}
-                            </div>
-                        </div>
-                        <div className={classes.projectsFilter}>
-                            <div
-                                className={`${classes.projectsFilterName} ${activeFilter === 'investorType' ? classes.active : ''}`}
-                                onClick={() =>
-                                    toggleFilterPopup('investorType')
-                                }
-                            >
-                                Investor Type{' '}
-                                {activeFilter === 'investorType'
-                                    ? arrowUp
-                                    : arrowDown}
-                            </div>
-                        </div>
-                        <div className={classes.projectsFilter}>
-                            <div
-                                className={`${classes.projectsFilterName} ${activeFilter === 'minTicket' ? classes.active : ''}`}
-                                onClick={() => toggleFilterPopup('minTicket')}
-                            >
-                                Minimum Ticket{' '}
-                                {activeFilter === 'minTicket'
-                                    ? arrowUp
-                                    : arrowDown}
-                            </div>
+                                <span>Close Filters</span>
+                            </button>
                         </div>
                     </div>
-                    {activeFilter === 'jurisdiction' && (
-                        <div className={classes.projectsFilterValues}>
-                            {availableFilters.jurisdictions.length > 0 ? (
-                                availableFilters.jurisdictions.map(
-                                    (country) => (
-                                        <label key={country}>
-                                            <input
-                                                type="checkbox"
-                                                checked={selectedJurisdictions.includes(
-                                                    country,
-                                                )}
-                                                onChange={() =>
-                                                    handleJurisdictionChange(
-                                                        country,
-                                                    )
-                                                }
-                                            />
-                                            <span>{country}</span>
-                                        </label>
-                                    ),
-                                )
-                            ) : (
-                                <p className={classes.noFilters}>
-                                    No active jurisdictions
-                                </p>
-                            )}
-                        </div>
-                    )}
-                    {activeFilter === 'assetType' && (
-                        <div className={classes.projectsFilterValues}>
-                            {availableFilters.categories.length > 0 ? (
-                                availableFilters.categories.map((cat) => (
-                                    <label key={cat}>
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedCategories.includes(
-                                                cat,
-                                            )}
-                                            onChange={() =>
-                                                handleCategoryChange(cat)
-                                            }
-                                        />
-                                        <span>{cat}</span>
-                                    </label>
-                                ))
-                            ) : (
-                                <p className={classes.noFilters}>
-                                    No active Asset Types
-                                </p>
-                            )}
-                        </div>
-                    )}
-                    {activeFilter === 'types' && (
-                        <div className={classes.projectsFilterValues}>
-                            {availableFilters.types.length > 0 ? (
-                                availableFilters.types.map((type) => (
-                                    <label key={type}>
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedTypes.includes(
-                                                type,
-                                            )}
-                                            onChange={() =>
-                                                handleTypeChange(type)
-                                            }
-                                        />
-                                        <span>{type}</span>
-                                    </label>
-                                ))
-                            ) : (
-                                <p className={classes.noFilters}>
-                                    No active Types
-                                </p>
-                            )}
-                        </div>
-                    )}
-                    {activeFilter === 'investorType' && (
-                        <div className={classes.projectsFilterValues}>
-                            {availableFilters.investorTypes.length > 0 ? (
-                                availableFilters.investorTypes.map((type) => (
-                                    <label key={type}>
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedInvestorTypes.includes(
-                                                type,
-                                            )}
-                                            onChange={() =>
-                                                handleInvestorTypeChange(type)
-                                            }
-                                        />
-                                        <span>{type}</span>
-                                    </label>
-                                ))
-                            ) : (
-                                <p className={classes.noFilters}>
-                                    No active Investor Types
-                                </p>
-                            )}
-                        </div>
-                    )}
-                    {activeFilter === 'minTicket' && (
-                        <div className={classes.projectsFilterValues}>
-                            <div className={classes.projectsFilterSlider}>
-                                <div className={classes.selectedMaxInvestment}>
-                                    ${selectedMaxInvestment}
-                                </div>
-                                <input
-                                    type="range"
-                                    className={classes.slider}
-                                    min={minAvailableInvestment}
-                                    max={maxAvailableInvestment}
-                                    value={selectedMaxInvestment}
-                                    onChange={handleInvestmentSliderChange}
-                                />
-                                <div className={classes.sliderLabels}>
-                                    <span>${minAvailableInvestment}</span>
-                                    <span>${maxAvailableInvestment}</span>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+
                     <div className={classes.projectsContainer}>
                         {paginatedProjects.length > 0 ? (
                             paginatedProjects.map((project, index) => (
