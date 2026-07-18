@@ -115,6 +115,9 @@
     .types {
         padding: 40px 0;
     }
+    .typesHeaderText {
+        font-size: 14px;
+    }
     .typesContainer {
         gap: 8px;
     }
