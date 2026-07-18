@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import classes from './AssetsPageBuilt.module.css';
 
 import builtIcon1 from '../../../../../assets/images/assetsPageImages/AssetsPageBuiltIcon1.svg';
@@ -47,6 +48,8 @@ const builtBoxes = [
 ];
 
 const AssetsPageBuilt = () => {
+    const navigate = useNavigate();
+
     return (
         <section className={`sectionMarginTop ${classes.built}`}>
             <div className="wrapper">
@@ -76,7 +79,7 @@ const AssetsPageBuilt = () => {
                                 Built for Owners Who Want More From Their Asset
                             </h3>
                             <p>More liquidity. More investors. More control.</p>
-                            <button>
+                            <button onClick={() => navigate('/contact-us')}>
                                 Start Tokenising Your Asset
                                 <svg
                                     width="24"

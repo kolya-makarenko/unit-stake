@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import classes from './AssetsPageHeroSection.module.css';
 
 import graphics from '../../../../../assets/images/mainPageImages/heroSectionImg.png';
+import ChecklistUnitStake from '../../../../../assets/documents/Checklist_UnitStake.pdf';
 
 const AssetsPageHeroSection = () => {
+    const navigate = useNavigate();
     return (
         <section className={classes.heroSection}>
             <div className="wrapper">
@@ -17,12 +20,19 @@ const AssetsPageHeroSection = () => {
                             enabling access to a global pool of investors
                         </p>
                         <div className={classes.heroSectionBtns}>
-                            <button className={classes.heroSectionBtnProjects}>
+                            <button
+                                className={classes.heroSectionBtnProjects}
+                                onClick={() => navigate('/contact-us')}
+                            >
                                 Explore Tokenization Path
                             </button>
-                            <button className={classes.heroSectionBtnPlatforms}>
+                            <a
+                                href={ChecklistUnitStake}
+                                download={ChecklistUnitStake}
+                                className={classes.heroSectionBtnPlatforms}
+                            >
                                 Get Free Owner Checklist
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div className={classes.heroSectionImg}>

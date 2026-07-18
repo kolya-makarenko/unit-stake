@@ -118,6 +118,7 @@
     }
     .tokenizingContainer {
         display: flex;
+        gap: 8px;
         overflow-x: auto;
         scroll-behavior: smooth;
         scroll-snap-type: x mandatory;
@@ -129,9 +130,15 @@
     }
     .tokenizingCard {
         flex-shrink: 0;
-        width: 100%;
-        margin-right: 16px;
+        width: 80%;
         scroll-snap-align: start;
+    }
+    .tokenizingCard h3 {
+        margin-top: 16px;
+        font-size: 20px;
+    }
+    .tokenizingCard p {
+        font-size: 14px;
     }
     .tokenizingCard:nth-child(1),
     .tokenizingCard:nth-child(2),

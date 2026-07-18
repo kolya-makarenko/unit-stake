@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import classes from './AssetsPageCards.module.css';
 
 import imgCard1 from '../../../../../assets/images/assetsPageImages/AssetsPageCard1.png';
 import imgCard2 from '../../../../../assets/images/assetsPageImages/AssetsPageCard2.png';
 
 const AssetsPageCards = () => {
+    const navigate = useNavigate();
     return (
         <section className={`sectionMarginTop ${classes.cards}`}>
             <div className="wrapper">
@@ -21,7 +23,9 @@ const AssetsPageCards = () => {
                                 position your project within a growing tokenized
                                 asset ecosystem.
                             </h6>
-                            <button>Apply for Listing</button>
+                            <button onClick={() => navigate('/contact-us')}>
+                                Apply for Listing
+                            </button>
                         </div>
                         <div className={classes.cardImg}>
                             <img src={imgCard1} alt="card image" />
@@ -39,7 +43,9 @@ const AssetsPageCards = () => {
                                 Unlock liquidity, attract capital, and expand
                                 your investor base with the right foundation.
                             </h6>
-                            <button>Apply for Tokenization</button>
+                            <button onClick={() => navigate('/contact-us')}>
+                                Apply for Tokenization
+                            </button>
                         </div>
                         <div className={classes.cardImg}>
                             <img src={imgCard2} alt="card image" />

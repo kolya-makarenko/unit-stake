@@ -66,14 +66,18 @@
 
 .heroSectionBtnPlatforms {
     padding: 12px 32px;
+    box-sizing: border-box;
     background-color: #fff;
     border: none;
     border-radius: 8px;
+    display: flex;
+    justify-content: center;
     font-weight: 600;
     font-size: 16px;
     line-height: 160%;
     letter-spacing: -1%;
     color: #0c0c0c;
+    text-decoration: none;
     cursor: pointer;
     transition: 0.3s ease-in-out;
 }

@@ -93,6 +93,14 @@
     gap: 10px;
 }
 
+.typesBox h4 {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
 .typesBoxIcon {
     width: 40px;
     height: 40px;
@@ -106,5 +114,23 @@
 @media (max-width: 1000px) {
     .types {
         padding: 40px 0;
+    }
+    .typesContainer {
+        gap: 8px;
+    }
+    .typesBox {
+        padding: 6px;
+        border-radius: 8px;
+        gap: 4px;
+    }
+    .typesBoxIcon {
+        width: 20px;
+        height: 20px;
+    }
+    .typesBoxIcon img {
+        width: 14px;
+    }
+    .typesBox h4 {
+        font-size: 12px;
     }
 }
