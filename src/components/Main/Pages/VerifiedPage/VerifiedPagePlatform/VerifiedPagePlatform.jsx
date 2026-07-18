@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import classes from './VerifiedPagePlatform.module.css';
 
 import platformCardImage1 from '../../../../../assets/images/verifiedPageImages/platformCardImage1.png';
 import platformCardImage2 from '../../../../../assets/images/verifiedPageImages/platformCardImage2.png';
 
 const VerifiedPagePlatform = () => {
+    const navigate = useNavigate();
+
     return (
         <section className={classes.platform}>
             <div className="wrapper">
@@ -15,7 +18,9 @@ const VerifiedPagePlatform = () => {
                                 Access structured disclosures and verified
                                 project information.
                             </p>
-                            <button>Explore Verified Projects</button>
+                            <button onClick={() => navigate('/projects')}>
+                                Explore Verified Projects
+                            </button>
                         </div>
                         <div className={classes.platformCardImage}>
                             <img
@@ -31,7 +36,7 @@ const VerifiedPagePlatform = () => {
                                 Present your project with structured, verified
                                 disclosures through UnitStake.
                             </p>
-                            <button>
+                            <button onClick={() => navigate('/contact-us')}>
                                 Submit Your Project for Verification
                             </button>
                         </div>
