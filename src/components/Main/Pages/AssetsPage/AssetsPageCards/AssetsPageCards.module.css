@@ -18,7 +18,7 @@
     padding-left: 80px;
 }
 
-.cardInfo {
+.cardInfo h2 {
     font-weight: 500;
     font-size: 48px;
     line-height: 120%;
@@ -81,12 +81,16 @@
 @media (max-width: 1000px) {
     .card {
         grid-template-columns: 1fr;
+        border-radius: 16px;
     }
     .cardInfo {
-        font-size: 38px;
+        padding: 16px;
+    }
+    .cardInfo h2 {
+        font-size: 28px;
     }
     .cardInfo button {
-        margin-top: 40px;
-        padding: 10px 20px;
+        width: 100%;
+        margin-top: 30px;
     }
 }

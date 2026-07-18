@@ -172,15 +172,32 @@
 }
 
 @media (max-width: 1000px) {
+    .fakeBtnContainer p {
+        font-size: 12px;
+    }
     .choiceHeader h2 {
-        font-size: 38px;
+        font-size: 28px;
+    }
+    .choiceHeader h3 {
+        font-size: 16px;
+    }
+    .choiceInfo {
+        padding-left: 8px;
+    }
+    .choiceInfoHeader {
+        font-size: 14px;
+    }
+    .choiceInfoBox {
+        padding: 8px 0;
+        gap: 8px;
     }
     .choiceContainer {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 0;
     }
-    .choiceInfo {
-        padding-left: 16px;
+    .choiceInfoBoxIcon {
+        width: 34px;
+        height: 34px;
     }
     .choiceImg img {
         display: none;

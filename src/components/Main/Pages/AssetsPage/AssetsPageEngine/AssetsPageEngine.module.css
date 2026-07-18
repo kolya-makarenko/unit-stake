@@ -100,17 +100,23 @@
 
 @media (max-width: 1000px) {
     .engineHeader h2 {
-        font-size: 38px;
+        font-size: 28px;
+    }
+    .engineHeader h6 {
+        font-size: 16px;
+    }
+    .engineHeader p {
+        font-size: 14px;
     }
     .engineContainer {
-        border-radius: 20px;
+        border-radius: 16px;
         grid-template-columns: 1fr;
     }
     .engineContainerTxt {
-        padding: 20px;
+        padding: 16px;
         box-sizing: border-box;
     }
     .engineContainerTxt h3 {
-        font-size: 30px;
+        font-size: 20px;
     }
 }

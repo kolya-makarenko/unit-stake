@@ -96,16 +96,20 @@
 
 @media (max-width: 1000px) {
     .platformContainer {
-        padding: 40px 20px;
+        padding: 30px 16px;
     }
     .platformContainer h2 {
-        font-size: 36px;
+        font-size: 28px;
     }
     .platformBtns {
         flex-direction: column;
     }
+    .platformBtns {
+        width: 100%;
+        gap: 16px;
+    }
     .platformBtn1,
     .platformBtn2 {
-        padding: 10px 20px;
+        width: 100%;
     }
 }

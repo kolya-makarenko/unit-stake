@@ -119,7 +119,16 @@
     }
     .path h2 {
         width: 100%;
-        font-size: 38px;
+        font-size: 28px;
+    }
+    .pathBoxInfo h3 {
+        padding-left: 8px;
+        font-size: 18px;
+        border-left: 2px solid #d34329;
+    }
+    ._pathBoxInfo_1rram_101 p {
+        padding-left: 8px;
+        font-size: 14px;
     }
     .pathRow {
         padding-bottom: 24px;

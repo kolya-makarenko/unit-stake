@@ -266,7 +266,29 @@
         font-size: 28px;
     }
     .platformsContainer {
-        grid-template-columns: 1fr;
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .platformsContainer::-webkit-scrollbar {
+        display: none;
+    }
+    .platformCard {
+        width: 80%;
+        padding: 16px;
+        border-radius: 16px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+    }
+    .platformCardInfoNumbersTotal h5 {
+        font-size: 20px;
+    }
+    .projectsCardLocation h6 {
+        font-size: 14px;
     }
     .platformsHeader button {
         width: 100%;

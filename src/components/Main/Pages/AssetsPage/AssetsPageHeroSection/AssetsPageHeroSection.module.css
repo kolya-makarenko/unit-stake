@@ -103,7 +103,11 @@
         gap: 0;
     }
     .heroSectionTxt h2 {
-        font-size: 40px;
+        font-size: 28px;
+        text-align: center;
+    }
+    .heroSectionSecondaryTxt {
+        font-size: 16px;
     }
     .heroSectionBtns {
         flex-direction: column;

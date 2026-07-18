@@ -286,7 +286,40 @@
         font-size: 28px;
     }
     .projectsContainer {
-        grid-template-columns: 1fr;
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .projectsContainer::-webkit-scrollbar {
+        display: none;
+    }
+    .projectsCard {
+        width: 80%;
+        flex-shrink: 0;
+        border-radius: 16px;
+        scroll-snap-align: start;
+    }
+    .projectsCardInfo {
+        padding: 16px;
+    }
+    .projectsCardMainInfo h3 {
+        font-size: 20px;
+    }
+    .projectsCardMainInfo p,
+    .projectsCardStats p {
+        font-size: 14px;
+    }
+    .projectsCardProgressBar {
+        margin-top: 8px;
+    }
+    .projectsCardProgressNumbers h4,
+    .projectsCardStats h4,
+    .projectsCardProgressNumbers p {
+        font-size: 12px;
     }
     .linkToProjects button {
         width: 100%;
