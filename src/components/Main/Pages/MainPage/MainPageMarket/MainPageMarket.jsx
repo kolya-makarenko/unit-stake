@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import classes from './MainPageMarket.module.css';
 
 import tabPic1 from '../../../../../assets/images/mainPageImages/marketTab1.png';
+import tabPic2 from '../../../../../assets/images/mainPageImages/marketTab2.png';
 import tabPic3 from '../../../../../assets/images/mainPageImages/marketTab3.png';
 
 const tbabsData = [
@@ -22,7 +23,7 @@ const tbabsData = [
         paragraph:
             'Understand the key trends, models, and developments shaping tokenised real-world assets.',
         fackeBtns: ['Location', 'Structure', 'Platform', 'Asset Type'],
-        img: null,
+        img: tabPic2,
     },
     {
         id: 'tab3',
