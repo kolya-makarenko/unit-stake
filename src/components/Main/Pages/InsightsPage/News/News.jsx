@@ -226,6 +226,7 @@ const News = () => {
                 <div className={classes.filters}>
                     <div className={classes.searchWrapper}>
                         <input
+                            id="searchNews"
                             type="text"
                             placeholder="Start typing to search"
                             className={classes.searchInput}

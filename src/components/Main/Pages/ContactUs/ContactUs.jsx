@@ -143,6 +143,7 @@ const ContactUs = () => {
                 country: formData.country,
                 industry_asset_type: selectedCategories,
                 actions_todo: todoOptions,
+                purpose: 'contact form',
             };
 
             await tablesDB.createRow({

@@ -54,9 +54,10 @@ const MainPageForm = () => {
                             Request access to structured market insights,
                             platform overviews, and ecosystem updates.
                         </p>
-                        <form onSubmit={handleSubmit} id={classes.form}>
+                        <form onSubmit={handleSubmit} id="mainPageForm">
                             <input
                                 id={classes.email}
+                                name="mail"
                                 type="email"
                                 placeholder="Enter your email to continue"
                                 value={email}

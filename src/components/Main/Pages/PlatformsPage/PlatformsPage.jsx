@@ -466,6 +466,7 @@ const PlatformsPage = () => {
                                     </button>
                                 </div>
                                 <input
+                                    id="SearchPlatforms"
                                     type="text"
                                     placeholder="Search"
                                     value={searchQuery}

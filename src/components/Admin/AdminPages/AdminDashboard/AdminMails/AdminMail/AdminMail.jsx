@@ -108,12 +108,47 @@ const AdminMail = () => {
                     <p>
                         Name: <span>{mailData.name}</span>
                     </p>
-                    <p>
-                        Phone Number:{' '}
-                        <a href={`tel:${mailData.phone_number}`}>
-                            {mailData.phone_number}
-                        </a>
-                    </p>
+                    {mailData.phone_number && (
+                        <p>
+                            Phone Number:{' '}
+                            <a href={`tel:${mailData.phone_number}`}>
+                                {mailData.phone_number}
+                            </a>
+                        </p>
+                    )}
+                    {mailData.country && (
+                        <p>
+                            Country: <span>{mailData.country}</span>
+                        </p>
+                    )}
+                    {mailData.project_company_name && (
+                        <p>
+                            Project / Company Name:{' '}
+                            <span>{mailData.project_company_name}</span>
+                        </p>
+                    )}
+                    {mailData.whatsapp_telegram && (
+                        <p>
+                            WhatsApp / Telegram:{' '}
+                            <span>{mailData.whatsapp_telegram}</span>
+                        </p>
+                    )}
+                    {Array.isArray(mailData?.industry_asset_type) &&
+                        mailData.industry_asset_type.length > 0 && (
+                            <p>
+                                Industry / Asset Type:{' '}
+                                <span>
+                                    {mailData.industry_asset_type.join(', ')}
+                                </span>
+                            </p>
+                        )}
+                    {Array.isArray(mailData?.actions_todo) &&
+                        mailData.actions_todo.length > 0 && (
+                            <p>
+                                Need to do:{' '}
+                                <span>{mailData.actions_todo.join(', ')}</span>
+                            </p>
+                        )}
                     <p>
                         Date:{' '}
                         <span>{formatLocalDate(mailData.$createdAt)}</span>
