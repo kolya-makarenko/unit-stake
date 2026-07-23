@@ -98,9 +98,28 @@
     color: #19191c;
 }
 
-.projectsFilterSlider {
-    width: 200px;
-    accent-color: #d34329;
+input[type='range'] {
+    width: 300px;
+    -webkit-appearance: none;
+    background: transparent;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #d34329;
+    margin-top: -4px;
+    cursor: pointer;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: #d34329;
+    border-radius: 4px;
 }
 
 .slider {
@@ -133,7 +152,7 @@
 }
 
 .projectsCard:hover {
-    filter: drop-shadow(0px 0px 3px #d34329);
+    box-shadow: 0px 0px 10px #d34329;
 }
 
 .projectsCardImage {
@@ -520,7 +539,7 @@
         color: #19191c;
         transition: 0.3s ease-in-out;
     }
-    .slider {
+    input[type='range'] {
         width: 100%;
         cursor: pointer;
         accent-color: #d34329;

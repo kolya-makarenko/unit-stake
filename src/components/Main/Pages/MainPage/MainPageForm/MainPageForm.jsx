@@ -48,7 +48,7 @@ const MainPageForm = () => {
         <section className={classes.form}>
             <div className="wrapper">
                 <div className={classes.formContainer}>
-                    <div className={classes.formInfo}>
+                    <div className={classes.formInfo} id="subscriptionForm">
                         <h2>Get Market Access</h2>
                         <p>
                             Request access to structured market insights,
@@ -71,7 +71,8 @@ const MainPageForm = () => {
                         </form>
                         {isSubmitted && (
                             <span className={classes.successMessage}>
-                                Thank you for your message. It has been sent!
+                                Thank you! You've successfully subscribed to our
+                                updates.
                             </span>
                         )}
                         {error && (
@@ -79,6 +80,14 @@ const MainPageForm = () => {
                                 {error}
                             </span>
                         )}
+                        <label className={classes.labelCheck}>
+                            <input
+                                type="checkbox"
+                                name="check"
+                                id={classes.check}
+                            />
+                            <span>No spam. Relevant updates only.</span>
+                        </label>
                     </div>
                     <div className={classes.formImg}>
                         <img src={formImage} alt="form image" />

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import classes from './Header.module.css';
 
 import logo from '../../../assets/images/logoWhite.svg';
@@ -7,7 +8,7 @@ import logo from '../../../assets/images/logoWhite.svg';
 const MENU_ITEMS = [
     { to: '/projects', label: 'Projects' },
     { to: '/platforms', label: 'Platforms' },
-    { to: '/for-assets-owners', label: 'For Assets Owners' },
+    { to: '/for-assets-owners', label: 'For Asset Owners' },
     { to: '/insights', label: 'Insights' },
     { to: '/academy', label: 'Academy' },
     { to: '/about-us', label: 'About Us' },
@@ -56,13 +57,22 @@ const Header = () => {
                                     </li>
                                 ))}
                                 <li className={classes.toContactsLink}>
-                                    <NavLink
-                                        to="/contact-us"
-                                        className={getNavLinkClass}
+                                    <HashLink
+                                        to="/#subscriptionForm"
+                                        smooth
+                                        className={classes.mainMenuLink}
                                         onClick={openMobileMenu}
+                                        scroll={(el) => {
+                                            setTimeout(() => {
+                                                el.scrollIntoView({
+                                                    behavior: 'smooth',
+                                                    block: 'start',
+                                                });
+                                            }, 350);
+                                        }}
                                     >
                                         STAY UPDATED
-                                    </NavLink>
+                                    </HashLink>
                                 </li>
                             </ul>
                         </nav>
@@ -79,12 +89,21 @@ const Header = () => {
                             <div className={classes.burgerLine3}></div>
                         </div>
                     </div>
-                    <button
+                    <HashLink
+                        to="/#subscriptionForm"
+                        smooth
                         className={classes.btnToContacts}
-                        onClick={() => navigate('/contact-us')}
+                        scroll={(el) => {
+                            setTimeout(() => {
+                                el.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start',
+                                });
+                            }, 250);
+                        }}
                     >
                         STAY UPDATED
-                    </button>
+                    </HashLink>
                 </div>
             </div>
         </header>

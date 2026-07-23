@@ -57,7 +57,7 @@ const MainPageFragment = () => {
                             </div>
                             <button
                                 className={classes.fragmentBoxTextBtn}
-                                onClick={() => navigate('/for-assets-owners')}
+                                onClick={() => navigate('/projects')}
                             >
                                 Explore More
                             </button>

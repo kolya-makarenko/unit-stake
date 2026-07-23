@@ -15,6 +15,8 @@ const tbabsData = [
             'Explore structured project overviews designed to support independent understanding and comparison.',
         fackeBtns: ['Location', 'Ownership Model', 'Platform', 'Asset Type'],
         img: tabPic1,
+        btnName: 'View projects',
+        btnLink: '/projects',
     },
     {
         id: 'tab2',
@@ -24,6 +26,8 @@ const tbabsData = [
             'Understand the key trends, models, and developments shaping tokenised real-world assets.',
         fackeBtns: ['Location', 'Structure', 'Platform', 'Asset Type'],
         img: tabPic2,
+        btnName: 'View Insights',
+        btnLink: '/insights',
     },
     {
         id: 'tab3',
@@ -33,6 +37,8 @@ const tbabsData = [
             'The key roles shaping tokenised assets — from infrastructure and legal structuring to market positioning.',
         fackeBtns: ['Location', 'Structure', 'Platform', 'Asset Type'],
         img: tabPic3,
+        btnName: 'View Ecosystem',
+        btnLink: '/for-assets-owners',
     },
 ];
 
@@ -79,9 +85,9 @@ const MainPageMarket = () => {
                                         ))}
                                     </div>
                                     <button
-                                        onClick={() => navigate('/projects')}
+                                        onClick={() => navigate(tab.btnLink)}
                                     >
-                                        View projects
+                                        {tab.btnName}
                                     </button>
                                 </div>
                                 <div className={classes.marketContentImg}>

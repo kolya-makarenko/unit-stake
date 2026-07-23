@@ -223,10 +223,12 @@ const PlatformsPage = () => {
     };
 
     const formatAssetLabel = (value) => {
-        if (value >= 100000 && value <= 100000000) {
-            return `${Math.round(value / 100000) / 10}M`;
-        } else if (value >= 100000000) {
-            return `${Math.round(value / 100000000) / 10}B`;
+        if (value >= 1000 && value <= 999999) {
+            return `${Math.round(value / 1000)}K`;
+        } else if (value >= 1000000 && value <= 999999999) {
+            return `${Math.round(value / 1000000)}M`;
+        } else if (value >= 1000000000 && value <= 999999999999) {
+            return `${Math.round(value / 1000000000)}B`;
         } else {
             return value;
         }
@@ -249,7 +251,10 @@ const PlatformsPage = () => {
             <section className={classes.header}>
                 <div className="wrapper">
                     <h2>Platforms</h2>
-                    <p>Discover projects with public and structured data</p>
+                    <p>
+                        Explore platforms across real-world assets, tokenized
+                        products
+                    </p>
                 </div>
             </section>
             <section className={classes.platforms}>
@@ -339,7 +344,7 @@ const PlatformsPage = () => {
                                 </div>
 
                                 <div className={classes.platformsFilter}>
-                                    <h4>Types</h4>
+                                    <h4>Token Types</h4>
                                     <div className={classes.checkboxList}>
                                         {availableFilters.types.length > 0 ? (
                                             availableFilters.types.map(

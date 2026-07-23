@@ -389,7 +389,7 @@ const ProjectsPage = () => {
                                             toggleFilterPopup('types')
                                         }
                                     >
-                                        Types{' '}
+                                        Token Types{' '}
                                         {activeFilter === 'types'
                                             ? arrowUp
                                             : arrowDown}

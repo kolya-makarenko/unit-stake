@@ -32,8 +32,7 @@ const MainPageAggregator = () => {
                             </p>
                             <div className={classes.aggregatorBoxListContainer}>
                                 <div className={classes.aggregatorBoxList}>
-                                    <h4>TRA Price Statistics</h4>
-                                    <h5>TRA Marketplace Price today</h5>
+                                    <h4>Price Statistics</h4>
                                     <ul>
                                         <li>
                                             Total Asset Value
@@ -68,7 +67,6 @@ const MainPageAggregator = () => {
                                             <span>#6227</span>
                                         </li>
                                     </ul>
-                                    <h5>TRA NFTs Marketplace Market Cap</h5>
                                     <ul>
                                         <li>
                                             Market Cap

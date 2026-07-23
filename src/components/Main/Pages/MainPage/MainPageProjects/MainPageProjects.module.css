@@ -55,7 +55,7 @@
 }
 
 .projectsCard:hover {
-    filter: drop-shadow(0px 0px 3px #d34329);
+    box-shadow: 0px 0px 10px #d34329;
 }
 
 .projectsCardImage {

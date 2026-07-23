@@ -6,7 +6,7 @@ import logo from '../../../assets/images/logoWhite.svg';
 const MENU_ITEMS = [
     { to: '/projects', label: 'Projects' },
     { to: '/platforms', label: 'Platforms' },
-    { to: '/for-assets-owners', label: 'For Assets Owners' },
+    { to: '/for-assets-owners', label: 'For Asset Owners' },
     { to: '/insights', label: 'Insights' },
     { to: '/academy', label: 'Academy' },
     { to: '/about-us', label: 'About Us' },
@@ -109,37 +109,39 @@ const Footer = () => {
                         Legal Disclaimer
                     </div>
                     <p>
-                        The Platform is operated by [Unitstake Legal Entity
-                        Name], which is not a registered broker-dealer,
-                        investment adviser, or financial intermediary in any
-                        jurisdiction. Unitstake does not provide investment,
-                        legal, tax, or other professional advice, endorsements,
-                        or recommendations with respect to any project,
-                        platform, or digital asset displayed on the Platform.
-                        Nothing on this Platform constitutes or should be
-                        construed as an offer to sell, solicitation of an offer
-                        to buy, a financial promotion, investment advice, or a
-                        recommendation by [Unitstake Legal Entity Name]. All
-                        digital assets displayed on the Platform are offered by
-                        the relevant issuer, and all information provided in
-                        relation to them is the responsibility of that issuer.
-                        [Unitstake Legal Entity Name] makes no representations
-                        or warranties as to the accuracy, completeness, or
-                        reliability of such information. You are solely
-                        responsible for determining whether any investment,
-                        investment strategy, or related transaction is
-                        appropriate for you based on your personal investment
+                        The Aggregator is operated by Unit Stake Limited, which
+                        is not a registered broker-dealer, investment adviser,
+                        or financial intermediary in any jurisdiction. The
+                        Aggregator operates solely as an information aggregator,
+                        providing publicly available data relating to tokenised
+                        real-world assets and associated projects. Unitstake
+                        does not provide investment, legal, tax, or other
+                        professional advice, endorsements, or recommendations
+                        with respect to any project, platform, or digital asset
+                        displayed on the Aggregator. Nothing on this Aggregator
+                        constitutes or should be construed as a financial
+                        promotion, an offer to sell, solicitation of an offer to
+                        buy, investment advice, or a recommendation by Unit
+                        Stake Limited. All digital assets displayed on the
+                        Aggregator are offered by the relevant issuer, and all
+                        information provided in relation to them is the
+                        responsibility of that issuer. Unit Stake Limited makes
+                        no representations or warranties as to the accuracy,
+                        completeness, or reliability of such information. You
+                        are solely responsible for determining whether any
+                        investment, investment strategy, or related transaction
+                        is appropriate for you based on your personal investment
                         objectives, financial circumstances, and risk tolerance.
                         You should consult with appropriately qualified advisers
                         for any legal, tax, insurance, or investment advice.
-                        [Unitstake Legal Entity Name] does not guarantee any
-                        investment performance, outcome, or return of capital
-                        for any project posted on the Platform.
+                        Unit Stake Limited does not guarantee any investment
+                        performance, outcome, or return of capital for any
+                        project posted on the Aggregator.
                     </p>
                 </div>
                 <div className={classes.footerLegalText}>
                     <div className={classes.footerCopyright}>
-                        © Copyright Unit Stake 2026
+                        © Copyright UnitStake 2026
                     </div>
                     <div className={classes.footerLegalLinks}>
                         <ul>
@@ -156,7 +158,7 @@ const Footer = () => {
                                     to="/legal-disclaimer"
                                     className={classes.footerLegalLink}
                                 >
-                                    Legal Disclaimer
+                                    Risk Disclosure Statement
                                 </NavLink>
                             </li>
                             <li>
@@ -164,7 +166,7 @@ const Footer = () => {
                                     to="/term-services"
                                     className={classes.footerLegalLink}
                                 >
-                                    Term of Services
+                                    Terms and Conditions
                                 </NavLink>
                             </li>
                         </ul>

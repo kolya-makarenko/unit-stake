@@ -70,9 +70,9 @@ const MainPageProjects = () => {
     return (
         <section className={classes.projects}>
             <div className="wrapper">
-                <h2>Featured Investment Opportunities</h2>
+                <h2>Featured Opportunities</h2>
                 <p className={classes.projectsSimpleText}>
-                    Curated projects with due diligence and transparent metrics
+                    Projects with transparent metrics
                 </p>
                 <div className={classes.projectsContainer}>
                     {projects.length > 0 ? (
