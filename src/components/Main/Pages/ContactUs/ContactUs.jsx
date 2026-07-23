@@ -154,7 +154,7 @@ const ContactUs = () => {
             });
 
             alert('Your message has been sent successfully!');
-            navigate('/');
+            navigate('/for-assets-owners');
 
             setFormData({
                 fullName: '',

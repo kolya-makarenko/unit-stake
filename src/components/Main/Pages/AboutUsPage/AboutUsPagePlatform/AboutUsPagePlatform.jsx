@@ -8,8 +8,8 @@ const AboutUsPagePlatform = () => {
             <div className="wrapper">
                 <div className={classes.platformContainer}>
                     <h2>
-                        This platform was not built as an idea — it was built as
-                        a necessity.
+                        This aggregator wasn't created as an idea - it was
+                        created to solve a real market need.
                     </h2>
                     <p>
                         We built what we could not find in the market ourselves.

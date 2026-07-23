@@ -8,7 +8,7 @@ const AboutUsPageVerification = () => {
             <div className="wrapper">
                 <div className={classes.verificationContainer}>
                     <div className={classes.verificationText}>
-                        <h2>Verification by UnitStake</h2>
+                        <h2>Verified by UnitStake</h2>
                         <p>
                             It’s a way to organise and present facts about a
                             project so users can better understand its
@@ -16,7 +16,7 @@ const AboutUsPageVerification = () => {
                             data.
                         </p>
                         <h4>
-                            Verification by UnitStake is not a rating and not an
+                            Verified by UnitStake is not a rating and not an
                             endorsement.
                         </h4>
                     </div>

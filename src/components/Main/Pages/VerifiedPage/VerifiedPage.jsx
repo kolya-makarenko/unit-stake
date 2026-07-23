@@ -18,26 +18,25 @@ const firstDisclaimerTxt = (
 const secondDisclaimerTxt = (
     <>
         <p>
-            Verified by Unit Stake is a data verification service provided by
-            Unit Stake as an informational service. Unit Stake is not a broker,
-            investment adviser, financial intermediary, or regulated entity
+            Verified by UnitStake is a data verification service provided by
+            UnitStake as an informational service. UnitStake is an informational
+            aggregator. UnitStake is not a broker, investment adviser, financial
+            intermediary, or regulated entity.
         </p>
         <p>
-            Nothing on this platform, including the Verified by Unit Stake
-            status, constitutes:
+            Nothing on this platform, including the Verified by UnitStake
+            designation, constitutes investment advice, a financial promotion,
+            an offer or invitation to buy or sell any asset, or a recommendation
+            of any kind.
         </p>
-        <ul>
-            <li>investment advice</li>
-            <li>a financial promotion</li>
-            <li>an offer or solicitation to buy or sell any asset</li>
-            <li>a recommendation of any kind</li>
-        </ul>
         <p>
-            Verified status reflects the outcome of a review of disclosed
-            information and publicly available data as of the verification date.
-            All materials are provided for informational purposes only and
-            should not be relied upon as a basis for investment or financial
-            decisions.
+            The Verified by UnitStake designation reflects the results of the
+            verification of data disclosed by the project and publicly available
+            information as of the date the verification was conducted.
+        </p>
+        <p>
+            The materials presented are for informational purposes only and do
+            not constitute a recommendation to take any action.
         </p>
     </>
 );

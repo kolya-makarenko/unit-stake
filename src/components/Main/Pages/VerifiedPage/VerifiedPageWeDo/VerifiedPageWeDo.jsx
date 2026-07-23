@@ -7,9 +7,9 @@ const VerifiedPageWeDo = () => {
         <section className={classes.weDo}>
             <div className="wrapper">
                 <div className={classes.weDoHeader}>
-                    <h2>What Is Verified by Unit Stake</h2>
+                    <h2>What Is Verified by UnitStake</h2>
                     <p>
-                        Verified by Unit Stake is a structured verification
+                        Verified by UnitStake is a structured verification
                         framework designed to improve transparency in tokenized
                         asset markets. The verification process reviews
                         information disclosed by a project across several key
@@ -43,7 +43,7 @@ const VerifiedPageWeDo = () => {
                                     strokeLinejoin="round"
                                 />
                             </svg>
-                            Unit Stake does not
+                            UnitStake does not
                         </h4>
                         <ul>
                             <li>provide investment advice</li>
@@ -72,7 +72,7 @@ const VerifiedPageWeDo = () => {
                                     strokeLinejoin="round"
                                 />
                             </svg>
-                            Unit Stake does
+                            UnitStake does
                         </h4>
                         <ul>
                             <li>

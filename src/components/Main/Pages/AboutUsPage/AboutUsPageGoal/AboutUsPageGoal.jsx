@@ -5,9 +5,9 @@ const AboutUsPageGoal = () => {
         <section className={classes.goal}>
             <div className="wrapper">
                 <div className={classes.goalHeader}>
-                    <h2>Our goal is simple: </h2>
+                    <h2>Our goal is simple:</h2>
                     <p>
-                        to collect, structure, and explain information about
+                        To collect, structure, and explain information about
                         tokenised projects so that users can clearly understand
                         what stands behind each asset. This includes the
                         structure being used, who the issuer is, where the
@@ -57,7 +57,7 @@ const AboutUsPageGoal = () => {
                             <h3>Our approach</h3>
                             <p>
                                 We use a structured verification process called
-                                Unit Stake Verification, which is based only on
+                                Verified by UnitStake, which is based only on
                                 publicly available information. We don’t make
                                 recommendations. We make information easier to
                                 understand.

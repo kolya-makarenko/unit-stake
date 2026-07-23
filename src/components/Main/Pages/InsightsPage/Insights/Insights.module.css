@@ -6,13 +6,10 @@
 }
 
 .insight {
-    height: 240px;
     border: 1px solid rgba(61, 61, 61, 0.4);
     border-radius: 24px;
     overflow: hidden;
     background-color: #ffffff05;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
     cursor: pointer;
     transition: 0.3s ease-in-out;
 }
@@ -22,6 +19,7 @@
 }
 
 .insightImage {
+    height: 250px;
     background-color: #acacaf;
     display: flex;
     justify-content: center;

@@ -28,8 +28,8 @@ const AssetsPage = () => {
             <AssetsPageCards />
             <AssetsPageEngine />
             <AssetsPageBuilt />
-            <AssetsPageMarketingPartners />
-            <AssetsPageLegalPartners />
+            {/* <AssetsPageMarketingPartners /> */}
+            {/* <AssetsPageLegalPartners /> */}
             <AssetsPageInstitutional />
             <AssetsPageDownload />
             <AssetsPageFaq pageName="assets_owners" />

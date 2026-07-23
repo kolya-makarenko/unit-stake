@@ -12,11 +12,12 @@ const AssetsPageCards = () => {
                 <div className={classes.cardsContainer}>
                     <div className={classes.card}>
                         <div className={classes.cardInfo}>
-                            <h2>Get Your Project Listed on UnitStake</h2>
+                            <h2>
+                                Get Your Project Listed on UnitStake Aggregator
+                            </h2>
                             <p>
-                                Showcase your asset to a global audience of
-                                investors through a structured and trusted data
-                                environment.
+                                Showcase your asset to a global audience through
+                                a structured and trusted data environment.
                             </p>
                             <h6>
                                 Increase visibility, build credibility, and

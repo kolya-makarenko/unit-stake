@@ -5,43 +5,35 @@ import choiceIcon1 from '../../../../../assets/images/assetsPageImages/choice1.s
 import choiceIcon2 from '../../../../../assets/images/assetsPageImages/choice2.svg';
 import choiceIcon3 from '../../../../../assets/images/assetsPageImages/choice3.svg';
 import choiceIcon4 from '../../../../../assets/images/assetsPageImages/choice4.svg';
-import choiceIcon5 from '../../../../../assets/images/assetsPageImages/choice5.svg';
 
 const choiceBoxes = [
     {
         id: '1',
         icon: choiceIcon1,
-        title: 'Structure and present your asset',
+        title: 'Increase transparency through structured data presentation',
         subtitle: 'POSITIONING',
         text: 'Launched the tokenized fund BUIDL, signaling institutional confidence in blockchain-based fund infrastructure.',
     },
     {
         id: '2',
         icon: choiceIcon2,
-        title: 'Prepare for market exposure',
+        title: 'Simplify access to key information for interested market participants',
         subtitle: 'MARKET READINESS',
         text: 'We help package your asset with the right materials and narrative',
     },
     {
         id: '3',
         icon: choiceIcon3,
-        title: 'Make your project investor-ready',
+        title: 'Make opportunities easier to understand and evaluate',
         subtitle: 'CLARITY',
         text: 'Turn complex structures into clear, understandable opportunities',
     },
     {
         id: '4',
         icon: choiceIcon4,
-        title: 'Navigate market opportunities',
+        title: 'Increase project visibility among interested market participants',
         subtitle: 'DISCOVERY',
         text: 'Understand where your asset fits within the evolving tokenized market',
-    },
-    {
-        id: '5',
-        icon: choiceIcon5,
-        title: 'Structured data & visibility layer',
-        subtitle: 'INTELLIGENCE',
-        text: 'Access a standardized framework for presenting and comparing projects',
     },
 ];
 
@@ -81,8 +73,6 @@ const AssetsPageChoice = () => {
                                     </div>
                                     <div className={classes.choiceInfoBoxTxt}>
                                         <h4>{item.title}</h4>
-                                        <h5>{item.subtitle}</h5>
-                                        <p>{item.text}</p>
                                     </div>
                                 </li>
                             ))}

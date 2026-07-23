@@ -25,7 +25,7 @@ const AboutUsPageContacts = () => {
                     <div className={classes.contactsMailCards}>
                         <div className={classes.contactsMailCard}>
                             <h4>Support</h4>
-                            <p>general assistance.</p>
+                            <p>General Assistance</p>
                             <a href="mailto:support@unitstake.com">
                                 support@unitstake.com
                             </a>

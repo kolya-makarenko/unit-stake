@@ -45,7 +45,7 @@ const Academy = () => {
 
         const targets = contentBlocks
             .map((block, index) =>
-                block.type === 'h3' || block.type === 'strong'
+                block.type === 'h3' || block.type === 'h4'
                     ? `block-${index}`
                     : null,
             )
@@ -130,13 +130,13 @@ const Academy = () => {
                             </div>
                         </div>
                         <h2>
-                            Understand how tokenized assets really work — before
+                            Understand how tokenized assets really work - before
                             you trust them
                         </h2>
                         <p className={classes.secondaryTxt}>
                             This Academy explains how real-world asset
-                            tokenization works — from legal architecture to
-                            capital flows — so you can evaluate projects based
+                            tokenization works - from legal architecture to
+                            capital flows - so you can evaluate projects based
                             on structure, not assumptions.
                         </p>
                     </div>
@@ -166,7 +166,7 @@ const Academy = () => {
                                                     {block.value}
                                                 </HashLink>
                                             );
-                                        case 'strong': {
+                                        case 'h4': {
                                             let parentH3Index = -1;
                                             for (let i = index; i >= 0; i--) {
                                                 if (
@@ -233,6 +233,12 @@ const Academy = () => {
                                         return (
                                             <h4
                                                 key={index}
+                                                id={blockId}
+                                                ref={(el) =>
+                                                    (headingRefs.current[
+                                                        blockId
+                                                    ] = el)
+                                                }
                                                 className={
                                                     classes.contentSubtitle
                                                 }
@@ -244,12 +250,6 @@ const Academy = () => {
                                         return (
                                             <b
                                                 key={index}
-                                                id={blockId}
-                                                ref={(el) =>
-                                                    (headingRefs.current[
-                                                        blockId
-                                                    ] = el)
-                                                }
                                                 className={
                                                     classes.contentBoldTxt
                                                 }

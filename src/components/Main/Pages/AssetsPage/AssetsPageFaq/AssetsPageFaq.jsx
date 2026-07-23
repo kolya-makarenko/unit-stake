@@ -60,7 +60,7 @@ const AssetsPageFaq = (props) => {
         <section className={classes.faq}>
             <div className="wrapper">
                 <h2>FAQ</h2>
-                <p>No. Institutional interest is increasing globally.</p>
+                <p>Institutional interest is increasing globally.</p>
                 <div className={classes.faqContainer}>
                     {faqs.map((item, index) => {
                         const isActive = activeIndex === index;

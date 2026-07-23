@@ -7,7 +7,7 @@ const AboutUsPageHeroSection = () => {
                 <div className={classes.heroSectionContainer}>
                     <h2>About UnitStake Aggregator</h2>
                     <p>
-                        Unit Stake Aggregator is an independent informational
+                        UnitStake Aggregator is an independent informational
                         aggregator focused on tokenised assets, platforms, and
                         projects in the RWA (Real World Assets) space.
                     </p>

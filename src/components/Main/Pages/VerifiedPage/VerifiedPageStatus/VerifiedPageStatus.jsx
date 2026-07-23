@@ -10,7 +10,7 @@ const VerifiedPageStatus = () => {
                     <div className={classes.statusBox}>
                         <h3>What Verified Status Provides to Platform Users</h3>
                         <p>
-                            Verified by Unit Stake helps users better understand
+                            Verified by UnitStake helps users better understand
                             what information has been disclosed and reviewed,
                             including:
                         </p>
@@ -60,10 +60,6 @@ const VerifiedPageStatus = () => {
                                 publicly available sources.
                             </li>
                         </ul>
-                        <h4>
-                            Verification supports more informed independent
-                            analysis by improving information transparency.
-                        </h4>
                     </div>
                     <div className={classes.statusBox}>
                         <h3>What Verified Status Provides to Asset Owners</h3>

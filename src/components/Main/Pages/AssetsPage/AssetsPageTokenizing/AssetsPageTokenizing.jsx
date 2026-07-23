@@ -17,12 +17,12 @@ const tokenizingCards = [
         id: '02',
         icon: tokenizingIcon2,
         header: 'Accelerate Growth',
-        text: 'Convert balance-sheet assets into deployable capital and shorten the path to scale.',
+        text: 'Access funding to scale your business and unlock new growth opportunities.',
     },
     {
         id: '03',
         icon: tokenizingIcon3,
-        header: 'Provide Investor Liquidity',
+        header: 'Provide Liquidity',
         text: 'Create more flexible entry and exit opportunities for participants in your project.',
     },
     {
