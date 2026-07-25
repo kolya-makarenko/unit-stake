@@ -133,7 +133,9 @@ const AdminProjectEdit = () => {
                             existingUrl:
                                 block.type === 'image' ||
                                 block.type === 'document' ||
-                                block.type === 'imageForContent'
+                                block.type === 'imageForContent' ||
+                                block.type === 'imageForContentTab' ||
+                                block.type === 'imageForContentMob'
                                     ? block.value
                                     : null,
                         };
@@ -320,6 +322,10 @@ const AdminProjectEdit = () => {
                 return 'Image For Carousel / Slider';
             case 'imageForContent':
                 return 'Content Image';
+            case 'imageForContentTab':
+                return 'Content Image Tab';
+            case 'imageForContentMob':
+                return 'Content Image Mob';
             case 'document':
                 return 'Document (PDF)';
             case 'youtube':
@@ -386,7 +392,9 @@ const AdminProjectEdit = () => {
                 if (
                     block.type === 'image' ||
                     block.type === 'document' ||
-                    block.type === 'imageForContent'
+                    block.type === 'imageForContent' ||
+                    block.type === 'imageForContentTab' ||
+                    block.type === 'imageForContentMob'
                 ) {
                     if (block.file) {
                         const uploadedBlockFile = await storage.createFile(
@@ -1229,6 +1237,116 @@ const AdminProjectEdit = () => {
                                             />
                                         </div>
                                     )}
+                                    {block.type === 'imageForContentTab' && (
+                                        <div
+                                            className={
+                                                classes.addPlatformFormIdentityFieldImage
+                                            }
+                                        >
+                                            <label
+                                                htmlFor={`imageBlockEdit-${block.id}`}
+                                            >
+                                                {block.file ||
+                                                block.existingUrl ? (
+                                                    <div
+                                                        className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
+                                                    >
+                                                        <img
+                                                            src={imageIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            {block.file
+                                                                ? block.file
+                                                                      .name
+                                                                : block.fileName ||
+                                                                  'Current Block Image Tab'}
+                                                        </span>
+                                                    </div>
+                                                ) : (
+                                                    <div
+                                                        className={
+                                                            classes.addPlatformFormIdentityFieldImagePlaceholder
+                                                        }
+                                                    >
+                                                        <img
+                                                            src={upLoadIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            Select an image
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </label>
+                                            <input
+                                                id={`imageBlockEdit-${block.id}`}
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) =>
+                                                    handleBlockFileChange(
+                                                        block.id,
+                                                        e,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    )}
+                                    {block.type === 'imageForContentMob' && (
+                                        <div
+                                            className={
+                                                classes.addPlatformFormIdentityFieldImage
+                                            }
+                                        >
+                                            <label
+                                                htmlFor={`imageBlockEdit-${block.id}`}
+                                            >
+                                                {block.file ||
+                                                block.existingUrl ? (
+                                                    <div
+                                                        className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
+                                                    >
+                                                        <img
+                                                            src={imageIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            {block.file
+                                                                ? block.file
+                                                                      .name
+                                                                : block.fileName ||
+                                                                  'Current Block Image Mob'}
+                                                        </span>
+                                                    </div>
+                                                ) : (
+                                                    <div
+                                                        className={
+                                                            classes.addPlatformFormIdentityFieldImagePlaceholder
+                                                        }
+                                                    >
+                                                        <img
+                                                            src={upLoadIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            Select an image
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </label>
+                                            <input
+                                                id={`imageBlockEdit-${block.id}`}
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) =>
+                                                    handleBlockFileChange(
+                                                        block.id,
+                                                        e,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    )}
                                     {block.type === 'document' && (
                                         <div
                                             className={
@@ -1336,6 +1454,22 @@ const AdminProjectEdit = () => {
                                 onClick={() => addTextBlock('imageForContent')}
                             >
                                 + Add Image For Content
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    addTextBlock('imageForContentTab')
+                                }
+                            >
+                                + Add Image For Content (Tab)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    addTextBlock('imageForContentMob')
+                                }
+                            >
+                                + Add Image For Content (Mob)
                             </button>
                             <button
                                 type="button"

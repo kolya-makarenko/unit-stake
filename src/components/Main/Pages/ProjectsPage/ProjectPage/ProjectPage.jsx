@@ -526,6 +526,40 @@ const ProjectPage = () => {
                                                 />
                                             </div>
                                         );
+                                    case 'imageForContentTab':
+                                        return (
+                                            <div
+                                                key={index}
+                                                className={
+                                                    classes.contentImageWrapperTab
+                                                }
+                                            >
+                                                <img
+                                                    src={block.value}
+                                                    alt="Project detail"
+                                                    className={
+                                                        classes.contentImage
+                                                    }
+                                                />
+                                            </div>
+                                        );
+                                    case 'imageForContentMob':
+                                        return (
+                                            <div
+                                                key={index}
+                                                className={
+                                                    classes.contentImageWrapperMob
+                                                }
+                                            >
+                                                <img
+                                                    src={block.value}
+                                                    alt="Project detail"
+                                                    className={
+                                                        classes.contentImage
+                                                    }
+                                                />
+                                            </div>
+                                        );
                                     case 'youtube':
                                         return (
                                             <iframe
@@ -920,12 +954,14 @@ const ProjectPage = () => {
                             </div>
                         </div>
                         <div className={classes.map}>
-                            <iframe
-                                src={data.google_maps_url}
-                                allowFullScreen=""
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                            ></iframe>
+                            {data.google_maps_url && (
+                                <iframe
+                                    src={data.google_maps_url}
+                                    allowFullScreen=""
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                ></iframe>
+                            )}
                         </div>
                     </div>
                 </div>

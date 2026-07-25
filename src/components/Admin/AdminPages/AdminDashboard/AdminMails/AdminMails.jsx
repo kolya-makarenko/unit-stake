@@ -96,6 +96,7 @@ const AdminMails = () => {
             <div className={classes.adminMailsTable}>
                 <div className={classes.adminMailsTableHeader}>
                     <span>E-mail</span>
+                    <span>Purpose</span>
                     <span>Name</span>
                     <span>Phone number</span>
                     <span>Date</span>
@@ -112,6 +113,11 @@ const AdminMails = () => {
                     >
                         <span className={classes.adminMailsTableRowMail}>
                             {message.mail}
+                        </span>
+                        <span className={classes.adminMailsTableRowMail}>
+                            {message.purpose === 'contact form'
+                                ? 'Contact form'
+                                : 'To subscribe'}
                         </span>
                         <span className={classes.adminMailsTableRowName}>
                             {message.name}

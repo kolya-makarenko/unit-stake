@@ -103,7 +103,11 @@ const AdminPlatformEdit = () => {
                             value: block.value,
                             file: null,
                             existingUrl:
-                                block.type === 'image' ? block.value : null,
+                                block.type === 'image' ||
+                                block.type === 'imageTab' ||
+                                block.type === 'imageMob'
+                                    ? block.value
+                                    : null,
                         };
                     });
                     setTextBlocks(parsedBlocks);
@@ -275,7 +279,11 @@ const AdminPlatformEdit = () => {
 
             const serializedBlocks = [];
             for (const block of textBlocks) {
-                if (block.type === 'image') {
+                if (
+                    block.type === 'image' ||
+                    block.type === 'imageTab' ||
+                    block.type === 'imageMob'
+                ) {
                     if (block.file) {
                         const uploadedBlockFile = await storage.createFile(
                             BUCKET_ID,
@@ -286,14 +294,14 @@ const AdminPlatformEdit = () => {
 
                         serializedBlocks.push(
                             JSON.stringify({
-                                type: 'image',
+                                type: block.type,
                                 value: blockImageUrl,
                             }),
                         );
                     } else {
                         serializedBlocks.push(
                             JSON.stringify({
-                                type: 'image',
+                                type: block.type,
                                 value: block.existingUrl || block.value || '',
                             }),
                         );
@@ -362,6 +370,10 @@ const AdminPlatformEdit = () => {
                 return <h6>List block</h6>;
             case 'image':
                 return <h6>Image</h6>;
+            case 'imageTab':
+                return <h6>Image Tab</h6>;
+            case 'imageMob':
+                return <h6>Image Mob</h6>;
             default:
                 return <h6>Block</h6>;
         }
@@ -819,6 +831,130 @@ const AdminPlatformEdit = () => {
                                             />
                                         </div>
                                     )}
+                                    {block.type === 'imageTab' && (
+                                        <div
+                                            className={
+                                                classes.addPlatformFormIdentityFieldImage
+                                            }
+                                        >
+                                            <label
+                                                htmlFor={`imageBlock-${block.id}`}
+                                            >
+                                                {block.file ? (
+                                                    <div
+                                                        className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
+                                                    >
+                                                        <img
+                                                            src={imageIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            {block.file.name}
+                                                        </span>
+                                                    </div>
+                                                ) : block.existingUrl ? (
+                                                    <div
+                                                        className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
+                                                    >
+                                                        <img
+                                                            src={imageIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            Image Loaded
+                                                        </span>
+                                                    </div>
+                                                ) : (
+                                                    <div
+                                                        className={
+                                                            classes.addPlatformFormIdentityFieldImagePlaceholder
+                                                        }
+                                                    >
+                                                        <img
+                                                            src={upLoadIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            Select an image
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </label>
+                                            <input
+                                                id={`imageBlock-${block.id}`}
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) =>
+                                                    handleBlockFileChange(
+                                                        block.id,
+                                                        e,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    )}
+                                    {block.type === 'imageMob' && (
+                                        <div
+                                            className={
+                                                classes.addPlatformFormIdentityFieldImage
+                                            }
+                                        >
+                                            <label
+                                                htmlFor={`imageBlock-${block.id}`}
+                                            >
+                                                {block.file ? (
+                                                    <div
+                                                        className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
+                                                    >
+                                                        <img
+                                                            src={imageIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            {block.file.name}
+                                                        </span>
+                                                    </div>
+                                                ) : block.existingUrl ? (
+                                                    <div
+                                                        className={`${classes.addPlatformFormIdentityFieldImagePlaceholder} ${classes.active}`}
+                                                    >
+                                                        <img
+                                                            src={imageIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            Image Loaded
+                                                        </span>
+                                                    </div>
+                                                ) : (
+                                                    <div
+                                                        className={
+                                                            classes.addPlatformFormIdentityFieldImagePlaceholder
+                                                        }
+                                                    >
+                                                        <img
+                                                            src={upLoadIcon}
+                                                            alt="upload"
+                                                        />
+                                                        <span>
+                                                            Select an image
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </label>
+                                            <input
+                                                id={`imageBlock-${block.id}`}
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) =>
+                                                    handleBlockFileChange(
+                                                        block.id,
+                                                        e,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -858,6 +994,18 @@ const AdminPlatformEdit = () => {
                                 onClick={() => addTextBlock('image')}
                             >
                                 + Add Image
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addTextBlock('imageTab')}
+                            >
+                                + Add Image (Tab)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => addTextBlock('imageMob')}
+                            >
+                                + Add Image (Mob)
                             </button>
                         </div>
                     </div>

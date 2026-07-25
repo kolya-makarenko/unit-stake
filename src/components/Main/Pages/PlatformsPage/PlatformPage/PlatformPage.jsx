@@ -369,7 +369,36 @@ const PlatformPage = () => {
                                             />
                                         </div>
                                     );
-
+                                case 'imageTab':
+                                    return (
+                                        <div
+                                            key={index}
+                                            className={
+                                                classes.contentImageWrapperTab
+                                            }
+                                        >
+                                            <img
+                                                src={block.value}
+                                                alt="Platform detail"
+                                                className={classes.contentImage}
+                                            />
+                                        </div>
+                                    );
+                                case 'imageMob':
+                                    return (
+                                        <div
+                                            key={index}
+                                            className={
+                                                classes.contentImageWrapperMob
+                                            }
+                                        >
+                                            <img
+                                                src={block.value}
+                                                alt="Platform detail"
+                                                className={classes.contentImage}
+                                            />
+                                        </div>
+                                    );
                                 default:
                                     return null;
                             }
