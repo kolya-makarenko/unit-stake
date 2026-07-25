@@ -183,10 +183,12 @@ const ProjectPage = () => {
         .filter((obj) => obj.type === 'document');
 
     const formatAssetLabel = (value) => {
-        if (value >= 100000 && value <= 100000000) {
-            return `${Math.round(value / 100000) / 10}M`;
-        } else if (value >= 100000000) {
-            return `${Math.round(value / 100000000) / 10}B`;
+        if (value >= 1000 && value <= 999999) {
+            return `${Math.round(value / 1000)}K`;
+        } else if (value >= 1000000 && value <= 999999999) {
+            return `${Math.round(value / 1000000)}M`;
+        } else if (value >= 1000000000 && value <= 999999999999) {
+            return `${Math.round(value / 1000000000)}B`;
         } else {
             return value;
         }
@@ -414,10 +416,17 @@ const ProjectPage = () => {
                                         Investors
                                     </div>
                                 )}
-                                {data.deadline && (
+                                {data.deadline ? (
                                     <div className={classes.deadline}>
                                         <div className={classes.daysUntil}>
                                             {daysUntil(data.deadline)}
+                                        </div>
+                                        Left to invest
+                                    </div>
+                                ) : (
+                                    <div className={classes.deadline}>
+                                        <div className={classes.daysUntil}>
+                                            *****
                                         </div>
                                         Left to invest
                                     </div>
@@ -757,7 +766,7 @@ const ProjectPage = () => {
                                                     onClick={(e) =>
                                                         handleExternalLinkClick(
                                                             e,
-                                                            data.website_url,
+                                                            item.blockchainAddress,
                                                         )
                                                     }
                                                 >

@@ -184,8 +184,9 @@ const MainPageProjects = () => {
                                             <p>
                                                 {dateFormatter(
                                                     project.deadline,
-                                                ) == '01.01.1970'
-                                                    ? '*'
+                                                ) == '01.01.1970' ||
+                                                !dateFormatter(project.deadline)
+                                                    ? '*****'
                                                     : dateFormatter(
                                                           project.deadline,
                                                       )}

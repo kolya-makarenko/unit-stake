@@ -16,19 +16,17 @@ const ExternalLink = ({ isOpen, onClose, onConfirm, url }) => {
                 </div>
                 <div className={classes.modalOverlayContent}>
                     <div className={classes.modalOverlayTxt}>
+                        <p>You are leaving Unitstake</p>
                         <p>
-                            By accessing this link you are leaving{' '}
-                            <span>unitstake.com</span> and are being redirected
-                            to a third party, independent website.
-                        </p>
-                        <p>
-                            This redirect will take you to the{' '}
-                            <span>{url}</span>. Please read and agree to the
-                            Terms and Conditions.
+                            You are about to be redirected to a third-party
+                            website, independent of Unitstake. Unitstake does
+                            not operate, endorse, or accept responsibility for
+                            the content, products, or services available on that
+                            website.
                         </p>
                     </div>
                     <button className={classes.btnConfirm} onClick={onConfirm}>
-                        Go Now
+                        Continue
                     </button>
                 </div>
             </div>

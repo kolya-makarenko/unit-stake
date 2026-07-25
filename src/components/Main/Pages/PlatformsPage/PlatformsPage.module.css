@@ -137,14 +137,14 @@
     color: #19191c;
 }
 
-input[type='range'] {
+input.slider[type='range'] {
     width: 100%;
     cursor: pointer;
     -webkit-appearance: none;
     background: transparent;
 }
 
-input[type='range']::-webkit-slider-thumb {
+input.slider[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     height: 16px;
     width: 16px;
@@ -154,7 +154,7 @@ input[type='range']::-webkit-slider-thumb {
     cursor: pointer;
 }
 
-input[type='range']::-webkit-slider-runnable-track {
+input.slider[type='range']::-webkit-slider-runnable-track {
     width: 100%;
     height: 8px;
     cursor: pointer;

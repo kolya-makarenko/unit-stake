@@ -11,9 +11,8 @@ const NotFound = () => {
                 <div className="wrapper">
                     <div className={classes.notFoundPageContainer}>
                         <h2>
-                            We can’t found the page
-                            <br />
-                            That you’re looking for :(
+                            We couldn't find the page <br />
+                            you're looking for
                         </h2>
                         <div
                             className={classes.homePageLink}
