@@ -51,7 +51,7 @@ const AboutUsPageContacts = () => {
                     <div className={classes.contactsCv}>
                         <h3>Join our Team</h3>
                         <p>
-                            Working at Unit Stake means helping build the
+                            Working at UnitStake means helping build the
                             infrastructure of a new financial reality. We
                             structure the tokenized asset market and make
                             real-world assets more accessible in the digital

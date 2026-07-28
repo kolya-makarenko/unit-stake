@@ -138,6 +138,24 @@
     accent-color: #d34329;
 }
 
+.legalCheckbox {
+    margin-top: 24px;
+}
+
+.legalCheckbox label {
+    align-items: baseline;
+}
+
+.legalCheckboxLink {
+    color: #19191c;
+    font-weight: 500;
+    transition: 0.3s ease-in-out;
+}
+
+.legalCheckboxLink:hover {
+    color: #d34329;
+}
+
 .formFooter {
     margin-top: 40px;
     display: flex;

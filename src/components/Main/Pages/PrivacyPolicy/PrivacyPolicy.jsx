@@ -18,9 +18,9 @@ const PrivacyPolicy = () => {
                         to via this Aggregator, and any other services or
                         products available through the Aggregator. For the
                         purposes of data protection laws, the data controller is
-                        Unit Stake Limited, a company incorporated under the
-                        laws of England and Wales, with its registered office at
-                        124 City Road, London, England, EC1V 2NX.
+                        UnitStake Limited, a company incorporated under the laws
+                        of England and Wales, with its registered office at 124
+                        City Road, London, England, EC1V 2NX.
                     </p>
                     <h2>What Personal Data We Collect</h2>
                     <p>

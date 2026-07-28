@@ -1,0 +1,118 @@
+.cookieBannerOverlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.cookieBanner {
+    width: 100%;
+    max-width: 700px;
+    padding: 24px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: slideUp 0.5s ease-out;
+}
+
+.cookieContent h3 {
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 120%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.cookieContent p {
+    margin-top: 8px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 130%;
+    letter-spacing: -1%;
+    color: #19191c;
+}
+
+.legalLink {
+    font-weight: 500;
+    color: #19191c;
+    transition: 0.3s ease-in-out;
+}
+
+.legalLink:hover {
+    color: #d34329;
+}
+
+.cookieActions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.cookieBtn {
+    padding: 8px 16px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.cookieBtnReject {
+    background-color: #d3432914;
+    border: 1px solid #d34329;
+    color: #d34329;
+    transition: 0.3s ease-in-out;
+}
+
+.cookieBtnReject:hover {
+    background-color: #d34329;
+    color: #fff;
+}
+
+.cookieBtnAccept {
+    background-color: #19191ce0;
+    color: #b4b4b4;
+    border: 1px solid rgba(61, 61, 61, 0.4);
+    transition: 0.3s ease-in-out;
+}
+
+.cookieBtnAccept:hover {
+    background-color: #19191c;
+    color: #fff;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 1000px) {
+    .cookieBanner {
+        padding: 16px;
+    }
+    .cookieContent h3 {
+        font-size: 22px;
+    }
+    .cookieContent p {
+        font-size: 14px;
+    }
+    .cookieBtn {
+        font-size: 16px;
+    }
+}

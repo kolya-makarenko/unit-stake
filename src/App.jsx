@@ -34,6 +34,7 @@ import LegalDisclaimer from './components/Main/Pages/LegalDisclaimer/LegalDiscla
 import TermOfServices from './components/Main/Pages/TermOfServices/TermOfServices';
 import ContactUs from './components/Main/Pages/ContactUs/ContactUs';
 import NotFound from './components/Main/Pages/NotFound/NotFound';
+import CookieConsent from './components/CookieConsent/CookieConsent';
 
 import './App.css';
 
@@ -97,6 +98,7 @@ function App() {
                     />
                 </Route>
             </Routes>
+            <CookieConsent />
         </Router>
     );
 }

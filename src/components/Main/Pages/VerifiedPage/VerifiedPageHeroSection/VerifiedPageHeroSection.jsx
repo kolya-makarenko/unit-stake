@@ -13,7 +13,7 @@ const VerifiedPageHeroSection = () => {
                     </div>
                     <h2>Structured Verification. Greater Transparency.</h2>
                     <p>
-                        Verified by Unit Stake is not a rating, endorsement, or
+                        Verified by UnitStake is not a rating, endorsement, or
                         investment recommendation. It is a structured
                         verification of disclosed project information and
                         publicly available data.

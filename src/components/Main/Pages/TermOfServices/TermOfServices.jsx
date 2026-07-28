@@ -31,7 +31,7 @@ const TermOfServices = () => {
                         , any associated web or mobile application, and any
                         related services, tools, materials and information
                         contained or made available therein (collectively, the "
-                        <span>Aggregator</span>"), operated by Unit Stake
+                        <span>Aggregator</span>"), operated by UnitStake
                         Limited, a company incorporated under the laws of
                         England and Wales ("Unitstake", "we", "us", or "our").
                     </p>
@@ -108,7 +108,7 @@ const TermOfServices = () => {
                     </p>
                     <h2>No Advice</h2>
                     <p>
-                        The Aggregator is operated by Unit Stake Limited, which
+                        The Aggregator is operated by UnitStake Limited, which
                         is not a registered broker-dealer, investment advisor,
                         or financial intermediary in any jurisdiction. Unitstake
                         does not provide investment, legal, tax, or other
@@ -927,7 +927,7 @@ const TermOfServices = () => {
                         If you have any questions regarding these Terms or the
                         Aggregator, please contact Unitstake at:
                     </p>
-                    <p>Unit Stake Limited</p>
+                    <p>UnitStake Limited</p>
                     <p>
                         <a
                             href="https://maps.app.goo.gl/EfWrarP9AvFzL4kRA"

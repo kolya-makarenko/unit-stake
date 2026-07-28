@@ -64,8 +64,8 @@ const VerifiedPageStatus = () => {
                     <div className={classes.statusBox}>
                         <h3>What Verified Status Provides to Asset Owners</h3>
                         <p>
-                            Verified by Unit Stake allows asset owners to
-                            present their projects with structured and verified
+                            Verified by UnitStake allows asset owners to present
+                            their projects with structured and verified
                             disclosures. Verification may help:
                         </p>
                         <ul>
