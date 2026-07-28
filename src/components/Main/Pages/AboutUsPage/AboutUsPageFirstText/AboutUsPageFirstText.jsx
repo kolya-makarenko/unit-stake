@@ -7,7 +7,7 @@ const AboutUsPageFirstText = () => {
                 <div className={classes.firsTextContainer}>
                     <div className={classes.text}>
                         We operate within one of the fastest-growing and least
-                        structured segments of modern finance - tokenised
+                        structured segments of modern finance - tokenized
                         real-world assets. This market combines technology, law,
                         and capital - but lacks unified standards of
                         understanding.

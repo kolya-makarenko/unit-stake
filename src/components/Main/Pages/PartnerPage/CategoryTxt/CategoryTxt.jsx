@@ -6,13 +6,13 @@ const CategoryTxt = (props) => {
             case 'Marketing':
                 return (
                     <p className={classes.categoryTxt}>
-                        Marketing & Distribution for Tokenised Assets
+                        Marketing & Distribution for Tokenized Assets
                     </p>
                 );
             case 'Legal':
                 return (
                     <p className={classes.categoryTxt}>
-                        Legal Structuring for Tokenised Real-World Assets
+                        Legal Structuring for Tokenized Real-World Assets
                     </p>
                 );
             default:

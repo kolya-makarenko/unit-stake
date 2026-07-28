@@ -113,7 +113,7 @@ const Footer = () => {
                         is not a registered broker-dealer, investment adviser,
                         or financial intermediary in any jurisdiction. The
                         Aggregator operates solely as an information aggregator,
-                        providing publicly available data relating to tokenised
+                        providing publicly available data relating to tokenized
                         real-world assets and associated projects. Unitstake
                         does not provide investment, legal, tax, or other
                         professional advice, endorsements, or recommendations

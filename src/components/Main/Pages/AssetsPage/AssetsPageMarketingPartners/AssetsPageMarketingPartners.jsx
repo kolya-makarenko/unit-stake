@@ -38,7 +38,7 @@ const AssetsPageMarketingPartners = () => {
                     <h2>Marketing Partners</h2>
                     <p>
                         Selected partners specialising in the positioning,
-                        packaging, and growth of tokenised projects. Partners
+                        packaging, and growth of tokenized projects. Partners
                         are presented based on their experience in structuring
                         investor journeys, building market-ready narratives, and
                         supporting projects across key growth stages.

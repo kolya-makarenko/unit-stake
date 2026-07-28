@@ -67,7 +67,7 @@ const TermOfServices = () => {
                         aggregator and discovery platform. The Aggregator
                         provides users with structured access to publicly
                         available and issuer-submitted information relating to
-                        tokenised real-world asset projects, tokenisation
+                        tokenized real-world asset projects, tokenization
                         platforms, and ecosystem participants, as well as
                         educational content about the sector. All content
                         available through the Aggregator is provided for general
@@ -76,8 +76,8 @@ const TermOfServices = () => {
                     <p>Subject to these Terms, Unitstake enables users to:</p>
                     <ul className={classes.latterList}>
                         <li>
-                            explore a directory of tokenised real-world asset
-                            projects and tokenisation platforms listed on the
+                            explore a directory of tokenized real-world asset
+                            projects and tokenization platforms listed on the
                             Aggregator;
                         </li>
                         <li>
@@ -87,15 +87,15 @@ const TermOfServices = () => {
                         </li>
                         <li>
                             access information about ecosystem participants in
-                            the tokenised asset sector, including technology
+                            the tokenized asset sector, including technology
                             providers, legal service providers, and
                             infrastructure operators;
                         </li>
                         <li>
-                            access educational content relating to the tokenised
+                            access educational content relating to the tokenized
                             asset sector, including market overviews, news, and
                             editorial commentary on real-world asset
-                            tokenisation and related topics.
+                            tokenization and related topics.
                         </li>
                     </ul>
                     <p>
@@ -141,7 +141,7 @@ const TermOfServices = () => {
                     <p>
                         <span>Definition.</span> The Aggregator aggregates and
                         displays information submitted by, or sourced from,
-                        third-party projects, tokenisation platforms, ecosystem
+                        third-party projects, tokenization platforms, ecosystem
                         participants, and other external sources (collectively,
                         "<span>Listed Parties</span>"). The substantial majority
                         of content available on the Aggregator, including, but
@@ -221,7 +221,7 @@ const TermOfServices = () => {
                         verification; or (d) a guarantee that any projected
                         returns or financial metrics will be achieved; (e) a
                         legal opinion, including any opinion on the legal
-                        classification of any token or tokenised instrument; or
+                        classification of any token or tokenized instrument; or
                         (f) a form of financial, investment, legal, or
                         regulatory due diligence of any kind. You shall not rely
                         on the presence of the Verification Badge as a
@@ -340,7 +340,7 @@ const TermOfServices = () => {
                         email address. Subscribers will receive periodic
                         communications from Unitstake, including market updates,
                         industry news, educational content, and announcements
-                        regarding new tokenised projects and tokenisation
+                        regarding new tokenized projects and tokenization
                         platforms. Please note that users may withdraw their
                         consent and unsubscribe at any time by following the
                         unsubscribe link included in each newsletter.
@@ -348,7 +348,7 @@ const TermOfServices = () => {
                     <p>
                         <span>(b) Project Listing Application.</span> Issuers
                         and project representatives may submit an application
-                        requesting that a tokenised real-world asset project be
+                        requesting that a tokenized real-world asset project be
                         considered for listing on the Aggregator. The
                         application form requires the submission of
                         project-related information and contact details
@@ -557,30 +557,30 @@ const TermOfServices = () => {
                     </p>
                     <h2>Risk Acknowledgement</h2>
                     <p>
-                        Please note that investment in tokenised real-world
-                        assets and participation in tokenisation ecosystems
+                        Please note that investment in tokenized real-world
+                        assets and participation in tokenization ecosystems
                         involve significant risks, including, but not limited
                         to:
                     </p>
                     <ul>
                         <li>
                             <span>Market and liquidity risk.</span> The markets
-                            for tokenised real-world assets are nascent and
-                            highly volatile. The value of tokenised assets may
+                            for tokenized real-world assets are nascent and
+                            highly volatile. The value of tokenized assets may
                             fluctuate significantly due to market conditions,
                             supply and demand dynamics, macroeconomic factors,
-                            and investor sentiment. Tokenised assets may have a
+                            and investor sentiment. Tokenized assets may have a
                             limited or no secondary market, and you may be
                             unable to exit a position at a favourable price or
                             at all.
                         </li>
                         <li>
                             <span>Regulatory risk.</span> The legal and
-                            regulatory status of tokenised assets is uncertain
+                            regulatory status of tokenized assets is uncertain
                             and evolving across jurisdictions. Changes in
                             applicable law or regulatory interpretation may
                             adversely affect the value, transferability, or
-                            legality of any tokenised asset. You are solely
+                            legality of any tokenized asset. You are solely
                             responsible for ensuring that any decisions made or
                             actions taken as a result of your use of the
                             Aggregator comply with all applicable laws and
@@ -596,7 +596,7 @@ const TermOfServices = () => {
                         </li>
                         <li>
                             <span>Third-party risk.</span> The entities behind
-                            tokenised projects may fail to perform their
+                            tokenized projects may fail to perform their
                             obligations, become insolvent, or otherwise cease
                             operations, resulting in partial or total loss of
                             invested capital. Unitstake does not guarantee the
@@ -620,7 +620,7 @@ const TermOfServices = () => {
                     </ul>
                     <p>
                         For a comprehensive description of risks specifically
-                        associated with tokenised real-world assets, digital
+                        associated with tokenized real-world assets, digital
                         assets, blockchain infrastructure, and smart contract
                         vulnerabilities, please refer to our{' '}
                         <span
@@ -638,7 +638,7 @@ const TermOfServices = () => {
                     <p>
                         By accessing or using the Aggregator, you acknowledge
                         that the risks described in this Section and in the Risk
-                        Disclosure Statement are material, that the tokenised
+                        Disclosure Statement are material, that the tokenized
                         asset ecosystem is subject to rapid change, and that the
                         information available on the Aggregator may not reflect
                         the current risk profile of any project, platform, or
@@ -651,7 +651,7 @@ const TermOfServices = () => {
                         <span>No Warranties.</span> You agree that your use of
                         the Aggregator is at your sole risk. The Aggregator and
                         anything contained within the Aggregator, including, but
-                        not limited to, content, descriptions of tokenised
+                        not limited to, content, descriptions of tokenized
                         projects and platforms, or any other materials, are
                         provided "as is" and "as available". To the maximum
                         extent permitted by law, Unitstake disclaims all
@@ -675,7 +675,7 @@ const TermOfServices = () => {
                         contained in the Aggregator shall constitute or be
                         construed as: (a) an offering, solicitation,
                         recommendation, or endorsement to buy or sell any
-                        tokenised asset, security, financial instrument, or
+                        tokenized asset, security, financial instrument, or
                         investment of any kind; (b) investment advice or
                         investment recommendations, including recommendations as
                         to whether or not to "buy", "sell", "hold", or to enter
@@ -683,8 +683,8 @@ const TermOfServices = () => {
                         recommendation of an investment strategy; (c) tax,
                         accounting, legal, or regulatory advice or opinions
                         regarding the profitability or suitability of any
-                        tokenised asset, security, or other interest; or (d) an
-                        opinion on the future or expected value of any tokenised
+                        tokenized asset, security, or other interest; or (d) an
+                        opinion on the future or expected value of any tokenized
                         asset, security or other interest. Content available
                         through the Aggregator reflects publicly available and
                         issuer-submitted information and does not take into
@@ -699,7 +699,7 @@ const TermOfServices = () => {
                         completeness, currency, or reliability of the
                         Aggregator, or of any data, views, opinions, statements,
                         or other content available on the Aggregator, including
-                        descriptions of tokenised projects. Accordingly,
+                        descriptions of tokenized projects. Accordingly,
                         notwithstanding anything to the contrary set forth
                         herein, to the maximum extent permitted by law,
                         Unitstake, its affiliates, agents, directors, officers,

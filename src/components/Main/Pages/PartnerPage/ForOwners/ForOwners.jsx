@@ -7,13 +7,13 @@ const CONTENT_MAP = {
     Marketing: {
         title: 'For Asset Owners, Marketing Directly Impacts',
         image: marketingGraf,
-        txt: 'Without marketing, tokenisation remains technical',
+        txt: 'Without marketing, tokenization remains technical',
         spanTxt: '— not investable.',
     },
     Legal: {
         title: 'For asset owners, legal directly impacts',
         image: legalGraf,
-        txt: ' Without legal structuring, tokenisation is not scalable',
+        txt: ' Without legal structuring, tokenization is not scalable',
         spanTxt: '— and often not viable.',
     },
 };

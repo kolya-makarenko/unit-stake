@@ -6,7 +6,7 @@ const FocusTxt = (props) => {
             case 'Marketing':
                 return (
                     <p>
-                        Real-World Assets · Tokenisation · Investor Acquisition
+                        Real-World Assets · Tokenization · Investor Acquisition
                         · Digital Growthv
                     </p>
                 );
@@ -14,7 +14,7 @@ const FocusTxt = (props) => {
                 return (
                     <p>
                         Audit • Tax • Advisory • Compliance • FinTech • Crypto
-                        Assets • Tokenisation • Real-World Assets
+                        Assets • Tokenization • Real-World Assets
                     </p>
                 );
             default:

@@ -50,7 +50,7 @@ const MainPageNews = () => {
                         <h2>Insights, Research & Market Updates</h2>
                         <p>
                             Stay informed with market insights, emerging trends,
-                            and key developments <br /> shaping tokenised real
+                            and key developments <br /> shaping tokenized real
                             estate.
                         </p>
                     </div>

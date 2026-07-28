@@ -14,13 +14,13 @@ const marketingCards = [
         id: '1',
         icon: partnerServicesCardIcon1,
         title: 'Go-to-Market Strategy',
-        txt: 'Strategic launch planning for tokenised asset projects — from market positioning to investor acquisition funnels.',
+        txt: 'Strategic launch planning for tokenized asset projects — from market positioning to investor acquisition funnels.',
     },
     {
         id: '2',
         icon: partnerServicesCardIcon2,
         title: 'Investor-Facing Positioning',
-        txt: 'Clear, credible messaging that helps asset owners explain the value, structure, and opportunity behind their tokenised asset.',
+        txt: 'Clear, credible messaging that helps asset owners explain the value, structure, and opportunity behind their tokenized asset.',
     },
     {
         id: '3',
@@ -82,8 +82,8 @@ const legalCards = [
     {
         id: '6',
         icon: partnerServicesCardIcon6,
-        title: 'RWA Tokenisation Advisory',
-        txt: 'Professional guidance for tokenising real estate, commodities, financial instruments and alternative assets, focused on compliance, structure and investor trust.',
+        title: 'RWA Tokenization Advisory',
+        txt: 'Professional guidance for tokenizing real estate, commodities, financial instruments and alternative assets, focused on compliance, structure and investor trust.',
     },
 ];
 

@@ -35,7 +35,7 @@ const AssetsPageLegalPartners = () => {
                     <h2>Legal Partners</h2>
                     <p>
                         Legal partners supporting the structuring, regulatory
-                        positioning, and compliance aspects of tokenised
+                        positioning, and compliance aspects of tokenized
                         projects across jurisdictions. Firms are presented based
                         on their experience in digital assets, securities
                         frameworks, and cross-border structuring.

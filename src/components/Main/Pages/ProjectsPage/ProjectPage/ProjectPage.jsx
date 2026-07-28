@@ -235,6 +235,13 @@ const ProjectPage = () => {
         <main className={classes.projectPage}>
             <section className={classes.info}>
                 <div className="wrapper">
+                    <div className={classes.legalTxt}>
+                        This content is for informational purposes only and does
+                        not constitute a financial promotion, investment advice,
+                        or a recommendation to buy or sell any asset.
+                        Information on this page is sourced from the issuer and
+                        displayed as provided.
+                    </div>
                     <div className={classes.mainInfoContainer}>
                         <div className={classes.mainInfo}>
                             <p className={classes.updatedDate}>

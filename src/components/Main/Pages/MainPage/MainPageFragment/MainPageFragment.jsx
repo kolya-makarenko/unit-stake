@@ -73,7 +73,7 @@ const MainPageFragment = () => {
                         <div className={classes.fragmentBoxText}>
                             <h3>For Asset Owners</h3>
                             <p>
-                                Explore how tokenisation can support asset
+                                Explore how tokenization can support asset
                                 structuring, broaden market access, and position
                                 assets within modern capital frameworks.
                             </p>
@@ -141,7 +141,7 @@ const MainPageFragment = () => {
                             <h3>Research & Insights</h3>
                             <p>
                                 Develop a deeper understanding of how
-                                tokenisation is reshaping real-world assets
+                                tokenization is reshaping real-world assets
                                 through data, insights, and evolving market
                                 frameworks.
                             </p>

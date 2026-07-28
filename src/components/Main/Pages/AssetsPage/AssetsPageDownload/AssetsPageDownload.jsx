@@ -7,7 +7,7 @@ const AssetsPageDownload = () => {
         <section className={`sectionMarginTop ${classes.download}`}>
             <div className="wrapper">
                 <div className={classes.downloadContainer}>
-                    <h2>The Path to Tokenisation</h2>
+                    <h2>The Path to Tokenization</h2>
                     <p>
                         Download the checklist that shows how to prepare your
                         asset for tokenization

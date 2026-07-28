@@ -8,7 +8,7 @@ const AboutUsPageGoal = () => {
                     <h2>Our goal is simple:</h2>
                     <p>
                         To collect, structure, and explain information about
-                        tokenised projects so that users can clearly understand
+                        tokenized projects so that users can clearly understand
                         what stands behind each asset. This includes the
                         structure being used, who the issuer is, where the
                         project is and what data is actually available for
@@ -21,7 +21,7 @@ const AboutUsPageGoal = () => {
                             <h4>01 · Our Mission</h4>
                             <h3>Our Mission</h3>
                             <p>
-                                To make the tokenised asset market easier to
+                                To make the tokenized asset market easier to
                                 understand, more transparent, and more
                                 accessible for businesses, investors, and
                                 participants of the digital economy.
@@ -32,7 +32,7 @@ const AboutUsPageGoal = () => {
                             <h3>Our vision</h3>
                             <p>
                                 We aim to build a global informational ecosystem
-                                where tokenised real-world assets can be
+                                where tokenized real-world assets can be
                                 compared, analysed, and explored using a
                                 consistent and structured approach to data.
                             </p>

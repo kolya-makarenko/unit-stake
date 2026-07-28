@@ -7,7 +7,7 @@ const MainPageAssets = () => {
                 <div className={classes.assetsContainer}>
                     <div className={classes.assetsBox}>
                         <h3>$29B+ Today</h3>
-                        <p>Tokenised Real-World Assets</p>
+                        <p>Tokenized Real-World Assets</p>
                         <span>Source: Market data (Forbes)</span>
                     </div>
                     <div className={classes.assetsBox}>
@@ -17,7 +17,7 @@ const MainPageAssets = () => {
                     </div>
                     <div className={classes.assetsBox}>
                         <h3>$16T by 2030</h3>
-                        <p>Tokenised Assets Potential</p>
+                        <p>Tokenized Assets Potential</p>
                         <span>Projected by Bloomberg Intelligence</span>
                     </div>
                     <div className={classes.assetsBox}>

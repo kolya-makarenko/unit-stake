@@ -2,14 +2,14 @@ import classes from './StrategicManifesto.module.css';
 
 const CONTENT_MAP = {
     Marketing: {
-        title: <h2>Why Marketing Is Non-Negotiable for Tokenised Assets</h2>,
+        title: <h2>Why Marketing Is Non-Negotiable for Tokenized Assets</h2>,
         layer: (
             <div className={classes.layerContainer}>
                 <div className={classes.layer}>
                     <div className={classes.layerHeader}>
                         — Layer 01 — Mechanical
                     </div>
-                    <h3>Tokenisation creates</h3>
+                    <h3>Tokenization creates</h3>
                     <h4>structure.</h4>
                     <p>Structured · Compliant · Invisible</p>
                 </div>
@@ -27,7 +27,7 @@ const CONTENT_MAP = {
     Legal: {
         title: (
             <h2>
-                Why Legal Structuring Is Non-Negotiable for Tokenised Assets
+                Why Legal Structuring Is Non-Negotiable for Tokenized Assets
             </h2>
         ),
         layer: (
@@ -36,7 +36,7 @@ const CONTENT_MAP = {
                     <div className={classes.layerHeader}>
                         — Layer 01 — Mechanical
                     </div>
-                    <h3>Tokenisation creates</h3>
+                    <h3>Tokenization creates</h3>
                     <h4>opportunity.</h4>
                     <p>Structured · Compliant · Invisible</p>
                 </div>

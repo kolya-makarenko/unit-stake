@@ -42,11 +42,11 @@ const HeroSection = () => {
                             </div>
                         </div>
                         <h1>
-                            Navigate tokenised real-world assets with clarity,
+                            Navigate tokenized real-world assets with clarity,
                             structure and confidence
                         </h1>
                         <p className={classes.heroSectionSecondaryTxt}>
-                            Research tokenised asset platforms and projects
+                            Research tokenized asset platforms and projects
                             through structured market data designed for
                             efficient comparison and independent analysis.
                         </p>

@@ -51,7 +51,7 @@ const AboutUsPagePrinciples = () => {
                         interpretation.
                     </div>
                     <div className={classes.principlesTxt}>
-                        We see tokenisation as an inevitable evolution of asset
+                        We see tokenization as an inevitable evolution of asset
                         ownership and capital markets. But evolution requires
                         structure to scale. We are building that structure.
                     </div>

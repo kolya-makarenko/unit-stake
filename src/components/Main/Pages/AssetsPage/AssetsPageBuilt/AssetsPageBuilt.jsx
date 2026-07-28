@@ -42,7 +42,7 @@ const builtBoxes = [
     {
         id: '06',
         title: 'From Complex Process → Simple System',
-        text: 'Replace months of legal, technical, and operational setup with a single platform built for asset tokenisation.',
+        text: 'Replace months of legal, technical, and operational setup with a single platform built for asset tokenization.',
         icon: builtIcon6,
     },
 ];
@@ -80,7 +80,7 @@ const AssetsPageBuilt = () => {
                             </h3>
                             <p>More liquidity. More investors. More control.</p>
                             <button onClick={() => navigate('/contact-us')}>
-                                Start Tokenising Your Asset
+                                Start Tokenizing Your Asset
                                 <svg
                                     width="24"
                                     height="24"

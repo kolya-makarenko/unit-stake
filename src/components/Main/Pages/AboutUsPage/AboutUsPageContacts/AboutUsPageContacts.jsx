@@ -53,7 +53,7 @@ const AboutUsPageContacts = () => {
                         <p>
                             Working at Unit Stake means helping build the
                             infrastructure of a new financial reality. We
-                            structure the tokenised asset market and make
+                            structure the tokenized asset market and make
                             real-world assets more accessible in the digital
                             economy. We’re looking for people who think
                             long-term, understand where the market is going, and

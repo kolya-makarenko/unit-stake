@@ -8,7 +8,7 @@ const AboutUsPageHeroSection = () => {
                     <h2>About UnitStake Aggregator</h2>
                     <p>
                         UnitStake Aggregator is an independent informational
-                        aggregator focused on tokenised assets, platforms, and
+                        aggregator focused on tokenized assets, platforms, and
                         projects in the RWA (Real World Assets) space.
                     </p>
                     <h3>

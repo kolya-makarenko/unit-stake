@@ -143,7 +143,7 @@ const PrivacyPolicy = () => {
                         <li>
                             <span>Marketing.</span> We use your data to provide
                             you with market newsletters and educational content
-                            relating to tokenisation and real-world assets. You
+                            relating to tokenization and real-world assets. You
                             may opt out of marketing communications at any time
                             by clicking the unsubscribe link in any email or by
                             contacting support@unitstake.com

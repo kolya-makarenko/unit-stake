@@ -10,7 +10,7 @@ const tbabsData = [
     {
         id: 'tab1',
         label: 'Projects block',
-        header: 'Tokenised Asset Projects',
+        header: 'Tokenized Asset Projects',
         paragraph:
             'Explore structured project overviews designed to support independent understanding and comparison.',
         fackeBtns: ['Location', 'Ownership Model', 'Platform', 'Asset Type'],
@@ -23,7 +23,7 @@ const tbabsData = [
         label: 'Insights',
         header: 'Insights & Market Perspectives',
         paragraph:
-            'Understand the key trends, models, and developments shaping tokenised real-world assets.',
+            'Understand the key trends, models, and developments shaping tokenized real-world assets.',
         fackeBtns: ['Location', 'Structure', 'Platform', 'Asset Type'],
         img: tabPic2,
         btnName: 'View Insights',
@@ -34,7 +34,7 @@ const tbabsData = [
         label: `Owner's Ecosystem`,
         header: 'Ecosystem Participants',
         paragraph:
-            'The key roles shaping tokenised assets — from infrastructure and legal structuring to market positioning.',
+            'The key roles shaping tokenized assets — from infrastructure and legal structuring to market positioning.',
         fackeBtns: ['Location', 'Structure', 'Platform', 'Asset Type'],
         img: tabPic3,
         btnName: 'View Ecosystem',
