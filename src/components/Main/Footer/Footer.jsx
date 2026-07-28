@@ -109,7 +109,7 @@ const Footer = () => {
                         Legal Disclaimer
                     </div>
                     <p>
-                        The Aggregator is operated by Unit Stake Limited, which
+                        The Aggregator is operated by UnitStake Limited, which
                         is not a registered broker-dealer, investment adviser,
                         or financial intermediary in any jurisdiction. The
                         Aggregator operates solely as an information aggregator,
@@ -121,20 +121,20 @@ const Footer = () => {
                         displayed on the Aggregator. Nothing on this Aggregator
                         constitutes or should be construed as a financial
                         promotion, an offer to sell, solicitation of an offer to
-                        buy, investment advice, or a recommendation by Unit
-                        Stake Limited. All digital assets displayed on the
-                        Aggregator are offered by the relevant issuer, and all
-                        information provided in relation to them is the
-                        responsibility of that issuer. Unit Stake Limited makes
-                        no representations or warranties as to the accuracy,
-                        completeness, or reliability of such information. You
-                        are solely responsible for determining whether any
-                        investment, investment strategy, or related transaction
-                        is appropriate for you based on your personal investment
+                        buy, investment advice, or a recommendation by UnitStake
+                        Limited. All digital assets displayed on the Aggregator
+                        are offered by the relevant issuer, and all information
+                        provided in relation to them is the responsibility of
+                        that issuer. UnitStake Limited makes no representations
+                        or warranties as to the accuracy, completeness, or
+                        reliability of such information. You are solely
+                        responsible for determining whether any investment,
+                        investment strategy, or related transaction is
+                        appropriate for you based on your personal investment
                         objectives, financial circumstances, and risk tolerance.
                         You should consult with appropriately qualified advisers
                         for any legal, tax, insurance, or investment advice.
-                        Unit Stake Limited does not guarantee any investment
+                        UnitStake Limited does not guarantee any investment
                         performance, outcome, or return of capital for any
                         project posted on the Aggregator.
                     </p>
