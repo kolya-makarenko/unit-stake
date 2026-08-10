@@ -540,8 +540,9 @@ const AdminProjectAdd = () => {
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="foundedDate">Founding Date</label>
                         <input
-                            type="date"
+                            type="text"
                             id="foundedDate"
+                            placeholder="2019"
                             value={foundedDate}
                             onChange={(e) => setFoundedDate(e.target.value)}
                         />
@@ -573,7 +574,7 @@ const AdminProjectAdd = () => {
 
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="minInvestment">
-                            Minimum investment
+                            Token Price / Minimum investment
                         </label>
                         <input
                             type="number"

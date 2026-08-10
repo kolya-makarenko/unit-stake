@@ -3,7 +3,20 @@
     padding-top: 120px;
 }
 
+.legalTxt {
+    padding: 8px 16px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    border: 1px solid #d3432959;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
 .mainInfoContainer {
+    margin-top: 24px;
     display: grid;
     grid-template-columns: 5fr 1fr;
     align-items: baseline;
@@ -225,12 +238,18 @@
     color: #19191c;
 }
 
+.contentListItem {
+    display: flex;
+    gap: 10px;
+}
+
 .contentListItem span {
     width: 8px;
     height: 8px;
-    margin-right: 10px;
+    margin-top: 10px;
     border-radius: 50%;
     display: inline-block;
+    flex-shrink: 0;
     background-color: #d34329;
 }
 

@@ -194,14 +194,6 @@ const ProjectPage = () => {
         }
     };
 
-    function formatDate(dateString) {
-        const date = new Date(dateString + 'T00:00:00');
-
-        const options = { month: 'long', year: 'numeric' };
-
-        return new Intl.DateTimeFormat('en-US', options).format(date);
-    }
-
     const parseTokenData = (data?.token_addresses || [])
         .map((adress) => {
             try {
@@ -864,8 +856,7 @@ const ProjectPage = () => {
                             <div className={classes.aboutInfoItem}>
                                 <p>Founded</p>
                                 <div className={classes.aboutInfoItemValue}>
-                                    {data.founded_date &&
-                                        formatDate(data.founded_date)}
+                                    {data.founded_date ? data.founded_date : ''}
                                 </div>
                             </div>
                             <div className={classes.aboutInfoItem}>

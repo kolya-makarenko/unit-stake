@@ -115,8 +115,11 @@
 }
 
 .HashLinks {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
     position: sticky;
     top: 120px;
+    scrollbar-width: none;
 }
 
 .hashLink {
@@ -225,11 +228,18 @@
         padding: 80px 0;
     }
     .heroSectionContainer h2 {
-        font-size: 38px;
+        font-size: 30px;
+    }
+    .secondaryTxt {
+        font-size: 16px;
+        line-height: 130%;
     }
     .contentContainer {
         grid-template-columns: 1fr;
         gap: 40px;
+    }
+    .HashLinks {
+        max-height: unset;
     }
     .activeHashLink {
         font-weight: 400;

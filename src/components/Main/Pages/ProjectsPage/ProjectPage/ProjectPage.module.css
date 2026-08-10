@@ -299,12 +299,18 @@
     color: #19191c;
 }
 
+.contentListItem {
+    display: flex;
+    gap: 10px;
+}
+
 .contentListItem span {
     width: 8px;
     height: 8px;
-    margin-right: 10px;
+    margin-top: 10px;
     border-radius: 50%;
     display: inline-block;
+    flex-shrink: 0;
     background-color: #d34329;
 }
 
