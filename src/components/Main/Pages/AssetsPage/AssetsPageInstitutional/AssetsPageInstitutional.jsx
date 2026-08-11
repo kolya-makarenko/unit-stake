@@ -9,6 +9,7 @@ import cardLogo1 from '../../../../../assets/images/assetsPageImages/logo1.svg';
 import cardLogo2 from '../../../../../assets/images/assetsPageImages/logo2.svg';
 import cardLogo3 from '../../../../../assets/images/assetsPageImages/logo3.svg';
 import cardLogo4 from '../../../../../assets/images/assetsPageImages/logo4.svg';
+import cardLogo5 from '../../../../../assets/images/assetsPageImages/logo5.svg';
 import cardLogo6 from '../../../../../assets/images/assetsPageImages/logo6.svg';
 import cardLogo7 from '../../../../../assets/images/assetsPageImages/logo7.svg';
 import cardLogo8 from '../../../../../assets/images/assetsPageImages/logo8.svg';
@@ -48,7 +49,7 @@ const cards = [
         title: 'KPMG / Deloitte / PwC',
         subTitle: 'Advisory Research',
         text: 'All have published research and advisory work around tokenized real-world assets, ownership modernization, and digital capital markets.',
-        logo: cardLogo3,
+        logo: cardLogo5,
     },
     {
         id: '06',

@@ -140,11 +140,11 @@
         width: 100px;
     }
     .footerMenu ul {
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        grid-template-columns: 1fr;
+        gap: 8px;
     }
     .footerMenuLink {
-        font-size: 12px;
+        font-size: 16px;
     }
     .footerSocialLinks {
         justify-content: flex-start;

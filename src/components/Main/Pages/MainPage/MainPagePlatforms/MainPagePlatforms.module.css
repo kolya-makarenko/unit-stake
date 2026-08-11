@@ -55,6 +55,10 @@
     transition: 0.3s ease-in-out;
 }
 
+.platformsHeaderMobile button {
+    display: none;
+}
+
 .platformsHeader button:hover {
     background-color: #fff;
     color: #d34329;
@@ -265,6 +269,9 @@
     .platformsHeaderTxt h2 {
         font-size: 28px;
     }
+    .platformsHeaderTxt p {
+        display: none;
+    }
     .platformsContainer {
         display: flex;
         gap: 8px;
@@ -284,6 +291,9 @@
         flex-shrink: 0;
         scroll-snap-align: start;
     }
+    .platformCard:hover {
+        box-shadow: unset;
+    }
     .platformCardInfoNumbersTotal h5 {
         font-size: 20px;
     }
@@ -291,7 +301,12 @@
         font-size: 14px;
     }
     .platformsHeader button {
+        display: none;
         width: 100%;
         justify-content: center;
+    }
+    .platformsHeaderMobile button {
+        margin-top: 40px;
+        display: block;
     }
 }

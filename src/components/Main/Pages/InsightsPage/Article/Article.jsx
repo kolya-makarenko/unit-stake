@@ -276,7 +276,7 @@ const Article = () => {
             </section>
             <div className={classes.darkBg}>
                 <MainPageForm />
-                <ReadNext />
+                <ReadNext articleId={articleId} />
             </div>
         </main>
     );

@@ -237,6 +237,7 @@
         width: 100%;
     }
     .heroSectionLinks {
+        display: none;
         margin-top: 60px;
         flex-wrap: wrap;
         justify-content: center;

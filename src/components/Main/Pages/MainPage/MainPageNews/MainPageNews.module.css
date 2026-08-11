@@ -258,6 +258,9 @@
         flex-shrink: 0;
         scroll-snap-align: start;
     }
+    .article:hover {
+        box-shadow: unset;
+    }
     .articleInfo {
         padding: 16px;
     }

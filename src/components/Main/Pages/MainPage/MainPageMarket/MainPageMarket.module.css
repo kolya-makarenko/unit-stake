@@ -180,6 +180,7 @@
 @media (max-width: 1000px) {
     .market {
         padding-bottom: 40px;
+        display: none;
     }
     .market h2 {
         font-size: 28px;

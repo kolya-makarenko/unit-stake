@@ -285,6 +285,9 @@
     .projects h2 {
         font-size: 28px;
     }
+    .projectsSimpleText {
+        display: none;
+    }
     .projectsContainer {
         display: flex;
         gap: 8px;
@@ -302,6 +305,9 @@
         flex-shrink: 0;
         border-radius: 16px;
         scroll-snap-align: start;
+    }
+    .projectsCard:hover {
+        box-shadow: unset;
     }
     .projectsCardInfo {
         padding: 16px;

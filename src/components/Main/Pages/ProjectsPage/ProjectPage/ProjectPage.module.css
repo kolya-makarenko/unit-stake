@@ -903,6 +903,9 @@ aside {
 }
 
 @media (max-width: 768px) {
+    .mainSwiperBox {
+        height: 400px;
+    }
     .contentImageWrapperTab {
         display: none;
     }
@@ -911,7 +914,28 @@ aside {
     }
 }
 
+@media (max-width: 650px) {
+    .mainSwiperBox {
+        height: 350px;
+    }
+}
+
+@media (max-width: 600px) {
+    .mainSwiperBox {
+        height: 300px;
+    }
+}
+
+@media (max-width: 500px) {
+    .mainSwiperBox {
+        height: 250px;
+    }
+}
+
 @media (max-width: 400px) {
+    .mainSwiperBox {
+        height: 220px;
+    }
     .shareBtnToken span {
         max-width: 35ch;
     }

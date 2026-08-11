@@ -9,8 +9,8 @@ import classes from './Academy.module.css';
 
 const Academy = () => {
     const [blocks, setBlocks] = useState([]);
-
     const [activeHeadingId, setActiveHeadingId] = useState('');
+    const [showScrollTop, setShowScrollTop] = useState(false);
     const headingRefs = useRef({});
 
     useEffect(() => {
@@ -39,6 +39,27 @@ const Academy = () => {
             }
         })
         .filter(Boolean);
+
+    useEffect(() => {
+        const hashLinksElement = document.getElementById('hashLinks');
+        if (!hashLinksElement) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setShowScrollTop(!entry.isIntersecting);
+            },
+            {
+                root: null,
+                threshold: 0,
+            },
+        );
+
+        observer.observe(hashLinksElement);
+
+        return () => {
+            if (hashLinksElement) observer.unobserve(hashLinksElement);
+        };
+    }, [contentBlocks.length]);
 
     useEffect(() => {
         if (contentBlocks.length === 0) return;
@@ -146,7 +167,7 @@ const Academy = () => {
                 <div className="wrapper">
                     <div className={classes.contentContainer}>
                         <aside>
-                            <div className={classes.HashLinks}>
+                            <div className={classes.HashLinks} id="hashLinks">
                                 {contentBlocks.map((block, index) => {
                                     const blockId = `block-${index}`;
                                     switch (block.type) {
@@ -274,6 +295,28 @@ const Academy = () => {
                     </div>
                 </div>
             </section>
+            {showScrollTop && (
+                <HashLink
+                    smooth
+                    to="#hashLinks"
+                    className={classes.scrollToTop}
+                >
+                    <svg
+                        width="17"
+                        height="9"
+                        viewBox="0 0 17 9"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M1.08203 7.82568L8.08203 1.46205L15.082 7.82568"
+                            stroke="white"
+                            strokeWidth="2.16364"
+                            strokeLinecap="round"
+                        />
+                    </svg>
+                </HashLink>
+            )}
         </main>
     );
 };

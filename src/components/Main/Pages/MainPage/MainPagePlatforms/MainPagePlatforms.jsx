@@ -212,6 +212,35 @@ const MainPagePlatforms = () => {
                         </p>
                     )}
                 </div>
+                <div
+                    className={`${classes.platformsHeader} ${classes.platformsHeaderMobile}`}
+                >
+                    <button onClick={() => navigate('/platforms')}>
+                        View All Platforms
+                        <svg
+                            width="19"
+                            height="19"
+                            viewBox="0 0 19 19"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M1.14307 17.4583L17.143 1.14307"
+                                stroke="white"
+                                strokeWidth="2.28571"
+                                strokeMiterlimit="10"
+                                strokeLinecap="round"
+                            />
+                            <path
+                                d="M17.1433 13.8014V1.25735C17.1433 1.19423 17.0921 1.14307 17.029 1.14307H4.65771"
+                                stroke="white"
+                                strokeWidth="2.28571"
+                                strokeMiterlimit="10"
+                                strokeLinecap="round"
+                            />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </section>
     );
