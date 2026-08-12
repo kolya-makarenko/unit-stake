@@ -86,7 +86,13 @@ const MainPageNews = () => {
                                     </div>
                                     <div className={classes.articleLink}>
                                         <h5>
-                                            {dateFormatter(article.$updatedAt)}
+                                            {article.publication_date
+                                                ? dateFormatter(
+                                                      article.publication_date,
+                                                  )
+                                                : dateFormatter(
+                                                      article.$updatedAt,
+                                                  )}
                                         </h5>
                                         <div
                                             className={

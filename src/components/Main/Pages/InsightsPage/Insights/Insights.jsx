@@ -93,7 +93,13 @@ const Insights = () => {
                                     <h4>{article.description}</h4>
                                     <div className={classes.articleDateAndLink}>
                                         <div className={classes.articleDate}>
-                                            {dateFormatter(article.$updatedAt)}
+                                            {article.publication_date
+                                                ? dateFormatter(
+                                                      article.publication_date,
+                                                  )
+                                                : dateFormatter(
+                                                      article.$updatedAt,
+                                                  )}
                                         </div>
                                         <button>
                                             <span>Read more</span>

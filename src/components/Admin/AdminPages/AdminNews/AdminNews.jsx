@@ -26,6 +26,7 @@ const AdminNews = () => {
     const [description, setDescription] = useState('');
     const [author, setAuthor] = useState('');
     const [minRead, setMinRead] = useState('');
+    const [publicationDate, setPublicationDate] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [imageFile, setImageFile] = useState(null);
     const [isPublished, setIsPublished] = useState(false);
@@ -127,6 +128,7 @@ const AdminNews = () => {
         setAuthor('');
         setMinRead('');
         setCategory('');
+        setPublicationDate('');
         setImageUrl('');
         setSelectedTrendingTopics([]);
         setImageFile(null);
@@ -145,6 +147,7 @@ const AdminNews = () => {
         setCategory(newsItem.category || '');
         setSelectedTrendingTopics(newsItem.trending_topics || []);
         setImageUrl(newsItem.image_url || '');
+        setPublicationDate(newsItem.publication_date || '');
         setImageFile(null);
         setIsPublished(newsItem.is_published || false);
         setIsPopular(newsItem.is_popular || false);
@@ -255,6 +258,7 @@ const AdminNews = () => {
                 author: author,
                 min_read: minRead,
                 category: category,
+                publication_date: publicationDate,
                 image_url: finalImageUrl,
                 content_blocks: stringifiedBlocks,
                 is_published: isPublished,
@@ -374,13 +378,27 @@ const AdminNews = () => {
                             />
                         </div>
                         <div className={classes.addPlatformFormIdentityField}>
-                            <label htmlFor="newsAuthor">Min read</label>
+                            <label htmlFor="minRead">Min read</label>
                             <input
                                 type="text"
-                                id="newsAuthor"
+                                id="minRead"
                                 placeholder="8"
                                 value={minRead}
                                 onChange={(e) => setMinRead(e.target.value)}
+                            />
+                        </div>
+                        <div className={classes.addPlatformFormIdentityField}>
+                            <label htmlFor="publicationDate">
+                                Publication Date
+                            </label>
+                            <input
+                                type="date"
+                                id="publicationDate"
+                                placeholder="8"
+                                value={publicationDate}
+                                onChange={(e) =>
+                                    setPublicationDate(e.target.value)
+                                }
                             />
                         </div>
                         <div className={classes.addPlatformFormIdentityField}>
@@ -701,7 +719,13 @@ const AdminNews = () => {
                                             </div>
                                         )}
                                         <h5>
-                                            {dateFormatter(newsItem.$createdAt)}
+                                            {newsItem.publication_date
+                                                ? dateFormatter(
+                                                      newsItem.publication_date,
+                                                  )
+                                                : dateFormatter(
+                                                      newsItem.$createdAt,
+                                                  )}
                                         </h5>
                                         <div
                                             className={

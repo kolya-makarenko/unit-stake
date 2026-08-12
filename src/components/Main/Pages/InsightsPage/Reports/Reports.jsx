@@ -80,7 +80,11 @@ const Reports = () => {
                                 </div>
                                 <div className={classes.articleDateAndLink}>
                                     <div className={classes.articleDate}>
-                                        {dateFormatter(report.$updatedAt)}
+                                        {report.publication_date
+                                            ? dateFormatter(
+                                                  report.publication_date,
+                                              )
+                                            : dateFormatter(report.$updatedAt)}
                                     </div>
                                     <button>
                                         <span>Read more</span>

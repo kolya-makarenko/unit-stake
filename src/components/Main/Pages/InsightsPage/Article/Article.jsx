@@ -145,7 +145,11 @@ const Article = () => {
                         <div className={classes.articleContent}>
                             <div className={classes.articleContentMain}>
                                 <p className={classes.articleDate}>
-                                    {dateFormatter(articleData.$updatedAt)}
+                                    {articleData.publication_date
+                                        ? dateFormatter(
+                                              articleData.publication_date,
+                                          )
+                                        : dateFormatter(articleData.$updatedAt)}
                                     {articleData.min_read && (
                                         <span>
                                             {' '}

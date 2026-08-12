@@ -91,9 +91,13 @@ const ReadNext = (props) => {
                                             <div
                                                 className={classes.articleDate}
                                             >
-                                                {dateFormatter(
-                                                    article.$updatedAt,
-                                                )}
+                                                {article.publication_date
+                                                    ? dateFormatter(
+                                                          article.publication_date,
+                                                      )
+                                                    : dateFormatter(
+                                                          article.$updatedAt,
+                                                      )}
                                             </div>
                                             <button>
                                                 <span>Read more</span>
