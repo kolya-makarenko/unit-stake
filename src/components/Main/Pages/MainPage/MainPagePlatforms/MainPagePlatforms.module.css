@@ -307,6 +307,6 @@
     }
     .platformsHeaderMobile button {
         margin-top: 40px;
-        display: block;
+        display: flex;
     }
 }
