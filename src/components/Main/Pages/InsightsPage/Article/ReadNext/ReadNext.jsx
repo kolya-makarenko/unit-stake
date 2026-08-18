@@ -8,7 +8,7 @@ import {
 } from '../../../../../../lib/appwrite';
 import classes from './ReadNext.module.css';
 
-const ReadNext = (props) => {
+const ReadNext = ({ articleId }) => {
     const [news, setNews] = useState([]);
     const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const ReadNext = (props) => {
                     tableId: TABLE_ID_NEWS,
                     queries: [
                         Query.equal('is_published', true),
-                        Query.notEqual('$id', props.articleId),
+                        Query.notEqual('$id', articleId),
                         Query.orderDesc('$createdAt'),
                         Query.limit(3),
                     ],
@@ -31,7 +31,7 @@ const ReadNext = (props) => {
             }
         };
         fetchNews();
-    }, []);
+    }, [articleId]);
 
     const dateFormatter = (dateString) => {
         const date = new Date(dateString);
