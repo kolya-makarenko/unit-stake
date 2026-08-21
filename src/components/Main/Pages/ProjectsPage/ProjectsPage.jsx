@@ -635,7 +635,7 @@ const ProjectsPage = () => {
                             </div>
 
                             <div className={classes.mobileFilterSection}>
-                                <h4>Types</h4>
+                                <h4>Token Types</h4>
                                 <div className={classes.mobileFilterValuesList}>
                                     {availableFilters.types.length > 0 ? (
                                         availableFilters.types.map((type) => (
@@ -654,7 +654,7 @@ const ProjectsPage = () => {
                                         ))
                                     ) : (
                                         <p className={classes.noFilters}>
-                                            No active Types
+                                            No active Token Types
                                         </p>
                                     )}
                                 </div>
