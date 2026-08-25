@@ -45,20 +45,30 @@
 
 @media (max-width: 1000px) {
     .assetsContainer {
-        gap: 16px;
+        /* gap: 16px; */
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 8px;
+        display: flex;
+        overflow-x: auto;
     }
     .assetsBox {
         padding-left: 8px;
+        scroll-snap-align: start;
+        flex-shrink: 0;
+        width: 80%;
     }
     .assetsBox h3 {
-        font-size: 18px;
+        font-size: 22px;
     }
     .assetsBox p {
         margin-top: 8px;
         margin-bottom: 4px;
-        font-size: 12px;
+        font-size: 16px;
     }
     .assetsBox span {
-        font-size: 12px;
+        font-size: 14px;
     }
 }

@@ -865,7 +865,10 @@ aside {
         display: none;
     }
     .contentContainer {
-        grid-template-columns: 1fr;
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 60px;
     }
     .contentBlocks {
         padding: 0;

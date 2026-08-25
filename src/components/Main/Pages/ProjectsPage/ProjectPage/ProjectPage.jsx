@@ -661,28 +661,42 @@ const ProjectPage = () => {
                                     </li>
                                 </ul>
                             </div>
-                            {data.platform_id && (
+                            {data.website_url && (
                                 <div className={classes.platform}>
-                                    <p>Platform</p>
-                                    <div className={classes.platformIdentify}>
-                                        <div className={classes.platformImg}>
-                                            {platform.image_url ? (
-                                                <img
-                                                    src={platform.image_url}
-                                                    alt="platform logo"
-                                                />
-                                            ) : (
-                                                <img
-                                                    src={platformImgNone}
-                                                    alt="platform logo"
-                                                />
-                                            )}
+                                    <p>
+                                        {data.platform_id
+                                            ? 'Platform'
+                                            : 'Project website'}
+                                    </p>
+                                    {data.platform_id && (
+                                        <div
+                                            className={classes.platformIdentify}
+                                        >
+                                            <div
+                                                className={classes.platformImg}
+                                            >
+                                                {platform.image_url ? (
+                                                    <img
+                                                        src={platform.image_url}
+                                                        alt="platform logo"
+                                                    />
+                                                ) : (
+                                                    <img
+                                                        src={platformImgNone}
+                                                        alt="platform logo"
+                                                    />
+                                                )}
+                                            </div>
+                                            <div
+                                                className={classes.platformName}
+                                            >
+                                                <h4>{platform.name}</h4>
+                                                <span>
+                                                    {platform.description}
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div className={classes.platformName}>
-                                            <h4>{platform.name}</h4>
-                                            <span>{platform.description}</span>
-                                        </div>
-                                    </div>
+                                    )}
                                     <a
                                         href={data.website_url}
                                         onClick={(e) =>
