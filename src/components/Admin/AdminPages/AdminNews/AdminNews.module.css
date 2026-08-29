@@ -351,12 +351,17 @@ p.addPlatformFormHeader {
     box-sizing: border-box;
 }
 
-.adminNewsGridItem h4 {
+.adminNewsGridItem h4 a {
     font-weight: 500;
     font-size: 13px;
     line-height: 19.5px;
     letter-spacing: -0.08px;
     color: #333;
+    transition: 0.3s ease-in-out;
+}
+
+.adminNewsGridItem h4 a:hover {
+    color: #d34329;
 }
 
 .adminNewsGridItem h5 {

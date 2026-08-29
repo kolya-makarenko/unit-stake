@@ -96,12 +96,17 @@
     align-items: center;
 }
 
-.platformListName {
+.platformListName a {
     font-weight: 500;
     font-size: 13px;
     line-height: 19.5px;
     letter-spacing: -0.08px;
     color: #333;
+    transition: 0.3s ease-in-out;
+}
+
+.platformListName a:hover {
+    color: #d34329;
 }
 
 .platformListCategory {

@@ -697,7 +697,15 @@ const AdminNews = () => {
                                         key={newsItem.$id}
                                         className={classes.adminNewsGridItem}
                                     >
-                                        <h4>{newsItem.title}</h4>
+                                        <h4>
+                                            <a
+                                                href={`/insights/${newsItem.$id}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {newsItem.title}
+                                            </a>
+                                        </h4>
                                         <h5>
                                             {newsItem.author || 'Anonymous'}
                                         </h5>

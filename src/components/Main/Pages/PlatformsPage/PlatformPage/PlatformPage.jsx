@@ -20,7 +20,7 @@ import twitterIcon from '../../../../../assets/images/icons/twitter.svg';
 import shareBtnCopyIcon from '../../../../../assets/images/icons/shareBtnCopy.svg';
 import verifeidIcon from '../../../../../assets/images/icons/verifeid.svg';
 import locationMarkIcon from '../../../../../assets/images/icons/locationMark.svg';
-import ReadMoreText from '../../../../ReadMoreText/ReadMoreText';
+import ReadMoreSection from '../../../../ReadMoreText/ReadMoreText';
 
 const linkIcon = (
     <svg
@@ -177,6 +177,108 @@ const PlatformPage = () => {
         window.open(targetUrl, '_blank', 'noopener,noreferrer');
     };
 
+    const sections = [];
+    let currentSection = null;
+
+    contentBlocks.forEach((block) => {
+        if (block.type === 'h4') {
+            if (currentSection) {
+                sections.push(currentSection);
+            }
+            currentSection = {
+                titleBlock: block,
+                blocks: [],
+                isCollapsible: true,
+            };
+        } else {
+            if (!currentSection) {
+                currentSection = {
+                    titleBlock: null,
+                    blocks: [],
+                    isCollapsible: false,
+                };
+            }
+            currentSection.blocks.push(block);
+        }
+    });
+
+    if (currentSection) {
+        sections.push(currentSection);
+    }
+
+    const renderBlock = (block, index) => {
+        switch (block.type) {
+            case 'h4':
+                return (
+                    <h4 key={index} className={classes.contentHeading}>
+                        {block.value}
+                    </h4>
+                );
+            case 'h5':
+                return (
+                    <h5 key={index} className={classes.contentSubtitle}>
+                        {block.value}
+                    </h5>
+                );
+            case 'b':
+                return (
+                    <b key={index} className={classes.contentBoldTxt}>
+                        {block.value}
+                    </b>
+                );
+            case 'p':
+                return (
+                    <p key={index} className={classes.contentText}>
+                        {block.value}
+                    </p>
+                );
+            case 'ul':
+                return (
+                    <ul key={index} className={classes.contentList}>
+                        {Array.isArray(block.value) &&
+                            block.value.map((item, i) => (
+                                <li key={i} className={classes.contentListItem}>
+                                    <span></span>
+                                    {item}
+                                </li>
+                            ))}
+                    </ul>
+                );
+            case 'image':
+                return (
+                    <div key={index} className={classes.contentImageWrapper}>
+                        <img
+                            src={block.value}
+                            alt="Platform detail"
+                            className={classes.contentImage}
+                        />
+                    </div>
+                );
+            case 'imageTab':
+                return (
+                    <div key={index} className={classes.contentImageWrapperTab}>
+                        <img
+                            src={block.value}
+                            alt="Platform detail"
+                            className={classes.contentImage}
+                        />
+                    </div>
+                );
+            case 'imageMob':
+                return (
+                    <div key={index} className={classes.contentImageWrapperMob}>
+                        <img
+                            src={block.value}
+                            alt="Platform detail"
+                            className={classes.contentImage}
+                        />
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
+
     return (
         <main className={classes.platformPage}>
             <section className={classes.info}>
@@ -303,114 +405,29 @@ const PlatformPage = () => {
             <section className={classes.content}>
                 <div className="wrapper">
                     <div className={classes.contentContainer}>
-                        {contentBlocks.map((block, index) => {
-                            switch (block.type) {
-                                case 'h4':
-                                    return (
-                                        <h4
-                                            key={index}
-                                            className={classes.contentHeading}
-                                        >
-                                            {block.value}
-                                        </h4>
-                                    );
-
-                                case 'h5':
-                                    return (
-                                        <h5
-                                            key={index}
-                                            className={classes.contentSubtitle}
-                                        >
-                                            {block.value}
-                                        </h5>
-                                    );
-                                case 'b':
-                                    return (
-                                        <b
-                                            key={index}
-                                            className={classes.contentBoldTxt}
-                                        >
-                                            {block.value}
-                                        </b>
-                                    );
-
-                                case 'p':
-                                    return (
-                                        <ReadMoreText
-                                            text={block.value}
-                                            key={index}
-                                        />
-                                    );
-
-                                case 'ul':
-                                    return (
-                                        <ul
-                                            key={index}
-                                            className={classes.contentList}
-                                        >
-                                            {Array.isArray(block.value) &&
-                                                block.value.map((item, i) => (
-                                                    <li
-                                                        key={i}
-                                                        className={
-                                                            classes.contentListItem
-                                                        }
-                                                    >
-                                                        <span></span>
-                                                        {item}
-                                                    </li>
-                                                ))}
-                                        </ul>
-                                    );
-
-                                case 'image':
-                                    return (
-                                        <div
-                                            key={index}
-                                            className={
-                                                classes.contentImageWrapper
-                                            }
-                                        >
-                                            <img
-                                                src={block.value}
-                                                alt="Platform detail"
-                                                className={classes.contentImage}
-                                            />
-                                        </div>
-                                    );
-                                case 'imageTab':
-                                    return (
-                                        <div
-                                            key={index}
-                                            className={
-                                                classes.contentImageWrapperTab
-                                            }
-                                        >
-                                            <img
-                                                src={block.value}
-                                                alt="Platform detail"
-                                                className={classes.contentImage}
-                                            />
-                                        </div>
-                                    );
-                                case 'imageMob':
-                                    return (
-                                        <div
-                                            key={index}
-                                            className={
-                                                classes.contentImageWrapperMob
-                                            }
-                                        >
-                                            <img
-                                                src={block.value}
-                                                alt="Platform detail"
-                                                className={classes.contentImage}
-                                            />
-                                        </div>
-                                    );
-                                default:
-                                    return null;
+                        {sections.map((section, sIndex) => {
+                            if (!section.isCollapsible) {
+                                return (
+                                    <div key={sIndex}>
+                                        {section.blocks.map((block, bIndex) =>
+                                            renderBlock(block, bIndex),
+                                        )}
+                                    </div>
+                                );
                             }
+
+                            return (
+                                <ReadMoreSection key={sIndex} maxLines={10}>
+                                    {section.titleBlock &&
+                                        renderBlock(
+                                            section.titleBlock,
+                                            'title',
+                                        )}
+                                    {section.blocks.map((block, bIndex) =>
+                                        renderBlock(block, bIndex),
+                                    )}
+                                </ReadMoreSection>
+                            );
                         })}
                     </div>
                 </div>

@@ -272,6 +272,7 @@
 
 .contentBoldTxt {
     margin-bottom: 24px;
+    display: inline-block;
     font-weight: 600;
     font-size: 24px;
     line-height: 140%;
@@ -279,12 +280,14 @@
     color: #19191c;
 }
 
-.contentParagraph {
+.contentText {
     font-weight: 400;
     font-size: 18px;
     line-height: 160%;
     letter-spacing: -1%;
     color: #19191c;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .contentList {

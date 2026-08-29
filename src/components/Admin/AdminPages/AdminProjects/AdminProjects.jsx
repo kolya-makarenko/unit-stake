@@ -113,7 +113,13 @@ const AdminProjects = () => {
                     {projects.map((project, index) => (
                         <tr key={index}>
                             <td className={classes.platformListName}>
-                                {project.name}
+                                <a
+                                    href={`/projects/${project.$id}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {project.name}
+                                </a>
                             </td>
                             <td className={classes.platformListCategory}>
                                 {project.category}

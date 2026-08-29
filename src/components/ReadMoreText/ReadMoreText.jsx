@@ -1,48 +1,115 @@
 import { useState, useRef, useEffect } from 'react';
 import classes from './ReadMoreText.module.css';
 
-const ReadMoreText = ({ text, maxLines = 10 }) => {
+const ReadMoreSection = ({ children, maxLines = 10 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [isTooLong, setIsTooLong] = useState(false);
-    const textRef = useRef(null);
+    const [maxHeightPx, setMaxHeightPx] = useState(null);
+    const contentRef = useRef(null);
 
     useEffect(() => {
         const checkOverflow = () => {
-            if (textRef.current) {
-                const computedStyle = window.getComputedStyle(textRef.current);
+            if (!contentRef.current) return;
 
-                let lineHeight = parseFloat(computedStyle.lineHeight);
+            const container = contentRef.current;
+            const childrenNodes = Array.from(container.children);
+            if (childrenNodes.length === 0) return;
 
-                if (isNaN(lineHeight)) {
-                    lineHeight = parseFloat(computedStyle.fontSize) * 1.5;
+            const containerRect = container.getBoundingClientRect();
+
+            let currentLines = 0;
+            let hasOverflow = false;
+            let calculatedMaxHeight = 0;
+
+            for (const node of childrenNodes) {
+                const nodeRect = node.getBoundingClientRect();
+                const nodeTop = nodeRect.top - containerRect.top;
+
+                const isMedia =
+                    node.tagName === 'IMG' ||
+                    node.tagName === 'IFRAME' ||
+                    node.querySelector('img') ||
+                    node.querySelector('iframe');
+
+                let nodeLines = 1;
+                let nodeLineHeight = nodeRect.height;
+
+                if (!isMedia) {
+                    const computedStyle = window.getComputedStyle(node);
+                    let parsedLineHeight = parseFloat(computedStyle.lineHeight);
+
+                    if (isNaN(parsedLineHeight) || parsedLineHeight === 0) {
+                        parsedLineHeight =
+                            parseFloat(computedStyle.fontSize) * 1.4 || 20;
+                    }
+                    nodeLineHeight = parsedLineHeight;
+
+                    const paddingTop = parseFloat(
+                        computedStyle.paddingTop || 0,
+                    );
+                    const paddingBottom = parseFloat(
+                        computedStyle.paddingBottom || 0,
+                    );
+                    const contentHeight =
+                        nodeRect.height - paddingTop - paddingBottom;
+
+                    nodeLines = Math.max(
+                        1,
+                        Math.round(contentHeight / nodeLineHeight),
+                    );
                 }
 
-                const maxAllowedHeight = lineHeight * maxLines;
+                if (currentLines + nodeLines > maxLines) {
+                    hasOverflow = true;
+                    const neededLines = maxLines - currentLines;
 
-                const hasOverflow =
-                    textRef.current.scrollHeight > maxAllowedHeight + 5;
+                    if (neededLines <= 0) {
+                        calculatedMaxHeight = nodeTop;
+                    } else if (isMedia) {
+                        calculatedMaxHeight = nodeTop + nodeRect.height;
+                    } else {
+                        const computedStyle = window.getComputedStyle(node);
+                        const paddingTop = parseFloat(
+                            computedStyle.paddingTop || 0,
+                        );
 
-                setIsTooLong(hasOverflow);
+                        calculatedMaxHeight =
+                            nodeTop + paddingTop + neededLines * nodeLineHeight;
+                    }
+                    break;
+                } else {
+                    currentLines += nodeLines;
+                    calculatedMaxHeight = nodeTop + nodeRect.height;
+                }
             }
+
+            setIsTooLong(hasOverflow);
+            setMaxHeightPx(calculatedMaxHeight);
         };
 
         checkOverflow();
 
-        window.addEventListener('resize', checkOverflow);
-        return () => window.removeEventListener('resize', checkOverflow);
-    }, [text, maxLines]);
+        const timer = setTimeout(checkOverflow, 100);
 
-    const textStyles = !isExpanded ? { WebkitLineClamp: maxLines } : {};
+        window.addEventListener('resize', checkOverflow);
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener('resize', checkOverflow);
+        };
+    }, [children, maxLines]);
 
     return (
         <div className={classes.contentParagraph}>
-            <p
-                ref={textRef}
-                style={textStyles}
-                className={`${classes.textBlock} ${!isExpanded ? classes.clamped : ''}`}
+            <div
+                ref={contentRef}
+                style={
+                    !isExpanded && isTooLong && maxHeightPx !== null
+                        ? { maxHeight: `${maxHeightPx}px`, overflow: 'hidden' }
+                        : {}
+                }
             >
-                {text}
-            </p>
+                {children}
+            </div>
 
             {isTooLong && (
                 <button
@@ -57,4 +124,4 @@ const ReadMoreText = ({ text, maxLines = 10 }) => {
     );
 };
 
-export default ReadMoreText;
+export default ReadMoreSection;

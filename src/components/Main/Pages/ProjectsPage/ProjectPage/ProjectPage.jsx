@@ -9,7 +9,7 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Thumbs } from 'swiper/modules';
 import AssetsPageFaq from '../../AssetsPage/AssetsPageFaq/AssetsPageFaq';
-import ReadMoreText from '../../../../ReadMoreText/ReadMoreText';
+import ReadMoreSection from '../../../../ReadMoreText/ReadMoreText';
 import ExternalLink from '../../../../ExternalLink/ExternalLink';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -221,6 +221,122 @@ const ProjectPage = () => {
     const handleConfirmTransition = () => {
         setIsModalOpen(false);
         window.open(targetUrl, '_blank', 'noopener,noreferrer');
+    };
+
+    const sections = [];
+    let currentSection = null;
+
+    contentBlocks.forEach((block) => {
+        if (block.type === 'h4') {
+            if (currentSection) {
+                sections.push(currentSection);
+            }
+            currentSection = {
+                titleBlock: block,
+                blocks: [],
+                isCollapsible: true,
+            };
+        } else {
+            if (!currentSection) {
+                currentSection = {
+                    titleBlock: null,
+                    blocks: [],
+                    isCollapsible: false,
+                };
+            }
+            currentSection.blocks.push(block);
+        }
+    });
+
+    if (currentSection) {
+        sections.push(currentSection);
+    }
+
+    const renderBlock = (block, index) => {
+        switch (block.type) {
+            case 'h4':
+                return (
+                    <h4 key={index} className={classes.contentHeading}>
+                        {block.value}
+                    </h4>
+                );
+            case 'h5':
+                return (
+                    <h5 key={index} className={classes.contentSubtitle}>
+                        {block.value}
+                    </h5>
+                );
+            case 'b':
+                return (
+                    <b key={index} className={classes.contentBoldTxt}>
+                        {block.value}
+                    </b>
+                );
+            case 'p':
+                return (
+                    <p key={index} className={classes.contentText}>
+                        {block.value}
+                    </p>
+                );
+            case 'ul':
+                return (
+                    <ul key={index} className={classes.contentList}>
+                        {Array.isArray(block.value) &&
+                            block.value.map((item, i) => (
+                                <li key={i} className={classes.contentListItem}>
+                                    <span></span>
+                                    {item}
+                                </li>
+                            ))}
+                    </ul>
+                );
+            case 'imageForContent':
+                return (
+                    <div key={index} className={classes.contentImageWrapper}>
+                        <img
+                            src={block.value}
+                            alt="Project detail"
+                            className={classes.contentImage}
+                        />
+                    </div>
+                );
+            case 'imageForContentTab':
+                return (
+                    <div key={index} className={classes.contentImageWrapperTab}>
+                        <img
+                            src={block.value}
+                            alt="Project detail"
+                            className={classes.contentImage}
+                        />
+                    </div>
+                );
+            case 'imageForContentMob':
+                return (
+                    <div key={index} className={classes.contentImageWrapperMob}>
+                        <img
+                            src={block.value}
+                            alt="Project detail"
+                            className={classes.contentImage}
+                        />
+                    </div>
+                );
+            case 'youtube':
+                return (
+                    <iframe
+                        key={index}
+                        width="100%"
+                        height="350"
+                        src={block.value}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                    ></iframe>
+                );
+            default:
+                return null;
+        }
     };
 
     return (
@@ -439,143 +555,30 @@ const ProjectPage = () => {
                 <div className="wrapper">
                     <div className={classes.contentContainer}>
                         <div className={classes.contentBlocks}>
-                            {contentBlocks.map((block, index) => {
-                                switch (block.type) {
-                                    case 'h4':
-                                        return (
-                                            <h4
-                                                key={index}
-                                                className={
-                                                    classes.contentHeading
-                                                }
-                                            >
-                                                {block.value}
-                                            </h4>
-                                        );
-
-                                    case 'h5':
-                                        return (
-                                            <h5
-                                                key={index}
-                                                className={
-                                                    classes.contentSubtitle
-                                                }
-                                            >
-                                                {block.value}
-                                            </h5>
-                                        );
-
-                                    case 'b':
-                                        return (
-                                            <b
-                                                key={index}
-                                                className={
-                                                    classes.contentBoldTxt
-                                                }
-                                            >
-                                                {block.value}
-                                            </b>
-                                        );
-
-                                    case 'p':
-                                        return (
-                                            <ReadMoreText
-                                                text={block.value}
-                                                key={index}
-                                            />
-                                        );
-
-                                    case 'ul':
-                                        return (
-                                            <ul
-                                                key={index}
-                                                className={classes.contentList}
-                                            >
-                                                {Array.isArray(block.value) &&
-                                                    block.value.map(
-                                                        (item, i) => (
-                                                            <li
-                                                                key={i}
-                                                                className={
-                                                                    classes.contentListItem
-                                                                }
-                                                            >
-                                                                <span></span>
-                                                                {item}
-                                                            </li>
-                                                        ),
-                                                    )}
-                                            </ul>
-                                        );
-
-                                    case 'imageForContent':
-                                        return (
-                                            <div
-                                                key={index}
-                                                className={
-                                                    classes.contentImageWrapper
-                                                }
-                                            >
-                                                <img
-                                                    src={block.value}
-                                                    alt="Project detail"
-                                                    className={
-                                                        classes.contentImage
-                                                    }
-                                                />
-                                            </div>
-                                        );
-                                    case 'imageForContentTab':
-                                        return (
-                                            <div
-                                                key={index}
-                                                className={
-                                                    classes.contentImageWrapperTab
-                                                }
-                                            >
-                                                <img
-                                                    src={block.value}
-                                                    alt="Project detail"
-                                                    className={
-                                                        classes.contentImage
-                                                    }
-                                                />
-                                            </div>
-                                        );
-                                    case 'imageForContentMob':
-                                        return (
-                                            <div
-                                                key={index}
-                                                className={
-                                                    classes.contentImageWrapperMob
-                                                }
-                                            >
-                                                <img
-                                                    src={block.value}
-                                                    alt="Project detail"
-                                                    className={
-                                                        classes.contentImage
-                                                    }
-                                                />
-                                            </div>
-                                        );
-                                    case 'youtube':
-                                        return (
-                                            <iframe
-                                                key={index}
-                                                width="100%"
-                                                height="350"
-                                                src={block.value}
-                                                title="YouTube video player"
-                                                frameBorder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                referrerPolicy="strict-origin-when-cross-origin"
-                                                allowFullScreen
-                                            ></iframe>
-                                        );
-                                    default:
-                                        return null;
+                            {sections.map((section, sIndex) => {
+                                if (!section.isCollapsible) {
+                                    return (
+                                        <div key={sIndex}>
+                                            {section.blocks.map(
+                                                (block, bIndex) =>
+                                                    renderBlock(block, bIndex),
+                                            )}
+                                        </div>
+                                    );
                                 }
+
+                                return (
+                                    <ReadMoreSection key={sIndex} maxLines={10}>
+                                        {section.titleBlock &&
+                                            renderBlock(
+                                                section.titleBlock,
+                                                'title',
+                                            )}
+                                        {section.blocks.map((block, bIndex) =>
+                                            renderBlock(block, bIndex),
+                                        )}
+                                    </ReadMoreSection>
+                                );
                             })}
                         </div>
                         <aside>

@@ -113,7 +113,13 @@ const AdminPlatforms = () => {
                     {platforms.map((platform, index) => (
                         <tr key={index}>
                             <td className={classes.platformListName}>
-                                {platform.name}
+                                <a
+                                    href={`/platforms/${platform.$id}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {platform.name}
+                                </a>
                             </td>
                             <td className={classes.platformListCategory}>
                                 {platform.category}
