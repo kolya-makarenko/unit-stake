@@ -241,7 +241,7 @@
 }
 
 .contentHeading {
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     font-weight: 600;
     font-size: 40px;
     line-height: 140%;
@@ -250,8 +250,8 @@
 }
 
 .contentSubtitle {
-    margin-bottom: 24px;
-    padding-bottom: 16px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
     position: relative;
     font-weight: 600;
     font-size: 24px;
@@ -281,6 +281,7 @@
 }
 
 .contentText {
+    margin-bottom: 24px;
     font-weight: 400;
     font-size: 18px;
     line-height: 160%;

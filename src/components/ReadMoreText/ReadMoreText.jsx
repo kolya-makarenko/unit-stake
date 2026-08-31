@@ -115,7 +115,7 @@ const ReadMoreSection = ({ children, maxLines = 10 }) => {
                 <button
                     type="button"
                     onClick={() => setIsExpanded(!isExpanded)}
-                    className={classes.readMoreBtn}
+                    className={`${classes.readMoreBtn} ${isExpanded ? classes.readLessBtn : ''}`}
                 >
                     {isExpanded ? 'Show less' : 'Read more'}
                 </button>
